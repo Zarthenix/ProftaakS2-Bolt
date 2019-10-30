@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\stan\\Desktop\\School\\S2\\Git\\ProftaakS2-Bolt\\ProftaakApplicatieS2\\ProftaakApplicatieS2.csproj": {}
+    "C:\\Users\\micha\\Desktop\\ProftaakS2\\ProftaakS2-Bolt\\ProftaakApplicatieS2\\ProftaakApplicatieS2.csproj": {}
   },
   "projects": {
-    "C:\\Users\\stan\\Desktop\\School\\S2\\Git\\ProftaakS2-Bolt\\ProftaakApplicatieS2\\ProftaakApplicatieS2.csproj": {
+    "C:\\Users\\micha\\Desktop\\ProftaakS2\\ProftaakS2-Bolt\\ProftaakApplicatieS2\\ProftaakApplicatieS2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\stan\\Desktop\\School\\S2\\Git\\ProftaakS2-Bolt\\ProftaakApplicatieS2\\ProftaakApplicatieS2.csproj",
+        "projectUniqueName": "C:\\Users\\micha\\Desktop\\ProftaakS2\\ProftaakS2-Bolt\\ProftaakApplicatieS2\\ProftaakApplicatieS2.csproj",
         "projectName": "ProftaakApplicatieS2",
-        "projectPath": "C:\\Users\\stan\\Desktop\\School\\S2\\Git\\ProftaakS2-Bolt\\ProftaakApplicatieS2\\ProftaakApplicatieS2.csproj",
-        "packagesPath": "C:\\Users\\stan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\stan\\Desktop\\School\\S2\\Git\\ProftaakS2-Bolt\\ProftaakApplicatieS2\\obj\\",
+        "projectPath": "C:\\Users\\micha\\Desktop\\ProftaakS2\\ProftaakS2-Bolt\\ProftaakApplicatieS2\\ProftaakApplicatieS2.csproj",
+        "packagesPath": "C:\\Users\\micha\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\micha\\Desktop\\ProftaakS2\\ProftaakS2-Bolt\\ProftaakApplicatieS2\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\stan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\micha\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
