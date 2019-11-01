@@ -17,5 +17,15 @@ namespace ProftaakProject.Controllers
         {
             return View();
         }
+
+        public IActionResult Profiel()
+        {
+            return View();
+        }
+
+        public IActionResult ProfielBewerken()
+        {
+            return View(Profiel);
+        }
     }
 }
