@@ -7,17 +7,16 @@ namespace ProftaakProject.Models
 {
     public class Account
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Naam { get; set; }
         public string Email { get; set; }
+        public string NormalizedEmail { get; set; }
         public string Gebruikersnaam { get; set; }
+        public string NormalizedGebruikersnaam { get; set; }
         public string Wachtwoord { get; set; }
         public string Geslacht { get; set; }
         public DateTime Geboortedatum { get; set; }
-        public enum Rol
-        {
-
-        }
+        public Role rol { get; set; }
         public int BerekenLeeftijd(DateTime dateTime)
         {
             return 0;
