@@ -16,7 +16,11 @@ namespace ProftaakProject.Models
         public DateTime Geboortedatum { get; set; }
         public enum Rol
         {
-
+            Administrator,
+            Moderator, 
+            Service,
+            Gebruiker,
+            Gast
         }
         public int BerekenLeeftijd(DateTime dateTime)
         {
