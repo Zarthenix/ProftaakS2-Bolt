@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ProftaakProject.Contexts.SQL_Contexts;
 
 namespace ProftaakProject
 {
@@ -30,8 +31,9 @@ namespace ProftaakProject
             services.AddTransient<IRoleStore<Role>, MSSQLRoleContext>();
             services.AddIdentity<Account, Role>().AddDefaultTokenProviders();
 
-            services.AddAutoMapper(typeof(Startup));
+
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            services.AddAutoMapper(typeof(Startup));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

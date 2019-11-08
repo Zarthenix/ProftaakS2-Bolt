@@ -34,7 +34,7 @@ namespace ProftaakProject
                 using (var connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
-                    SqlCommand sqlCommand = new SqlCommand("INSERT INTO [Account] (gebruikersnaam, email, wachtwoord) VALUES (@Gebruikersnaam, @Email, @Wachtwoord)", connection);
+                    SqlCommand sqlCommand = new SqlCommand("INSERT INTO [Account] (gebruikersnaam, emailadres, wachtwoord) VALUES (@Gebruikersnaam, @Email, @Wachtwoord)", connection);
                     sqlCommand.Parameters.AddWithValue("@Gebruikersnaam", user.Gebruikersnaam);
                     sqlCommand.Parameters.AddWithValue("@Wachtwoord", user.Wachtwoord);
                     sqlCommand.Parameters.AddWithValue("@Email", user.Email);
@@ -88,14 +88,14 @@ namespace ProftaakProject
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                SqlCommand sqlCommand = new SqlCommand("SELECT Id, Gebruikersnaam, email FROM [IB_User] WHERE email=@email", connection);
+                SqlCommand sqlCommand = new SqlCommand("SELECT accountID, gebruikersnaam, emailadres FROM [Account] WHERE emailadres=@email", connection);
                 sqlCommand.Parameters.AddWithValue("@email", normalizedEmail);
                 using (SqlDataReader sqlDataReader = sqlCommand.ExecuteReader())
                 {
                     Account user = default(Account);
                     if (sqlDataReader.Read())
                     {
-                        user = new Account(Convert.ToInt64(sqlDataReader["Id"].ToString()), sqlDataReader["Gebruikersnaam"].ToString(), sqlDataReader["email"].ToString());
+                        user = new Account(Convert.ToInt64(sqlDataReader["accountID"].ToString()), sqlDataReader["gebruikersnaam"].ToString(), sqlDataReader["emailadres"].ToString());
 
                     }
                     connection.Close();
@@ -107,10 +107,10 @@ namespace ProftaakProject
         /// <summary>
         /// Finding a user by id in the datbase
         /// </summary>
-        /// <param name="Id"></param>
+        /// <param name="id"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public Task<Account> FindByIdAsync(string Id, CancellationToken cancellationToken)
+        public Task<Account> FindByIdAsync(string id, CancellationToken cancellationToken)
         {
             try
             {
@@ -119,14 +119,14 @@ namespace ProftaakProject
                 using (var connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
-                    SqlCommand sqlCommand = new SqlCommand("SELECT Id, Gebruikersnaam, email FROM [IB_User] WHERE Id=@id", connection);
-                    sqlCommand.Parameters.AddWithValue("@id", Id);
+                    SqlCommand sqlCommand = new SqlCommand("SELECT accountID, gebruikersnaam, emailadres FROM [Account] WHERE accountID=@id", connection);
+                    sqlCommand.Parameters.AddWithValue("@id", id);
                     using (SqlDataReader sqlDataReader = sqlCommand.ExecuteReader())
                     {
                         Account user = default(Account);
                         if (sqlDataReader.Read())
                         {
-                            user = new Account(Convert.ToInt64(sqlDataReader["Id"].ToString()), sqlDataReader["Gebruikersnaam"].ToString(), sqlDataReader["email"].ToString());
+                            user = new Account(Convert.ToInt64(sqlDataReader["accountID"].ToString()), sqlDataReader["gebruikersnaam"].ToString(), sqlDataReader["email"].ToString());
 
                         }
                         connection.Close();
@@ -150,14 +150,14 @@ namespace ProftaakProject
                 using (var connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
-                    SqlCommand sqlCommand = new SqlCommand("SELECT Id, Gebruikersnaam, Email, Wachtwoord FROM [IB_User] WHERE Gebruikersnaam=@Gebruikersnaam", connection);
-                    sqlCommand.Parameters.AddWithValue("@Gebruikersnaam", normalizedGebruikersnaam);
+                    SqlCommand sqlCommand = new SqlCommand("SELECT accountID, gebruikersnaam, emailadres, wachtwoord FROM [Account] WHERE gebruikersnaam=@gebruikersnaam", connection);
+                    sqlCommand.Parameters.AddWithValue("@gebruikersnaam", normalizedGebruikersnaam);
                     using (SqlDataReader sqlDataReader = sqlCommand.ExecuteReader())
                     {
                         Account user = default(Account);
                         if (sqlDataReader.Read())
                         {
-                            user = new Account(Convert.ToInt64(sqlDataReader["Id"].ToString()), sqlDataReader["Gebruikersnaam"].ToString(), sqlDataReader["email"].ToString(), sqlDataReader["Wachtwoord"].ToString());
+                            user = new Account(Convert.ToInt64(sqlDataReader["accountID"].ToString()), sqlDataReader["gebruikersnaam"].ToString(), sqlDataReader["emailadres"].ToString(), sqlDataReader["wachtwoord"].ToString());
                         }
                         connection.Close();
                         return Task.FromResult(user);
@@ -205,14 +205,14 @@ namespace ProftaakProject
                 using (var connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
-                    SqlCommand sqlCommand = new SqlCommand("SELECT r.[RoleName] FROM [IB_Role] r INNER JOIN [IB_User_Role] ur ON ur.[FK_RoleName] = r.RoleName WHERE ur.FK_Id = @Id", connection);
+                    SqlCommand sqlCommand = new SqlCommand("SELECT r.[Name] FROM [Role] r INNER JOIN [User_Role] ur ON ur.[Role_Id] = r.Id WHERE ur.User_Id = @Id", connection);
                     sqlCommand.Parameters.AddWithValue("@Id", user.Id);
                     using (SqlDataReader sqlDataReader = sqlCommand.ExecuteReader())
                     {
                         IList<string> roles = new List<string>();
                         while (sqlDataReader.Read())
                         {
-                            roles.Add(sqlDataReader["RoleName"].ToString());
+                            roles.Add(sqlDataReader["Name"].ToString());
                         }
                         connection.Close();
                         return Task.FromResult(roles);
@@ -257,7 +257,7 @@ namespace ProftaakProject
                 {
                     connection.Open();
 
-                    SqlCommand sqlCommandUserRole = new SqlCommand("SELECT COUNT(*) FROM [IB_User_Role] WHERE [FK_Id] = @Id AND [FK_RoleName] = @RoleName", connection);
+                    SqlCommand sqlCommandUserRole = new SqlCommand("SELECT COUNT(*) FROM [User_Role] WHERE [User_Id] = @Id AND (SELECT [Name] from [Role] WHERE [Id] = @Id) = @RoleName)", connection);
                     sqlCommandUserRole.Parameters.AddWithValue("@Id", user.Id);
                     sqlCommandUserRole.Parameters.AddWithValue("@RoleName", roleName);
 

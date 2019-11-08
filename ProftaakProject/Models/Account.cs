@@ -25,5 +25,20 @@ namespace ProftaakProject.Models
         {
 
         }
+
+        public Account(long id, string gebruikersnaam, string email)
+        {
+            this.Id = id;
+            this.Gebruikersnaam = gebruikersnaam;
+            this.Email = email;
+        }
+
+        public Account(long id, string gebruikersnaam, string email, string wachtwoord)
+        {
+            this.Id = id;
+            this.Gebruikersnaam = gebruikersnaam;
+            this.Email = email;
+            this.Wachtwoord = wachtwoord;
+        }
     }
 }
