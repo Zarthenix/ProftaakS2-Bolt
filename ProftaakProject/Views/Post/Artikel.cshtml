@@ -6,7 +6,7 @@
 @if (Model.Goedgekeurd == true)
 {
     <style>
-        #Border {
+        .Border {
             border: 4px solid;
             border-radius: 10px;
             -webkit-border-image: -webkit-gradient(linear, 0 0, 0 100%, from(#3F55A1), to(#C42872)) 1 100%;
@@ -19,7 +19,7 @@
 else
 {
     <style>
-        #Border {
+        .Border {
             border: 4px solid;
             border-radius: 10px;
             width: 900px;
@@ -28,7 +28,7 @@ else
         }
     </style>
 }
-<div id="Border" class="container">
+<div class="Border container">
     <div><img scr="Images/easyFlexLogo.png" alt="logo" style="width:50%" alt="stockfoto" style="width: auto; height: 300px;" /></div>
     <h2>@Model.Titel</h2>
     <hr />

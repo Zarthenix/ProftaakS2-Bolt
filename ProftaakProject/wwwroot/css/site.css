@@ -123,3 +123,26 @@ div.postInhoud {
     width: 900px;
     padding-right: 30px;
 }
+.postAanmakenInhoud {
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    resize: none;
+    width: 650px;
+    min-height: 500px;
+    display: inline-block;
+    margin: 0 auto;
+}
+.postContainer {
+    width: 100%;
+}
+
+.postTitel {
+    width: 650px;
+}
+.postKoppen {
+    font-size: 20px;
+    font-weight: bold;
+}

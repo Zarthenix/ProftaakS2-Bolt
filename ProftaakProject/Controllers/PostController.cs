@@ -22,8 +22,12 @@ namespace ProftaakProject.Controllers
             avm.AantalBekenen = 2;
             avm.Goedgekeurd = true;
             avm.GoedgekeurdDoor = 1;
-
             return View("Artikel",avm);
+        }
+
+        public IActionResult PostToevoegen()
+        {
+            return View();
         }
     }
 }
