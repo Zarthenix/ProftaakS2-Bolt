@@ -1,6 +1,8 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
+
+
 a.navbar-brand {
   white-space: normal;
   text-align: center;
@@ -10,6 +12,7 @@ a.navbar-brand {
 /* Provide sufficient contrast against white background */
 a {
   color: #0366d6;
+
 }
 
 .btn-primary {
@@ -24,11 +27,28 @@ a {
   border-color: #1861ac;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  font-size: 14px;
+#easyflex_nav {
+    background-image: url('../lib/images/background.jpg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    height: 100px;
 }
+
+.btn btn-success{
+    background-color: blue;
+}
+
+#text_nav {
+    color: #fff;
+}
+
+
+
+    /* Sticky footer styles
+-------------------------------------------------- */
+    html {
+        font-size: 14px;
+    }
 @media (min-width: 768px) {
   html {
     font-size: 16px;
@@ -56,18 +76,44 @@ button.accept-policy {
 html {
   position: relative;
   min-height: 100%;
+ 
+  
 }
 
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
 }
-.footer {
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden;
+}
+
+#mainNav {
+    position: absolute;
+    top: 0px;
+    white-space: nowrap;
+    z-index: 10;
+}
+
+#margin_top{
+    margin-top: 500px;
+}
+
+#nav {
+    background-color: #c6166b;
+}
+
+footer {
   position: absolute;
-  bottom: 0;
+  bottom: 0px;
   width: 100%;
   white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+  line-height: 50px; /* Vertically center the text there */
 }
 
 /*CSS voor login*/
@@ -85,4 +131,22 @@ body {
 /*CSS voor registratie*/
 #RegistratieVelden {
     margin-bottom: 10px;
+}
+
+
+main > .container {
+    padding: 60px 15px 0;
+}
+
+.footer {
+    background-color: #f5f5f5;
+}
+
+    .footer > .container {
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+code {
+    font-size: 80%;
 }
