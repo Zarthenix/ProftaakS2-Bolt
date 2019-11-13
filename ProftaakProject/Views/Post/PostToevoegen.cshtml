@@ -9,40 +9,52 @@
 <h4>Post</h4>
 <hr />
 <body>
-    <div class="container-fluid row postContainer">
-        <div class="col-md-8 postAanmakenInhoud">
-            <form asp-action="PostToevoegen">
-                <div class="col-md-1 form-group postKoppen">
-                    <label asp-for="Titel" class="control-label"></label>
-                </div>
-                <div class="col-md-11">
-                    <input asp-for="Titel" class="form-control postTitel" />
-                    <span asp-validation-for="Titel" class="text-danger"></span>
+<div class="container-fluid row postContainer">
+    <div class="col-md-8 postAanmakenInhoud">
+        <form asp-action="PostToevoegen">
+            <div class="col-md-1 form-group postKoppen">
+                <label asp-for="Titel" class="control-label"></label>
+            </div>
+            <div class="col-md-11">
+                <input asp-for="Titel" class="form-control postTitel" />
+                <span asp-validation-for="Titel" class="text-danger"></span>
 
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="Datum" class="form-control" />
+            </div>
+            <div class="form-group">
+                <div class="col-md-1 postKoppen">
+                    <label asp-for="Inhoud" class=""></label>
                 </div>
-                <div class="form-group">
-                    <input type="hidden" asp-for="Datum" class="form-control" />
+                <div class="col-md-10">
+                    <textarea asp-for="Inhoud" class="postAanmakenInhoud"></textarea>
+                    <span asp-validation-for="Inhoud" class="text-danger"></span>
                 </div>
-                <div class="form-group">
-                    <div class="col-md-1 postKoppen">
-                        <label asp-for="Inhoud" class=""></label>
-                    </div>
-                    <div class="col-md-10">
-                        <textarea asp-for="Inhoud" class="postAanmakenInhoud"></textarea>
-                        <span asp-validation-for="Inhoud" class="text-danger"></span>
-                    </div>
-                </div>
+            </div>
+            <div class="row comboboxPostAanmaken">
+                <select class="form-control" name="Tag">
+                    <option>Select a tag</option>
+                    <option>Tag1</option>
+                    <option>Tag2</option>
+                    <option>Tag3</option>
+                </select>
+            </div>
+            <div class="form-group row comboboxPostAanmaken">
                 <div>
-                    <input list="Tags"/>
-                    <datalist id="Tags">
-                        <option value="tag1"/>
-                    </datalist>
+                    <input type="submit" value="Aanmaken" class="btn btn-dark" />
                 </div>
-                <div class="form-group">
-                    <input type="submit" value="Save" class="btn btn-default" />
+                <div class="radio-padding">
+                    <label class="radio-inline">
+                        <input type="radio" name="optradio" checked>Artikel
+                    </label>
+                    <label class="radio-inline comboboxPostAanmaken">
+                        <input type="radio" name="optradio">Vraag
+                    </label>
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
+</div>
 </body>
 

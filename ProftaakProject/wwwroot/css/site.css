@@ -123,6 +123,8 @@ div.postInhoud {
     width: 900px;
     padding-right: 30px;
 }
+
+/*css voor post aanmaken*/
 .postAanmakenInhoud {
     padding: 12px 20px;
     box-sizing: border-box;
@@ -135,6 +137,17 @@ div.postInhoud {
     display: inline-block;
     margin: 0 auto;
 }
+
+.comboboxPostAanmaken {
+    padding: 12px 20px;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+
+.radio-padding {
+    padding-left: 40px;
+}
+
 .postContainer {
     width: 100%;
 }
