@@ -1,42 +1,47 @@
-﻿@model ProftaakProject.Models.Account
-
+﻿@model ProftaakProject.Models.ViewModels.ProfielViewModel
 @{
     ViewData["Title"] = "Profiel";
 }
 
 <h2>Profiel</h2>
+
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Profiel">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <input type="hidden" asp-for="Id" class="form-control" />
+                <input type="hidden" asp-for="Id" class="form-control" readonly/>
                 <span asp-validation-for="Id" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Naam" class="control-label">Naam</label>
+                <label asp-for="Naam" class="control-label"></label>
                 <input asp-for="Naam" class="form-control" readonly/>
                 <span asp-validation-for="Naam" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Email" class="control-label">E-mail</label>
-                <input asp-for="Email" class="form-control" readonly />
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" readonly/>
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Geslacht" class="control-label">Geslacht</label>
+                <label asp-for="Geslacht" class="control-label"></label>
                 <input asp-for="Geslacht" class="form-control" readonly/>
                 <span asp-validation-for="Geslacht" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Geboortedatum" class="control-label">Geboortedatum</label>
+                <label asp-for="Geboortedatum" class="control-label"></label>
                 <input asp-for="Geboortedatum" class="form-control" readonly/>
                 <span asp-validation-for="Geboortedatum" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Bewerken" class="btn btn-primary btn-sm" asp-action="ProfielBewerken"/>
+                <label asp-for="Rol" class="control-label"></label>
+                <input asp-for="Rol" class="form-control" readonly/>
+                <span asp-validation-for="Geslacht" class="text-danger"></span>
             </div>
+            <button class="btn-primary" asp-controller="Account" asp-action="ProfielBewerken" onclick="">Bewerken</button>
         </form>
     </div>
 </div>
+
+

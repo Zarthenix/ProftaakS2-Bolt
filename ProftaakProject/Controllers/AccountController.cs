@@ -17,13 +17,15 @@ namespace ProftaakProject.Controllers
         {
             return View();
         }
+<<<<<<< HEAD
 //<<<<<<< Updated upstream
 
+=======
+>>>>>>> PartialPost
         public IActionResult Profiel()
         {
             return View();
         }
-
         public IActionResult ProfielBewerken()
         {
             return View("Profiel");
@@ -32,4 +34,5 @@ namespace ProftaakProject.Controllers
     
 //>>>>>>> Stashed changes
     }
+
 }

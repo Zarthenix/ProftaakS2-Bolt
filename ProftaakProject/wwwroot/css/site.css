@@ -58,7 +58,19 @@ header {
 html {
     font-size: 14px;
 }
+<<<<<<< HEAD
 
+=======
+body {
+    font-family: 'Open Sans', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+h2 {
+    font-size: 50px;
+    text-align: center;
+    color: #3f9ed8;
+    font-weight: bold;
+}
+>>>>>>> PartialPost
 @media (min-width: 768px) {
     html {
         font-size: 16px;
@@ -110,8 +122,15 @@ html, body {
     z-index: 10;
 }
 
+<<<<<<< HEAD
 #margin_top {
     margin-top: 100px;
+=======
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    background-color: #F4F4F8;
+>>>>>>> PartialPost
 }
 
 #nav {
@@ -136,6 +155,7 @@ html, body {
 /*CSS voor registratie*/
 .RegistratieVelden {
     margin-bottom: 10px;
+<<<<<<< HEAD
     width: 250px;
 }
 
@@ -157,3 +177,69 @@ html, body {
 }
 
 /*CSS voor layout*/
+=======
+}
+
+/*CSS voor Post Partial*/
+h2.postTitel {
+    padding-left: 10px;
+}
+
+p.auteurText {
+    font-style: italic;
+    padding-left: 10px;
+}
+
+div.postInhoud {
+    padding-left: 10px;
+    width: 900px;
+    min-height: 500px;
+}
+
+#PostBorderGoedgekeurd {
+    border: 4px solid;
+    border-radius: 10px;
+    border-left-color: #3F55A1;
+    border-top-color: #3F55A1;
+    border-right-color: #C42872;
+    border-bottom-color: #C42872;
+    width: 900px;
+    padding-right: 30px;
+}
+
+/*css voor post aanmaken*/
+.postAanmakenInhoud {
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    resize: none;
+    width: 650px;
+    min-height: 500px;
+    display: inline-block;
+    margin: 0 auto;
+}
+
+.comboboxPostAanmaken {
+    padding: 12px 20px;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+
+.radio-padding {
+    padding-left: 40px;
+}
+
+.postContainer {
+    width: 100%;
+}
+
+.postTitel {
+    width: 650px;
+}
+.postKoppen {
+    font-size: 20px;
+    font-weight: bold;
+}
+>>>>>>> PartialPost
