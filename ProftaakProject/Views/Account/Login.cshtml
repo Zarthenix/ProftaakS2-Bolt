@@ -3,12 +3,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<link rel="stylesheet" href="~/css/site.css" />
-
 <h1>Login</h1>
 <br />
-
-
 <div class="container">
     <form>
         <div class="row">
@@ -16,7 +12,7 @@
                 <label>Geruikersnaam:</label>
             </div>
             <div class="col-md-2">
-                <input class="form-control LoginVelden" type="text"/>
+                <input class="form-control" type="text" id="LoginVelden" />
             </div>
         </div>
         <div class="row">
@@ -30,13 +26,13 @@
         <br />
         <div class="row">
             <div class="col-md-6 offset-2">
-                <input type="submit" class="btn btn-primary btn-sm LoginKnoppen" value="Inloggen"/>
-                <input type="submit" class="btn btn-primary btn-sm LoginKnoppen" value="Registreren"asp-controller="Account" asp-action="Registratie" />
+                <input type="submit" class="btn btn-primary btn-sm" value="Inloggen" id="LoginKnoppen" />
+                <input type="submit" class="btn btn-primary btn-sm" value="Registreren" id="LoginKnoppen" asp-controller="Account" asp-action="Registratie" />
             </div>
         </div>
         <div class="row">
             <div class="col-md-2 offset-md-2">
-                <input type="submit" class="btn btn-primary btn-sm LoginKnoppen" value="Wachtwoord Vergeten" />
+                <input type="submit" class="btn btn-primary btn-sm" value="Wachtwoord Vergeten" id="LoginKnoppen" />
             </div>
         </div>
     </form>

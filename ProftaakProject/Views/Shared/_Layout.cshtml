@@ -1,7 +1,6 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - ProftaakProject</title>
@@ -16,65 +15,35 @@
         <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     </environment>
 </head>
-<body class="d-flex flex-column h-100">
+<body>
     <header>
-
         <div class="container-fluid" id="mainNav">
-            <div class="row" id="easyflex_nav">
-                <nav class="navbar navbar-expand-sm fixed-top navbar-toggleable-sm">
+            <div class="row">
+                <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
                     <div class="col-md-3" id="logo">
-                        <h1 id="text_nav"><i>easyflex</i></h1>
+                        <img src="~/lib/Images/easyFlexLogo.png" alt="logo" style="width:50%" />
                     </div>
-
-                    <div class="offset-md-6 col-md-3">
+                    <div class="col-md-4 offset-md-6">
                         <form class="form-inline">
                             <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse" aria-controls="navbarCollapse" ia-expanded="false" aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-                            <button class="btn btn-outline-light" type="submit">Search</button>
+                            <button class="btn btn-success" type="submit">Search</button>
                         </form>
                     </div>
                 </nav>
             </div>
         </div>
-
     </header>
-
-    <main role="main" class="flex-shrink-0">
-        <div class="container-fluid" id="margin_top">
-            <div class="row">
-                <div class="col-md-3 sideBar" id="nav">
-                    <nav id="colorlib-main-menu" role="navigation">
-                        <ul>
-                            <div>
-                                <a class="nav-link text-light" asp-area="" asp-controller="Account" asp-action="Login">Home</a>
-                                <br />
-                                <a class="nav-link text-light" asp-area="" asp-controller="Account" asp-action="Login">Artikelen</a>
-                                <br />
-                                <a class="nav-link text-light" asp-area="" asp-controller="Account" asp-action="Login">Vragen</a>
-                                <br />
-                                <a class="nav-link text-light" asp-area="" asp-controller="Account" asp-action="Login">Kalender</a>
-                                <br />
-                                <a class="nav-link text-light" asp-area="" asp-controller="Account" asp-action="Login">Geschiedenis</a>
-                            </div>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-            <div class="col-md-6 offset-md-3">
-                @RenderBody()
-            </div>
-        </div>
-    </main>
 
     <partial name="_CookieConsentPartial" />
 
-    <footer class="footer mt-auto py-3">
-        <div class="container">
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
             <p>&copy; 2019 - ProftaakProject</p>
-        </div>
-    </footer>
+        </footer>
+    </div>
+
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
