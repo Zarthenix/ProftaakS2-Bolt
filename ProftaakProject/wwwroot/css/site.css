@@ -114,7 +114,7 @@ html, body {
 }
 
 #mainNav {
-    position: absolute;
+    position: fixed;
     top: 0px;
     white-space: nowrap;
     z-index: 10;
