@@ -58,9 +58,7 @@ header {
 html {
     font-size: 14px;
 }
-<<<<<<< HEAD
 
-=======
 body {
     font-family: 'Open Sans', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
@@ -70,7 +68,7 @@ h2 {
     color: #3f9ed8;
     font-weight: bold;
 }
->>>>>>> PartialPost
+
 @media (min-width: 768px) {
     html {
         font-size: 16px;
@@ -122,15 +120,14 @@ html, body {
     z-index: 10;
 }
 
-<<<<<<< HEAD
 #margin_top {
     margin-top: 100px;
-=======
+}
+
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
     background-color: #F4F4F8;
->>>>>>> PartialPost
 }
 
 #nav {
@@ -155,7 +152,6 @@ body {
 /*CSS voor registratie*/
 .RegistratieVelden {
     margin-bottom: 10px;
-<<<<<<< HEAD
     width: 250px;
 }
 
@@ -176,9 +172,6 @@ body {
     overflow-x: hidden;
 }
 
-/*CSS voor layout*/
-=======
-}
 
 /*CSS voor Post Partial*/
 h2.postTitel {
@@ -242,4 +235,3 @@ div.postInhoud {
     font-size: 20px;
     font-weight: bold;
 }
->>>>>>> PartialPost
