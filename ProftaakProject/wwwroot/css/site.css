@@ -172,6 +172,11 @@ body {
     overflow-x: hidden;
 }
 
+/*CSS voor layout*/
+.viewBody {
+    padding-top: 50px;
+    padding-left: 50px;
+}
 
 /*CSS voor Post Partial*/
 h2.postTitel {
