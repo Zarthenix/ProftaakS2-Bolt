@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace ProftaakProject.Models
+namespace ProftaakProject.Models.ViewModels
 {
-    public class Post
+    public class ArtikelViewModel
     {
         public int Id { get; set; }
         public Account Auteur { get; set; }
@@ -16,10 +19,5 @@ namespace ProftaakProject.Models
 
         }
         public bool Goedgekeurd { get; set; }
-        public Post()
-        {
-
-        }
-
     }
 }
