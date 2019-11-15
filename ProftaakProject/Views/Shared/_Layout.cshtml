@@ -45,49 +45,26 @@
     <main role="main" class="flex-shrink-0">
         <div class="container-fluid" id="margin_top">
             <div class="row">
-                <div class="col-md-3" id="nav">
-                    
-                        <nav id="colorlib-main-menu" role="navigation">
-                            <ul>
-                                </br>
-                                </br>
-                                </br>                               
-                                @*<li class="nav-item btn-outline-secondary">*@
+                <div class="col-md-3 sideBar" id="nav">
+                    <nav id="colorlib-main-menu" role="navigation">
+                        <ul>
+                            <div>
                                 <a class="nav-link text-light" asp-area="" asp-controller="Account" asp-action="Login">Home</a>
-                                @*</li>*@
                                 <br />
-                                @*<li class="nav-item">*@
                                 <a class="nav-link text-light" asp-area="" asp-controller="Account" asp-action="Login">Artikelen</a>
-                                @*</li>*@
                                 <br />
-                                @*<li class="nav-item">*@
                                 <a class="nav-link text-light" asp-area="" asp-controller="Account" asp-action="Login">Vragen</a>
-                                @*</li>*@
                                 <br />
-                                @*<li class="nav-item">*@
                                 <a class="nav-link text-light" asp-area="" asp-controller="Account" asp-action="Login">Kalender</a>
-                                @*</li>*@
                                 <br />
-                                @*<li class="nav-item">*@
                                 <a class="nav-link text-light" asp-area="" asp-controller="Account" asp-action="Login">Geschiedenis</a>
-                                @*</li>*@                               
-                                </br>
-                                </br>
-                                </br>
-                                </br>
-                                </br>
-                                </br>
-                                </br>
-                            </ul>
-                        </nav>
-             
+                            </div>
+                        </ul>
+                    </nav>
                 </div>
-        
-
-                </div>
-                <div class="col-md-6 offset-md-3">
-                    @RenderBody()
-                </div>
+            </div>
+            <div class="col-md-6 offset-md-3">
+                @RenderBody()
             </div>
         </div>
     </main>
