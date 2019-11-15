@@ -131,8 +131,9 @@ html, body {
 }
 
 /*CSS voor registratie*/
-#RegistratieVelden {
+.RegistratieVelden {
     margin-bottom: 10px;
+    width: 250px;
 }
 
 /*CSS voor sidebar*/
