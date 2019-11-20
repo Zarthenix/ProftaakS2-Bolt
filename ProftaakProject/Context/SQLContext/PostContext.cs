@@ -43,7 +43,7 @@ namespace ProftaakProject.Context.SQLContext
             }
         }
 
-        public Post Update(int id)
+        /*public Post Update(int id)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -82,7 +82,7 @@ namespace ProftaakProject.Context.SQLContext
                 }
                 return id;
             }
-        }
+        }*/
 
         public Post GetByID(int id)
         {
@@ -90,41 +90,18 @@ namespace ProftaakProject.Context.SQLContext
             {
                 connection.Open();
 
-                using (SqlCommand sqlCommand = new SqlCommand("SELECT * FROM v_Products(@productid)", connection))
+                using (SqlCommand sqlCommand = new SqlCommand("SELECT * FROM dbo.Post WHERE postId = @Id", connection))
                 {
-                    sqlCommand.CommandType = CommandType.Text;
-                    sqlCommand.Parameters.AddWithValue("@productid", id);
+                    sqlCommand.Parameters.AddWithValue("@Id", id);
                     using (SqlDataReader reader = sqlCommand.ExecuteReader())
                     {
-
-
-                        if (reader.HasRows)
-                        {
-                            Post post = new Post(id);
-                            while (reader.Read())
-                            {
-                                post.ProductName = reader["ProductName"].ToString();
-                                if (!reader.IsDBNull(reader.GetOrdinal("ProductCalories")))
-                                {
-                                    post.ProductCalories = (int)reader["ProductCalories"];
-                                }
-                                else { post.ProductCalories = 0; }
-                                post.ProductDescription = reader["ProductDescription"].ToString();
-                                post.ProductPrice = (decimal)reader["ProductPrice"];
-                                post.ProductImage = (byte[])reader["ProductImg"];
-                            }
-                            return post;
-                        }
-                        else
-                        {
-                            return new Post(-1);
-                        }
+                        return new Post((int)reader["postId"], reader["titel"].ToString(), reader["inhoud"].ToString());
                     }
                 }
             }
         }
 
-        public List<Post> GetAll()
+        /*public List<Post> GetAll()
         {
             List<Post> posts = new List<Post>();
             DataSet sqlDataSet = new DataSet();
@@ -169,6 +146,6 @@ namespace ProftaakProject.Context.SQLContext
             }
             return posts;
 
-        }
+        }*/
     }
 }

@@ -3,11 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using ProftaakProject.Models.Repositories;
 using ProftaakProject.Models.ViewModels;
 namespace ProftaakProject.Controllers
 {
     public class PostController : Controller
     {
+        private PostRepo postRepo;
+
+        public PostController(PostRepo prepo)
+        {
+            this.postRepo = prepo;
+        }
+
         public IActionResult Vraag()
         {
             return View();
@@ -23,6 +31,11 @@ namespace ProftaakProject.Controllers
             avm.Goedgekeurd = true;
             avm.GoedgekeurdDoor = 1;
             return View("Artikel",avm);
+        }
+
+        public IActionResult Home()
+        {
+            
         }
 
         public IActionResult PostToevoegen()

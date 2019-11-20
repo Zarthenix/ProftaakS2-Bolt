@@ -28,14 +28,14 @@ namespace ProftaakProject.Models.Repositories
         public Post Delete(int id)
         {
             return ctx.Delete(id);
-        }
+        }*/
 
         public Post GetByID(int id)
         {
             return ctx.GetByID(id);
         }
 
-        public List<Post> GetAll()
+        /*public List<Post> GetAll()
         {
             return ctx.GetAll();
         }*/

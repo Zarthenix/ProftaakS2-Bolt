@@ -12,10 +12,10 @@ namespace ProftaakProject.Context.Interfaces
 
         /*Post Update(int id);
 
-        Post Delete(int id);
+        Post Delete(int id);*/
 
         Post GetByID(int id);
 
-        List<Post> GetAll();*/
+        /*List<Post> GetAll();*/
     }
 }
