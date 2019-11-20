@@ -123,7 +123,7 @@ using (var connection = new SqlConnection(_connectionString))
             }
         }
 
-        /*public List<Post> GetAll()
+        public List<Post> GetAll()
         {
             List<Post> posts = new List<Post>();
             DataSet sqlDataSet = new DataSet();
@@ -168,6 +168,6 @@ using (var connection = new SqlConnection(_connectionString))
             }
             return posts;
 
-        }*/
+        }*
     }
 }

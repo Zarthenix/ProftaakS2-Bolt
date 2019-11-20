@@ -30,7 +30,6 @@ namespace ProftaakProject
             services.AddTransient<IPostContext, PostContext>();
             services.AddScoped<PostRepo>();
 
-            services.AddAutoMapper(typeof(Startup));
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
         }
 

@@ -16,6 +16,6 @@ namespace ProftaakProject.Context.Interfaces
 
         Post GetByID(int id);
 
-        /*List<Post> GetAll();*/
+        List<Post> GetAll();
     }
 }
