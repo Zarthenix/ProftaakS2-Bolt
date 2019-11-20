@@ -21,13 +21,13 @@ namespace ProftaakProject.Context.SQLContext
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
-        public bool Create(Post post)
+        public Post Create(Post post)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
 
-                string query = "insert into Topic (titel, datum, inhoud) values (@titel, @datum, @inhoud)";
+                string query = "insert into Post (titel, datum, inhoud) output inserted.postID values (@titel, @datum, @inhoud)";
                 using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
                     cmd.Parameters.AddWithValue("@titel", post.Titel);
@@ -37,10 +37,9 @@ namespace ProftaakProject.Context.SQLContext
                     //cmd.Parameters.AddWithValue("@uitzendID", 1);
                     //cmd.Parameters.AddWithValue("@accountID", 1);
 
-                    //post.Id = (int)cmd.ExecuteScalar();
-                    cmd.ExecuteNonQuery();
+                    post.Id = (int)cmd.ExecuteScalar();                   
                 }
-                return true;
+                return post;
             }
         }
 
@@ -81,7 +80,7 @@ namespace ProftaakProject.Context.SQLContext
                 }
                 return id;
             }
-        }*/
+        }
 
         public Post GetByID(int id)
         {
@@ -123,7 +122,7 @@ using (var connection = new SqlConnection(_connectionString))
             }
         }
 
-        /*public List<Post> GetAll()
+        public List<Post> GetAll()
         {
             List<Post> posts = new List<Post>();
             DataSet sqlDataSet = new DataSet();

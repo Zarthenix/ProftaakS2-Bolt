@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ProftaakProject.Models.ConvertModels;
+using ProftaakProject.Models;
 using ProftaakProject.Models.ViewModels;
 using ProftaakProject.Models.ViewModels.Post;
 using ProftaakProject.Models.Repositories;
@@ -45,7 +46,15 @@ namespace ProftaakProject.Controllers
         public IActionResult PostToevoegen(PostViewModel pvm)
         {
             PostToPostvmConverter ptpvmc = new PostToPostvmConverter();
-            pr.Create(ptpvmc.ConvertToModel(pvm));
+            Post post = pr.Create(ptpvmc.ConvertToModel(pvm));
+            //return View(pvm);
+            return RedirectToAction("ShowPost", "Post", post);
+        }
+
+        public IActionResult ShowPost(Post post)
+        {
+            PostToPostvmConverter ptpvmc = new PostToPostvmConverter();
+            PostViewModel pvm = ptpvmc.ConvertToViewModel(post);
             return View(pvm);
         }
     }
