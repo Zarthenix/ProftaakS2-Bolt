@@ -1,5 +1,4 @@
-﻿@model ProftaakProject.Models.Post
-
+﻿@model ProftaakProject.Models.ViewModels.Post.PostViewModel
 @{
     ViewData["Title"] = "PostToevoegen";
 }
@@ -11,7 +10,7 @@
 <body>
 <div class="container-fluid row postContainer">
     <div class="col-md-8 postAanmakenInhoud">
-        <form asp-action="PostToevoegen">
+        <form  method="post" asp-controller="Post" asp-action="PostToevoegen">
             <div class="col-md-1 form-group postKoppen">
                 <label asp-for="Titel" class="control-label"></label>
             </div>
@@ -21,7 +20,7 @@
 
             </div>
             <div class="form-group">
-                <input type="hidden" asp-for="Datum" class="form-control" />
+                <input value="2019/11/20" type="hidden" asp-for="Datum" class="form-control" />
             </div>
             <div class="form-group">
                 <div class="col-md-1 postKoppen">
@@ -42,7 +41,7 @@
             </div>
             <div class="form-group row comboboxPostAanmaken">
                 <div>
-                    <input type="submit" value="Aanmaken" class="btn btn-dark" />
+                    <input type="submit" value="Aanmaken" class="btn btn-dark"/>
                 </div>
                 <div class="radio-padding">
                     <label class="radio-inline">

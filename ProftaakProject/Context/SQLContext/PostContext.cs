@@ -21,46 +21,45 @@ namespace ProftaakProject.Context.SQLContext
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
-        public Post Create(Post post)
+        public bool Create(Post post)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
 
-                string query = "insert into Topic (titel, datum, inhoud, type, uitzendID, accountID) values (@titel, @datum, @inhoud, @type, @uitzendID, @accountID)";
-                using (SqlCommand cmd = new SqlCommand("CreateProduct", connection))
+                string query = "insert into Topic (titel, datum, inhoud) values (@titel, @datum, @inhoud)";
+                using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
                     cmd.Parameters.AddWithValue("@titel", post.Titel);
                     cmd.Parameters.AddWithValue("@datum", post.Datum);
                     cmd.Parameters.AddWithValue("@inhoud", post.Inhoud);
                     //cmd.Parameters.AddWithValue("@type", post.ty);
-                    cmd.Parameters.AddWithValue("@uitzendID", 1);
-                    cmd.Parameters.AddWithValue("@accountID", 1);
+                    //cmd.Parameters.AddWithValue("@uitzendID", 1);
+                    //cmd.Parameters.AddWithValue("@accountID", 1);
 
-                    post.Id = (int)cmd.ExecuteScalar();
+                    //post.Id = (int)cmd.ExecuteScalar();
+                    cmd.ExecuteNonQuery();
                 }
-                return post;
+                return true;
             }
         }
 
-        /*public Post Update(int id)
+        /*public Post Update(Post post)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
 
-                string query = "update (titel, datum, inhoud, type, uitzendID, accountID) from Topic values (@titel, @datum, @inhoud, @type, @uitzendID, @accountID)";
-                using (SqlCommand cmd = new SqlCommand("CreateProduct", connection))
+                string query = "update (titel, inhoud) from Topic set (@titel, @inhoud) where postID = @id";
+                using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
-                    cmd.Parameters.AddWithValue("@titel", id.Titel);
-                    cmd.Parameters.AddWithValue("@datum", id.Datum);
-                    cmd.Parameters.AddWithValue("@inhoud", id.Inhoud);
-                    cmd.Parameters.AddWithValue("@uitzendID", 1);
-                    cmd.Parameters.AddWithValue("@accountID", 1);
+                    cmd.Parameters.AddWithValue("@id", post.Id);
+                    cmd.Parameters.AddWithValue("@titel", post.Titel);
+                    cmd.Parameters.AddWithValue("@inhoud", post.Inhoud);
 
-                    id.Id = (int)cmd.ExecuteScalar();
+                    cmd.ExecuteNonQuery();
                 }
-                return id;
+                return post;
             }
         }
 
@@ -86,16 +85,39 @@ namespace ProftaakProject.Context.SQLContext
 
         public Post GetByID(int id)
         {
-            using (var connection = new SqlConnection(_connectionString))
+using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
 
-                using (SqlCommand sqlCommand = new SqlCommand("SELECT * FROM dbo.Post WHERE postId = @Id", connection))
+                using (SqlCommand sqlCommand = new SqlCommand("SELECT * FROM Topic(@PostID)", connection))
                 {
-                    sqlCommand.Parameters.AddWithValue("@Id", id);
+                    sqlCommand.CommandType = CommandType.Text;
+                    sqlCommand.Parameters.AddWithValue("@PostID", id);
                     using (SqlDataReader reader = sqlCommand.ExecuteReader())
                     {
-                        return new Post((int)reader["postId"], reader["titel"].ToString(), reader["inhoud"].ToString());
+
+
+                        if (reader.HasRows)
+                        {
+                            Post prod = new Product(id);
+                            while (reader.Read())
+                            {
+                                prod.ProductName = reader["ProductName"].ToString();
+                                if (!reader.IsDBNull(reader.GetOrdinal("ProductCalories")))
+                                {
+                                    prod.ProductCalories = (int)reader["ProductCalories"];
+                                }
+                                else { prod.ProductCalories = 0; }
+                                prod.ProductDescription = reader["ProductDescription"].ToString();
+                                prod.ProductPrice = (decimal)reader["ProductPrice"];
+                                prod.ProductImage = (byte[])reader["ProductImg"];
+                            }
+                            return prod;
+                        }
+                        else
+                        {
+                            return new Product(-1);
+                        }
                     }
                 }
             }

@@ -3,17 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using ProftaakProject.Models.Repositories;
+using ProftaakProject.Models.ConvertModels;
 using ProftaakProject.Models.ViewModels;
+using ProftaakProject.Models.ViewModels.Post;
+using ProftaakProject.Models.Repositories;
 namespace ProftaakProject.Controllers
 {
     public class PostController : Controller
     {
-        private PostRepo postRepo;
 
-        public PostController(PostRepo prepo)
+        private PostRepo pr;
+
+        public PostController(PostRepo pr)
         {
-            this.postRepo = prepo;
+            this.pr = pr;
         }
 
         public IActionResult Vraag()
@@ -30,12 +33,20 @@ namespace ProftaakProject.Controllers
             avm.AantalBekenen = 2;
             avm.Goedgekeurd = true;
             avm.GoedgekeurdDoor = 1;
-            return View("Artikel",avm);
+            return View("Artikel", avm);
         }
-
+        [HttpGet]
         public IActionResult PostToevoegen()
         {
-            return View();
+            PostViewModel pvm = new PostViewModel();
+            return View(pvm);
+        }
+        [HttpPost]
+        public IActionResult PostToevoegen(PostViewModel pvm)
+        {
+            PostToPostvmConverter ptpvmc = new PostToPostvmConverter();
+            pr.Create(ptpvmc.ConvertToModel(pvm));
+            return View(pvm);
         }
     }
 }
