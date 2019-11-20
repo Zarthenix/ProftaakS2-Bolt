@@ -34,7 +34,7 @@ a:hover {
 
 
 
-#easyflex_nav {
+.easyflex_nav {
     background-image: url('../lib/images/background.jpg');
     background-size: 100% 100%;
     background-repeat: no-repeat;
@@ -114,7 +114,7 @@ html, body {
 }
 
 #mainNav {
-    position: absolute;
+    position: fixed;
     top: 0px;
     white-space: nowrap;
     z-index: 10;
