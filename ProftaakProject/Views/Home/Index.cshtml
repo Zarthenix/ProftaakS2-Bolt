@@ -8,7 +8,11 @@
 
 </head>
 <body>
-@await Html.PartialAsync("_Post", Model)
+@for (int i = 0; i < 4; i++)
+    {
+        @await Html.PartialAsync("_Post", Model)
+    }
+
 </body>
 <footer>
 </footer>

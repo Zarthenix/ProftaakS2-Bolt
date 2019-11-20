@@ -16,7 +16,6 @@ a {
 
 a:hover {
         background-color: palevioletred;
-
 }
 
 
@@ -192,21 +191,18 @@ p.auteurText {
 div.postInhoud {
     padding-left: 10px;
     width: 900px;
-    min-height: 500px;
+    /*min-height: 300px;*/
+    overflow-y: hidden;
+    max-height: 100px;
 }
 
-#PostBorderGoedgekeurd {
+.post-border {
     border: 4px solid;
     border-radius: 10px;
-    border-left-color: #3F55A1;
-    border-top-color: #3F55A1;
-    border-right-color: #C42872;
-    border-bottom-color: #C42872;
-    width: 900px;
     padding-right: 30px;
 }
 
-/*css voor post aanmaken*/
+/*CSS voor post aanmaken*/
 .postAanmakenInhoud {
     padding: 12px 20px;
     box-sizing: border-box;
@@ -244,4 +240,16 @@ div.postInhoud {
 .sideBar:hover{
     width: 200px !important;
     transition: all 1s ease-out;
+}
+
+/*CSS voor post inzien*/
+#PostBorderGoedgekeurd {
+    border: 4px solid;
+    border-radius: 10px;
+    border-left-color: #3F55A1;
+    border-top-color: #3F55A1;
+    border-right-color: #C42872;
+    border-bottom-color: #C42872;
+    width: 900px;
+    padding-right: 30px;
 }
