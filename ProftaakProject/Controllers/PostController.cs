@@ -33,11 +33,6 @@ namespace ProftaakProject.Controllers
             return View("Artikel",avm);
         }
 
-        public IActionResult Home()
-        {
-            
-        }
-
         public IActionResult PostToevoegen()
         {
             return View();

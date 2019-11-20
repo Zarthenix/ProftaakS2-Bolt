@@ -6,20 +6,24 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ProftaakProject.Models;
+using ProftaakProject.Models.Repositories;
 
 namespace ProftaakProject.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private PostRepo postRepo;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, PostRepo prepo)
         {
             _logger = logger;
+            this.postRepo = prepo;
         }
 
         public IActionResult Index()
         {
+
             return View();
         }
 
