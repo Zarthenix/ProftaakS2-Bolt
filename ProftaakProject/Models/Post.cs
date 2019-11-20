@@ -13,8 +13,11 @@ namespace ProftaakProject.Models
         public string Inhoud { get; set; }
         public enum Type
         {
-
+            artikel,
+            vraag,
+            reactie
         }
+
         public bool Goedgekeurd { get; set; }
         public Post()
         {
