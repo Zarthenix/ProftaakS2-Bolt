@@ -20,19 +20,20 @@
     <header>
 
         <div class="container-fluid" id="mainNav">
-            <div class="row" id="easyflex_nav">
-                <nav class="navbar navbar-expand-sm fixed-top navbar-toggleable-sm">
-                    <div class="col-md-3" id="logo">
+            <div class="row">
+                <nav class="navbar navbar-expand-sm fixed-top easyflex_nav">
+                    <div class="col-md-3">
                         <h1 id="text_nav"><i>easyflex</i></h1>
                     </div>
 
                     <div class="offset-md-6 col-md-3">
                         <form class="form-inline">
-                            <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse" aria-controls="navbarCollapse" ia-expanded="false" aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-                            <button class="btn btn-outline-light" type="submit">Search</button>
+                            <div>
+                                <input class="form-control mr-sm-2" type="text" placeholder="Search">
+                            </div>
+                            <div>
+                                <button class="btn btn-outline-light" type="submit">Search</button>
+                            </div>
                         </form>
                     </div>
                 </nav>
@@ -47,11 +48,11 @@
                 <div class="col-md-3 sideBar" id="nav">
                     <nav id="colorlib-main-menu" role="navigation">
                         <div>
-                            <a class="nav-link text-light" asp-area="" asp-controller="Account" asp-action="Login">Home</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                             <br />
                             <a class="nav-link text-light" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
                             <br />
-                            <a class="nav-link text-light" asp-area="" asp-controller="Account" asp-action="Login">Artikelen</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Post" asp-action="PostToevoegen">Artikelen</a>
                             <br />
                             <a class="nav-link text-light" asp-area="" asp-controller="Account" asp-action="Login">Vragen</a>
                             <br />
@@ -62,7 +63,7 @@
                     </nav>
                 </div>
             </div>
-            <div class="col-md-6 offset-md-3 viewBody">
+            <div class="col-md-6 offset-md-2 viewBody">
                 @RenderBody()
             </div>
         </div>
