@@ -29,6 +29,8 @@ namespace ProftaakProject
         {
             services.AddTransient<IPostContext, PostContext>();
             services.AddScoped<PostRepo>();
+            services.AddTransient<IUitzendContext, UitzendContext>();
+            services.AddScoped<UitzendRepo>();
 
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
         }

@@ -1,0 +1,61 @@
+﻿@model ProftaakProject.Models.ViewModels.UitzendViewModel
+@{
+    ViewData["Title"] = "Uitzendbureaus";
+}
+
+@*<head>
+     Load datatable css 
+    <link href="cdn.datatables.net / 1.10.20 / css / jquery.dataTables.min.js" rel="stylesheet" />
+    @section Scripts{
+
+        <script scr="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $.ajax({
+                    url: '/Uitzend/Index ',
+                    method: 'post',
+                    dataType: 'json',
+                    success: function (data) {
+                        $('#datatable').dataTable({
+                            data: data,
+                            columns: [
+                                { 'data': 'Naam' },
+                                { 'data': 'Eigenaar' }
+                            ]
+                        });
+                    }
+                });
+            });
+
+        </script>
+    }
+
+
+</head>*@
+<body>
+    <h1>Overzicht uitzendbureaus</h1>
+    <table id="table_id" class="display">
+        <thead>
+            <tr>
+                <th>Naam</th>
+                <th>Eigenaar</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (Uitzendbureau ub in Model.ubs)
+            {
+                <tr>
+                    <td>@ub.Naam</td>
+                    <td>@ub.Eigenaar</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+
+</body>
+<footer>
+</footer>
+

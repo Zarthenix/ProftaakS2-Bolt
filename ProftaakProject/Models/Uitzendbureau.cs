@@ -14,5 +14,17 @@ namespace ProftaakProject.Models
         {
 
         }
+
+        public Uitzendbureau(int id)
+        {
+
+        }
+
+        public Uitzendbureau(int id, string naam, int eigenaar)
+        {
+            this.Id = id;
+            this.Naam = naam;
+            this.Eigenaar = eigenaar;
+        }
     }
 }
