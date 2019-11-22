@@ -5,7 +5,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - ProftaakProject</title>
-
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
@@ -17,109 +16,66 @@
         <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     </environment>
 </head>
-<body>
+<body class="d-flex flex-column h-100">
     <header>
+
         <div class="container-fluid" id="mainNav">
-            <div class="row" id="easyflex_nav">
-                <nav class="navbar navbar-expand-sm col-md-12">
-                    <div class="col-md-3" id="logo">                      
-                        <h1 id="text_nav"><i>easyflex</i></h1>                        
+            <div class="row">
+                <nav class="navbar navbar-expand-sm fixed-top easyflex_nav">
+                    <div class="col-md-3">
+                        <h1 id="text_nav"><i>easyflex</i></h1>
                     </div>
+
                     <div class="offset-md-6 col-md-3">
                         <form class="form-inline">
-                            <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                            <button class="btn btn-outline-light" type="submit">Search</button>
+                            <div>
+                                <input class="form-control mr-sm-2" type="text" placeholder="Search">
+                            </div>
+                            <div>
+                                <button class="btn btn-outline-light" type="submit">Search</button>
+                            </div>
                         </form>
                     </div>
                 </nav>
             </div>
         </div>
+
     </header>
 
-    <main role="main" class="flex-shrink-0">        
-                <div class="container-fluid" id="margin_top">
-                    <div class="row">
-                        <div class="col-md-3" id="nav">
-                            <nav id="colorlib-main-menu" role="navigation">
-                                <ul>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-light" asp-area="" asp-controller="Account" asp-action="Login">Home</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-light" asp-area="" asp-controller="Account" asp-action="Login">Artikelen</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-light" asp-area="" asp-controller="Account" asp-action="Login">Vragen</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-light" asp-area="" asp-controller="Account" asp-action="Login">Kalender</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-light" asp-area="" asp-controller="Account" asp-action="Login">Geschiedenis</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-light" asp-area="" asp-controller="Account" asp-action="Login">Geschiedenis</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-light" asp-area="" asp-controller="Account" asp-action="Login">Geschiedenis</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-light" asp-area="" asp-controller="Account" asp-action="Login">Geschiedenis</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-light" asp-area="" asp-controller="Account" asp-action="Login">Geschiedenis</a>
-                                 
-                                    <li class="nav-item">
-                                        <a class="nav-link text-light" asp-area="" asp-controller="Account" asp-action="Login">Geschiedenis</a>
-                                    </li>
-                                 
-                                    <li class="nav-item">
-                                        <a class="nav-link text-light" asp-area="" asp-controller="Account" asp-action="Login">Geschiedenis</a>
-                                    </li>
-                                
-                                    <li class="nav-item">
-                                        <a class="nav-link text-light" asp-area="" asp-controller="Account" asp-action="Login">Geschiedenis</a>
-                                    </li>
-                                    
-                                </ul>
-                            </nav>
+    <main role="main" class="flex-shrink-0">
+        <div class="container-fluid" id="margin_top">
+            <div class="row">
+                <div class="col-md-3 sideBar" id="nav">
+                    <nav id="colorlib-main-menu" role="navigation">
+                        <div>
+                            <a class="nav-link text-sidenav" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <br />
+                            <a class="nav-link text-sidenav" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                            <br />
+                            <a class="nav-link text-sidenav" asp-area="" asp-controller="Post" asp-action="PostToevoegen">Artikelen</a>
+                            <br />
+                            <a class="nav-link text-sidenav" asp-area="" asp-controller="Account" asp-action="Login">Vragen</a>
+                            <br />
+                            <a class="nav-link text-sidenav" asp-area="" asp-controller="Account" asp-action="Login">Kalender</a>
+                            <br />
+                            <a class="nav-link text-sidenav" asp-area="" asp-controller="Account" asp-action="Login">Geschiedenis</a>
                         </div>
-
-                        @*
-                    <li><a href="Index.html">Home</a></li>
-                    <br>
-                    <li><a href="Artikelen.html">Artikelen</a></li>
-                    <br>
-                    <li><a href="Vragen.html">Vragen</a></li>
-                    <br>
-                    <li><a href="Kalender.html">Kalender</a></li>
-                    <br>
-                    <li><a href="Geschiedenis.html">Geschiedenis</a></li>
-                    <br>
-                    <li><a href="home.html">Bootstrap</a></li>*@
-
-                        <div class="col-md-6 offset-md-3">
-                            
-                                @RenderBody()
-                            
-                        </div>
-                    </div>
-                </div>        
+                    </nav>
+                </div>
+            </div>
+            <div class="col-md-6 offset-md-2 viewBody">
+                @RenderBody()
+            </div>
+        </div>
     </main>
 
     <partial name="_CookieConsentPartial" />
 
-   
-    <footer class="footer mt-auto py-2">
-
-        <div class="container-fluid">
-            <hr />
-        
+    <footer class="footer mt-auto py-3">
+        <div class="container">
             <p>&copy; 2019 - ProftaakProject</p>
-
         </div>
     </footer>
-
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>

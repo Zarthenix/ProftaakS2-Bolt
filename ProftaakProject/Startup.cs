@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ProftaakProject.Context.Interfaces;
+using ProftaakProject.Context.SQLContext;
+using ProftaakProject.Models.Repositories;
 
 namespace ProftaakProject
 {
@@ -24,7 +27,9 @@ namespace ProftaakProject
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAutoMapper(typeof(Startup));
+            services.AddTransient<IPostContext, PostContext>();
+            services.AddScoped<PostRepo>();
+
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
         }
 

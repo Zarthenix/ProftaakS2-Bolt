@@ -17,19 +17,16 @@ namespace ProftaakProject.Controllers
         {
             return View();
         }
-//<<<<<<< Updated upstream
 
         public IActionResult Profiel()
         {
             return View();
         }
-
         public IActionResult ProfielBewerken()
         {
             return View("Profiel");
         }
-//=======
-    
-//>>>>>>> Stashed changes
+
     }
+
 }

@@ -1,0 +1,16 @@
+﻿@model ProftaakProject.Models.Post
+
+<br />
+<div class="container post-border">
+    <div class="row">
+        <h2 class=" postTitel">@Model.Titel</h2>
+        <div class=" postInhoud">
+            <text>@Model.Inhoud</text>
+        </div>
+    </div>
+    <a href="@Url.Action("Artikel", "Post", new {Id = Model.Id})">klik hier voor artikel;</a>   
+    <hr />
+    <div id="test" class="row">
+        <p class="auteurText">Auteur: Model.Auteur.Naam</p>
+    </div>
+</div>

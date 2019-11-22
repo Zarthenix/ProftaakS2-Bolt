@@ -12,31 +12,31 @@
 <div class="container">
     <form>
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <label>Geruikersnaam:</label>
             </div>
-            <div class="col-md-2">
-                <input class="form-control" type="text" id="LoginVelden" />
+            <div class="col-md-3">
+                <input class="form-control LoginVelden" type="text"/>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-3">
                 <label>Wachtwoord:</label>
             </div>
-            <div class="col-md-2">
-                <input class="form-control" type="password" id="LoginVelden" />
+            <div class="col-md-3">
+                <input class="form-control LoginVelden" type="password" />
             </div>
         </div>
         <br />
         <div class="row">
-            <div class="col-md-6 offset-2">
-                <input type="submit" class="btn btn-primary btn-sm" value="Inloggen" id="LoginKnoppen" />
-                <input type="submit" class="btn btn-primary btn-sm" value="Registreren" id="LoginKnoppen" asp-controller="Account" asp-action="Registratie" />
+            <div class="col-md-6 offset-3">
+                <input type="submit" class="btn btn-primary btn-sm LoginKnoppen" value="Inloggen"/>
+                <input type="submit" class="btn btn-primary btn-sm LoginKnoppen" value="Registreren"asp-controller="Account" asp-action="Registratie" />
             </div>
         </div>
         <div class="row">
-            <div class="col-md-2 offset-md-2">
-                <input type="submit" class="btn btn-primary btn-sm" value="Wachtwoord Vergeten" id="LoginKnoppen" />
+            <div class="col-md-2 offset-md-3">
+                <input type="submit" class="btn btn-primary btn-sm LoginKnoppen" value="Wachtwoord Vergeten" />
             </div>
         </div>
     </form>

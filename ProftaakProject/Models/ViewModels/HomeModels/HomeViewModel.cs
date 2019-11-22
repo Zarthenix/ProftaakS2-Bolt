@@ -5,7 +5,13 @@ using System.Threading.Tasks;
 
 namespace ProftaakProject.Models.ViewModels
 {
-    public class ArtikelViewModel
+    public class HomeViewModel
     {
+        public List<Models.Post> Posts { get; set; }
+
+        public HomeViewModel()
+        {
+
+        }
     }
 }
