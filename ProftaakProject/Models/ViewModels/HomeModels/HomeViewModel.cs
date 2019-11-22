@@ -7,5 +7,11 @@ namespace ProftaakProject.Models.ViewModels
 {
     public class HomeViewModel
     {
+        public List<Models.Post> Posts { get; set; }
+
+        public HomeViewModel()
+        {
+
+        }
     }
 }

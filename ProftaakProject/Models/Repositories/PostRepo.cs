@@ -15,9 +15,23 @@ namespace ProftaakProject.Models.Repositories
             this.ctx = context;
         }
 
-        public Post Create(Post post)
+        public bool Create(Post post)
         {
-            return ctx.Create(post);
+            int check = 0;//als check 2 is zijn ze allemaal gevult
+            if (post.Titel != "")
+            {
+                return false;
+            }
+            if (post.Inhoud != "")
+            {
+                return false;
+            }
+            if (check == 2)
+            {
+                ctx.Create(post);
+                return true;
+            }
+            else return false;
         }
 
         /*public Post Update(int id)
@@ -30,10 +44,10 @@ namespace ProftaakProject.Models.Repositories
             return ctx.Delete(id);
         }*/
 
-        /*public Post GetByID(int id)
+        public Post GetByID(int id)
         {
             return ctx.GetByID(id);
-        }*/
+        }
 
         /*public List<Post> GetAll()
         {
