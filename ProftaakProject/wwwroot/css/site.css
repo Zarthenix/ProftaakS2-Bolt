@@ -170,6 +170,11 @@ html, body {
     transition: all 1s ease-out;
 }
 
+    .sideBar:hover {
+        width: 400px !important;
+        transition: all 1s ease-out;
+    }
+
 /*CSS voor layout*/
 .viewBody {
     padding-top: 50px;
@@ -236,10 +241,6 @@ div.postInhoud {
     font-weight: bold;
 }
 
-.sideBar:hover {
-    width: 200px !important;
-    transition: all 1s ease-out;
-}
 .postTijdlijn {
     margin-bottom: 50px;
 }
