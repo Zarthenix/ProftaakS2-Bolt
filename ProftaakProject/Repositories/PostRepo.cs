@@ -35,9 +35,9 @@ namespace ProftaakProject.Models.Repositories
             return ctx.GetByID(id);
         }
 
-        /*public List<Post> GetAll()
+        public List<Post> GetAll()
         {
             return ctx.GetAll();
-        }*/
+        }
     }
 }
