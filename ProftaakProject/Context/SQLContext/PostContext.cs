@@ -21,7 +21,7 @@ namespace ProftaakProject.Context.SQLContext
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
-        public Post Create(Post post)
+        public bool Create(Post post)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -37,9 +37,13 @@ namespace ProftaakProject.Context.SQLContext
                     //cmd.Parameters.AddWithValue("@uitzendID", 1);
                     //cmd.Parameters.AddWithValue("@accountID", 1);
 
-                    post.Id = (int)cmd.ExecuteScalar();                   
+                    post.Id = (int)cmd.ExecuteScalar();
+                    if(post.Id > -1)
+                    {
+                        return true;
+                    }
                 }
-                return post;
+                return false;
             }
         }
 
@@ -80,49 +84,41 @@ namespace ProftaakProject.Context.SQLContext
                 }
                 return id;
             }
-        }
+        }*/
 
         public Post GetByID(int id)
         {
-using (var connection = new SqlConnection(_connectionString))
+            using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
 
-                using (SqlCommand sqlCommand = new SqlCommand("SELECT * FROM Topic(@PostID)", connection))
+                using (SqlCommand sqlCommand = new SqlCommand("SELECT * FROM Post Where PostID = @PostID", connection))
                 {
                     sqlCommand.CommandType = CommandType.Text;
                     sqlCommand.Parameters.AddWithValue("@PostID", id);
                     using (SqlDataReader reader = sqlCommand.ExecuteReader())
                     {
-
-
                         if (reader.HasRows)
                         {
-                            Post prod = new Product(id);
+                            Post p = new Post(id);
                             while (reader.Read())
                             {
-                                prod.ProductName = reader["ProductName"].ToString();
-                                if (!reader.IsDBNull(reader.GetOrdinal("ProductCalories")))
-                                {
-                                    prod.ProductCalories = (int)reader["ProductCalories"];
-                                }
-                                else { prod.ProductCalories = 0; }
-                                prod.ProductDescription = reader["ProductDescription"].ToString();
-                                prod.ProductPrice = (decimal)reader["ProductPrice"];
-                                prod.ProductImage = (byte[])reader["ProductImg"];
+                                p.Titel = reader["titel"].ToString();
+                                p.Datum = (DateTime)reader["datum"];
+                                p.Inhoud = reader["inhoud"].ToString();
                             }
-                            return prod;
+                            return p;
                         }
                         else
                         {
-                            return new Product(-1);
+                            return new Post(-1);
                         }
                     }
                 }
             }
         }
 
-        public List<Post> GetAll()
+        /*public List<Post> GetAll()
         {
             List<Post> posts = new List<Post>();
             DataSet sqlDataSet = new DataSet();
@@ -167,6 +163,6 @@ using (var connection = new SqlConnection(_connectionString))
             }
             return posts;
 
-        }*
+        }*/
     }
 }

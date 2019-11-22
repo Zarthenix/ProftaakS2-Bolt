@@ -25,17 +25,22 @@ namespace ProftaakProject.Controllers
             return View();
         }
 
-        public IActionResult Artikel()
+        public IActionResult Artikel(int id)
         {
+            PostToArtikelvmConverter ptavmc = new PostToArtikelvmConverter();
+            //ArtikelViewModel avm = ptavmc.ConvertToViewModel(Post);
             ArtikelViewModel avm = new ArtikelViewModel();
-            avm.Titel = "TestArtikel";
+            pr.GetByID(id);
+            /*avm.Titel = "TestArtikel";
             avm.Inhoud = "dit is lorem ipsum";
             avm.Id = 1;
             avm.AantalBekenen = 2;
             avm.Goedgekeurd = true;
-            avm.GoedgekeurdDoor = 1;
+            avm.GoedgekeurdDoor = 1;*/
+
             return View("Artikel", avm);
         }
+
         [HttpGet]
         public IActionResult PostToevoegen()
         {
@@ -46,14 +51,17 @@ namespace ProftaakProject.Controllers
         public IActionResult PostToevoegen(PostViewModel pvm)
         {
             PostToPostvmConverter ptpvmc = new PostToPostvmConverter();
-            Post post = pr.Create(ptpvmc.ConvertToModel(pvm));
+            Post post = ptpvmc.ConvertToModel(pvm);
+            pr.Create(post);
             //return View(pvm);
-            return RedirectToAction("ShowPost", "Post", post);
+            return RedirectToAction("ShowPost", "Post", new { id = post.Id });
         }
 
-        public IActionResult ShowPost(Post post)
+        public IActionResult ShowPost(int id)
         {
             PostToPostvmConverter ptpvmc = new PostToPostvmConverter();
+
+            Post post = pr.GetByID(id);
             PostViewModel pvm = ptpvmc.ConvertToViewModel(post);
             return View(pvm);
         }

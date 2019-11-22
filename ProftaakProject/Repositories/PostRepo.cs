@@ -17,7 +17,7 @@ namespace ProftaakProject.Models.Repositories
 
         public bool Create(Post post)
         {
-            
+            return ctx.Create(post);
         }
 
         /*public Post Update(int id)
@@ -35,9 +35,9 @@ namespace ProftaakProject.Models.Repositories
             return ctx.GetByID(id);
         }
 
-        public List<Post> GetAll()
+        /*public List<Post> GetAll()
         {
             return ctx.GetAll();
-        }
+        }*/
     }
 }
