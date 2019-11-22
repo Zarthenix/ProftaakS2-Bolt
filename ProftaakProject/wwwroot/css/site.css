@@ -9,18 +9,16 @@ a.navbar-brand {
     word-break: break-all;
 }
 
-/* Provide sufficient contrast against white background */
-a {
+/* Provide sufficient contrast against white background for navbar */
+#nav a {
     color: white;
 }
-a:hover {
-    color: black;
-}
-
-
-a:hover {
+#nav a:hover {
+        color: black;
+    }
+#nav a:hover {
         background-color: palevioletred;
-}
+    }
 
 
 .btn-primary {
@@ -65,6 +63,7 @@ html {
 body {
     font-family: 'Open Sans', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
+
 h2 {
     font-size: 50px;
     text-align: center;
@@ -114,6 +113,7 @@ html, body {
     margin: 0px;
     padding: 0px;
     overflow-x: hidden;
+    background-color: #F4F4F8;
 }
 
 #mainNav {
@@ -125,12 +125,6 @@ html, body {
 
 #margin_top {
     margin-top: 100px;
-}
-
-body {
-    /* Margin bottom by footer height */
-    margin-bottom: 60px;
-    background-color: #F4F4F8;
 }
 
 #nav {
@@ -194,10 +188,9 @@ p.auteurText {
 
 div.postInhoud {
     padding-left: 10px;
-    width: 900px;
-    /*min-height: 300px;*/
     overflow-y: hidden;
     max-height: 100px;
+    overflow: hidden;
 }
 
 .post-border {
@@ -237,16 +230,28 @@ div.postInhoud {
 .postTitel {
     width: 650px;
 }
+
 .postKoppen {
     font-size: 20px;
     font-weight: bold;
 }
-.sideBar:hover{
+
+.sideBar:hover {
     width: 200px !important;
     transition: all 1s ease-out;
 }
+.postTijdlijn {
+    margin-bottom: 50px;
+}
 
-/*CSS voor post inzien*/
+.postTijdlijn a {
+    color: black;
+}
+.postTijdlijn a:hover {
+    text-decoration: none;
+    color: black;
+}
+/*CSS voor artikel inzien*/
 #PostBorderGoedgekeurd {
     border: 4px solid;
     border-radius: 10px;
@@ -256,4 +261,9 @@ div.postInhoud {
     border-bottom-color: #C42872;
     width: 900px;
     padding-right: 30px;
+}
+div.artikelInhoud {
+    padding-left: 10px;
+    height: auto;
+    text-overflow: ellipsis;
 }

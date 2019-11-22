@@ -1,16 +1,15 @@
 ﻿@model ProftaakProject.Models.Post
-
-<br />
-<div class="container post-border">
-    <div class="row">
-        <h2 class=" postTitel">@Model.Titel</h2>
-        <div class=" postInhoud">
-            <text>@Model.Inhoud</text>
+<div class="card">
+    <a href="@Url.Action("Artikel", "Post", new {Id = Model.Id})">
+        <div class="card-header">
+            <img src="~/lib/Images/stockfoto.jpg" class="img-thumbnail" />
         </div>
-    </div>
-    <a href="@Url.Action("Artikel", "Post", new {Id = Model.Id})">klik hier voor artikel;</a>   
-    <hr />
-    <div id="test" class="row">
-        <p class="auteurText">Auteur: Model.Auteur.Naam</p>
+        <div class="card-body">
+            <h4 class="card-title">@Model.Titel</h4>
+            <p class="card-text">@Model.Inhoud</p>
+        </div>
+    </a>
+    <div class="card-footer">
+        <p class="auteurText">Model.Auteur.Naam</p>
     </div>
 </div>

@@ -12,9 +12,6 @@ namespace ProftaakProject.Models.ConvertModels
         {
             Post p = new Post();
             {
-                p.Id = avm.Id;
-                p.Titel = avm.Titel;
-                p.Inhoud = avm.Inhoud;
             }
             return p;
         }
@@ -23,9 +20,6 @@ namespace ProftaakProject.Models.ConvertModels
         {
             ArtikelViewModel avm = new ArtikelViewModel();
             {
-                avm.Id = p.Id;
-                avm.Titel = p.Titel;
-                avm.Inhoud = avm.Inhoud;
             }
             return avm;
         }

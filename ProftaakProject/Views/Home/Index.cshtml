@@ -5,14 +5,14 @@
 }
 
 <head>
-
 </head>
 <body>
-@foreach(Post postTemp in Model.Posts)
-    {
-        @await Html.PartialAsync("_Post", postTemp)
-    }
-
+@foreach (Post postTemp in Model.Posts)
+{
+    <div class="postTijdlijn">
+    @await Html.PartialAsync("_Post", postTemp)
+    </div>
+}
 </body>
 <footer>
 </footer>

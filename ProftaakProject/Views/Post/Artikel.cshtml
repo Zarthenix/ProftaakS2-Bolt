@@ -3,7 +3,7 @@
     ViewData["Title"] = "Artikel";
 }
 
-@if (Model.Goedgekeurd == true)
+@if (Model.post.Goedgekeurd == true)
 {
     <style>
         .Border {
@@ -28,17 +28,30 @@ else
         }
     </style>
 }
-<div class="Border container">
-    <div><img scr="Images/easyFlexLogo.png" alt="stockfoto" style="width: auto; height: 300px;" /></div>
-    <h2>@Model.Titel</h2>
-    <hr />
-    <div class="postInhoud">
-        @Model.Inhoud
-    </div>
-    <hr />
-    <p class="auteurText">Auteur: Model.Auteur.Naam</p>
-</div>
+@*<div class="Border container">
+        <div>
 
+        </div>
+        <h2>@Model.post.Titel</h2>
+        <hr />
+        <div class="artikelInhoud">
+            @Model.post.Inhoud
+        </div>
+        <hr />
+        <p class="auteurText">Auteur: Model.Auteur.Naam</p>
+    </div>*@
+<div class="card">
+    <div class="card-header">
+        <img src="~/lib/Images/stockfoto.jpg" class="img-thumbnail" />
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">@Model.post.Titel</h4>
+        <p class="card-text">@Model.post.Inhoud</p>
+    </div>
+    <div class="card-footer">
+        <p class="auteurText">Model.Auteur.Naam</p>
+    </div>
+</div>
 
 
 @section Scripts {
