@@ -47,11 +47,6 @@ namespace ProftaakProject.Context.SQLContext
             }
         }
 
-        public Post GetByID(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         /*public Post Update(Post post)
         {
             using (var connection = new SqlConnection(_connectionString))
@@ -91,7 +86,7 @@ namespace ProftaakProject.Context.SQLContext
             }
         }*/
 
-        /*public Post GetByID(int id)
+        public Post GetByID(int id)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -121,9 +116,9 @@ namespace ProftaakProject.Context.SQLContext
                     }
                 }
             }
-        }*/
+        }
 
-        /*public List<Post> GetAll()
+        public List<Post> GetAll()
         {
             List<Post> posts = new List<Post>();
             string query = "SELECT * FROM dbo.Post";
@@ -145,6 +140,7 @@ namespace ProftaakProject.Context.SQLContext
                 connection.Close();
             }
 
-        }*/
+            return posts;
+        }
     }
 }
