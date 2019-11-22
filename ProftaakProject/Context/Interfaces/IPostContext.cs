@@ -14,7 +14,7 @@ namespace ProftaakProject.Context.Interfaces
 
         Post Delete(int id);*/
 
-        //Post GetByID(int id);
+        Post GetByID(int id);
 
         List<Post> GetAll();
     }

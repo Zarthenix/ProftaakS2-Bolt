@@ -25,8 +25,8 @@ namespace ProftaakProject.Controllers
         public IActionResult Index()
         {
             HomeViewModel hvm = new HomeViewModel();
-            hvm.Posts = postRepo.
-            return View();
+            hvm.Posts = postRepo.GetAll();
+            return View(hvm);
         }
 
         public IActionResult Privacy()

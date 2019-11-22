@@ -15,9 +15,9 @@ namespace ProftaakProject.Models.Repositories
             this.ctx = context;
         }
 
-        public bool Create(Post post)
+        public Post Create(Post post)
         {
-            
+            return ctx.Create(post);
         }
 
         /*public Post Update(int id)
