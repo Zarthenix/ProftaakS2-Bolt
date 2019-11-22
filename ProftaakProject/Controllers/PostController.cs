@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ProftaakProject.Models.ConvertModels;
+using ProftaakProject.Models;
 using ProftaakProject.Models.ViewModels;
 using ProftaakProject.Models.ViewModels.Post;
 using ProftaakProject.Models.Repositories;
@@ -24,15 +25,17 @@ namespace ProftaakProject.Controllers
             return View();
         }
 
-        public IActionResult Artikel()
+        public IActionResult Artikel(int id)
         {
-            ArtikelViewModel avm = new ArtikelViewModel();
-            avm.Titel = "TestArtikel";
-            avm.Inhoud = "dit is lorem ipsum";
-            avm.Id = 1;
-            avm.AantalBekenen = 2;
-            avm.Goedgekeurd = true;
-            avm.GoedgekeurdDoor = 1;
+            ArtikelViewModel avm = new ArtikelViewModel
+            {
+                Titel = "TestArtikel",
+                Inhoud = "dit is lorem ipsum",
+                Id = 1,
+                AantalBekenen = 2,
+                Goedgekeurd = true,
+                GoedgekeurdDoor = 1,
+            };
             return View("Artikel", avm);
         }
         [HttpGet]
@@ -45,7 +48,14 @@ namespace ProftaakProject.Controllers
         public IActionResult PostToevoegen(PostViewModel pvm)
         {
             PostToPostvmConverter ptpvmc = new PostToPostvmConverter();
-            pr.Create(ptpvmc.ConvertToModel(pvm));
+            Post post = pr.Create(ptpvmc.ConvertToModel(pvm));
+            return RedirectToAction("ShowPost", "Post", post);
+        }
+
+        public IActionResult ShowPost(Post post)
+        {
+            PostToPostvmConverter ptpvmc = new PostToPostvmConverter();
+            PostViewModel pvm = ptpvmc.ConvertToViewModel(post);
             return View(pvm);
         }
     }

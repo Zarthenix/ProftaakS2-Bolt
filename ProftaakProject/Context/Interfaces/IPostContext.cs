@@ -8,7 +8,7 @@ namespace ProftaakProject.Context.Interfaces
 {
     public interface IPostContext
     {
-        bool Create(Post post);
+        Post Create(Post post);
 
         /*Post Update(int id);
 
@@ -16,6 +16,6 @@ namespace ProftaakProject.Context.Interfaces
 
         Post GetByID(int id);
 
-        /*List<Post> GetAll();*/
+        List<Post> GetAll();
     }
 }

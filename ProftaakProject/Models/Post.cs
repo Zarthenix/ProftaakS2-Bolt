@@ -26,5 +26,9 @@ namespace ProftaakProject.Models
             this.Inhoud = inhoud;
         }
 
+        public Post()
+        {
+
+        }
     }
 }
