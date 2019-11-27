@@ -42,20 +42,22 @@
     <main role="main" class="flex-shrink-0">
         <div class="container-fluid" id="margin_top">
             <div class="row">
-                <div class="col-md-6 sideBar" id="nav">
+                <div class="col-md-7 sideBar" id="nav">
                     <nav id="colorlib-main-menu" role="navigation">
                         <div>
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link side-bar-text" asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-home fa-2x icon"></i><label>Home</label></a>
                             <br />
-                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                            <a class="nav-link side-bar-text" asp-area="" asp-controller="Account" asp-action="Login"><i class="fas fa-chalkboard-teacher fa-2x icon"></i><label>Login</label></a>
                             <br />
-                            <a class="nav-link" asp-area="" asp-controller="Post" asp-action="PostToevoegen">Artikelen</a>
+                            <a class="nav-link side-bar-text" asp-area="" asp-controller="Post" asp-action="PostToevoegen"><i class="far fa-newspaper fa-2x icon"></i><label>Artikelen</label></a>
                             <br />
-                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login">Vragen</a>
+                            <a class="nav-link side-bar-text" asp-area="" asp-controller="Account" asp-action="Login"><i class="fas fa-question fa-2x icon"></i><label>Vragen</label></a>
                             <br />
-                            <a class="nav-link " asp-area="" asp-controller="Account" asp-action="Login"><i class="far fa-calendar-alt fa-2x"></i>Kalender</a>
+                            <a class="nav-link side-bar-text" asp-area="" asp-controller="Account" asp-action="Login"><i class="far fa-calendar-alt fa-2x icon"></i><label>Kalender</label></a>
                             <br />
-                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login">Geschiedenis</a>
+                            <a class="nav-link side-bar-text" asp-area="" asp-controller="Account" asp-action="Login"><i class="fas fa-history fa-2x icon"></i><label>Geschiedenis</label></a>
+                            <br />
+                            <a class="nav-link side-bar-text" asp-area="" asp-controller="Account" asp-action="Login"><i class="fas fa-podcast fa-2x icon"></i><label>Uitzendbureau</label></a>
                         </div>
                     </nav>
                 </div>
@@ -90,7 +92,6 @@
                 crossorigin="anonymous"
                 integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd">
         </script>
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
     @RenderSection("Scripts", required: false)
 </body>
