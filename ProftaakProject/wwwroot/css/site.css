@@ -63,7 +63,7 @@ html {
 }
 
 body {
-    font-family: 'Open Sans', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Open Sans', 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
 }
 
 h2 {
@@ -173,9 +173,24 @@ html, body {
 }
 
     .sideBar:hover {
-        width: 400px !important;
+        width: 220px !important;
         transition: all 1s ease-out;
     }
+
+.side-bar-text {
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+a .icon {
+    padding-right: 20px;
+    width: 70px;
+    text-align: center;
+}
+
+.nav-link {
+    padding-left: 0 !important;
+}
 
 /*CSS voor layout*/
 .viewBody {
@@ -231,8 +246,9 @@ div.postInhoud {
 
 .postAanmaakKoppen {
     font-size: 20px;
-    color:darkslategray
+    color: darkslategray
 }
+
 .radio-padding {
     padding-left: 40px;
 }
@@ -250,13 +266,9 @@ div.postInhoud {
     font-weight: bold;
 }
 
-.sideBar:hover {
-    width: 200px !important;
-    transition: all 1s ease-out;
-}
 .radiobutton {
-}
 #postType {
+}
 
 }
 .postTijdlijn {
