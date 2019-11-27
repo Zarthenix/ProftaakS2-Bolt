@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProftaakProject.Models.ConvertModels;
 using ProftaakProject.Models;
 using ProftaakProject.Models.ViewModels;
-using ProftaakProject.Models.ViewModels.Post;
+using ProftaakProject.Models.ViewModels.PostModels;
 using ProftaakProject.Models.Repositories;
 namespace ProftaakProject.Controllers
 {
@@ -37,16 +37,15 @@ namespace ProftaakProject.Controllers
         [HttpGet]
         public IActionResult PostToevoegen()
         {
-            PostViewModel pvm = new PostViewModel();
-            return View(pvm);
+            PostToevoegenViewModel ptvm = new PostToevoegenViewModel();
+            return View(ptvm);
         }
         [HttpPost]
-        public IActionResult PostToevoegen(PostViewModel pvm)
+        public IActionResult PostToevoegen(PostToevoegenViewModel ptvm)
         {
-            PostToPostvmConverter ptpvmc = new PostToPostvmConverter();
-            Post post = ptpvmc.ConvertToModel(pvm);
+            PostToPostToevoegenvmConverter ptptvmc = new PostToPostToevoegenvmConverter();
+            Post post = ptptvmc.ConvertToModel(ptvm);
             pr.Create(post);
-            //return View(pvm);
             return RedirectToAction("ShowPost", "Post", new { id = post.Id });
         }
         [HttpGet]

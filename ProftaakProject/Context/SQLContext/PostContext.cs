@@ -25,24 +25,32 @@ namespace ProftaakProject.Context.SQLContext
         {
             using (var connection = new SqlConnection(_connectionString))
             {
-                connection.Open();
-
-                string query = "insert into Post (titel, datum, inhoud) output inserted.postID values (@titel, @datum, @inhoud)";
-                using (SqlCommand cmd = new SqlCommand(query, connection))
+                try
                 {
-                    cmd.Parameters.AddWithValue("@titel", post.Titel);
-                    cmd.Parameters.AddWithValue("@datum", post.Datum);
-                    cmd.Parameters.AddWithValue("@inhoud", post.Inhoud);
-                    //cmd.Parameters.AddWithValue("@type", post.ty);
-                    //cmd.Parameters.AddWithValue("@uitzendID", 1);
-                    //cmd.Parameters.AddWithValue("@accountID", 1);
-
-                    post.Id = (int)cmd.ExecuteScalar();
-                    if(post.Id > -1)
+                    connection.Open();
+                    string query = "INSERT INTO Post (titel, datum, inhoud,imageFile) output inserted.postID VALUES (@titel, @datum, @inhoud,@imageFile)";
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
                     {
-                        return true;
+                        cmd.Parameters.AddWithValue("@titel", post.Titel);
+                        cmd.Parameters.AddWithValue("@datum", post.Datum);
+                        cmd.Parameters.AddWithValue("@inhoud", post.Inhoud);
+                        cmd.Parameters.Add("@imageFile", sqlDbType: SqlDbType.VarBinary).Value = post.ImageFile;
+                        //            //cmd.Parameters.AddWithValue("@type", post.type);
+                        //            //cmd.Parameters.AddWithValue("@uitzendID", 1);
+                        //            //cmd.Parameters.AddWithValue("@accountID", 1);
+                        post.Id = (int)cmd.ExecuteScalar();
+                        if (post.Id > -1)
+                        {
+                            return true;
+                        }
                     }
                 }
+                catch (Exception exception)
+                {
+                    Console.WriteLine(exception);
+                }
+
+                connection.Close();
                 return false;
             }
         }
@@ -106,6 +114,7 @@ namespace ProftaakProject.Context.SQLContext
                                 p.Titel = reader["titel"].ToString();
                                 p.Datum = (DateTime)reader["datum"];
                                 p.Inhoud = reader["inhoud"].ToString();
+                                p.ImageFile = (byte[])reader["imageFile"];
                             }
                             return p;
                         }
@@ -132,7 +141,12 @@ namespace ProftaakProject.Context.SQLContext
                     {
                         while (reader.Read())
                         {
-                            posts.Add(new Post((int)reader["postId"], reader["titel"].ToString(), reader["inhoud"].ToString()));
+                            posts.Add(new Post(
+                                (int)reader["postId"],
+                                reader["titel"].ToString(),
+                                reader["inhoud"].ToString(),
+                                (int)reader["type"],
+                                (byte[])reader["imageFile"]));
                         }
                     }
                 }

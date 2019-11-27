@@ -254,7 +254,11 @@ div.postInhoud {
     width: 200px !important;
     transition: all 1s ease-out;
 }
+.radiobutton {
+}
+#postType {
 
+}
 .postTijdlijn {
     margin-bottom: 50px;
 }

@@ -1,4 +1,8 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.Net.Mime;
+using Microsoft.AspNetCore.Http;
+using ProftaakProject.Models.ViewModels.PostModels;
 
 namespace ProftaakProject.Models
 {
@@ -11,19 +15,23 @@ namespace ProftaakProject.Models
         public string Titel { get; set; }
         public DateTime Datum { get; set; }
         public string Inhoud { get; set; }
-        public enum Type
+        public int TypeId { get; set; }
+        public byte[] ImageFile { get; set; }
+        public enum Types
         {
-            artikel,
-            vraag,
-            reactie
+            Artikel,
+            Vraag,
+            Reactie
         }
 
         public bool Goedgekeurd { get; set; }
-        public Post(int id, string titel, string inhoud)
+        public Post(int id, string titel, string inhoud, int typeId, byte[] imageFile)
         {
             this.Id = id;
             this.Titel = titel;
             this.Inhoud = inhoud;
+            this.TypeId = typeId;
+            this.ImageFile = imageFile;
         }
 
         public Post()
