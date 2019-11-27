@@ -16,7 +16,7 @@
             </div>
             <div class="form-group col-md-12">
                 <label class="postAanmaakKoppen">Inhoud</label>
-                <input asp-for="Inhoud" class="postAanmakenInhoud" value="@Model.Inhoud" />
+                <textarea asp-for="Inhoud" class="postAanmakenInhoud">@Model.Inhoud</textarea>
                 <span asp-validation-for="Inhoud" class="text-danger"></span>
             </div>
             <div class="col-md-3">
