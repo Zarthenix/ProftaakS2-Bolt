@@ -49,7 +49,15 @@ namespace ProftaakProject.Controllers
             //return View(pvm);
             return RedirectToAction("ShowPost", "Post", new { id = post.Id });
         }
-
+        [HttpGet]
+        public IActionResult PostBewerken(int id)
+        {
+            Post p = pr.GetByID(id);
+            p.Id = id;
+            PostToPostvmConverter ptpvmc = new PostToPostvmConverter();
+            ptpvmc.ConvertToViewModel(p);
+            return RedirectToAction("PostToevoegen", "Post", ptpvmc);
+        }
         public IActionResult ShowPost(int id)
         {
             PostToPostvmConverter ptpvmc = new PostToPostvmConverter();

@@ -3,46 +3,33 @@
     ViewData["Title"] = "PostToevoegen";
 }
 
-<h2>PostToevoegen</h2>
-
-<h4>Post</h4>
+<h2>Post Toevoegen</h2>
 <hr />
 <body>
-<div class="container-fluid row postContainer">
-    <div class="col-md-8 postAanmakenInhoud">
-        <form  method="post" asp-controller="Post" asp-action="PostToevoegen">
-            <div class="col-md-1 form-group postKoppen">
-                <label asp-for="Titel" class="control-label"></label>
-            </div>
-            <div class="col-md-11">
-                <input asp-for="Titel" class="form-control postTitel" />
-                <span asp-validation-for="Titel" class="text-danger"></span>
+    <div class="form-row">
+        <form method="post" asp-controller="Post" asp-action="PostToevoegen">
+            <div class="form-group col-md-12">
 
+                <label class="postAanmaakKoppen">Titel</label>
+                <input asp-for="Titel" class="form-control" value="@Model.Titel" />
+                <span asp-validation-for="Titel" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input value="2019-11-20" type="hidden" asp-for="Datum" class="form-control" />
+            <div class="form-group col-md-12">
+                <label class="postAanmaakKoppen">Inhoud</label>
+                <input asp-for="Inhoud" class="postAanmakenInhoud" value="@Model.Inhoud" />
+                <span asp-validation-for="Inhoud" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <div class="col-md-1 postKoppen">
-                    <label asp-for="Inhoud" class=""></label>
+            <div class="col-md-3">
+                <div class="comboboxPostAanmaken">
+                    <select class="form-control" name="Tag">
+                        <option>Kies een tag</option>
+                        <option>Tag1</option>
+                        <option>Tag2</option>
+                        <option>Tag3</option>
+                    </select>
                 </div>
-                <div class="col-md-10">
-                    <textarea asp-for="Inhoud" class="postAanmakenInhoud"></textarea>
-                    <span asp-validation-for="Inhoud" class="text-danger"></span>
-                </div>
             </div>
-            <div class="row comboboxPostAanmaken">
-                <select class="form-control" name="Tag">
-                    <option>Select a tag</option>
-                    <option>Tag1</option>
-                    <option>Tag2</option>
-                    <option>Tag3</option>
-                </select>
-            </div>
-            <div class="form-group row comboboxPostAanmaken">
-                <div>
-                    <input type="submit" value="Aanmaken" class="btn btn-dark" asp-controller="Post" asp-action="PostToevoegen" formmethod="post"/>
-                </div>
+            <div class="col-md-4 comboboxPostAanmaken">
                 <div class="radio-padding">
                     <label class="radio-inline">
                         <input type="radio" name="optradio" checked>Artikel
@@ -52,8 +39,64 @@
                     </label>
                 </div>
             </div>
+            <div class="col-md-5 ">
+                Kies een foto... <input class="btn-bestandkiezen" type="file" accept="image/x-png,image/jpeg" single>
+            </div>
+            <div class="col-md-2">
+                <div>
+                    <input type="submit" value="Aanmaken" class="btn btn-dark" asp-controller="Post" asp-action="PostToevoegen" formmethod="post" />
+                </div>
+
+            </div>
         </form>
     </div>
-</div>
+    <hr />
 </body>
 
+@*<div class="container-fluid row postContainer">
+        <div class="col-md-8 postAanmakenInhoud">
+            <form method="post" asp-controller="Post" asp-action="PostToevoegen">
+                <div class="col-md-1 form-group postKoppen">
+                    <label asp-for="Titel" class="control-label"></label>
+                </div>
+                <div class="col-md-11">
+                    <input asp-for="Titel" class="form-control postTitel" />
+                    <span asp-validation-for="Titel" class="text-danger"></span>
+
+                </div>
+                <div class="form-group">
+                    <input value="2019-11-20" type="hidden" asp-for="Datum" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <div class="col-md-1 postKoppen">
+                        <label asp-for="Inhoud" class=""></label>
+                    </div>
+                    <div class="col-md-10">
+                        <textarea asp-for="Inhoud" class="postAanmakenInhoud"></textarea>
+                        <span asp-validation-for="Inhoud" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row comboboxPostAanmaken">
+                    <select class="form-control" name="Tag">
+                        <option>Select a tag</option>
+                        <option>Tag1</option>
+                        <option>Tag2</option>
+                        <option>Tag3</option>
+                    </select>
+                </div>
+                <div class="form-group row comboboxPostAanmaken">
+                    <div>
+                        <input type="submit" value="Aanmaken" class="btn btn-dark" asp-controller="Post" asp-action="PostToevoegen" formmethod="post" />
+                    </div>
+                    <div class="radio-padding">
+                        <label class="radio-inline">
+                            <input type="radio" name="optradio" checked>Artikel
+                        </label>
+                        <label class="radio-inline comboboxPostAanmaken">
+                            <input type="radio" name="optradio">Vraag
+                        </label>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>*@

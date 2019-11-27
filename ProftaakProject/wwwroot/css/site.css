@@ -13,10 +13,12 @@ a.navbar-brand {
 #nav a {
     color: white;
 }
-#nav a:hover {
+
+    #nav a:hover {
         color: black;
     }
-#nav a:hover {
+
+    #nav a:hover {
         background-color: palevioletred;
     }
 
@@ -206,19 +208,26 @@ div.postInhoud {
     border: 2px solid #ccc;
     border-radius: 4px;
     background-color: #f8f8f8;
-    resize: none;
-    width: 650px;
-    min-height: 500px;
+    width: inherit;
+    min-height: 300px;
     display: inline-block;
     margin: 0 auto;
 }
 
 .comboboxPostAanmaken {
-    padding: 12px 20px;
+    padding: 10px 0px;
     box-sizing: border-box;
-    margin: 0 auto;
 }
 
+.btn-bestandkiezen {
+    position: relative;
+    overflow: hidden;
+}
+
+.postAanmaakKoppen {
+    font-size: 20px;
+    color:darkslategray
+}
 .radio-padding {
     padding-left: 40px;
 }
@@ -240,17 +249,19 @@ div.postInhoud {
     width: 200px !important;
     transition: all 1s ease-out;
 }
+
 .postTijdlijn {
     margin-bottom: 50px;
 }
 
-.postTijdlijn a {
-    color: black;
-}
-.postTijdlijn a:hover {
-    text-decoration: none;
-    color: black;
-}
+    .postTijdlijn a {
+        color: black;
+    }
+
+        .postTijdlijn a:hover {
+            text-decoration: none;
+            color: black;
+        }
 /*CSS voor artikel inzien*/
 #PostBorderGoedgekeurd {
     border: 4px solid;
@@ -262,6 +273,7 @@ div.postInhoud {
     width: 900px;
     padding-right: 30px;
 }
+
 div.artikelInhoud {
     padding-left: 10px;
     height: auto;

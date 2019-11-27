@@ -40,6 +40,7 @@ else
         <hr />
         <p class="auteurText">Auteur: Model.Auteur.Naam</p>
     </div>*@
+<input asp-for="post.Id" value="@Model.post.Id" />
 <div class="card">
     <div class="card-header">
         <img src="~/lib/Images/stockfoto.jpg" class="img-thumbnail" />
@@ -49,7 +50,7 @@ else
         <p class="card-text">@Model.post.Inhoud</p>
     </div>
     <div class="card-footer">
-        <p class="auteurText">Model.Auteur.Naam</p>
+        <p class="auteurText">Model.Auteur.Naam</p> <a href="@Url.Action("PostBewerken", "Post", new {id = Model.post.Id})">Bewerken</a>
     </div>
 </div>
 
