@@ -7,8 +7,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ProftaakProject.Models;
+using ProftaakProject.Models.ConvertModels;
 using ProftaakProject.Models.Repositories;
 using ProftaakProject.Models.ViewModels;
+using ProftaakProject.Models.ViewModels.PostModels;
 
 namespace ProftaakProject.Controllers
 {
@@ -25,9 +27,17 @@ namespace ProftaakProject.Controllers
 
         public IActionResult Index()
         {
-            HomeViewModel hvm = new HomeViewModel();
-            hvm.Posts = postRepo.GetAll();
-            return View(hvm);
+            PostViewModel pvm = new PostViewModel();
+            List<PostViewModel> tempModels = new List<PostViewModel>();
+            PostToPostvmConverter ppc = new PostToPostvmConverter();
+
+            foreach (Post tempPost in postRepo.GetAll())
+            {
+                tempModels.Add(ppc.ConvertToViewModel(tempPost));
+            }
+
+            pvm.PostViewModels = tempModels; 
+            return View(pvm);
         }
 
         public IActionResult Privacy()

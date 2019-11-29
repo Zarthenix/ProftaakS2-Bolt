@@ -221,6 +221,11 @@ div.postInhoud {
     padding-right: 30px;
 }
 
+.img-thumbnail {
+    width: 640px;
+    height: 400px;
+}
+
 /*CSS voor post aanmaken*/
 .postAanmakenInhoud {
     padding: 12px 20px;

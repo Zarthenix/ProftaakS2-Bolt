@@ -27,10 +27,9 @@ namespace ProftaakProject.Controllers
 
         public IActionResult Artikel(int id)
         {
-            ArtikelViewModel avm = new ArtikelViewModel()
-            {
-                post = pr.GetByID(id)
-            };
+            PostToArtikelvmConverter pac = new PostToArtikelvmConverter();
+            ArtikelViewModel avm = pac.ConvertToViewModel(pr.GetByID(id));
+
             return View("Artikel", avm);
         }
 
@@ -57,9 +56,10 @@ namespace ProftaakProject.Controllers
             PostToArtikelToevoegenvmConverter ptatvmc = new PostToArtikelToevoegenvmConverter();
             atvm.TypeId = 0;
             Post post = ptatvmc.ConvertToModel(atvm);
-            pr.Check(post);
+            pr.Save(post);
             return RedirectToAction("ShowPost", "Post", new { id = post.Id });
         }
+
         public IActionResult ShowPost(int id)
         {
             PostToPostvmConverter ptpvmc = new PostToPostvmConverter();
