@@ -1,14 +1,14 @@
 ﻿@using ProftaakProject.Models.ViewModels.PostModels
-@model ProftaakProject.Models.ViewModels.PostModels.PostToevoegenViewModel
+@model ProftaakProject.Models.ViewModels.PostModels.ArtikelToevoegenViewModel
 @{
     ViewData["Title"] = "PostToevoegen";
 }
 
-<h2>Post Toevoegen</h2>
+<h2>Artikel Toevoegen</h2>
 <hr />
 <body>
     <div class="form-row">
-        <form method="post" asp-controller="Post" asp-action="PostToevoegen" enctype="multipart/form-data">
+        <form method="post" asp-controller="Post" asp-action="ArtikelToevoegen" enctype="multipart/form-data">
             <div class="form-group col-md-12">
 
                 <label class="postAanmaakKoppen">Titel</label>
@@ -34,25 +34,15 @@
             <div class="form-group">
                 <input value="2019-11-20" type="hidden" asp-for="Datum" class="form-control" />
             </div>
-            <div class="col-md-4 comboboxPostAanmaken">
-                <div class="radio-padding">
-                    <input asp-for="TypeId" id="postType" value="">
-                    <label>
-                        <input class="radiobutton comboboxPostAanmaken" type="radio" data-post="@Convert.ToInt32(PostToevoegenViewModel.Types.Artikel)" name="ptradio" />Artikel
-                    </label>
-                    <label>
-                        <input class="radiobutton comboboxPostAanmaken" type="radio" data-post="@Convert.ToInt32(PostToevoegenViewModel.Types.Vraag)" name="ptradio" />Vraag
-                    </label>
-                </div>
-            </div>
+
             <div class="col-md-5 ">
                 <span asp-validation-for="ImageFile" class="text-danger"></span>
-                <label asp-for="ImageFile" ></label>
+                <label asp-for="ImageFile"></label>
                 @Html.EditorFor(model => model.ImageFile)
             </div>
             <div class="col-md-2">
                 <div>
-                    <input type="submit" value="Aanmaken" class="btn btn-dark" asp-controller="Post" asp-action="PostToevoegen" formmethod="post" />
+                    <input type="submit" value="Aanmaken" class="btn btn-dark" asp-controller="Post" asp-action="ArtikelToevoegen" formmethod="post" />
                 </div>
 
             </div>

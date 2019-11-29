@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace ProftaakProject.Models.ViewModels.PostModels
 {
-    public class PostToevoegenViewModel
+    public class ArtikelToevoegenViewModel
     {
         public int Id { get; set; }
 

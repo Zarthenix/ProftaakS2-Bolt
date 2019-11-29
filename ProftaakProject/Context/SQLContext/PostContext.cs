@@ -28,12 +28,13 @@ namespace ProftaakProject.Context.SQLContext
                 try
                 {
                     connection.Open();
-                    string query = "INSERT INTO Post (titel, datum, inhoud,imageFile) output inserted.postID VALUES (@titel, @datum, @inhoud,@imageFile)";
+                    string query = "INSERT INTO Post (titel, datum, inhoud, type, imageFile) output inserted.postID VALUES (@titel, @datum, @inhoud, @type, @imageFile)";
                     using (SqlCommand cmd = new SqlCommand(query, connection))
                     {
                         cmd.Parameters.AddWithValue("@titel", post.Titel);
                         cmd.Parameters.AddWithValue("@datum", post.Datum);
                         cmd.Parameters.AddWithValue("@inhoud", post.Inhoud);
+                        cmd.Parameters.AddWithValue("@type", post.TypeId);
                         cmd.Parameters.Add("@imageFile", sqlDbType: SqlDbType.VarBinary).Value = post.ImageFile;
                         //            //cmd.Parameters.AddWithValue("@type", post.type);
                         //            //cmd.Parameters.AddWithValue("@uitzendID", 1);

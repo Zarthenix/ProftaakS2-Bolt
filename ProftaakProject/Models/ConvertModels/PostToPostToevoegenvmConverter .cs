@@ -9,7 +9,7 @@ namespace ProftaakProject.Models.ConvertModels
 {
     public class PostToPostToevoegenvmConverter
     {
-        public Post ConvertToModel(PostToevoegenViewModel ptvm)
+        public Post ConvertToModel(ArtikelToevoegenViewModel ptvm)
         {
             MemoryStream memoryStream = new MemoryStream();
             ptvm.ImageFile.CopyTo(memoryStream);
@@ -24,9 +24,9 @@ namespace ProftaakProject.Models.ConvertModels
             }
             return p;
         }
-        public PostToevoegenViewModel ConvertToViewModel(Post p)
+        public ArtikelToevoegenViewModel ConvertToViewModel(Post p)
         {
-            PostToevoegenViewModel ptvm = new PostToevoegenViewModel();
+            ArtikelToevoegenViewModel ptvm = new ArtikelToevoegenViewModel();
             {
                 ptvm.Inhoud = p.Inhoud;
                 ptvm.Titel = p.Titel;
