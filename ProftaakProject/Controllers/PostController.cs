@@ -38,6 +38,10 @@ namespace ProftaakProject.Controllers
         public IActionResult ArtikelToevoegen()
         {
             ArtikelToevoegenViewModel ptvm = new ArtikelToevoegenViewModel();
+            PostToPostToevoegenvmConverter ptptvmc = new PostToPostToevoegenvmConverter();
+
+            Post p = pr.GetByID(id);
+            PostToevoegenViewModel ptvm = ptptvmc.ConvertToViewModel(p);
             return View(ptvm);
         }
         [HttpPost]
@@ -48,15 +52,6 @@ namespace ProftaakProject.Controllers
             Post post = ptptvmc.ConvertToModel(ptvm);
             pr.Create(post);
             return RedirectToAction("ShowPost", "Post", new { id = post.Id });
-        }
-        [HttpGet]
-        public IActionResult PostBewerken(int id)
-        {
-            Post p = pr.GetByID(id);
-            p.Id = id;
-            PostToPostvmConverter ptpvmc = new PostToPostvmConverter();
-            ptpvmc.ConvertToViewModel(p);
-            return RedirectToAction("ArtikelToevoegen", "Post", ptpvmc);
         }
         public IActionResult ShowPost(int id)
         {

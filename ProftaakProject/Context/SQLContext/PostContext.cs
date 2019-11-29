@@ -36,7 +36,6 @@ namespace ProftaakProject.Context.SQLContext
                         cmd.Parameters.AddWithValue("@inhoud", post.Inhoud);
                         cmd.Parameters.AddWithValue("@type", post.TypeId);
                         cmd.Parameters.Add("@imageFile", sqlDbType: SqlDbType.VarBinary).Value = post.ImageFile;
-                        //            //cmd.Parameters.AddWithValue("@type", post.type);
                         //            //cmd.Parameters.AddWithValue("@uitzendID", 1);
                         //            //cmd.Parameters.AddWithValue("@accountID", 1);
                         post.Id = (int)cmd.ExecuteScalar();
@@ -112,9 +111,11 @@ namespace ProftaakProject.Context.SQLContext
                             Post p = new Post(id);
                             while (reader.Read())
                             {
+                                p.Id = id;
                                 p.Titel = reader["titel"].ToString();
                                 p.Datum = (DateTime)reader["datum"];
                                 p.Inhoud = reader["inhoud"].ToString();
+                                p.TypeId = (int)reader["type"];
                                 p.ImageFile = (byte[])reader["imageFile"];
                             }
                             return p;
