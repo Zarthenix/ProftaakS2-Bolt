@@ -8,6 +8,6 @@ namespace ProftaakProject.Models.ViewModels
 {
     public class ArtikelViewModel
     {
-        public Models.Post post { get; set; }
+        public Post post { get; set; }
     }
 }

@@ -20,15 +20,15 @@ namespace ProftaakProject.Models.Repositories
             return ctx.Create(post);
         }
 
-        /*public Post Update(int id)
+        public bool Update(Post post)
         {
-            return ctx.Update(id);
+            return ctx.Update(post);
         }
 
-        public Post Delete(int id)
-        {
-            return ctx.Delete(id);
-        }*/
+        //public Post Delete(int id)
+        //{
+        //    return ctx.Delete(id);
+        //}
 
         public Post GetByID(int id)
         {
@@ -39,5 +39,17 @@ namespace ProftaakProject.Models.Repositories
         {
             return ctx.GetAll();
         }
+        public bool Check(Post post)
+        {
+            if (post.Id < 0)
+            {
+                return ctx.Create(post);
+            }
+            else
+            {
+                return ctx.Update(post);
+            }
+        }
+
     }
 }

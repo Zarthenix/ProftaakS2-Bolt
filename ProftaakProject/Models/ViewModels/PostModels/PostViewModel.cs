@@ -25,7 +25,7 @@ namespace ProftaakProject.Models.ViewModels.PostModels
 
         public int TypeId { get; set; }
 
-        public IFormFile ImageFile { get; set; }
+        public string ImageFile { get; set; }
         public enum Types
         {
             Artikel,

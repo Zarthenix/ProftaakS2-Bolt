@@ -42,14 +42,14 @@ else
     </div>*@
 <div class="card">
     <div class="card-header">
-        <img src="~/lib/Images/stockfoto.jpg" class="img-thumbnail" />
+        <img src="data:image/png;base64,@Model.post.ImageFile" class="img-thumbnail" />
     </div>
     <div class="card-body">
         <h4 class="card-title">@Model.post.Titel</h4>
         <p class="card-text">@Model.post.Inhoud</p>
     </div>
     <div class="card-footer">
-        <p class="auteurText">Model.Auteur.Naam</p> <a href="@Url.Action("PostToevoegen", "Post", new {Id = Model.post.Id})">Bewerken</a>
+        <p class="auteurText">Model.Auteur.Naam</p> <a href="@Url.Action("ArtikelToevoegen", "Post", new {Id = Model.post.Id})">Bewerken</a>
     </div>
 </div>
 

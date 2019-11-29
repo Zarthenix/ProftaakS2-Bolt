@@ -158,5 +158,37 @@ namespace ProftaakProject.Context.SQLContext
 
             return posts;
         }
+
+        public bool Update(Post post)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "UPDATE dbo.Post SET titel = @titel , datum = @datum ,inhoud = @inhoud, imageFile = @imageFile  WHERE postID = @id";
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@id", post.Id);
+                        cmd.Parameters.AddWithValue("@titel", post.Titel);
+                        cmd.Parameters.AddWithValue("@datum", post.Datum);
+                        cmd.Parameters.AddWithValue("@inhoud", post.Inhoud);
+                        cmd.Parameters.Add("@imageFile", sqlDbType: SqlDbType.VarBinary).Value = post.ImageFile;
+                        //            //cmd.Parameters.AddWithValue("@uitzendID", 1);
+                        //            //cmd.Parameters.AddWithValue("@accountID", 1);
+                        cmd.ExecuteNonQuery();
+                    }
+                    connection.Close();
+                    return true;
+                }
+                catch (Exception exception)
+                {
+                    Console.WriteLine(exception);
+                }
+
+                connection.Close();
+                return false;
+            }
+        }
     }
 }

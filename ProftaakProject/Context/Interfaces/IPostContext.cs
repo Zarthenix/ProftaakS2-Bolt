@@ -10,9 +10,9 @@ namespace ProftaakProject.Context.Interfaces
     {
         bool Create(Post post);
 
-        /*Post Update(int id);
+        bool Update(Post post);
 
-        Post Delete(int id);*/
+        //Post Delete(int id);
 
         Post GetByID(int id);
 

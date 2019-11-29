@@ -2,7 +2,7 @@
 <div class="card">
     <a href="@Url.Action("Artikel", "Post", new {Id = Model.Id})">
         <div class="card-header">
-            <img src="~/lib/Images/stockfoto.jpg" class="img-thumbnail" />
+            <img src="data:image/png;base64,@Model.ImageFile" class="img-thumbnail" />
         </div>
         <div class="card-body">
             <h4 class="card-title">@Model.Titel</h4>
