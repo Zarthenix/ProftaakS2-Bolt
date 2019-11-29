@@ -55,44 +55,29 @@ namespace ProftaakProject.Context.SQLContext
             }
         }
 
-        /*public Post Update(Post post)
+        public bool Delete(int id)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
-                connection.Open();
-
-                string query = "update (titel, inhoud) from Topic set (@titel, @inhoud) where postID = @id";
-                using (SqlCommand cmd = new SqlCommand(query, connection))
+                try
                 {
-                    cmd.Parameters.AddWithValue("@id", post.Id);
-                    cmd.Parameters.AddWithValue("@titel", post.Titel);
-                    cmd.Parameters.AddWithValue("@inhoud", post.Inhoud);
-
-                    cmd.ExecuteNonQuery();
+                    connection.Open();
+                    string query = "DELETE FROM dbo.Post WHERE postID = @postID";
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@postID", id);
+                        cmd.ExecuteNonQuery();
+                        return true;
+                    }
                 }
-                return post;
+                catch (Exception exception)
+                {
+                    Console.WriteLine(exception);
+                    return false;
+                }
             }
+
         }
-
-        public Post Delete(int id)
-        {
-           using (var connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
-
-                string query = "delete PostID Topic (titel, datum, inhoud, type, uitzendID, accountID) values (@titel, @datum, @inhoud, @type, @uitzendID, @accountID)";
-                using (SqlCommand cmd = new SqlCommand("CreateProduct", connection))
-                {
-                    cmd.Parameters.AddWithValue("@titel", id.Titel);
-                    cmd.Parameters.AddWithValue("@datum", id.Datum);
-                    cmd.Parameters.AddWithValue("@inhoud", id.Inhoud);
-                    cmd.Parameters.AddWithValue("@type", id.ty);
-
-                    id.Id = (int)cmd.ExecuteScalar();
-                }
-                return id;
-            }
-        }*/
 
         public Post GetByID(int id)
         {

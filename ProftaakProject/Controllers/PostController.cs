@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using ProftaakProject.Models.ConvertModels;
 using ProftaakProject.Models;
+using ProftaakProject.Models.Repositories;
+using ProftaakProject.Models.ConvertModels;
 using ProftaakProject.Models.ViewModels;
 using ProftaakProject.Models.ViewModels.PostModels;
-using ProftaakProject.Models.Repositories;
 namespace ProftaakProject.Controllers
 {
     public class PostController : Controller
@@ -57,16 +57,12 @@ namespace ProftaakProject.Controllers
             atvm.TypeId = 0;
             Post post = ptatvmc.ConvertToModel(atvm);
             pr.Save(post);
-            return RedirectToAction("ShowPost", "Post", new { id = post.Id });
+            return RedirectToAction("Artikel", "Post", new { id = post.Id });
         }
-
-        public IActionResult ShowPost(int id)
+        public IActionResult ArtikelVerwijderen(ArtikelToevoegenViewModel atvm)
         {
-            PostToPostvmConverter ptpvmc = new PostToPostvmConverter();
-
-            Post post = pr.GetByID(id);
-            PostViewModel pvm = ptpvmc.ConvertToViewModel(post);
-            return View(pvm);
+            pr.Delete(atvm.Id);
+            return RedirectToAction("Index", "Home");
         }
     }
 }

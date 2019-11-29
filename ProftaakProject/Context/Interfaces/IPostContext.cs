@@ -12,7 +12,7 @@ namespace ProftaakProject.Context.Interfaces
 
         bool Update(Post post);
 
-        //Post Delete(int id);
+        bool Delete(int id);
 
         Post GetByID(int id);
 

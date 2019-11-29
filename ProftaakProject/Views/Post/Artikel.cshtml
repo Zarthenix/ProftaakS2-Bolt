@@ -49,7 +49,7 @@ else
         <p class="card-text">@Model.Post.Inhoud</p>
     </div>
     <div class="card-footer">
-        <p class="auteurText">Model.Auteur.Naam</p> <a href="@Url.Action("ArtikelToevoegen", "Post", new {Id = Model.Post.Id})">Bewerken</a>
+        <p class="auteurText">Model.Auteur.Naam</p> <a href="@Url.Action("ArtikelToevoegen", "Post", new {Id = Model.Post.Id})">Bewerken</a><br /><a href="@Url.Action("ArtikelVerwijderen", "Post", new {Id = Model.Post.Id})">Verwijderen</a>
     </div>
 </div>
 

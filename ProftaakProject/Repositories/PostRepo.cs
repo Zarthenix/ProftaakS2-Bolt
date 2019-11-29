@@ -25,10 +25,10 @@ namespace ProftaakProject.Models.Repositories
             return ctx.Update(post);
         }
 
-        //public Post Delete(int id)
-        //{
-        //    return ctx.Delete(id);
-        //}
+        public bool Delete(int id)
+        {
+            return ctx.Delete(id);
+        }
 
         public Post GetByID(int id)
         {
