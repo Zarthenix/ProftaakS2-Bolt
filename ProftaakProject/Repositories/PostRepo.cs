@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProftaakProject.Models.Repositories
 {
-    public class PostRepo : IPostContext
+    public class PostRepo
     {
         private readonly IPostContext ctx;
 
@@ -39,6 +39,7 @@ namespace ProftaakProject.Models.Repositories
         {
             return ctx.GetAll();
         }
+
         public bool Check(Post post)
         {
             if (post.Id < 0)

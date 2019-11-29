@@ -6,11 +6,13 @@ using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ProftaakProject.Context.Interfaces;
 using ProftaakProject.Context.SQLContext;
+using ProftaakProject.Models;
 using ProftaakProject.Models.Repositories;
 
 namespace ProftaakProject
@@ -27,7 +29,23 @@ namespace ProftaakProject
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<IdentityOptions>(options =>
+            {
+                // Default Password settings.
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = true;
+                options.Password.RequiredLength = 6;
+                options.Password.RequiredUniqueChars = 1;
+            });
+
+            services.AddTransient<IUserStore<Account>, MSSQLUserContext>();
+            services.AddTransient<IRoleStore<Role>, MSSQLRoleContext>();
+            services.AddIdentity<Account, Role>().AddDefaultTokenProviders();
+
             services.AddTransient<IPostContext, PostContext>();
+            services.AddTransient<IAuthContext, MSSQLAuthContext>();
             services.AddScoped<PostRepo>();
 
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
@@ -52,6 +70,7 @@ namespace ProftaakProject
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

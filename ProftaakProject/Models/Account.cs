@@ -10,7 +10,9 @@ namespace ProftaakProject.Models
         public int Id { get; set; }
         public string Naam { get; set; }
         public string Email { get; set; }
+        public string NormalizedEmail { get; set; }
         public string Gebruikersnaam { get; set; }
+        public string NormalizedGebruikersnaam { get; set; }
         public string Wachtwoord { get; set; }
         public string Geslacht { get; set; }
         public DateTime Geboortedatum { get; set; }
@@ -29,6 +31,21 @@ namespace ProftaakProject.Models
         public Account()
         {
 
+        }
+
+        public Account(int id, string username, string email, string wachtwoord)
+        {
+            this.Id = id;
+            this.Gebruikersnaam = username;
+            this.Email = email;
+            this.Wachtwoord = wachtwoord;
+        }
+
+        public Account(int id, string username, string email)
+        {
+            this.Id = id;
+            this.Gebruikersnaam = username;
+            this.Email = email;
         }
     }
 }

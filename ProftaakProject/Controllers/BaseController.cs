@@ -8,9 +8,15 @@ namespace ProftaakProject.Controllers
 {
     public class BaseController : Controller
     {
-        public IActionResult Index()
+        protected virtual int GetUserId()
         {
-            return View();
+            string rawValue = HttpContext.User.Identities.First().Claims.First().Value;
+            if (string.IsNullOrEmpty(rawValue))
+                return -1;
+
+            if (int.TryParse(rawValue, out int id))
+                return id;
+            return -1;
         }
     }
 }
