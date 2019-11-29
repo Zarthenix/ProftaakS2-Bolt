@@ -26,11 +26,7 @@ namespace ProftaakProject.Models.ViewModels.PostModels
         public int TypeId { get; set; }
 
         public string ImageFile { get; set; }
-        public enum Types
-        {
-            Artikel,
-            Vraag,
-            Reactie
-        }
+
+        public List<PostViewModel> PostViewModels { get; set; }
     }
 }

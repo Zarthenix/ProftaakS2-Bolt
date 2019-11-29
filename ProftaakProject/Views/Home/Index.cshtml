@@ -1,4 +1,5 @@
-﻿@model ProftaakProject.Models.ViewModels.HomeViewModel;
+﻿@using ProftaakProject.Models.ViewModels.PostModels
+@model ProftaakProject.Models.ViewModels.PostModels.PostViewModel;
 @{
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -7,7 +8,7 @@
 <head>
 </head>
 <body>
-@foreach (Post postTemp in Model.Posts)
+@foreach (PostViewModel postTemp in Model.PostViewModels)
 {
     <div class="postTijdlijn">
     @await Html.PartialAsync("_Post", postTemp)

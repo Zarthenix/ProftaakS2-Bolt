@@ -39,10 +39,9 @@ namespace ProftaakProject.Models.Repositories
         {
             return ctx.GetAll();
         }
-
-        public bool Check(Post post)
+        public bool Save(Post post)
         {
-            if (post.Id < 0)
+            if (post.Id <= 0)
             {
                 return ctx.Create(post);
             }

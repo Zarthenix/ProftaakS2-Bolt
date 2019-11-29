@@ -3,7 +3,7 @@
     ViewData["Title"] = "Artikel";
 }
 
-@if (Model.post.Goedgekeurd == true)
+@if (Model.Post.Goedgekeurd == true)
 {
     <style>
         .Border {
@@ -42,14 +42,14 @@ else
     </div>*@
 <div class="card">
     <div class="card-header">
-        <img src="data:image/png;base64,@Model.post.ImageFile" class="img-thumbnail" />
+        <img src="data:image/png;base64,@Model.ImageFile" class="img-thumbnail" />
     </div>
     <div class="card-body">
-        <h4 class="card-title">@Model.post.Titel</h4>
-        <p class="card-text">@Model.post.Inhoud</p>
+        <h4 class="card-title">@Model.Post.Titel</h4>
+        <p class="card-text">@Model.Post.Inhoud</p>
     </div>
     <div class="card-footer">
-        <p class="auteurText">Model.Auteur.Naam</p> <a href="@Url.Action("ArtikelToevoegen", "Post", new {Id = Model.post.Id})">Bewerken</a>
+        <p class="auteurText">Model.Auteur.Naam</p> <a href="@Url.Action("ArtikelToevoegen", "Post", new {Id = Model.Post.Id})">Bewerken</a>
     </div>
 </div>
 

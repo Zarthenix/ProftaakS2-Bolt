@@ -20,6 +20,8 @@ namespace ProftaakProject.Models.ConvertModels
         {
             ArtikelViewModel avm = new ArtikelViewModel();
             {
+                avm.Post = p;
+                avm.ImageFile = Convert.ToBase64String(p.ImageFile);
             }
             return avm;
         }

@@ -8,6 +8,7 @@ namespace ProftaakProject.Models.ViewModels
 {
     public class ArtikelViewModel
     {
-        public Post post { get; set; }
+        public Post Post { get; set; }
+        public string ImageFile { get; set; }
     }
 }

@@ -9,7 +9,7 @@ namespace ProftaakProject.Models.ConvertModels
 {
     public class PostToPostvmConverter
     {
-        public Post ConvertToModel(PostViewModel pvm)
+        /*public Post ConvertToModel(PostViewModel pvm)
         {
             MemoryStream memoryStream = new MemoryStream();
             pvm.ImageFile.CopyTo(memoryStream);
@@ -23,15 +23,18 @@ namespace ProftaakProject.Models.ConvertModels
 
             }
             return p;
-        }
+        }*/
+
         public PostViewModel ConvertToViewModel(Post p)
         {
             PostViewModel pvm = new PostViewModel();
             {
-                pvm.Inhoud = p.Inhoud;
+                pvm.Id = p.Id;
                 pvm.Titel = p.Titel;
                 pvm.Datum = p.Datum;
+                pvm.Inhoud = p.Inhoud;
                 pvm.TypeId = p.TypeId;
+                pvm.ImageFile = Convert.ToBase64String(p.ImageFile);
             }
             return pvm;
         }
