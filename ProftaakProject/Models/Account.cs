@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace ProftaakProject.Models
 {
+    public enum Gender { Man, Vrouw, Anders };
     public class Account
     {
         public int Id { get; set; }
@@ -14,7 +15,7 @@ namespace ProftaakProject.Models
         public string Gebruikersnaam { get; set; }
         public string NormalizedGebruikersnaam { get; set; }
         public string Wachtwoord { get; set; }
-        public string Geslacht { get; set; }
+        public Gender Geslacht { get; set; }
         public DateTime Geboortedatum { get; set; }
         public enum Rol
         {

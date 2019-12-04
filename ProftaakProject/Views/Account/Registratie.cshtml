@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Registratie";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    @model ProftaakProject.Models.ViewModels.AccountModels.RegisterViewModel
 }
 
 <h1>Registratie</h1>
@@ -9,65 +10,81 @@
 
 <div class="container">
     <form>
+        <fieldset>
         <div class="row">
             <div class="col-md-3">
-                <label>Naam:</label>
+                <label asp-for="Username"></label>
             </div>
             <div class="col-md-3">
-                <input class="form-control RegistratieVelden" type="text" />
+                <input asp-for="Username" class="form-control LoginVelden" type="text" required />
+                <span asp-validation-for="Username"></span>
             </div>
         </div>
         <div class="row">
             <div class="col-md-3">
-                <label>Email:</label>
+                <label asp-for="Name"></label>
             </div>
             <div class="col-md-3">
-                <input class="form-control RegistratieVelden" type="text" />
+                <input asp-for="Name" class="form-control LoginVelden" type="text" required />
+                <span asp-validation-for="Name"></span>
             </div>
         </div>
         <div class="row">
             <div class="col-md-3">
-                <label>Gebuikersnaam:</label>
+                <label asp-for="Email"></label>
             </div>
             <div class="col-md-3">
-                <input class="form-control RegistratieVelden" type="text" />
+                <input asp-for="Email" class="form-control LoginVelden" type="email" required />
+                <span asp-validation-for="Email"></span>
             </div>
         </div>
         <div class="row">
             <div class="col-md-3">
-                <label>Wachtwoord:</label>
+                <label asp-for="Password"></label>
             </div>
             <div class="col-md-3">
-                <input class="form-control RegistratieVelden" type="text" />
+                <input asp-for="Password" class="form-control LoginVelden" type="password" required />
+                <span asp-validation-for="Password"></span>
             </div>
         </div>
         <div class="row">
             <div class="col-md-3">
-                <label>Herhaal Wachtwoord:</label>
+                <label asp-for="ConfirmPassword"></label>
             </div>
             <div class="col-md-3">
-                <input class="form-control RegistratieVelden" type="text" />
+                <input asp-for="ConfirmPassword" class="form-control LoginVelden" type="password" required />
+                <span asp-validation-for="ConfirmPassword"></span>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-3">
-                <label>Geslacht:</label>
+        </fieldset>
+        <fieldset>
+            <div class="row">
+                <div class="col-md-3">
+                    <label asp-for="Gender"></label>
+                </div>
+                <div class="col-md-3">
+                    <select tag="option" input asp-for="Gender" class="form-control LoginVelden" id="gender">
+                        @foreach (string gender in Model.Genders)
+                        {
+                            <option value="@Model.Genders.IndexOf(gender)">@gender</option>
+                        }
+                    </select>
+                    <span asp-validation-for="Gender"></span>
+                </div>
             </div>
-            <div class="col-md-3">
-                <input class="form-control RegistratieVelden" type="text" />
+            <div class="row">
+                <div class="col-md-3">
+                    <label asp-for="Birthday"></label>
+                </div>
+                <div class="col-md-3">
+                    <input asp-for="Birthday" class="form-control LoginVelden" type="date" min="1800-01-01" max="@DateTime.Now.ToString("yyyy/M/dd")"/>
+                    <span asp-validation-for="Birthday"></span>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3">
-                <label>Geboortedatum:</label>
-            </div>
-            <div class="col-md-3">
-                <input class="form-control RegistratieVelden" type="text" />
-            </div>
-        </div>
+        </fieldset>
         <div class="row">
             <div class="col-md-1 offset-md-3">
-                <input type="submit" class="btn btn-primary btn-sm" value="Registreer" />
+                <input type="submit" class="btn btn-primary btn-sm" value="Register" asp-action="Register" formmethod="post" />
             </div>
         </div>
     </form>

@@ -38,12 +38,22 @@ namespace ProftaakProject.Models.ViewModels.AccountModels
         [StringLength(50, ErrorMessage = "Maximaal 50 karakters.")]
         public string Name { get; set; }
 
-        [DataType(DataType.Text)]
         [Display(Name = "Geslacht")]
-        public string Gender { get; set; }
+        public int Gender { get; set; }
 
         [DataType(DataType.Date)]
         [Display(Name = "Geboortedatum")]
         public DateTime Birthday { get; set; }
+
+        public List<string> Genders
+        {
+            get
+            {
+                return Enum.GetValues(typeof (ProftaakProject.Models.Gender))
+                    .Cast<Gender>()
+                    .Select(v => v.ToString())
+                    .ToList();
+            }
+        }
     }
 }

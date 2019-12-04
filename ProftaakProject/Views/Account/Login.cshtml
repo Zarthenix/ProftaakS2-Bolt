@@ -1,41 +1,49 @@
 ﻿@{
     ViewData["Title"] = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    @model ProftaakProject.Models.ViewModels.AccountModels.LoginViewModel
 }
 
 <h1>Login</h1>
 <br />
 
-
 <div class="container">
     <form>
         <div class="row">
             <div class="col-md-3">
-                <label>Geruikersnaam:</label>
+                <label asp-for="Username"></label>
             </div>
-            <div class="col-md-3">
-                <input class="form-control LoginVelden" type="text"/>
+            <div class="col-md-6">
+                <input asp-for="Username" class="form-control LoginVelden" type="text" />
+                <span asp-validation-for="Username"></span>
             </div>
         </div>
         <div class="row">
             <div class="col-md-3">
-                <label>Wachtwoord:</label>
+                <label asp-for="Password"></label>
             </div>
-            <div class="col-md-3">
-                <input class="form-control LoginVelden" type="password" />
+            <div class="col-md-6">
+                <input asp-for="Password" class="form-control LoginVelden" type="password" />
+                <span asp-validation-for="Password"></span>
             </div>
         </div>
         <br />
         <div class="row">
             <div class="col-md-6 offset-3">
-                <input type="submit" class="btn btn-primary btn-sm LoginKnoppen" value="Inloggen"/>
-                <input type="submit" class="btn btn-primary btn-sm LoginKnoppen" value="Registreren"asp-controller="Account" asp-action="Registratie" />
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-2 offset-md-3">
-                <input type="submit" class="btn btn-primary btn-sm LoginKnoppen" value="Wachtwoord Vergeten" />
+                <input type="submit" class="btn btn-primary btn-sm LoginKnoppen" value="Inloggen" asp-controller="Account" asp-action="Login" formmethod="post" />
             </div>
         </div>
     </form>
+    <form>
+        <div class="row">
+            <div class="col-md-6 offset-3">
+                <input type="submit" class="btn btn-primary btn-sm LoginKnoppen" value="Registreren" asp-controller="Account" asp-action="Register" formmethod="get" />
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-md-2 offset-md-3">
+            <input type="submit" class="btn btn-primary btn-sm LoginKnoppen" value="Wachtwoord Vergeten" />
+        </div>
+    </div>
 </div>

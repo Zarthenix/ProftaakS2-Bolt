@@ -46,6 +46,8 @@ namespace ProftaakProject
 
             services.AddTransient<IPostContext, PostContext>();
             services.AddTransient<IAuthContext, MSSQLAuthContext>();
+
+            services.AddScoped<AccountRepo>();
             services.AddScoped<PostRepo>();
 
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
