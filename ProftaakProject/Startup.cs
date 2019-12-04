@@ -44,11 +44,12 @@ namespace ProftaakProject
             services.AddTransient<IRoleStore<Role>, MSSQLRoleContext>();
             services.AddIdentity<Account, Role>().AddDefaultTokenProviders();
 
-            services.AddTransient<IPostContext, PostContext>();
+            services.AddTransient<IPostContext, MSSQLPostContext>();
+            services.AddTransient<ITagContext, MSSQLTagContext>();
             services.AddTransient<IAuthContext, MSSQLAuthContext>();
-
-            services.AddScoped<AccountRepo>();
+            services.AddTransient<IReactieContext, MSSQLReactieContext>();
             services.AddScoped<PostRepo>();
+            services.AddScoped<ReactieRepo>();
 
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
         }

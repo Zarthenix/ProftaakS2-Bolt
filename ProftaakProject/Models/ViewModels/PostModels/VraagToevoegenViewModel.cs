@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace ProftaakProject.Models.ViewModels.PostModels
 {
-    public class ArtikelToevoegenViewModel
+    public class VraagToevoegenViewModel
     {
         public int Id { get; set; }
 
@@ -21,16 +21,8 @@ namespace ProftaakProject.Models.ViewModels.PostModels
         [Required(ErrorMessage = "Vul een inhoud in!")]
         public string Inhoud { get; set; }
 
-        public List<Tag> Tags { get; set; }
+        public string Tag { get; set; }
 
         public int TypeId { get; set; }
-
-        public IFormFile ImageFile { get; set; }
-        public enum Types
-        {
-            Artikel,
-            Vraag,
-            Reactie
-        }
     }
 }
