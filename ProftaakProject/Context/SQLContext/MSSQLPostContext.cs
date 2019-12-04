@@ -11,12 +11,12 @@ using System.Data;
 
 namespace ProftaakProject.Context.SQLContext
 {
-    public class PostContext : IPostContext
+    public class MSSQLPostContext : IPostContext
     {
 
         private readonly string _connectionString;
 
-        public PostContext(IConfiguration configuration)
+        public MSSQLPostContext(IConfiguration configuration)
         {
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
