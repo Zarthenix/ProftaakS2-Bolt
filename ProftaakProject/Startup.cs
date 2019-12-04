@@ -49,6 +49,7 @@ namespace ProftaakProject
             services.AddTransient<IAuthContext, MSSQLAuthContext>();
             services.AddTransient<IReactieContext, MSSQLReactieContext>();
             services.AddScoped<PostRepo>();
+            services.AddScoped<AccountRepo>();
             services.AddScoped<ReactieRepo>();
 
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
