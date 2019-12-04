@@ -1,0 +1,33 @@
+﻿@model ProftaakProject.Models.ViewModels.UitzendViewModel
+@{
+    ViewData["Title"] = "UitzendToevoegen";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<h1>Uitzendbureau toevoegen</h1>
+<body>
+    <div class="container-fluid row postContainer">
+        <div class="col-md-8 postAanmakenInhoud">
+            <form method="post" asp-controller="Post" asp-action="PostToevoegen">
+                <div class="col-md-1 form-group postKoppen">
+                    <label asp-for="Naam" class="control-label"></label>
+                </div>
+                <div class="col-md-11">
+                    <input asp-for="Naam" class="form-control postTitel" value="@Model.Naam"/>
+                    <input type="hidden" asp-for="Id" value="@Model.Id"/>
+                    <span asp-validation-for="Naam" class="text-danger"></span>
+                </div>
+                <div>
+                    @if(@Model.Id < 0){
+                    <input type="submit" value="Aanmaken" class="btn btn-dark" asp-controller="Uitzend" asp-action="UitzendToevoegen" formmethod="post" />
+                    }
+                    else{
+                    <input type="submit" value="Bewerken" class="btn btn-dark" asp-controller="Uitzend" asp-action="UitzendToevoegen" formmethod="post" />
+                    }
+                    <input type="submit" value="Terug" class="btn btn-dark" asp-controller="Uitzend" asp-action="Index" />
+                </div>
+            </form>
+        </div>
+    </div>
+</body>

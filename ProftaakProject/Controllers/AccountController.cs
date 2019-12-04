@@ -79,15 +79,35 @@ namespace ProftaakProject.Controllers
         }
 
         public IActionResult Profiel()
+        public IActionResult Profiel(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                AccountToProfielvmConvert atpvmc = new AccountToProfielvmConvert();
+
+                Account ac = ar.GetByID(id);
+                ac.Id = id;
+
+                ProfielViewModel pvm = atpvmc.ConvertToViewModel(ac);
+                List<ProfielViewModel> pvms = new List<ProfielViewModel>();
+                pvm.Account = ar.GetByID(id); //Getall Context heeft geen geslacht en geboortedatum
+                return View(pvm);
+            }
+            
+            return View("Profiel");
+
+        }
+
+        [HttpPost]
+        public IActionResult ProfielBewerken(ProfielViewModel pvm)
+        {
+            return View("Profiel", pvm);
+        }
+
+        public IActionResult ResetWachtwoord()
         {
             return View();
         }
-
-        public IActionResult ProfielBewerken()
-        {
-            return View("Profiel");
-        }
-
     }
 
 }

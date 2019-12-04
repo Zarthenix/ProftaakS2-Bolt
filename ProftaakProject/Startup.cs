@@ -49,6 +49,9 @@ namespace ProftaakProject
             services.AddTransient<IAuthContext, MSSQLAuthContext>();
             services.AddTransient<IReactieContext, MSSQLReactieContext>();
             services.AddScoped<PostRepo>();
+            services.AddTransient<IUitzendContext, UitzendContext>();
+            services.AddScoped<UitzendRepo>();
+            services.AddTransient<IAccountContext, AccountContext>();
             services.AddScoped<AccountRepo>();
             services.AddScoped<ReactieRepo>();
 
