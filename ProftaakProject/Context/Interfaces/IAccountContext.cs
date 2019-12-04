@@ -12,6 +12,8 @@ namespace ProftaakProject.Context.Interfaces
 
         List<Account> GetAll(int id);
 
+        Account GetByID(int id);
+
         bool VerwijderUitzend(int id);
     }
 }

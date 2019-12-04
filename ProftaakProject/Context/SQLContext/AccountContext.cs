@@ -83,13 +83,13 @@ namespace ProftaakProject.Context.SQLContext
                     {
                         if (reader.HasRows)
                         {
-                            Account ac = new Account(id);
+                            Account ac = new Account();
                             while (reader.Read())
                             {
                                 ac.Naam = reader["naam"].ToString();
                                 ac.Email = reader["emailadres"].ToString();
                                 ac.Gebruikersnaam = reader["gebruikersnaam"].ToString();
-                                ac.Geslacht = reader["geslacht"].ToString();
+                                ac.Geslacht = (Gender)reader["geslacht"];
                                 //ac.Geboortedatum = (DateTime)reader["geboortedatum"];
                                 //ac.Rol = (int)reader["eigenaar"];
                             }
@@ -97,7 +97,7 @@ namespace ProftaakProject.Context.SQLContext
                         }
                         else
                         {
-                            return new Account(-1);
+                            return new Account();
                         }
                     }
                 }

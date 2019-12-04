@@ -25,10 +25,7 @@ namespace ProftaakProject.Models
             Gebruiker,
             Gast
         }
-        public int BerekenLeeftijd(DateTime dateTime)
-        {
-            return 0;
-        }
+
         public Account()
         {
 

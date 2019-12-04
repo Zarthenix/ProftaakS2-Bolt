@@ -24,7 +24,7 @@ namespace ProftaakProject.Models.ViewModels
         [Required(ErrorMessage = "Vul een geslacht in.")]
         [DataType(DataType.Text)]
         [Display(Name = "Geslacht")]
-        public string Geslacht { get; set; }
+        public Gender Geslacht { get; set; }
 
         [Required(ErrorMessage = "Vul een geboortedatum in.")]
         [DataType(DataType.Text)]
@@ -40,10 +40,6 @@ namespace ProftaakProject.Models.ViewModels
         {
             get { return this.Rol;}
             set { this.Rol = Account.Rol.Gebruiker.ToString(); }
-        }
-        public int BerekenLeeftijd(DateTime dateTime)
-        {
-            return 0;
         }
     }
 }
