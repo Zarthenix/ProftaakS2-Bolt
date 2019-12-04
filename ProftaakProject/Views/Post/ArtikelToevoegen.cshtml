@@ -20,7 +20,8 @@
                 <textarea asp-for="Inhoud" class="postAanmakenInhoud">@Model.Inhoud</textarea>
                 <span asp-validation-for="Inhoud" class="text-danger"></span>
             </div>
-            <div class="col-md-3">
+
+            @*<div class="col-md-3">
                 <div class="comboboxPostAanmaken">
                     <select class="form-control" name="Tag">
                         <option>Kies een tag</option>
@@ -30,7 +31,9 @@
                         }
                     </select>
                 </div>
-            </div>
+            </div>*@
+
+            <select asp-for="Tag" asp-items="Model.Tags"></select>
 
             <div class="form-group">
                 <input value="@Model.Id" type="hidden" asp-for="Id" class="form-control" />
