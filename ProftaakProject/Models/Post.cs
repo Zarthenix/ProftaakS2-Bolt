@@ -36,6 +36,15 @@ namespace ProftaakProject.Models
             this.ImageFile = imageFile;
         }
 
+        public Post(int id, string titel, string inhoud, int typeId, Tag tag)
+        {
+            this.Id = id;
+            this.Titel = titel;
+            this.Inhoud = inhoud;
+            this.TypeId = typeId;
+            this.Tag = tag;
+        }
+
         public Post()
         {
 

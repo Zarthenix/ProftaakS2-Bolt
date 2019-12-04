@@ -123,7 +123,7 @@ namespace ProftaakProject.Context.SQLContext
         public List<Post> GetAll()
         {
             List<Post> posts = new List<Post>();
-            string query = "SELECT * FROM dbo.Tag INNER JOIN dbo.Post ON tagID = tagID";
+            string query = "SELECT * FROM dbo.Tag INNER JOIN dbo.Post ON tagID = tagID WHERE type = 0";
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
