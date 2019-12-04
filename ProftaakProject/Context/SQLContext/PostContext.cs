@@ -84,8 +84,8 @@ namespace ProftaakProject.Context.SQLContext
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-
-                using (SqlCommand sqlCommand = new SqlCommand("SELECT * FROM Post Where PostID = @PostID", connection))
+                string query = "SELECT * FROM dbo.Tag INNER JOIN dbo.Post ON tagID = tagID Where PostID = @PostID";
+                using (SqlCommand sqlCommand = new SqlCommand(query, connection))
                 {
                     sqlCommand.CommandType = CommandType.Text;
                     sqlCommand.Parameters.AddWithValue("@PostID", id);
@@ -93,7 +93,7 @@ namespace ProftaakProject.Context.SQLContext
                     {
                         if (reader.HasRows)
                         {
-                            Post p = new Post(id);
+                            Post p = new Post();
                             while (reader.Read())
                             {
                                 p.Id = id;
@@ -101,13 +101,14 @@ namespace ProftaakProject.Context.SQLContext
                                 p.Datum = (DateTime)reader["datum"];
                                 p.Inhoud = reader["inhoud"].ToString();
                                 p.TypeId = (int)reader["type"];
+                                p.Tag = new Tag((int)reader["tagID"], reader["naam"].ToString());
                                 p.ImageFile = (byte[])reader["imageFile"];
                             }
                             return p;
                         }
                         else
                         {
-                            return new Post(-1);
+                            return new Post();
                         }
                     }
                 }
@@ -117,7 +118,7 @@ namespace ProftaakProject.Context.SQLContext
         public List<Post> GetAll()
         {
             List<Post> posts = new List<Post>();
-            string query = "SELECT * FROM dbo.Post";
+            string query = "SELECT * FROM dbo.Tag INNER JOIN dbo.Post ON tagID = tagID";
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
@@ -133,7 +134,8 @@ namespace ProftaakProject.Context.SQLContext
                                 reader["titel"].ToString(),
                                 reader["inhoud"].ToString(),
                                 (int)reader["type"],
-                                (byte[])reader["imageFile"]));
+                                new Tag((int)reader["tagID"], reader["naam"].ToString()),
+                                (byte[])reader["imageFile"])) ;
                         }
                     }
                 }

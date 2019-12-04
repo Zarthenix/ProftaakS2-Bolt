@@ -8,46 +8,54 @@ namespace ProftaakProject.Models.Repositories
 {
     public class PostRepo
     {
-        private readonly IPostContext ctx;
+        private readonly IPostContext pCtx;
+        private readonly ITagContext tCtx;
 
-        public PostRepo(IPostContext context)
+        public PostRepo(IPostContext postContext, ITagContext tagContext)
         {
-            this.ctx = context;
+            this.pCtx = postContext;
+            this.tCtx = tagContext;
         }
 
         public bool Create(Post post)
         {
-            return ctx.Create(post);
+            return pCtx.Create(post);
         }
 
         public bool Update(Post post)
         {
-            return ctx.Update(post);
+            return pCtx.Update(post);
         }
 
         public bool Delete(int id)
         {
-            return ctx.Delete(id);
+            return pCtx.Delete(id);
         }
 
         public Post GetByID(int id)
         {
-            return ctx.GetByID(id);
+            return pCtx.GetByID(id);
         }
 
         public List<Post> GetAll()
         {
-            return ctx.GetAll();
+            return pCtx.GetAll();
         }
+
+        public List<Tag> GetAllTags()
+        {
+            return tCtx.GetAll();
+        }
+
         public bool Save(Post post)
         {
             if (post.Id <= 0)
             {
-                return ctx.Create(post);
+                return pCtx.Create(post);
             }
             else
             {
-                return ctx.Update(post);
+                return pCtx.Update(post);
             }
         }
 

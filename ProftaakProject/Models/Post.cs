@@ -16,6 +16,7 @@ namespace ProftaakProject.Models
         public DateTime Datum { get; set; }
         public string Inhoud { get; set; }
         public int TypeId { get; set; }
+        public Tag Tag { get; set; }
         public byte[] ImageFile { get; set; }
         public enum Types
         {
@@ -25,12 +26,13 @@ namespace ProftaakProject.Models
         }
 
         public bool Goedgekeurd { get; set; }
-        public Post(int id, string titel, string inhoud, int typeId, byte[] imageFile)
+        public Post(int id, string titel, string inhoud, int typeId, Tag tag, byte[] imageFile)
         {
             this.Id = id;
             this.Titel = titel;
             this.Inhoud = inhoud;
             this.TypeId = typeId;
+            this.Tag = tag;
             this.ImageFile = imageFile;
         }
 
