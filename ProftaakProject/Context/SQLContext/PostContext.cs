@@ -23,19 +23,25 @@ namespace ProftaakProject.Context.SQLContext
 
         public bool Create(Post post)
         {
+            string query;
             using (var connection = new SqlConnection(_connectionString))
             {
                 try
                 {
                     connection.Open();
-                    string query = "INSERT INTO Post (titel, datum, inhoud, type, imageFile) output inserted.postID VALUES (@titel, @datum, @inhoud, @type, @imageFile)";
+                    if (post.ImageFile != null)
+                    {
+                        query = "INSERT INTO Post (titel, datum, inhoud, type, imageFile) output inserted.postID VALUES (@titel, @datum, @inhoud, @type, @imageFile)";
+                    }
+                    else { query = "INSERT INTO Post (titel, datum, inhoud, type) output inserted.postID VALUES (@titel, @datum, @inhoud, @type)"; }
                     using (SqlCommand cmd = new SqlCommand(query, connection))
                     {
                         cmd.Parameters.AddWithValue("@titel", post.Titel);
                         cmd.Parameters.AddWithValue("@datum", post.Datum);
                         cmd.Parameters.AddWithValue("@inhoud", post.Inhoud);
                         cmd.Parameters.AddWithValue("@type", post.TypeId);
-                        cmd.Parameters.Add("@imageFile", sqlDbType: SqlDbType.VarBinary).Value = post.ImageFile;
+                        if (post.ImageFile != null) { cmd.Parameters.Add("@imageFile", sqlDbType: SqlDbType.VarBinary).Value = post.ImageFile; }
+
                         //            //cmd.Parameters.AddWithValue("@uitzendID", 1);
                         //            //cmd.Parameters.AddWithValue("@accountID", 1);
                         post.Id = (int)cmd.ExecuteScalar();
@@ -93,7 +99,7 @@ namespace ProftaakProject.Context.SQLContext
                     {
                         if (reader.HasRows)
                         {
-                            Post p = new Post(id);
+                            Post p = new Post();
                             while (reader.Read())
                             {
                                 p.Id = id;
@@ -101,13 +107,14 @@ namespace ProftaakProject.Context.SQLContext
                                 p.Datum = (DateTime)reader["datum"];
                                 p.Inhoud = reader["inhoud"].ToString();
                                 p.TypeId = (int)reader["type"];
-                                p.ImageFile = (byte[])reader["imageFile"];
+                                if (p.TypeId == 0) { p.ImageFile = (byte[])reader["imageFile"]; }
+
                             }
                             return p;
                         }
                         else
                         {
-                            return new Post(-1);
+                            return new Post();
                         }
                     }
                 }
@@ -117,7 +124,7 @@ namespace ProftaakProject.Context.SQLContext
         public List<Post> GetAll()
         {
             List<Post> posts = new List<Post>();
-            string query = "SELECT * FROM dbo.Post";
+            string query = "SELECT * FROM dbo.Post WHERE type = 0";
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();

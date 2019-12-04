@@ -1,62 +1,32 @@
-﻿@model ProftaakProject.Models.Post
+﻿@using Microsoft.AspNetCore.Identity
+@model ProftaakProject.Models.ViewModels.VraagViewModel
 
 @{
     ViewData["Title"] = "Vraag";
 }
 
-<h2>Vraag</h2>
-
-<h4>Post</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Vraag">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" />
-                <span asp-validation-for="Id" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="GoedgekeurdDoor" class="control-label"></label>
-                <input asp-for="GoedgekeurdDoor" class="form-control" />
-                <span asp-validation-for="GoedgekeurdDoor" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AantalBekenen" class="control-label"></label>
-                <input asp-for="AantalBekenen" class="form-control" />
-                <span asp-validation-for="AantalBekenen" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Titel" class="control-label"></label>
-                <input asp-for="Titel" class="form-control" />
-                <span asp-validation-for="Titel" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Datum" class="control-label"></label>
-                <input asp-for="Datum" class="form-control" />
-                <span asp-validation-for="Datum" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Inhoud" class="control-label"></label>
-                <input asp-for="Inhoud" class="form-control" />
-                <span asp-validation-for="Inhoud" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="Goedgekeurd" /> @Html.DisplayNameFor(model => model.Goedgekeurd)
-                    </label>
-                </div>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </form>
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">@Model.Post.Titel</h4>
+        <p class="card-text">@Model.Post.Inhoud</p>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
+    <div class="card-footer">
+        @*<p class="auteurText">Model.Auteur.Naam</p> <a href="@Url.Action("ArtikelToevoegen", "Post", new {Id = Model.Post.Id})">Bewerken</a><br /><a href="@Url.Action("ArtikelVerwijderen", "Post", new {Id = Model.Post.Id})">Verwijderen</a>*@
+    </div>
+    @foreach (Reactie react in Model.Reacties)
+    {
+        <div class="card-body">
+            <div class="card-text">@react.Inhoud</div>
+            <div class="card-footer">@react.Auteur.Naam</div>
+        </div>
+    }
+    <div class="card-body">
+        <div class="card-text">
+            <form asp-controller="Post" method="post">
+                <input type="text" asp-for="ReactieAanmaken.Inhoud" />
+                <input type="submit" asp-action="ReactieAanmaken" />
+            </form>
+        </div>
+    </div>
 </div>
 

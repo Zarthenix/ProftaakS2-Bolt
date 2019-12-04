@@ -20,11 +20,51 @@ namespace ProftaakProject.Controllers
             this.pr = pr;
         }
 
-        public IActionResult Vraag()
+        #region Vraag
+
+        public IActionResult Vraag(int id)
         {
-            return View();
+            PostToVraagvmConverter ptavmc = new PostToVraagvmConverter();
+            VraagViewModel vvm = ptavmc.ConvertToViewModel(pr.GetByID(id));
+            return View(vvm);
         }
 
+        [HttpGet]
+        public IActionResult VraagToevoegen(int id)
+        {
+            if (id > 0)
+            {
+                PostToVraagToevoegenvmConverter ptvtvmc = new PostToVraagToevoegenvmConverter();
+                Post p = pr.GetByID(id);
+                VraagToevoegenViewModel vtvm = ptvtvmc.ConvertToViewModel(p);
+                return View(vtvm);
+            }
+            else
+            {
+                VraagToevoegenViewModel vtvm = new VraagToevoegenViewModel();
+                return View(vtvm);
+            }
+
+        }
+
+        [HttpPost]
+        public IActionResult VraagToevoegen(VraagToevoegenViewModel vtvm)
+        {
+            PostToVraagToevoegenvmConverter ptvtvmc = new PostToVraagToevoegenvmConverter();
+            vtvm.TypeId = 1;
+            Post post = ptvtvmc.ConvertToModel(vtvm);
+            pr.Save(post);
+            return RedirectToAction("Vraag", "Post", new { id = post.Id });
+        }
+
+        public IActionResult VraagVerwijderen(VraagToevoegenViewModel vtvm)
+        {
+            pr.Delete(vtvm.Id);
+            return RedirectToAction("Index", "Home");
+        }
+        #endregion
+
+        #region Artikel
         public IActionResult Artikel(int id)
         {
             PostToArtikelvmConverter pac = new PostToArtikelvmConverter();
@@ -32,7 +72,6 @@ namespace ProftaakProject.Controllers
 
             return View("Artikel", avm);
         }
-
         [HttpGet]
         public IActionResult ArtikelToevoegen(int id)
         {
@@ -64,5 +103,9 @@ namespace ProftaakProject.Controllers
             pr.Delete(atvm.Id);
             return RedirectToAction("Index", "Home");
         }
+        #endregion
+
+        #region Reactie
+        #endregion
     }
 }

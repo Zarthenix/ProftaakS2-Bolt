@@ -38,10 +38,5 @@ namespace ProftaakProject.Models
         {
 
         }
-
-        public Post(int id)
-        {
-
-        }
     }
 }

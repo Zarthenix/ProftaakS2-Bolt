@@ -12,6 +12,8 @@ namespace ProftaakProject.Models
         public string Inhoud { get; set; }
         public DateTime Datum { get; set; }
         public bool Goedgekeurd { get; set; }
+        public int PostID { get; set; }
+        public Account Auteur { get; set; }
         public Reactie()
         {
 
