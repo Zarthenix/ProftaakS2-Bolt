@@ -257,3 +257,8 @@ div.postInhoud {
     width: 900px;
     padding-right: 30px;
 }
+
+/*CSS voor uitzendbureau*/
+.uitzendtable a{
+    color: black;
+}

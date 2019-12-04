@@ -11,10 +11,13 @@ namespace ProftaakProject.Models.ViewModels
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Vul een naam in.")]
+        [DataType(DataType.Text)]
         public string Naam { get; set; }
 
         public int Eigenaar { get; set; }
 
         public List<Uitzendbureau> ubs { get; set; }
+
+        public List<Account> avm { get; set; }
     }
 }

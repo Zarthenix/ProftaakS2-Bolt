@@ -12,9 +12,9 @@ namespace ProftaakProject.Context.Interfaces
 
         public bool Create(Uitzendbureau ub);
 
-        /*public bool Update();
+        public bool Update(Uitzendbureau ub);
 
-        public bool Delete();*/
+        public bool Delete(int id);
 
         public List<Uitzendbureau> GetAll();
 

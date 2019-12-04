@@ -1,0 +1,38 @@
+﻿@using ProftaakProject.Models.ViewModels
+@model ProftaakProject.Models.ViewModels.UitzendViewModel
+@{
+    ViewData["Title"] = "Uitzendbureau";
+}
+
+<body>
+    <h1>@Model.Naam</h1>
+    <table class="uitzendtable">
+        <thead>
+            <tr>
+                <th>Gebruikersnaam</th>
+                <th>Naam</th>
+                <th>E-mail adres</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (Account accvm in Model.avm)
+            {
+                <tr>
+                    @*<td><a asp-controller="Uitzend" asp-action="Uitzendbureau" asp-route-id="@ub.Id">@ub.Naam</a></td>*@
+                    <td>@accvm.Gebruikersnaam</td>
+                    <td>@accvm.Naam</td>
+                    <td>@accvm.Email</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <form>
+        <div>
+            <input type="submit" value="Voeg gebruiker toe" class="btn btn-dark" asp-controller="Uitzend" asp-action="AccountToevoegen" asp-route-id="@Model.Id" formmethod="get" />
+        </div>
+        <input type="submit" value="Aanmaken" class="btn btn-dark" asp-controller="Uitzend" asp-action="UitzendToevoegen" formmethod="get" />
+        <input type="submit" value="Terug" class="btn btn-dark" asp-controller="Uitzend" asp-action="Index" />
+    </form>
+</body>
+

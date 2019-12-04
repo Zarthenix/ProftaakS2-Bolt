@@ -14,10 +14,12 @@ namespace ProftaakProject.Controllers
     {
 
         private UitzendRepo ur;
+        private AccountRepo ar;
 
-        public UitzendController(UitzendRepo uitzendrepo)
+        public UitzendController(UitzendRepo uitzendrepo, AccountRepo accountRepo)
         {
             this.ur = uitzendrepo;
+            this.ar = accountRepo;
         }
 
         public IActionResult Index()
@@ -25,7 +27,82 @@ namespace ProftaakProject.Controllers
             UitzendViewModel uvm = new UitzendViewModel();
             uvm.ubs = ur.GetAll();
             return View(uvm);
+        }
 
+        [HttpGet]
+        public IActionResult UitzendToevoegen()
+        {
+            UitzendViewModel uvm = new UitzendViewModel();
+            uvm.Id = -1;
+            return View(uvm);
+        }
+
+        [HttpPost]
+        public IActionResult UitzendToevoegen(UitzendViewModel uvm)
+        {
+            
+            if (ModelState.IsValid)
+            {
+                UitzendToUitzendvmConvert utuvmc = new UitzendToUitzendvmConvert();
+                Uitzendbureau ub = utuvmc.ConvertToModel(uvm);
+                ur.Check(ub);
+                return RedirectToAction("Uitzendbureau", "Uitzend", new { id = ub.Id });
+            }
+            return View(uvm);
+        }
+
+
+        [HttpPost]
+        public IActionResult UitzendBewerken(UitzendViewModel uvm)
+        {            
+            return View("UitzendToevoegen", uvm);
+        }
+
+        public IActionResult Uitzendbureau(int id)
+        {
+            UitzendToUitzendvmConvert utuvmc = new UitzendToUitzendvmConvert();
+
+            Uitzendbureau ub = ur.GetByID(id);
+            ub.Id = id;
+
+            UitzendViewModel uvm = utuvmc.ConvertToViewModel(ub);
+            List<AccountViewModel> avms = new List<AccountViewModel>();
+            //uvm.avm = avms;
+            uvm.avm = ar.GetAll(id);
+            return View(uvm);
+        }
+
+        public IActionResult VerwijderUb(int id)
+        {
+            Uitzendbureau ub = new Uitzendbureau();
+            ub.Id = id;
+            ur.Delete(id);
+            return RedirectToAction("Index", "Uitzend");
+        }
+
+        [HttpGet]
+        public IActionResult AccountToevoegen()
+        {
+            AccountViewModel avm = new AccountViewModel();
+
+            return View(avm);
+        }
+
+        [HttpPost]
+        public IActionResult AccountToevoegen(AccountViewModel avm, int id)
+        {
+
+            if (ModelState.IsValid)
+            {
+                AccountToAccountvmConvert atavmc = new AccountToAccountvmConvert();
+                Account acc = atavmc.ConvertToModel(avm);
+
+                Uitzendbureau ub = new Uitzendbureau();
+                ub.Id = id;
+
+                return RedirectToAction("Uitzendbureau", "Uitzend", new { id = ub.Id });
+            }
+            return View(avm);
         }
     }
 }

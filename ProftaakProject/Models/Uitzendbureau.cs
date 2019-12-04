@@ -10,6 +10,8 @@ namespace ProftaakProject.Models
         public int Id { get; set; }
         public string Naam { get; set; }
         public int Eigenaar { get; set; }
+
+        
         public Uitzendbureau()
         {
 

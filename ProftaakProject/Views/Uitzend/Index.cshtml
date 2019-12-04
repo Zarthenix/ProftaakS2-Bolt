@@ -3,38 +3,9 @@
     ViewData["Title"] = "Uitzendbureaus";
 }
 
-@*<head>
-     Load datatable css 
-    <link href="cdn.datatables.net / 1.10.20 / css / jquery.dataTables.min.js" rel="stylesheet" />
-    @section Scripts{
-
-        <script scr="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-        <script>
-            $(document).ready(function () {
-                $.ajax({
-                    url: '/Uitzend/Index ',
-                    method: 'post',
-                    dataType: 'json',
-                    success: function (data) {
-                        $('#datatable').dataTable({
-                            data: data,
-                            columns: [
-                                { 'data': 'Naam' },
-                                { 'data': 'Eigenaar' }
-                            ]
-                        });
-                    }
-                });
-            });
-
-        </script>
-    }
-
-
-</head>*@
 <body>
     <h1>Overzicht uitzendbureaus</h1>
-    <table id="table_id" class="display">
+    <table class="uitzendtable">
         <thead>
             <tr>
                 <th>Naam</th>
@@ -46,15 +17,23 @@
             @foreach (Uitzendbureau ub in Model.ubs)
             {
                 <tr>
-                    <td>@ub.Naam</td>
+                    <td><a asp-controller="Uitzend" asp-action="Uitzendbureau" asp-route-id="@ub.Id">@ub.Naam</a></td>
                     <td>@ub.Eigenaar</td>
+                    <td>
+                        <form asp-controller="Uitzend" asp-action="UitzendBewerken">
+                            <input class="btn" type="submit" value="Bewerken">
+                            <input type="hidden" asp-for="Id" value="@ub.Id" />
+                            <input type="hidden" asp-for="Naam" value="@ub.Naam" />
+                        </form>
+                    </td>
+                    <td><a asp-controller="Uitzend" asp-action="VerwijderUb" asp-route-id="@ub.Id">Verwijderen</a></td>
                 </tr>
             }
         </tbody>
     </table>
-
-
-
+    <form>
+        <input type="submit" value="Aanmaken" class="btn btn-dark" asp-controller="Uitzend" asp-action="UitzendToevoegen" formmethod="get" />
+    </form>
 </body>
 <footer>
 </footer>

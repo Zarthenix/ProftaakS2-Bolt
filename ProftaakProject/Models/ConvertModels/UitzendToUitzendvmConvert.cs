@@ -12,6 +12,7 @@ namespace ProftaakProject.Models.ConvertModels
         {
             Uitzendbureau ub = new Uitzendbureau();
             {
+                ub.Id = uvm.Id;
                 ub.Naam = uvm.Naam;
                 ub.Eigenaar = uvm.Eigenaar;
             }
@@ -22,6 +23,7 @@ namespace ProftaakProject.Models.ConvertModels
         {
             UitzendViewModel uvm = new UitzendViewModel();
             {
+                uvm.Id = ub.Id;
                 uvm.Naam = ub.Naam;
                 uvm.Eigenaar = ub.Eigenaar;
             }

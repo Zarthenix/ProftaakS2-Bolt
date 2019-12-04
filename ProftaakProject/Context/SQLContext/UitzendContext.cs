@@ -29,7 +29,8 @@ namespace ProftaakProject.Context.SQLContext
                 using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
                     cmd.Parameters.AddWithValue("@naam", ub.Naam);
-                    cmd.Parameters.AddWithValue("@eigenaar", ub.Eigenaar);
+                    //cmd.Parameters.AddWithValue("@eigenaar", ub.Eigenaar);
+                    cmd.Parameters.AddWithValue("@eigenaar", 1);
 
                     ub.Id = (int)cmd.ExecuteScalar();
                     if (ub.Id > -1)
@@ -41,15 +42,47 @@ namespace ProftaakProject.Context.SQLContext
             }
         }
 
-        /*public bool Update()
+        public bool Update(Uitzendbureau ub)
         {
+            using(var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
 
+                string query = "update Uitzendbureau set naam = @naam where uitzendID = @uitzendID";
+                using(SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@naam", ub.Naam);
+                    cmd.Parameters.AddWithValue("@uitzendID", ub.Id);
+                    cmd.ExecuteNonQuery();
+                }
+                return false;
+            }
         }
 
-        public bool Delete()
+        public bool Delete(int id)
         {
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    connection.Open();
 
-        }*/
+                    string query = "delete Uitzendbureau where uitzendID = @uitzendID";
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@uitzendID", id);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                return true;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+                return false;
+            }
+
+        }
 
         public List<Uitzendbureau> GetAll()
         {

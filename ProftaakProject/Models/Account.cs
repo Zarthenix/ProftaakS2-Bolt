@@ -30,5 +30,13 @@ namespace ProftaakProject.Models
         {
 
         }
+
+        public Account(int id, string naam, string email, string gebruikersnaam)
+        {
+            this.Id = id;
+            this.Naam = naam;
+            this.Email = email;
+            this.Gebruikersnaam = gebruikersnaam;
+        }
     }
 }

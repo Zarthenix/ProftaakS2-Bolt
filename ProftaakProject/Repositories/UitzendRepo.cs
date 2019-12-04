@@ -20,15 +20,27 @@ namespace ProftaakProject.Models.Repositories
             return ctx.Create(ub);
         }
 
-        /*public bool Update()
+        public bool Check(Uitzendbureau u)
         {
-            return ctx.Update();
+            if(u.Id < 0)
+            {
+                return ctx.Create(u);
+            }
+            else
+            {
+                return ctx.Update(u);
+            }
         }
 
-        public bool Delete()
+        public bool Update(Uitzendbureau ub)
         {
-            return ctx.Delete();
-        }*/
+            return ctx.Update(ub);
+        }
+
+        public bool Delete(int id)
+        {
+            return ctx.Delete(id);
+        }
 
         public List<Uitzendbureau> GetAll()
         {
