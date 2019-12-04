@@ -22,18 +22,30 @@
             </div>
 
             @*<div class="col-md-3">
-                <div class="comboboxPostAanmaken">
-                    <select class="form-control" name="Tag">
-                        <option>Kies een tag</option>
-                        @foreach(Tag tempTag in Model.Tags)
+                    <div class="comboboxPostAanmaken">
+                        <select class="form-control" name="Tag">
+                            <option>Kies een tag</option>
+                            @foreach(Tag tempTag in Model.Tags)
+                            {
+                                <option>@tempTag.Naam</option>
+                            }
+                        </select>
+                    </div>
+                </div>*@
+
+            <div class="row">
+                <div class="col-md-3">
+                    <label asp-for="Tag"></label>
+                </div>
+                <div class="col-md-3">
+                    <select tag="option" input asp-for="Tag" class="form-control LoginVelden">
+                        @foreach (Tag tempTag in Model.Tags)
                         {
-                            <option>@tempTag.Naam</option>
+                            <option value="@Model.Tags.IndexOf(tempTag)">@tempTag.Naam</option>
                         }
                     </select>
                 </div>
-            </div>*@
-
-            <select asp-for="Tag" asp-items="Model.Tags"></select>
+            </div>
 
             <div class="form-group">
                 <input value="@Model.Id" type="hidden" asp-for="Id" class="form-control" />
