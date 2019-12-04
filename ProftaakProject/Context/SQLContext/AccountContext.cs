@@ -4,6 +4,7 @@ using ProftaakProject.Context.Interfaces;
 using ProftaakProject.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -62,10 +63,45 @@ namespace ProftaakProject.Context.SQLContext
                     }
                 }
 
-                connection.Close();
+                connection.Close();           
             }
 
             return accs;
+        }
+
+        public Account GetByID(int id)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                using (SqlCommand sqlCommand = new SqlCommand("SELECT * FROM Account Where accountID = @accountID", connection))
+                {
+                    sqlCommand.CommandType = CommandType.Text;
+                    sqlCommand.Parameters.AddWithValue("@accountID", id);
+                    using (SqlDataReader reader = sqlCommand.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            Account ac = new Account(id);
+                            while (reader.Read())
+                            {
+                                ac.Naam = reader["naam"].ToString();
+                                ac.Email = reader["emailadres"].ToString();
+                                ac.Gebruikersnaam = reader["gebruikersnaam"].ToString();
+                                ac.Geslacht = reader["geslacht"].ToString();
+                                //ac.Geboortedatum = (DateTime)reader["geboortedatum"];
+                                //ac.Rol = (int)reader["eigenaar"];
+                            }
+                            return ac;
+                        }
+                        else
+                        {
+                            return new Account(-1);
+                        }
+                    }
+                }
+            }
         }
 
         public bool VerwijderUitzend(int id)

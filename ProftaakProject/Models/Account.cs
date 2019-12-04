@@ -17,7 +17,7 @@ namespace ProftaakProject.Models
         public enum Rol
         {
             Administrator,
-            Moderator, 
+            Moderator,
             Service,
             Gebruiker,
             Gast
@@ -38,5 +38,11 @@ namespace ProftaakProject.Models
             this.Email = email;
             this.Gebruikersnaam = gebruikersnaam;
         }
+
+        public Account(int id)
+        {
+
+        }
+
     }
 }
