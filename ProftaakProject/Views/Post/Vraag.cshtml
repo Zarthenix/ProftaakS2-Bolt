@@ -13,11 +13,20 @@
     <div class="card-footer">
         @*<p class="auteurText">Model.Auteur.Naam</p> <a href="@Url.Action("ArtikelToevoegen", "Post", new {Id = Model.Post.Id})">Bewerken</a><br /><a href="@Url.Action("ArtikelVerwijderen", "Post", new {Id = Model.Post.Id})">Verwijderen</a>*@
     </div>
-    @foreach (Reactie react in Model.Reacties)
+    @if (Model.Reacties != null)
+    {
+        @foreach (Reactie react in Model.Reacties)
+        {
+            <div class="card-body">
+                <div class="card-text">@react.Inhoud</div>
+                <div class="card-footer">@react.Auteur.Naam</div>
+            </div>
+        }
+    }
+    else
     {
         <div class="card-body">
-            <div class="card-text">@react.Inhoud</div>
-            <div class="card-footer">@react.Auteur.Naam</div>
+            <div class="card-text">Er zijn nog geen reacties geplaatst.</div>
         </div>
     }
     <div class="card-body">
