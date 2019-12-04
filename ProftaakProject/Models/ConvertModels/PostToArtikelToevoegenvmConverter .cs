@@ -20,6 +20,7 @@ namespace ProftaakProject.Models.ConvertModels
                 p.Titel = atvm.Titel;
                 p.Datum = atvm.Datum;
                 p.TypeId = atvm.TypeId;
+                p.Tag = atvm.Tag;
                 p.ImageFile = memoryStream.ToArray();
 
             }

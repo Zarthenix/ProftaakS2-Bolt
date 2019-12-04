@@ -42,5 +42,29 @@ namespace ProftaakProject.Context.SQLContext
 
             return tags;
         }
+
+        public Tag GetTagByID(int id)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                string query = "SELECT * FROM dbo.Tag  Where tagID = @tagID";
+                using (SqlCommand sqlCommand = new SqlCommand(query, connection))
+                {
+                    sqlCommand.Parameters.AddWithValue("@tagID", id);
+                    using (SqlDataReader reader = sqlCommand.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            return new Tag(id, reader["naam"].ToString());
+                        }
+                        else
+                        {
+                            return new Tag();
+                        }
+                    }
+                }
+            }
+        }
     }
 }

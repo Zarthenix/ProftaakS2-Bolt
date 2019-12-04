@@ -9,5 +9,6 @@ namespace ProftaakProject.Context.Interfaces
     public interface ITagContext
     {
         List<Tag> GetAll();
+        Tag GetTagByID(int id);
     }
 }

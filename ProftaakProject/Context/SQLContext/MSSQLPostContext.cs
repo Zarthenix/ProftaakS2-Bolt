@@ -31,15 +31,16 @@ namespace ProftaakProject.Context.SQLContext
                     connection.Open();
                     if (post.ImageFile != null)
                     {
-                        query = "INSERT INTO Post (titel, datum, inhoud, type, imageFile) output inserted.postID VALUES (@titel, @datum, @inhoud, @type, @imageFile)";
+                        query = "INSERT INTO Post (titel, datum, inhoud, type, tagID, imageFile) output inserted.postID VALUES (@titel, @datum, @inhoud, @type, @tagID, @imageFile)";
                     }
-                    else { query = "INSERT INTO Post (titel, datum, inhoud, type) output inserted.postID VALUES (@titel, @datum, @inhoud, @type)"; }
+                    else { query = "INSERT INTO Post (titel, datum, inhoud, type, tagID) output inserted.postID VALUES (@titel, @datum, @inhoud, @type, @tagID)"; }
                     using (SqlCommand cmd = new SqlCommand(query, connection))
                     {
                         cmd.Parameters.AddWithValue("@titel", post.Titel);
                         cmd.Parameters.AddWithValue("@datum", post.Datum);
                         cmd.Parameters.AddWithValue("@inhoud", post.Inhoud);
                         cmd.Parameters.AddWithValue("@type", post.TypeId);
+                        cmd.Parameters.AddWithValue("@tagID", post.Tag.Id);
                         if (post.ImageFile != null) { cmd.Parameters.Add("@imageFile", sqlDbType: SqlDbType.VarBinary).Value = post.ImageFile; }
                         //            //cmd.Parameters.AddWithValue("@uitzendID", 1);
                         //            //cmd.Parameters.AddWithValue("@accountID", 1);
@@ -89,7 +90,7 @@ namespace ProftaakProject.Context.SQLContext
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                string query = "SELECT * FROM dbo.Tag INNER JOIN dbo.Post ON tagID = tagID Where PostID = @PostID";
+                string query = "SELECT * FROM dbo.Tag INNER JOIN dbo.Post ON dbo.Tag.tagID = dbo.Post.tagID Where PostID = @PostID";
                 using (SqlCommand sqlCommand = new SqlCommand(query, connection))
                 {
                     sqlCommand.CommandType = CommandType.Text;
@@ -123,7 +124,7 @@ namespace ProftaakProject.Context.SQLContext
         public List<Post> GetAll()
         {
             List<Post> posts = new List<Post>();
-            string query = "SELECT * FROM dbo.Tag INNER JOIN dbo.Post ON tagID = tagID WHERE type = 0";
+            string query = "SELECT * FROM dbo.Tag INNER JOIN dbo.Post ON dbo.Tag.tagID = dbo.Post.tagID WHERE type = 0";
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
