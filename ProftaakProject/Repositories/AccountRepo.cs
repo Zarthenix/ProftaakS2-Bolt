@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProftaakProject.Models.Repositories
 {
-    public class AccountRepo
+    public class AccountRepo 
     {
         private readonly IAccountContext ctx;
 
@@ -18,6 +18,11 @@ namespace ProftaakProject.Models.Repositories
         public List<Account> GetAll(int id)
         {
             return ctx.GetAll(id);
+        }
+
+        public Account GetByID(int id)
+        {
+            return ctx.GetByID(id);
         }
     }
 }
