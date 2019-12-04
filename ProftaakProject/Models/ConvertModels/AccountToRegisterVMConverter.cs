@@ -16,10 +16,12 @@ namespace ProftaakProject.Models.ConvertModels
                 Wachtwoord = rvm.Password,
                 Email = rvm.Email,
                 Naam = rvm.Name,
-                Geslacht = rvm.Gender,
+                Geslacht = (Gender)rvm.Gender,
                 Geboortedatum = rvm.Birthday
             };
             return acc;
         }
+
+
     }
 }

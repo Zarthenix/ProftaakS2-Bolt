@@ -14,10 +14,12 @@ namespace ProftaakProject.Controllers
     {
 
         private PostRepo pr;
+        private ReactieRepo rr;
 
-        public PostController(PostRepo pr)
+        public PostController(PostRepo pr, ReactieRepo rr)
         {
             this.pr = pr;
+            this.rr = rr;
         }
 
         #region Vraag
@@ -110,6 +112,11 @@ namespace ProftaakProject.Controllers
         #endregion
 
         #region Reactie
+        public IActionResult ReactieAanmaken(VraagViewModel vvm)
+        {
+            
+            return View(vvm);
+        }
         #endregion
     }
 }
