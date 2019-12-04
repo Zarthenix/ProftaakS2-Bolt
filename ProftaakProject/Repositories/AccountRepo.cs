@@ -15,9 +15,19 @@ namespace ProftaakProject.Models.Repositories
             this.ctx = context;
         }
 
+        public bool VoegToeUitzend(int uitzend, int accId)
+        {
+            return ctx.VoegToeUitzend(uitzend, accId);
+        }
+
         public List<Account> GetAll(int id)
         {
             return ctx.GetAll(id);
+        }
+
+        public bool VerwijderUitzend(int id)
+        {
+            return ctx.VerwijderUitzend(id);
         }
     }
 }

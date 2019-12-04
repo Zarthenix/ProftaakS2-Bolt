@@ -1,0 +1,21 @@
+﻿@model ProftaakProject.Models.ViewModels.AccountViewModel
+@{
+    ViewData["Title"] = "ResetWachtwoord";
+}
+
+<h1>Reset wachtwoord</h1>
+
+<div class="container">
+    <form>
+        <div>
+            <label>Emailadres</label>
+        </div>
+        <div>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div>
+            <input type="submit" value="Reset" class="btn btn-dark" />
+        </div>
+    </form>
+</div>

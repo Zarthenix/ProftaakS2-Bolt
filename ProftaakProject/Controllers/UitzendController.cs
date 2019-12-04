@@ -100,9 +100,17 @@ namespace ProftaakProject.Controllers
                 Uitzendbureau ub = new Uitzendbureau();
                 ub.Id = id;
 
+                //ar.VoegToeUitzend();
                 return RedirectToAction("Uitzendbureau", "Uitzend", new { id = ub.Id });
             }
             return View(avm);
+        }
+
+        public IActionResult VerwijderGebruiker(UitzendViewModel uvm)
+        {
+            ar.VerwijderUitzend(uvm.AccountTeVerwijderen.Id);
+            return RedirectToAction("Uitzendbureau", "Uitzend", new { id = uvm.Id });
+            //return 
         }
     }
 }

@@ -13,7 +13,7 @@
     <form>
         <div class="row">
             <div class="col-md-3">
-                <label>Geruikersnaam:</label>
+                <label>Gebruikersnaam:</label>
             </div>
             <div class="col-md-3">
                 <input class="form-control LoginVelden" type="text"/>
@@ -36,7 +36,7 @@
         </div>
         <div class="row">
             <div class="col-md-2 offset-md-3">
-                <input type="submit" class="btn btn-primary btn-sm LoginKnoppen" value="Wachtwoord Vergeten" />
+                <input type="submit" class="btn btn-primary btn-sm LoginKnoppen" value="Wachtwoord Vergeten" asp-controller="Account" asp-action="ResetWachtwoord" formmethod="post"/>
             </div>
         </div>
     </form>

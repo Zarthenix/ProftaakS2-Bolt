@@ -19,5 +19,6 @@ namespace ProftaakProject.Models.ViewModels
         public List<Uitzendbureau> ubs { get; set; }
 
         public List<Account> avm { get; set; }
+        public Account AccountTeVerwijderen { get; set; }
     }
 }

@@ -18,6 +18,30 @@ namespace ProftaakProject.Context.SQLContext
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
+        public bool VoegToeUitzend(int uitzend, int accId)
+        {
+            string query = "Update Account Set uitzendID = @uitzendID where accountID = @accountID";
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    connection.Open();
+
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@uitzendID", uitzend);
+                        cmd.Parameters.AddWithValue("@accountID", accId);
+                    }
+                    return true;
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+                return false;
+            }
+        }
+
         public List<Account> GetAll(int id)
         {
             List<Account> accs = new List<Account>();
@@ -42,6 +66,30 @@ namespace ProftaakProject.Context.SQLContext
             }
 
             return accs;
+        }
+
+        public bool VerwijderUitzend(int id)
+        {
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    connection.Open();
+
+                    string query = "Update Account Set uitzendID = NULL Where accountID = @accountID";
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@accountID", id);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return false;
+            }
         }
     }
 }

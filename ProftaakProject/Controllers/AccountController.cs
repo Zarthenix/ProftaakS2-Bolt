@@ -27,6 +27,10 @@ namespace ProftaakProject.Controllers
             return View("Profiel");
         }
 
+        public IActionResult ResetWachtwoord()
+        {
+            return View();
+        }
     }
 
 }
