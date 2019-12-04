@@ -55,9 +55,9 @@
                             <br />
                             <a class="nav-link side-bar-text" asp-area="" asp-controller="Account" asp-action="Login"><i class="far fa-calendar-alt fa-2x icon"></i><label>Kalender</label></a>
                             <br />
-                            <a class="nav-link side-bar-text" asp-area="" asp-controller="Account" asp-action="Login"><i class="fas fa-history fa-2x icon"></i><label>Geschiedenis</label></a>
+                            <a class="nav-link text-sidenav" asp-area="" asp-controller="Account" asp-action="Login">Geschiedenis</a>
                             <br />
-                            <a class="nav-link side-bar-text" asp-area="" asp-controller="Account" asp-action="Login"><i class="fas fa-podcast fa-2x icon"></i><label>Uitzendbureau</label></a>
+                            <a class="nav-link text-sidenav" asp-area="" asp-controller="Uitzend" asp-action="Index">Uitzendbureaus</a>
                         </div>
                     </nav>
                 </div>
@@ -68,8 +68,9 @@
         </div>
     </main>
     <partial name="_CookieConsentPartial" />
-    <footer class="mt-auto py-3">
-        <hr />
+    <partial name="_ValidationScriptsPartial" />
+
+    <footer class="footer mt-auto py-3">
         <div class="container">
             <p>&copy; 2019 - ProftaakProject</p>
         </div>

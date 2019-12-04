@@ -41,7 +41,6 @@ namespace ProftaakProject.Context.SQLContext
                         cmd.Parameters.AddWithValue("@inhoud", post.Inhoud);
                         cmd.Parameters.AddWithValue("@type", post.TypeId);
                         if (post.ImageFile != null) { cmd.Parameters.Add("@imageFile", sqlDbType: SqlDbType.VarBinary).Value = post.ImageFile; }
-
                         //            //cmd.Parameters.AddWithValue("@uitzendID", 1);
                         //            //cmd.Parameters.AddWithValue("@accountID", 1);
                         post.Id = (int)cmd.ExecuteScalar();
@@ -141,7 +140,7 @@ namespace ProftaakProject.Context.SQLContext
                                 reader["inhoud"].ToString(),
                                 (int)reader["type"],
                                 new Tag((int)reader["tagID"], reader["naam"].ToString()),
-                                (byte[])reader["imageFile"])) ;
+                                (byte[])reader["imageFile"]));
                         }
                     }
                 }

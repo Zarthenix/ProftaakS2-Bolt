@@ -20,7 +20,7 @@ namespace ProftaakProject.Models
         public enum Rol
         {
             Administrator,
-            Moderator, 
+            Moderator,
             Service,
             Gebruiker,
             Gast

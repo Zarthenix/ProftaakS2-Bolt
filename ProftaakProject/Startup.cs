@@ -51,6 +51,9 @@ namespace ProftaakProject
 
             services.AddScoped<AccountRepo>();
             services.AddScoped<PostRepo>();
+            services.AddTransient<IUitzendContext, UitzendContext>();
+            services.AddScoped<UitzendRepo>();
+            services.AddTransient<IAccountContext, AccountContext>();
             services.AddScoped<AccountRepo>();
             services.AddScoped<ReactieRepo>();
 

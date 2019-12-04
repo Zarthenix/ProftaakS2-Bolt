@@ -1,0 +1,25 @@
+﻿@model ProftaakProject.Models.ViewModels.AccountViewModel
+@{
+    ViewData["Title"] = "AccountToevoegen";
+}
+
+<h1>Account toevoegen</h1>
+<body>
+    <div class="container-fluid row postContainer">
+        <div class="col-md-8">
+            <form>
+                <div class="col-md-1 form-group postKoppen">
+                    <label asp-for="Gebruikersnaam" class="control-label"></label>
+                </div>
+                <div class="col-md-11">
+                    <input asp-for="Gebruikersnaam" class="form-control" value="@Model.Gebruikersnaam" />
+                    <span asp-validation-for="Gebruikersnaam" class="text-danger"></span>
+                </div>
+                <div>
+                    <input type="submit" value="Aanmaken" class="btn btn-dark" asp-controller="Uitzend" asp-action="AccountToevoegen" formmethod="post" />
+                    <input type="submit" value="Terug" class="btn btn-dark" asp-controller="Uitzend" asp-action="Index" />
+                </div>
+            </form>
+        </div>
+    </div>
+</body>

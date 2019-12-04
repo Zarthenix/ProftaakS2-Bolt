@@ -1,0 +1,40 @@
+﻿@model ProftaakProject.Models.ViewModels.UitzendViewModel
+@{
+    ViewData["Title"] = "Uitzendbureaus";
+}
+
+<body>
+    <h1>Overzicht uitzendbureaus</h1>
+    <table class="uitzendtable">
+        <thead>
+            <tr>
+                <th>Naam</th>
+                <th>Eigenaar</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (Uitzendbureau ub in Model.ubs)
+            {
+                <tr>
+                    <td><a asp-controller="Uitzend" asp-action="Uitzendbureau" asp-route-id="@ub.Id">@ub.Naam</a></td>
+                    <td>@ub.Eigenaar</td>
+                    <td>
+                        <form asp-controller="Uitzend" asp-action="UitzendBewerken">
+                            <input class="btn" type="submit" value="Bewerken">
+                            <input type="hidden" asp-for="Id" value="@ub.Id" />
+                            <input type="hidden" asp-for="Naam" value="@ub.Naam" />
+                        </form>
+                    </td>
+                    <td><a asp-controller="Uitzend" asp-action="VerwijderUb" asp-route-id="@ub.Id">Verwijderen</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <form>
+        <input type="submit" value="Aanmaken" class="btn btn-dark" asp-controller="Uitzend" asp-action="UitzendToevoegen" formmethod="get" />
+    </form>
+</body>
+<footer>
+</footer>
+
