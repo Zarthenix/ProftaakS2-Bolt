@@ -8,47 +8,43 @@ namespace ProftaakProject.Models.Repositories
 {
     public class AccountRepo 
     {
-        private IAuthContext context;
+        private IAuthContext authContext;
+        private IAccountContext accContext;
 
-        public AccountRepo(IAuthContext context)
+        public AccountRepo(IAuthContext authContext, IAccountContext accountContext)
         {
-            this.context = context;
+            this.authContext = authContext;
+            accContext = accountContext;
         }
 
         public Task<bool> Login(Account user)
         {
-            return context.Login(user);
+            return authContext.Login(user);
         }
 
         public Task<bool> Register(Account user, int rol)
         {
-            return context.Register(user, rol);
-        }
-        private readonly IAccountContext ctx;
-
-        public AccountRepo(IAccountContext context)
-        {
-            this.ctx = context;
+            return authContext.Register(user, rol);
         }
 
         public bool VoegToeUitzend(int uitzend, int accId)
         {
-            return ctx.VoegToeUitzend(uitzend, accId);
+            return accContext.VoegToeUitzend(uitzend, accId);
         }
 
         public List<Account> GetAll(int id)
         {
-            return ctx.GetAll(id);
+            return accContext.GetAll(id);
         }
 
         public Account GetByID(int id)
         {
-            return ctx.GetByID(id);
+            return accContext.GetByID(id);
         }
 
         public bool VerwijderUitzend(int id)
         {
-            return ctx.VerwijderUitzend(id);
+            return accContext.VerwijderUitzend(id);
         }
     }
 }

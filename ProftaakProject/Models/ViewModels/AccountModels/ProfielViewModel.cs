@@ -41,9 +41,5 @@ namespace ProftaakProject.Models.ViewModels
             get { return this.Rol;}
             set { this.Rol = Account.Rol.Gebruiker.ToString(); }
         }
-        public int BerekenLeeftijd(DateTime dateTime)
-        {
-            return 0;
-        }
     }
 }
