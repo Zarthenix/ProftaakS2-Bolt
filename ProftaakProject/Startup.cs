@@ -45,6 +45,7 @@ namespace ProftaakProject
             services.AddIdentity<Account, Role>().AddDefaultTokenProviders();
 
             services.AddTransient<IPostContext, PostContext>();
+            services.AddTransient<ITagContext, MSSQLTagContext>();
             services.AddTransient<IAuthContext, MSSQLAuthContext>();
             services.AddScoped<PostRepo>();
 

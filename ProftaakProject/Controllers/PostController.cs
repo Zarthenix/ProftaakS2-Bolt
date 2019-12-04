@@ -75,20 +75,18 @@ namespace ProftaakProject.Controllers
         [HttpGet]
         public IActionResult ArtikelToevoegen(int id)
         {
+            ArtikelToevoegenViewModel atvm = new ArtikelToevoegenViewModel();
+            atvm.Tags = pr.GetAllTags();
             if (id > 0)
             {
                 PostToArtikelToevoegenvmConverter ptatvmc = new PostToArtikelToevoegenvmConverter();
                 Post p = pr.GetByID(id);
-                ArtikelToevoegenViewModel atvm = ptatvmc.ConvertToViewModel(p);
-                return View(atvm);
+                atvm = ptatvmc.ConvertToViewModel(p);
             }
-            else
-            {
-                ArtikelToevoegenViewModel atvm = new ArtikelToevoegenViewModel();
-                return View(atvm);
-            }
+            return View(atvm);
 
         }
+
         [HttpPost]
         public IActionResult ArtikelToevoegen(ArtikelToevoegenViewModel atvm)
         {
@@ -98,10 +96,16 @@ namespace ProftaakProject.Controllers
             pr.Save(post);
             return RedirectToAction("Artikel", "Post", new { id = post.Id });
         }
+
         public IActionResult ArtikelVerwijderen(ArtikelToevoegenViewModel atvm)
         {
             pr.Delete(atvm.Id);
             return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult FAQ()
+        {
+            return View();
         }
         #endregion
 
