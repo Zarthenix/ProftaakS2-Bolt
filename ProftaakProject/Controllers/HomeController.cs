@@ -25,6 +25,7 @@ namespace ProftaakProject.Controllers
             this.postRepo = prepo;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
             PostViewModel pvm = new PostViewModel();
@@ -40,6 +41,7 @@ namespace ProftaakProject.Controllers
             return View(pvm);
         }
 
+        [HttpGet]
         public IActionResult Privacy()
         {
             return View();

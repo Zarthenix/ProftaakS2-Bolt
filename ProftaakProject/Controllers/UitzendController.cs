@@ -22,6 +22,7 @@ namespace ProftaakProject.Controllers
             this.ar = accountRepo;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
             UitzendViewModel uvm = new UitzendViewModel();
@@ -58,6 +59,7 @@ namespace ProftaakProject.Controllers
             return View("UitzendToevoegen", uvm);
         }
 
+        [HttpGet]
         public IActionResult Uitzendbureau(int id)
         {
             UitzendToUitzendvmConvert utuvmc = new UitzendToUitzendvmConvert();
@@ -68,10 +70,11 @@ namespace ProftaakProject.Controllers
             UitzendViewModel uvm = utuvmc.ConvertToViewModel(ub);
             List<AccountViewModel> avms = new List<AccountViewModel>();
             //uvm.avm = avms;
-            uvm.avm = ar.GetAll(id);
+            uvm.avm = ar.GetAllUitzend(id);
             return View(uvm);
         }
 
+        [HttpPost]
         public IActionResult VerwijderUb(int id)
         {
             Uitzendbureau ub = new Uitzendbureau();
@@ -84,6 +87,8 @@ namespace ProftaakProject.Controllers
         public IActionResult AccountToevoegen()
         {
             AccountViewModel avm = new AccountViewModel();
+
+            avm.accs = ar.GetAll();
 
             return View(avm);
         }
@@ -106,6 +111,7 @@ namespace ProftaakProject.Controllers
             return View(avm);
         }
 
+        [HttpPost]
         public IActionResult VerwijderGebruiker(UitzendViewModel uvm)
         {
             ar.VerwijderUitzend(uvm.AccountTeVerwijderen.Id);
