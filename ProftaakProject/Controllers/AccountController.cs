@@ -82,6 +82,8 @@ namespace ProftaakProject.Controllers
         [HttpGet]
         public IActionResult Profiel(int id)
         {
+            if (HttpContext.User?.Identity.IsAuthenticated == false) { return RedirectToAction("Login", "Account"); }
+
             if (ModelState.IsValid)
             {
                 AccountToProfielvmConvert atpvmc = new AccountToProfielvmConvert();
@@ -105,6 +107,7 @@ namespace ProftaakProject.Controllers
             return View("Profiel", pvm);
         }
 
+        [HttpGet]
         public IActionResult ResetWachtwoord()
         {
             return View();

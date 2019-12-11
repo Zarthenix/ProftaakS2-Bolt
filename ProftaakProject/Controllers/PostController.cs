@@ -8,6 +8,8 @@ using ProftaakProject.Models.Repositories;
 using ProftaakProject.Models.ConvertModels;
 using ProftaakProject.Models.ViewModels;
 using ProftaakProject.Models.ViewModels.PostModels;
+using Microsoft.AspNetCore.Authorization;
+
 namespace ProftaakProject.Controllers
 {
     public class PostController : Controller
@@ -24,6 +26,7 @@ namespace ProftaakProject.Controllers
 
         #region Vraag
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Vraag(int id)
         {
@@ -37,6 +40,8 @@ namespace ProftaakProject.Controllers
         [HttpGet]
         public IActionResult VraagToevoegen(int id)
         {
+            if (HttpContext.User?.Identity.IsAuthenticated == false) { return RedirectToAction("Login", "Account"); }
+
             if (id > 0)
             {
                 PostToVraagToevoegenvmConverter ptvtvmc = new PostToVraagToevoegenvmConverter();
@@ -71,6 +76,8 @@ namespace ProftaakProject.Controllers
         #endregion
 
         #region Artikel
+
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Artikel(int id)
         {
@@ -79,9 +86,12 @@ namespace ProftaakProject.Controllers
 
             return View("Artikel", avm);
         }
+
         [HttpGet]
         public IActionResult ArtikelToevoegen(int id)
         {
+            if (HttpContext.User?.Identity.IsAuthenticated == false) { return RedirectToAction("Login", "Account"); }
+
             ArtikelToevoegenViewModel atvm = new ArtikelToevoegenViewModel();            
             if (id > 0)
             {
@@ -111,6 +121,7 @@ namespace ProftaakProject.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult FAQ()
         {

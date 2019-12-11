@@ -7,6 +7,7 @@ using ProftaakProject.Models.ViewModels;
 using ProftaakProject.Models.Repositories;
 using ProftaakProject.Models;
 using ProftaakProject.Models.ConvertModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ProftaakProject.Controllers
 {
@@ -22,6 +23,7 @@ namespace ProftaakProject.Controllers
             this.ar = accountRepo;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Index()
         {
@@ -33,6 +35,8 @@ namespace ProftaakProject.Controllers
         [HttpGet]
         public IActionResult UitzendToevoegen()
         {
+            if (!User.IsInRole("Admin")) { return RedirectToAction("NotAuthorized", "Home"); }
+
             UitzendViewModel uvm = new UitzendViewModel();
             uvm.Id = -1;
             return View(uvm);
@@ -52,16 +56,19 @@ namespace ProftaakProject.Controllers
             return View(uvm);
         }
 
-
         [HttpPost]
         public IActionResult UitzendBewerken(UitzendViewModel uvm)
-        {            
+        {
+            if (HttpContext.User?.Identity.IsAuthenticated == false) { return RedirectToAction("Login", "Account"); }
+
             return View("UitzendToevoegen", uvm);
         }
-
+        
         [HttpGet]
         public IActionResult Uitzendbureau(int id)
         {
+            if (HttpContext.User?.Identity.IsAuthenticated == false) { return RedirectToAction("Login", "Account"); }
+
             UitzendToUitzendvmConvert utuvmc = new UitzendToUitzendvmConvert();
 
             Uitzendbureau ub = ur.GetByID(id);
@@ -74,11 +81,11 @@ namespace ProftaakProject.Controllers
             return View(uvm);
         }
 
-        [HttpPost]
+        [HttpGet]
         public IActionResult VerwijderUb(int id)
         {
-            Uitzendbureau ub = new Uitzendbureau();
-            ub.Id = id;
+            if (!User.IsInRole("Admin")) { return RedirectToAction("NotAuthorized", "Home"); }
+
             ur.Delete(id);
             return RedirectToAction("Index", "Uitzend");
         }
@@ -86,6 +93,8 @@ namespace ProftaakProject.Controllers
         [HttpGet]
         public IActionResult AccountToevoegen()
         {
+            if (!User.IsInRole("Admin")) { return RedirectToAction("NotAuthorized", "Home"); }
+
             AccountViewModel avm = new AccountViewModel();
 
             avm.accs = ar.GetAll();
