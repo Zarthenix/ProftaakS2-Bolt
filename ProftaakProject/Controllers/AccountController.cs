@@ -47,8 +47,21 @@ namespace ProftaakProject.Controllers
         }
 
         [HttpGet]
+        public IActionResult Logout()
+        {
+            _accRepo.Logout();
+
+            return RedirectToAction("Login", "Account");
+        }
+
+        [HttpGet]
         public IActionResult Register()
         {
+            if (HttpContext.User?.Identity.IsAuthenticated == true)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             RegisterViewModel rvm = new RegisterViewModel();
             return View("Registratie", rvm);
         }
