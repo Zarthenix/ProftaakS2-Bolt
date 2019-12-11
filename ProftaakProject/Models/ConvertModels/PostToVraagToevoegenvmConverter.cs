@@ -17,8 +17,8 @@ namespace ProftaakProject.Models.ConvertModels
                 p.Inhoud = vtvm.Inhoud;
                 p.Titel = vtvm.Titel;
                 p.Datum = vtvm.Datum;
+                p.Tag = vtvm.Tag;
                 p.TypeId = vtvm.TypeId;
-
             }
             return p;
         }

@@ -42,9 +42,9 @@ namespace ProftaakProject.Models.Repositories
             return tCtx.GetTagByID(id);
         }
 
-        public List<Post> GetAll()
+        public List<Post> GetAllArtikelen()
         {
-            return pCtx.GetAll();
+            return pCtx.GetAllArtikelen();
         }
 
         public List<Tag> GetAllTags()
@@ -64,5 +64,14 @@ namespace ProftaakProject.Models.Repositories
             }
         }
 
+        public bool IncrementViews(int postID)
+        {
+            return pCtx.IncrementViews(postID);
+        }
+
+        public List<Post> FAQVragenByTag(Tag tag)
+        {
+            return pCtx.FAQVragenByTag(tag);
+        }
     }
 }

@@ -21,7 +21,9 @@ namespace ProftaakProject.Models.ViewModels.PostModels
         [Required(ErrorMessage = "Vul een inhoud in!")]
         public string Inhoud { get; set; }
 
-        public string Tag { get; set; }
+        public Tag Tag { get; set; }
+
+        public List<Tag> Tags { get; set; }
 
         public int TypeId { get; set; }
     }

@@ -34,7 +34,7 @@ namespace ProftaakProject.Controllers
             List<PostViewModel> tempModels = new List<PostViewModel>();
             PostToPostvmConverter ppc = new PostToPostvmConverter();
 
-            foreach (Post tempPost in postRepo.GetAll())
+            foreach (Post tempPost in postRepo.GetAllArtikelen())
             {
                 tempModels.Add(ppc.ConvertToViewModel(tempPost));
             }

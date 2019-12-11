@@ -82,7 +82,6 @@ namespace ProftaakProject.Context.SQLContext
                     return false;
                 }
             }
-
         }
 
         public Post GetByID(int id)
@@ -107,6 +106,7 @@ namespace ProftaakProject.Context.SQLContext
                                 p.Datum = (DateTime)reader["datum"];
                                 p.Inhoud = reader["inhoud"].ToString();
                                 p.TypeId = (int)reader["type"];
+                                p.AantalBekenen = (int)reader["aantalBekeken"];
                                 if (p.TypeId == 0)
                                 {
                                     p.Tag = new Tag((int)reader["tagID"], reader["naam"].ToString());
@@ -124,7 +124,7 @@ namespace ProftaakProject.Context.SQLContext
             }
         }
 
-        public List<Post> GetAll()
+        public List<Post> GetAllArtikelen()
         {
             List<Post> posts = new List<Post>();
             string query = "SELECT * FROM dbo.Tag INNER JOIN dbo.Post ON dbo.Tag.tagID = dbo.Post.tagID WHERE type = 0";
@@ -148,7 +148,36 @@ namespace ProftaakProject.Context.SQLContext
                         }
                     }
                 }
+                connection.Close();
+            }
 
+            return posts;
+        }
+
+        public List<Post> FAQVragenByTag(Tag tag)
+        {
+            List<Post> posts = new List<Post>();
+            string query = "SELECT Top(3) * FROM dbo.Post WHERE tagID = @tagID AND dbo.Post.type = 1 ORDER BY dbo.Post.aantalBekeken";
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@tagID", tag.Id);
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            posts.Add(new Post(
+                                (int)reader["postId"],
+                                reader["titel"].ToString(),
+                                reader["inhoud"].ToString(),
+                                (int)reader["type"],
+                                tag));
+                        }
+                    }
+                }
                 connection.Close();
             }
 
@@ -184,6 +213,32 @@ namespace ProftaakProject.Context.SQLContext
 
                 connection.Close();
                 return false;
+            }
+        }
+
+        public bool IncrementViews(int postID)
+        {
+            int aantalBekeken = GetByID(postID).AantalBekenen + 1;
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "UPDATE dbo.Post SET aantalBekeken = @aantalBekeken WHERE postID = @postID";
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@postID", postID);
+                        cmd.Parameters.AddWithValue("@aantalBekeken", aantalBekeken);
+                        cmd.ExecuteNonQuery();
+                    }
+                    connection.Close();
+                    return true;
+                }
+                catch (Exception exception)
+                {
+                    Console.WriteLine(exception);
+                    throw;
+                }
             }
         }
     }

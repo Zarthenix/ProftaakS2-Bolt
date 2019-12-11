@@ -20,14 +20,13 @@
                 <span asp-validation-for="Inhoud" class="text-danger"></span>
             </div>
             <div class="col-md-3">
-                <div class="comboboxPostAanmaken">
-                    <select class="form-control" name="Tag">
-                        <option>Kies een tag</option>
-                        <option>Tag1</option>
-                        <option>Tag2</option>
-                        <option>Tag3</option>
-                    </select>
-                </div>
+                <select tag="option" asp-for="Tag.Id" class="form-control LoginVelden">
+                    @foreach (Tag tempTag in Model.Tags)
+                    {
+                        <option value="@tempTag.Id">@tempTag.Naam</option>
+                    }
+                </select>
+                <span asp-validation-for="Tag"></span>
             </div>
             <div class="form-group">
                 <input value="@Model.Id" type="hidden" asp-for="Id" class="form-control" />
