@@ -283,6 +283,16 @@ div.postInhoud {
             text-decoration: none;
             color: black;
         }
+
+.card-text {
+    border-top: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.reactieAanmakenInhoud {
+    min-width: 550px;
+    min-height: 150px;
+    max-height: 250px;
+}
 /*CSS voor artikel inzien*/
 #PostBorderGoedgekeurd {
     border: 4px solid;
@@ -303,6 +313,6 @@ div.artikelInhoud {
 
 
 /*CSS voor uitzendbureau*/
-.uitzendtable a{
+.uitzendtable a {
     color: black;
 }
