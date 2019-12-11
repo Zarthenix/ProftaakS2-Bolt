@@ -16,5 +16,7 @@ namespace ProftaakProject.Models.ViewModels
         public string Gebruikersnaam { get; set; }
 
         public int UitzendID { get; set; }
+
+        public List<Account> accs { get; set; }
     }
 }

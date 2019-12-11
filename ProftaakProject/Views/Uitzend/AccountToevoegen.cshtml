@@ -12,8 +12,13 @@
                     <label asp-for="Gebruikersnaam" class="control-label"></label>
                 </div>
                 <div class="col-md-11">
-                    <input asp-for="Gebruikersnaam" class="form-control" value="@Model.Gebruikersnaam" />
-                    <span asp-validation-for="Gebruikersnaam" class="text-danger"></span>
+                    <input type="text" list="gebruikers" />
+                    <datalist id="gebruikers">
+                        @foreach (Account account in Model.accs)
+                        {
+                            <option value="@account.Gebruikersnaam">@account.Gebruikersnaam</option>
+                        }
+                    </datalist>
                 </div>
                 <div>
                     <input type="submit" value="Aanmaken" class="btn btn-dark" asp-controller="Uitzend" asp-action="AccountToevoegen" formmethod="post" />
