@@ -70,5 +70,10 @@ namespace ProftaakProject.Context.SQLContext
             var result = await signInManager.PasswordSignInAsync(user.Gebruikersnaam, user.Wachtwoord, false, lockoutOnFailure: false);
             return result.Succeeded;
         }
+
+        public async void Logout()
+        {
+            await signInManager.SignOutAsync();
+        }
     }
 }

@@ -10,5 +10,6 @@ namespace ProftaakProject.Context.Interfaces
     {
         Task<bool> Login(Account user);
         Task<bool> Register(Account user, int rol);
+        void Logout();
     }
 }

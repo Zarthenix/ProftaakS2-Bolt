@@ -6,8 +6,8 @@
 }
 <div class="card">
     <div class="card-body">
-        <h4 class="card-title">@Model.Post.Titel</h4>
-        <p class="card-text">@Model.Post.Inhoud</p>
+        <h2 class="card-title">@Model.Post.Titel</h2>
+        <p class="card-text" style="font-size:20px">@Model.Post.Inhoud</p>
     </div>
     <div class="card-footer">
         @*<p class="auteurText">Model.Auteur.Naam</p> <a href="@Url.Action("ArtikelToevoegen", "Post", new {Id = Model.Post.Id})">Bewerken</a><br /><a href="@Url.Action("ArtikelVerwijderen", "Post", new {Id = Model.Post.Id})">Verwijderen</a>*@
@@ -18,7 +18,10 @@
         {
             <div class="card-footer">
                 <div class="card-footer">@react.Inhoud</div>
-                <div class="card-text">react.Auteur.Naam</div>
+                <div class="card-text" style="font-size:15px">
+                    react.Auteur.Naam <a href="@Url.Action("ReactieVerwijderen", "Post", new {ReactieID = react.Id ,VraagID = Model.Post.Id})">Verwijderen</a>
+                </div>
+
             </div>
         }
     }
@@ -31,12 +34,15 @@
     }
 
     <div class="card-body">
-        <div class="card-text">
+        <h5>Reageer op deze vraag!</h5>
+        <div>
             <form asp-controller="Post" method="post">
                 <input type="hidden" asp-for="Post.Id" />
-                <textarea asp-for="ReactieAanmaken.Inhoud" class="reactieAanmakenInhoud"></textarea>
+                <input type="hidden" asp-for=" ReactieAanmaken.Inhoud" value="" />
+                <textarea asp-for="ReactieInhoud" class="reactieAanmakenInhoud"></textarea>
+                <span asp-validation-for="ReactieInhoud" class="text-danger"></span>
                 <br />
-                <input type="submit" asp-action="ReactieAanmaken" value="Post" />
+                <input type="submit" asp-action="ReactieAanmaken" value="Reageren" />
             </form>
         </div>
     </div>

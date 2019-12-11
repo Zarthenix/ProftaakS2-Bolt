@@ -67,6 +67,25 @@ namespace ProftaakProject.Context.SQLContext
                 {
                     connection.Open();
 
+                    string query = "UPDATE dbo.Account SET uitzendID = null WHERE uitzendID = @uitzendID";
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@uitzendID", id);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw;
+            }
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    connection.Open();
+
                     string query = "delete Uitzendbureau where uitzendID = @uitzendID";
                     using (SqlCommand cmd = new SqlCommand(query, connection))
                     {
@@ -79,9 +98,8 @@ namespace ProftaakProject.Context.SQLContext
             catch(Exception ex)
             {
                 Console.WriteLine(ex);
-                return false;
+                throw;
             }
-
         }
 
         public List<Uitzendbureau> GetAll()

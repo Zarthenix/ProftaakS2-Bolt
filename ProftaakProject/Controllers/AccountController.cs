@@ -47,8 +47,21 @@ namespace ProftaakProject.Controllers
         }
 
         [HttpGet]
+        public IActionResult Logout()
+        {
+            _accRepo.Logout();
+
+            return RedirectToAction("Login", "Account");
+        }
+
+        [HttpGet]
         public IActionResult Register()
         {
+            if (HttpContext.User?.Identity.IsAuthenticated == true)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             RegisterViewModel rvm = new RegisterViewModel();
             return View("Registratie", rvm);
         }
@@ -79,8 +92,11 @@ namespace ProftaakProject.Controllers
             return retval;
         }
 
+        [HttpGet]
         public IActionResult Profiel(int id)
         {
+            if (HttpContext.User?.Identity.IsAuthenticated == false) { return RedirectToAction("Login", "Account"); }
+
             if (ModelState.IsValid)
             {
                 AccountToProfielvmConvert atpvmc = new AccountToProfielvmConvert();
@@ -104,6 +120,7 @@ namespace ProftaakProject.Controllers
             return View("Profiel", pvm);
         }
 
+        [HttpGet]
         public IActionResult ResetWachtwoord()
         {
             return View();

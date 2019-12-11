@@ -34,10 +34,10 @@ namespace ProftaakProject
                 using (var connection = new SqlConnection(_connectionString))
                 {
                     connection.Open();
-                    SqlCommand sqlCommand = new SqlCommand("INSERT INTO [Account] (gebruikersnaam, emailadres, wachtwoord) VALUES (@Gebruikersnaam, @Email, @Wachtwoord)", connection);
-                    sqlCommand.Parameters.AddWithValue("@Gebruikersnaam", user.Gebruikersnaam);
-                    sqlCommand.Parameters.AddWithValue("@Wachtwoord", user.Wachtwoord);
-                    sqlCommand.Parameters.AddWithValue("@Email", user.Email);
+                    SqlCommand sqlCommand = new SqlCommand("INSERT INTO [Account] (gebruikersnaam, emailadres, wachtwoord) VALUES (@gebruikersnaam, @emailadres, @wachtwoord)", connection);
+                    sqlCommand.Parameters.AddWithValue("@gebruikersnaam", user.Gebruikersnaam);
+                    sqlCommand.Parameters.AddWithValue("@wachtwoord", user.Wachtwoord);
+                    sqlCommand.Parameters.AddWithValue("@emailadres", user.Email);
                     user.Id = Convert.ToInt32(sqlCommand.ExecuteScalar());
                     if (user.Id == -1)
                     {
@@ -126,7 +126,7 @@ namespace ProftaakProject
                         Account user = default(Account);
                         if (sqlDataReader.Read())
                         {
-                            user = new Account(Convert.ToInt32(sqlDataReader["accountID"].ToString()), sqlDataReader["gebruikersnaam"].ToString(), sqlDataReader["email"].ToString());
+                            user = new Account(Convert.ToInt32(sqlDataReader["accountID"].ToString()), sqlDataReader["gebruikersnaam"].ToString(), sqlDataReader["emailadres"].ToString());
 
                         }
                         connection.Close();
