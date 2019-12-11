@@ -22,19 +22,29 @@ namespace ProftaakProject.Models.Repositories
             return authContext.Login(user);
         }
 
+        public void Logout()
+        {
+            authContext.Logout();
+        }
+
         public Task<bool> Register(Account user, int rol)
         {
             return authContext.Register(user, rol);
         }
 
-        public bool VoegToeUitzend(int uitzend, int accId)
+        public bool VoegToeUitzend(int uitzend, string gebruikersnaam)
         {
-            return accContext.VoegToeUitzend(uitzend, accId);
+            return accContext.VoegToeUitzend(uitzend, gebruikersnaam);
         }
 
-        public List<Account> GetAll(int id)
+        public List<Account> GetAllUitzend(int id)
         {
-            return accContext.GetAll(id);
+            return accContext.GetAllUitzend(id);
+        }
+
+        public List<Account> GetAll()
+        {
+            return accContext.GetAll();
         }
 
         public Account GetByID(int id)

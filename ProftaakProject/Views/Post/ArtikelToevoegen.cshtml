@@ -21,24 +21,9 @@
                 <span asp-validation-for="Inhoud" class="text-danger"></span>
             </div>
 
-            @*<div class="col-md-3">
-                    <div class="comboboxPostAanmaken">
-                        <select class="form-control" name="Tag">
-                            <option>Kies een tag</option>
-                            @foreach(Tag tempTag in Model.Tags)
-                            {
-                                <option>@tempTag.Naam</option>
-                            }
-                        </select>
-                    </div>
-                </div>*@
-
             <div class="row">
                 <div class="col-md-3">
-                    <label asp-for="Tag.Id"></label>
-                </div>
-                <div class="col-md-3">
-                    <select tag="option" input asp-for="Tag.Id" class="form-control LoginVelden" id="gender">
+                    <select tag="option" asp-for="Tag.Id" class="form-control LoginVelden">
                         @foreach (Tag tempTag in Model.Tags)
                         {
                             <option value="@tempTag.Id">@tempTag.Naam</option>

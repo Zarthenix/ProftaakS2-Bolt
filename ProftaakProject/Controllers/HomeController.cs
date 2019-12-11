@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -25,6 +26,8 @@ namespace ProftaakProject.Controllers
             this.postRepo = prepo;
         }
 
+        [AllowAnonymous]
+        [HttpGet]
         public IActionResult Index()
         {
             PostViewModel pvm = new PostViewModel();
@@ -40,7 +43,7 @@ namespace ProftaakProject.Controllers
             return View(pvm);
         }
 
-        public IActionResult Privacy()
+        public IActionResult NotAuthorized()
         {
             return View();
         }

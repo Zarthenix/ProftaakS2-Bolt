@@ -28,6 +28,8 @@ namespace ProftaakProject.Controllers
         {
             PostToVraagvmConverter ptavmc = new PostToVraagvmConverter();
             VraagViewModel vvm = ptavmc.ConvertToViewModel(pr.GetByID(id));
+            vvm.Post.Id = id;
+            vvm.Reacties = rr.GetAll(vvm.Post.Id);
             return View(vvm);
         }
 
@@ -78,13 +80,13 @@ namespace ProftaakProject.Controllers
         public IActionResult ArtikelToevoegen(int id)
         {
             ArtikelToevoegenViewModel atvm = new ArtikelToevoegenViewModel();
-            atvm.Tags = pr.GetAllTags();
             if (id > 0)
             {
                 PostToArtikelToevoegenvmConverter ptatvmc = new PostToArtikelToevoegenvmConverter();
                 Post p = pr.GetByID(id);
                 atvm = ptatvmc.ConvertToViewModel(p);
             }
+            atvm.Tags = pr.GetAllTags();
             return View(atvm);
 
         }
@@ -105,17 +107,36 @@ namespace ProftaakProject.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpGet]
         public IActionResult FAQ()
         {
-            return View();
+            FAQViewModel fvm = new FAQViewModel();
+            fvm.AlleTags = pr.GetAllTags();
+            return View(fvm);
         }
         #endregion
 
         #region Reactie
+        [HttpPost]
         public IActionResult ReactieAanmaken(VraagViewModel vvm)
         {
-            
-            return View(vvm);
+            if (!ModelState.IsValid)
+            {
+                PostToVraagvmConverter ptavmc = new PostToVraagvmConverter();
+                VraagViewModel tempvvm = ptavmc.ConvertToViewModel(pr.GetByID(vvm.Post.Id));
+                tempvvm.Reacties = rr.GetAll(vvm.Post.Id);
+                return View("Vraag", tempvvm);
+            }
+            vvm.ReactieAanmaken.Datum = DateTime.Now;
+            vvm.ReactieAanmaken.PostID = vvm.Post.Id;
+            vvm.ReactieAanmaken.Inhoud = vvm.ReactieInhoud;
+            rr.Create(vvm.ReactieAanmaken);
+            return RedirectToAction("Vraag", "Post", new { id = vvm.Post.Id });
+        }
+        public IActionResult ReactieVerwijderen(int ReactieID, int VraagID)
+        {
+            rr.Delete(ReactieID);
+            return RedirectToAction("Vraag", "Post", new { id = VraagID });
         }
         #endregion
     }

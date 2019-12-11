@@ -19,9 +19,9 @@ namespace ProftaakProject.Context.SQLContext
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
-        public bool VoegToeUitzend(int uitzend, int accId)
+        public bool VoegToeUitzend(int uitzend, string gebruikersnaam)
         {
-            string query = "Update Account Set uitzendID = @uitzendID where accountID = @accountID";
+            string query = "Update Account Set uitzendID = @uitzendID where gebruikersnaam = @gebruikersnaam";
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -31,7 +31,9 @@ namespace ProftaakProject.Context.SQLContext
                     using (SqlCommand cmd = new SqlCommand(query, connection))
                     {
                         cmd.Parameters.AddWithValue("@uitzendID", uitzend);
-                        cmd.Parameters.AddWithValue("@accountID", accId);
+                        cmd.Parameters.AddWithValue("@gebruikersnaam", gebruikersnaam);
+                        //cmd.ExecuteNonQuery();
+                        cmd.ExecuteScalar();
                     }
                     return true;
                 }
@@ -43,7 +45,7 @@ namespace ProftaakProject.Context.SQLContext
             }
         }
 
-        public List<Account> GetAll(int id)
+        public List<Account> GetAllUitzend(int id)
         {
             List<Account> accs = new List<Account>();
             string query = "SELECT * FROM dbo.Account where uitzendID = @uitzendID";
@@ -64,6 +66,31 @@ namespace ProftaakProject.Context.SQLContext
                 }
 
                 connection.Close();           
+            }
+
+            return accs;
+        }
+
+        public List<Account> GetAll()
+        {
+            List<Account> accs = new List<Account>();
+            string query = "SELECT * FROM dbo.Account";
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            accs.Add(new Account((int)reader["accountId"], reader["gebruikersnaam"].ToString(), reader["emailadres"].ToString(), reader["naam"].ToString()));
+                        }
+                    }
+                }
+
+                connection.Close();
             }
 
             return accs;

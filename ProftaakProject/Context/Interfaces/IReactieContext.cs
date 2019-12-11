@@ -16,7 +16,7 @@ namespace ProftaakProject.Context.Interfaces
 
         Reactie GetByID(int id);
 
-        List<Reactie> GetAll();
+        List<Reactie> GetAll(int postID);
 
     }
 }
