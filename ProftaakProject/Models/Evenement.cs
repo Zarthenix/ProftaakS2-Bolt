@@ -9,9 +9,10 @@ namespace ProftaakProject.Models
     {
         public int Id { get; set; }
         public string Naam { get; set; }
-        public string Host { get; set; }
+        public int Host { get; set; }
         public string Locatie { get; set; }
         public DateTime Datum { get; set; }
+        public int MaxDeelnemers { get; set; }
         public Evenement()
         {
 

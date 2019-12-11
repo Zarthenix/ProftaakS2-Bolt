@@ -40,6 +40,7 @@
                 <input type="hidden" asp-for="Post.Id" />
                 <input type="hidden" asp-for=" ReactieAanmaken.Inhoud" value="" />
                 <textarea asp-for="ReactieInhoud" class="reactieAanmakenInhoud"></textarea>
+                <br />
                 <span asp-validation-for="ReactieInhoud" class="text-danger"></span>
                 <br />
                 <input type="submit" asp-action="ReactieAanmaken" value="Reageren" />

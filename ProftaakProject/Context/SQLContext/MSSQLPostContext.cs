@@ -150,7 +150,6 @@ namespace ProftaakProject.Context.SQLContext
                 }
                 connection.Close();
             }
-
             return posts;
         }
 
