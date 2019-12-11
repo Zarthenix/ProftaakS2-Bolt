@@ -68,7 +68,7 @@ namespace ProftaakProject.Controllers
             UitzendViewModel uvm = utuvmc.ConvertToViewModel(ub);
             List<AccountViewModel> avms = new List<AccountViewModel>();
             //uvm.avm = avms;
-            uvm.avm = ar.GetAll(id);
+            uvm.avm = ar.GetAllUitzend(id);
             return View(uvm);
         }
 
@@ -84,6 +84,8 @@ namespace ProftaakProject.Controllers
         public IActionResult AccountToevoegen()
         {
             AccountViewModel avm = new AccountViewModel();
+
+            avm.accs = ar.GetAll();
 
             return View(avm);
         }

@@ -32,9 +32,14 @@ namespace ProftaakProject.Models.Repositories
             return accContext.VoegToeUitzend(uitzend, accId);
         }
 
-        public List<Account> GetAll(int id)
+        public List<Account> GetAllUitzend(int id)
         {
-            return accContext.GetAll(id);
+            return accContext.GetAllUitzend(id);
+        }
+
+        public List<Account> GetAll()
+        {
+            return accContext.GetAll();
         }
 
         public Account GetByID(int id)

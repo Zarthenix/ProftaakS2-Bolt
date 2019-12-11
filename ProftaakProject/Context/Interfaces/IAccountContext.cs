@@ -10,7 +10,9 @@ namespace ProftaakProject.Context.Interfaces
     {
         bool VoegToeUitzend(int uitzend, int accId);
 
-        List<Account> GetAll(int id);
+        List<Account> GetAllUitzend(int id);
+
+        List<Account> GetAll();
 
         Account GetByID(int id);
 
