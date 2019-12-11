@@ -33,6 +33,17 @@
                     </div>
                 </div>
 
+            <div class="row">
+                <div class="col-md-3">
+                    <select tag="option" input asp-for="Tag.Id" class="form-control LoginVelden">
+                        @foreach (Tag tempTag in Model.Tags)
+                        {
+                            <option value="@tempTag.Id">@tempTag.Naam</option>
+                        }
+                    </select>
+                    <span asp-validation-for="Tag"></span>
+                </div>
+            </div>
 
             <div class="form-group">
                 <input value="@Model.Id" type="hidden" asp-for="Id" class="form-control" />

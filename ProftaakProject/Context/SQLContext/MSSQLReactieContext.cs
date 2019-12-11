@@ -20,32 +20,26 @@ namespace ProftaakProject.Context.SQLContext
         public bool Create(Reactie reactie)
         {
             string query;
-            using (var connection = new SqlConnection(_connectionString))
+            using var connection = new SqlConnection(_connectionString);
+            try
             {
-                try
-                {
-                    connection.Open();
-                    query = "INSERT INTO Reactie (datum, inhoud, type) output inserted.postID VALUES (@titel, @datum, @inhoud, @type)";
-                    using (SqlCommand cmd = new SqlCommand(query, connection))
-                    {
-                        cmd.Parameters.AddWithValue("@datum", reactie.Datum);
-                        cmd.Parameters.AddWithValue("@inhoud", reactie.Inhoud);
-                        //            //cmd.Parameters.AddWithValue("@uitzendID", 1);
-                        //            //cmd.Parameters.AddWithValue("@accountID", 1);
-                        reactie.Id = (int)cmd.ExecuteScalar();
-                        if (reactie.Id > -1)
-                        {
-                            return true;
-                        }
-                    }
-                }
-                catch (Exception exception)
-                {
-                    Console.WriteLine(exception);
-                }
-                connection.Close();
-                return false;
+                connection.Open();
+                query = "INSERT INTO Reactie (datum, inhoud,postID) VALUES (@datum, @inhoud, @vraagID)";
+                using SqlCommand cmd = new SqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("@datum", reactie.Datum);
+                cmd.Parameters.AddWithValue("@inhoud", reactie.Inhoud);
+                cmd.Parameters.AddWithValue("@vraagID", reactie.PostID);
+                //            //cmd.Parameters.AddWithValue("@uitzendID", 1);
+                //            //cmd.Parameters.AddWithValue("@accountID", 1);
+                cmd.ExecuteNonQuery();
+                return true;
             }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+            }
+            connection.Close();
+            return false;
         }
 
         public bool Delete(int id)
@@ -53,9 +47,29 @@ namespace ProftaakProject.Context.SQLContext
             throw new NotImplementedException();
         }
 
-        public List<Reactie> GetAll()
+        public List<Reactie> GetAll(int postID)
         {
-            throw new NotImplementedException();
+            List<Reactie> reactieLijst = new List<Reactie>();
+            string query = "SELECT * FROM dbo.Reactie WHERE postID = 1014 ORDER BY datum DESC";
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue(@"postID", postID);
+                    using SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        reactieLijst.Add(new Reactie(
+                            (int)reader["reactieID"],
+                            reader["inhoud"].ToString(),
+                            (DateTime)reader["datum"],
+                            (int)reader["postId"]));
+                    }
+                }
+                connection.Close();
+            }
+            return reactieLijst;
         }
 
         public Reactie GetByID(int id)

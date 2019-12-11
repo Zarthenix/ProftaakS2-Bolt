@@ -28,6 +28,8 @@ namespace ProftaakProject.Controllers
         {
             PostToVraagvmConverter ptavmc = new PostToVraagvmConverter();
             VraagViewModel vvm = ptavmc.ConvertToViewModel(pr.GetByID(id));
+            vvm.Post.Id = id;
+            vvm.Reacties = rr.GetAll(vvm.Post.Id);
             return View(vvm);
         }
 
@@ -77,14 +79,14 @@ namespace ProftaakProject.Controllers
         [HttpGet]
         public IActionResult ArtikelToevoegen(int id)
         {
-            ArtikelToevoegenViewModel atvm = new ArtikelToevoegenViewModel();
-            atvm.Tags = pr.GetAllTags();
+            ArtikelToevoegenViewModel atvm = new ArtikelToevoegenViewModel();            
             if (id > 0)
             {
                 PostToArtikelToevoegenvmConverter ptatvmc = new PostToArtikelToevoegenvmConverter();
                 Post p = pr.GetByID(id);
                 atvm = ptatvmc.ConvertToViewModel(p);
             }
+            atvm.Tags = pr.GetAllTags();
             return View(atvm);
 
         }
@@ -105,17 +107,23 @@ namespace ProftaakProject.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpGet]
         public IActionResult FAQ()
         {
-            return View();
+            FAQViewModel fvm = new FAQViewModel();
+            fvm.AlleTags = pr.GetAllTags();
+            return View(fvm);
         }
         #endregion
 
         #region Reactie
+        [HttpPost]
         public IActionResult ReactieAanmaken(VraagViewModel vvm)
         {
-            
-            return View(vvm);
+            vvm.ReactieAanmaken.Datum = DateTime.Now;
+            vvm.ReactieAanmaken.PostID = vvm.Post.Id;
+            rr.Create(vvm.ReactieAanmaken);
+            return RedirectToAction("Vraag", "Post", new { id = vvm.Post.Id });
         }
         #endregion
     }
