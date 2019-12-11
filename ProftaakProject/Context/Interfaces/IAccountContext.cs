@@ -8,7 +8,7 @@ namespace ProftaakProject.Context.Interfaces
 {
     public interface IAccountContext
     {
-        bool VoegToeUitzend(int uitzend, int accId);
+        bool VoegToeUitzend(int uitzend, string gebruikersnaam);
 
         List<Account> GetAllUitzend(int id);
 

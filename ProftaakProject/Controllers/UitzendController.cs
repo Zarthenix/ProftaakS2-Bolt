@@ -102,7 +102,7 @@ namespace ProftaakProject.Controllers
                 Uitzendbureau ub = new Uitzendbureau();
                 ub.Id = id;
 
-                //ar.VoegToeUitzend();
+                ar.VoegToeUitzend(id, avm.Gebruikersnaam);
                 return RedirectToAction("Uitzendbureau", "Uitzend", new { id = ub.Id });
             }
             return View(avm);

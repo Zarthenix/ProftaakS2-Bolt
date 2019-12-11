@@ -1,6 +1,7 @@
 ﻿@model ProftaakProject.Models.ViewModels.AccountViewModel
 @{
     ViewData["Title"] = "AccountToevoegen";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Account toevoegen</h1>
@@ -12,7 +13,14 @@
                     <label asp-for="Gebruikersnaam" class="control-label"></label>
                 </div>
                 <div class="col-md-11">
-                    <input type="text" list="gebruikers" />
+                    @*<input type="text" list="gebruikers" asp-for="Gebruikersnaam"/>
+                        <select id="combobox1" class="combobox">
+                            @foreach (Account account in Model.accs)
+                            {
+                                <option value="@account.Gebruikersnaam">@account.Gebruikersnaam</option>
+                            }
+                        </select>*@
+                    <input type="text" list="gebruikers" asp-for="Gebruikersnaam" />
                     <datalist id="gebruikers">
                         @foreach (Account account in Model.accs)
                         {
