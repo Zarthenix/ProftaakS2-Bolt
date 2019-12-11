@@ -79,6 +79,7 @@ namespace ProftaakProject.Controllers
             return retval;
         }
 
+        [HttpGet]
         public IActionResult Profiel(int id)
         {
             if (ModelState.IsValid)

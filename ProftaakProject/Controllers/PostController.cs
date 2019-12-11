@@ -24,6 +24,7 @@ namespace ProftaakProject.Controllers
 
         #region Vraag
 
+        [HttpGet]
         public IActionResult Vraag(int id)
         {
             PostToVraagvmConverter ptavmc = new PostToVraagvmConverter();
@@ -61,6 +62,7 @@ namespace ProftaakProject.Controllers
             return RedirectToAction("Vraag", "Post", new { id = post.Id });
         }
 
+        [HttpPost]
         public IActionResult VraagVerwijderen(VraagToevoegenViewModel vtvm)
         {
             pr.Delete(vtvm.Id);
@@ -69,6 +71,7 @@ namespace ProftaakProject.Controllers
         #endregion
 
         #region Artikel
+        [HttpGet]
         public IActionResult Artikel(int id)
         {
             PostToArtikelvmConverter pac = new PostToArtikelvmConverter();
@@ -101,6 +104,7 @@ namespace ProftaakProject.Controllers
             return RedirectToAction("Artikel", "Post", new { id = post.Id });
         }
 
+        [HttpPost]
         public IActionResult ArtikelVerwijderen(ArtikelToevoegenViewModel atvm)
         {
             pr.Delete(atvm.Id);
