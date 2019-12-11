@@ -18,5 +18,12 @@ namespace ProftaakProject.Models
         {
 
         }
+        public Reactie(int Id, string Inhoud, DateTime Datum, int PostID)
+        {
+            this.Id = Id;
+            this.Inhoud = Inhoud;
+            this.Datum = Datum;
+            this.PostID = PostID;
+        }
     }
 }

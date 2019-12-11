@@ -4,8 +4,6 @@
 @{
     ViewData["Title"] = "Vraag";
 }
-
-<input type="hidden" asp-for="@Model.Post.Id"/>
 <div class="card">
     <div class="card-body">
         <h4 class="card-title">@Model.Post.Titel</h4>
@@ -18,9 +16,9 @@
     {
         @foreach (Reactie react in Model.Reacties)
         {
-            <div class="card-body">
-                <div class="card-text">@react.Inhoud</div>
-                <div class="card-footer">@react.Auteur.Naam</div>
+            <div class="card-footer">
+                <div class="card-footer">@react.Inhoud</div>
+                <div class="card-text">react.Auteur.Naam</div>
             </div>
         }
     }
@@ -35,10 +33,10 @@
     <div class="card-body">
         <div class="card-text">
             <form asp-controller="Post" method="post">
-                <input type="hidden" asp-for="@Model.ReactieAanmaken.Inhoud" value="@Model.ReactieAanmaken.Inhoud" />
-                <input type="hidden" asp-for="@Model.ReactieAanmaken.Datum" value="2019-12-04" />
-                <input type="text" asp-for="ReactieAanmaken.Inhoud" value="" />
-                <input type="submit" asp-action="ReactieAanmaken" />
+                <input type="hidden" asp-for="Post.Id" />
+                <textarea asp-for="ReactieAanmaken.Inhoud" class="reactieAanmakenInhoud"></textarea>
+                <br />
+                <input type="submit" asp-action="ReactieAanmaken" value="Post" />
             </form>
         </div>
     </div>

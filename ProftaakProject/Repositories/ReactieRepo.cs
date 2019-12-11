@@ -35,9 +35,9 @@ namespace ProftaakProject.Models.Repositories
             return rCtx.GetByID(id);
         }
 
-        public List<Reactie> GetAll()
+        public List<Reactie> GetAll(int postID)
         {
-            return rCtx.GetAll();
+            return rCtx.GetAll(postID);
         }
     }
 }
