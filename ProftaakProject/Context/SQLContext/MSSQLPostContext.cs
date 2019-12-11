@@ -82,7 +82,6 @@ namespace ProftaakProject.Context.SQLContext
                     return false;
                 }
             }
-
         }
 
         public Post GetByID(int id)
@@ -148,10 +147,8 @@ namespace ProftaakProject.Context.SQLContext
                         }
                     }
                 }
-
                 connection.Close();
             }
-
             return posts;
         }
 

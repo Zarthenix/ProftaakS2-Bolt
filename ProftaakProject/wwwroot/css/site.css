@@ -48,8 +48,9 @@ a.navbar-brand {
     background-color: blue;
 }
 
-#text_nav {
+#text_nav a {
     color: #fff;
+    text-decoration: none;
 }
 
 header {
@@ -135,6 +136,10 @@ html, body {
     width: 250px;
 }
 
+.easyflexLogo a {
+    text-decoration: none;
+    color: white !important;
+}
 /*CSS voor login*/
 .LoginVelden {
     width: 200px;

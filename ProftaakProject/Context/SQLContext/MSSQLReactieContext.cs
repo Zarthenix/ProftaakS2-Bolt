@@ -44,13 +44,31 @@ namespace ProftaakProject.Context.SQLContext
 
         public bool Delete(int id)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "DELETE FROM dbo.Reactie WHERE reactieID = @reactieID";
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@reactieID", id);
+                        cmd.ExecuteNonQuery();
+                        return true;
+                    }
+                }
+                catch (Exception exception)
+                {
+                    Console.WriteLine(exception);
+                    return false;
+                }
+            }
         }
 
         public List<Reactie> GetAll(int postID)
         {
             List<Reactie> reactieLijst = new List<Reactie>();
-            string query = "SELECT * FROM dbo.Reactie WHERE postID = 1014 ORDER BY datum DESC";
+            string query = "SELECT * FROM dbo.Reactie WHERE postID = @postID ORDER BY datum DESC";
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
