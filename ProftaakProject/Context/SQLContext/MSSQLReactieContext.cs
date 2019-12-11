@@ -25,18 +25,16 @@ namespace ProftaakProject.Context.SQLContext
                 try
                 {
                     connection.Open();
-                    query = "INSERT INTO Reactie (datum, inhoud, type) output inserted.postID VALUES (@titel, @datum, @inhoud, @type)";
+                    query = "INSERT INTO Reactie (datum, inhoud,postID) VALUES (@datum, @inhoud @postID)";
                     using (SqlCommand cmd = new SqlCommand(query, connection))
                     {
                         cmd.Parameters.AddWithValue("@datum", reactie.Datum);
                         cmd.Parameters.AddWithValue("@inhoud", reactie.Inhoud);
+                        cmd.Parameters.AddWithValue("@vraagID", reactie.PostID);
                         //            //cmd.Parameters.AddWithValue("@uitzendID", 1);
                         //            //cmd.Parameters.AddWithValue("@accountID", 1);
-                        reactie.Id = (int)cmd.ExecuteScalar();
-                        if (reactie.Id > -1)
-                        {
-                            return true;
-                        }
+                        cmd.ExecuteNonQuery();
+                        return true;
                     }
                 }
                 catch (Exception exception)
