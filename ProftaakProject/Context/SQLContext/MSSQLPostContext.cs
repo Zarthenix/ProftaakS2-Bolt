@@ -107,8 +107,11 @@ namespace ProftaakProject.Context.SQLContext
                                 p.Datum = (DateTime)reader["datum"];
                                 p.Inhoud = reader["inhoud"].ToString();
                                 p.TypeId = (int)reader["type"];
-                                p.Tag = new Tag((int)reader["tagID"], reader["naam"].ToString());
-                                p.ImageFile = (byte[])reader["imageFile"];
+                                if (p.TypeId == 0)
+                                {
+                                    p.Tag = new Tag((int)reader["tagID"], reader["naam"].ToString());
+                                    p.ImageFile = (byte[])reader["imageFile"];
+                                }
                             }
                             return p;
                         }

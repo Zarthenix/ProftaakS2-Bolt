@@ -5,6 +5,7 @@
     ViewData["Title"] = "Vraag";
 }
 
+<input type="hidden" asp-for="@Model.Post.Id"/>
 <div class="card">
     <div class="card-body">
         <h4 class="card-title">@Model.Post.Titel</h4>
@@ -28,11 +29,15 @@
         <div class="card-body">
             <div class="card-text">Er zijn nog geen reacties geplaatst.</div>
         </div>
+        <div class="card-footer"></div>
     }
+
     <div class="card-body">
         <div class="card-text">
             <form asp-controller="Post" method="post">
-                <input type="text" asp-for="ReactieAanmaken.Inhoud" />
+                <input type="hidden" asp-for="@Model.ReactieAanmaken.Inhoud" value="@Model.ReactieAanmaken.Inhoud" />
+                <input type="hidden" asp-for="@Model.ReactieAanmaken.Datum" value="2019-12-04" />
+                <input type="text" asp-for="ReactieAanmaken.Inhoud" value="" />
                 <input type="submit" asp-action="ReactieAanmaken" />
             </form>
         </div>

@@ -28,6 +28,7 @@ namespace ProftaakProject.Controllers
         {
             PostToVraagvmConverter ptavmc = new PostToVraagvmConverter();
             VraagViewModel vvm = ptavmc.ConvertToViewModel(pr.GetByID(id));
+            vvm.Post.Id = id;
             return View(vvm);
         }
 
@@ -112,10 +113,12 @@ namespace ProftaakProject.Controllers
         #endregion
 
         #region Reactie
+        [HttpPost]
         public IActionResult ReactieAanmaken(VraagViewModel vvm)
         {
-            
-            return View(vvm);
+            vvm.ReactieAanmaken.PostID = vvm.Post.Id;
+            rr.Create(vvm.ReactieAanmaken);
+            return View("Vraag", vvm);
         }
         #endregion
     }
