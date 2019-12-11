@@ -22,6 +22,11 @@ namespace ProftaakProject.Models.Repositories
             return authContext.Login(user);
         }
 
+        public void Logout()
+        {
+            authContext.Logout();
+        }
+
         public Task<bool> Register(Account user, int rol)
         {
             return authContext.Register(user, rol);
