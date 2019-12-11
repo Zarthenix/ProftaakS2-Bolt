@@ -19,9 +19,9 @@ namespace ProftaakProject.Context.SQLContext
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
-        public bool VoegToeUitzend(int uitzend, int accId)
+        public bool VoegToeUitzend(int uitzend, string gebruikersnaam)
         {
-            string query = "Update Account Set uitzendID = @uitzendID where accountID = @accountID";
+            string query = "Update Account Set uitzendID = @uitzendID where gebruikersnaam = @gebruikersnaam";
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
@@ -31,7 +31,9 @@ namespace ProftaakProject.Context.SQLContext
                     using (SqlCommand cmd = new SqlCommand(query, connection))
                     {
                         cmd.Parameters.AddWithValue("@uitzendID", uitzend);
-                        cmd.Parameters.AddWithValue("@accountID", accId);
+                        cmd.Parameters.AddWithValue("@gebruikersnaam", gebruikersnaam);
+                        //cmd.ExecuteNonQuery();
+                        cmd.ExecuteScalar();
                     }
                     return true;
                 }

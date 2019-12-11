@@ -32,9 +32,9 @@ namespace ProftaakProject.Models.Repositories
             return authContext.Register(user, rol);
         }
 
-        public bool VoegToeUitzend(int uitzend, int accId)
+        public bool VoegToeUitzend(int uitzend, string gebruikersnaam)
         {
-            return accContext.VoegToeUitzend(uitzend, accId);
+            return accContext.VoegToeUitzend(uitzend, gebruikersnaam);
         }
 
         public List<Account> GetAllUitzend(int id)
