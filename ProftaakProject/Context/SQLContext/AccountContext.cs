@@ -60,7 +60,7 @@ namespace ProftaakProject.Context.SQLContext
                     {
                         while (reader.Read())
                         {
-                            accs.Add(new Account((int)reader["accountId"], reader["naam"].ToString(), reader["emailadres"].ToString(), reader["gebruikersnaam"].ToString()));
+                            accs.Add(new Account((int)reader["accountId"], reader["gebruikersnaam"].ToString(), reader["emailadres"].ToString(), reader["naam"].ToString(), reader["wachtwoord"].ToString()));
                         }
                     }
                 }

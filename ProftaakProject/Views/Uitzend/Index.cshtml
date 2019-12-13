@@ -5,34 +5,44 @@
 
 <body>
     <h1>Overzicht uitzendbureaus</h1>
-    <table class="uitzendtable">
+    <table class="table">
         <thead>
             <tr>
-                <th>Naam</th>
-                <th>Eigenaar</th>
+                <th scope="col">Naam</th>
+                <th scope="col">Eigenaar</th>
             </tr>
         </thead>
-
-        <tbody>
-            @foreach (Uitzendbureau ub in Model.ubs)
-            {
-                <tr>
-                    <td><a asp-controller="Uitzend" asp-action="Uitzendbureau" asp-route-id="@ub.Id">@ub.Naam</a></td>
-                    <td>@ub.Eigenaar</td>
-                    <td>
+        @foreach (Uitzendbureau ub in Model.ubs)
+        {
+            <tr>
+                <td><a asp-controller="Uitzend" asp-action="Uitzendbureau" asp-route-id="@ub.Id">@ub.Naam</a></td>
+                <td>@ub.Eigenaar</td>
+                <td>
+                    @if (User.IsInRole("Admin"))
+                    {
                         <form asp-controller="Uitzend" asp-action="UitzendBewerken">
-                            <input class="btn" type="submit" value="Bewerken">
+                            <input class="btn btn-dark" type="submit" value="Bewerken">
                             <input type="hidden" asp-for="Id" value="@ub.Id" />
                             <input type="hidden" asp-for="Naam" value="@ub.Naam" />
                         </form>
-                    </td>
-                    <td><a asp-controller="Uitzend" asp-action="VerwijderUb" asp-route-id="@ub.Id">Verwijderen</a></td>
-                </tr>
-            }
-        </tbody>
+                    }
+                </td>
+                <td>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <form>
+                            <input type="submit" class="btn btn-dark" asp-controller="Uitzend" value="Verwijderen" asp-action="VerwijderUb" asp-route-id="@ub.Id" />
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
     </table>
     <form>
-        <input type="submit" value="Aanmaken" class="btn btn-dark" asp-controller="Uitzend" asp-action="UitzendToevoegen" formmethod="get" />
+        @if (User.IsInRole("Admin"))
+        {
+            <input type="submit" value="Aanmaken" class="btn btn-dark" asp-controller="Uitzend" asp-action="UitzendToevoegen" formmethod="get" />
+        }
     </form>
 </body>
 <footer>
