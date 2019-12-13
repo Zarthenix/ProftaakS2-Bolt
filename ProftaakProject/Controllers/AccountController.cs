@@ -109,9 +109,7 @@ namespace ProftaakProject.Controllers
                 pvm.Account = _accRepo.GetByID(id); //Getall Context heeft geen geslacht en geboortedatum
                 return View(pvm);
             }
-
             return View("Profiel");
-
         }
 
         [HttpPost]

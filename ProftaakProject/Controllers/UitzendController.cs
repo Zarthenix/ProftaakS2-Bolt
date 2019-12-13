@@ -65,7 +65,7 @@ namespace ProftaakProject.Controllers
         }
         
         [HttpGet]
-        public IActionResult Uitzendbureau(int id)
+        public IActionResult Uitzendbureau(int id, UitzendViewModel uvm)
         {
             if (HttpContext.User?.Identity.IsAuthenticated == false) { return RedirectToAction("Login", "Account"); }
 
@@ -74,7 +74,7 @@ namespace ProftaakProject.Controllers
             Uitzendbureau ub = ur.GetByID(id);
             ub.Id = id;
 
-            UitzendViewModel uvm = utuvmc.ConvertToViewModel(ub);
+            uvm = utuvmc.ConvertToViewModel(ub);
             List<AccountViewModel> avms = new List<AccountViewModel>();
             //uvm.avm = avms;
             uvm.avm = ar.GetAllUitzend(id);
