@@ -8,6 +8,8 @@ using ProftaakProject.Models.Repositories;
 using ProftaakProject.Models.ConvertModels;
 using ProftaakProject.Models.ViewModels;
 using ProftaakProject.Models.ViewModels.PostModels;
+using Microsoft.AspNetCore.Authorization;
+
 namespace ProftaakProject.Controllers
 {
     public class PostController : Controller
@@ -24,6 +26,8 @@ namespace ProftaakProject.Controllers
 
         #region Vraag
 
+        [AllowAnonymous]
+        [HttpGet]
         public IActionResult Vraag(int id)
         {
             pr.IncrementViews(id);
@@ -63,12 +67,14 @@ namespace ProftaakProject.Controllers
             return RedirectToAction("Vraag", "Post", new { id = post.Id });
         }
 
-        public IActionResult VraagVerwijderen(VraagToevoegenViewModel vtvm)
+        [HttpPost]
+        public IActionResult VraagVerwijderen(VraagViewModel vvm)
         {
-            pr.Delete(vtvm.Id);
+            pr.Delete(vvm.Post.Id);
             return RedirectToAction("Index", "Home");
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult FAQ()
         {
@@ -83,6 +89,8 @@ namespace ProftaakProject.Controllers
         #endregion
 
         #region Artikel
+        [AllowAnonymous]
+        [HttpGet]
         public IActionResult Artikel(int id)
         {
             PostToArtikelvmConverter pac = new PostToArtikelvmConverter();
@@ -90,10 +98,11 @@ namespace ProftaakProject.Controllers
             pr.IncrementViews(id);
             return View("Artikel", avm);
         }
+
         [HttpGet]
         public IActionResult ArtikelToevoegen(int id)
         {
-
+            if (HttpContext.User?.Identity.IsAuthenticated == false) { return RedirectToAction("Login", "Account"); }
 
             ArtikelToevoegenViewModel atvm = new ArtikelToevoegenViewModel();
             if (id > 0)
@@ -117,8 +126,11 @@ namespace ProftaakProject.Controllers
             return RedirectToAction("Artikel", "Post", new { id = post.Id });
         }
 
+        [HttpGet]
         public IActionResult ArtikelVerwijderen(ArtikelToevoegenViewModel atvm)
         {
+            if (!User.IsInRole("Admin")) { return RedirectToAction("NotAuthorized", "Home"); }
+
             pr.Delete(atvm.Id);
             return RedirectToAction("Index", "Home");
         }
@@ -128,6 +140,8 @@ namespace ProftaakProject.Controllers
         [HttpPost]
         public IActionResult ReactieAanmaken(VraagViewModel vvm)
         {
+            if (HttpContext.User?.Identity.IsAuthenticated == false) { return RedirectToAction("Login", "Account"); }
+
             if (!ModelState.IsValid)
             {
                 PostToVraagvmConverter ptavmc = new PostToVraagvmConverter();
@@ -141,8 +155,11 @@ namespace ProftaakProject.Controllers
             rr.Create(vvm.ReactieAanmaken);
             return RedirectToAction("Vraag", "Post", new { id = vvm.Post.Id });
         }
+
         public IActionResult ReactieVerwijderen(int ReactieID, int VraagID)
         {
+            if (!User.IsInRole("Admin")) { return RedirectToAction("NotAuthorized", "Home"); }
+
             rr.Delete(ReactieID);
             return RedirectToAction("Vraag", "Post", new { id = VraagID });
         }
