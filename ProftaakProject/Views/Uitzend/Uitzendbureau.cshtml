@@ -6,16 +6,15 @@
 
 <body>
     <h1>@Model.Naam</h1>
-    <table class="uitzendtable">
-        <thead>
-            <tr>
-                <th>Gebruikersnaam</th>
-                <th>Naam</th>
-                <th>E-mail adres</th>
-            </tr>
-        </thead>
-
-        <tbody>
+    <div class="col-md-11">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Gebruikersnaam</th>
+                    <th scope="col">Naam</th>
+                    <th scope="col">Email</th>
+                </tr>
+            </thead>
             @foreach (Account accvm in Model.avm)
             {
                 <tr>
@@ -23,22 +22,32 @@
                     <td>@accvm.Naam</td>
                     <td>@accvm.Email</td>
                     <td>
-                        <form asp-controller="Uitzend">
-                            <input type="hidden" asp-for="@Model.Id" value="@Model.Id" />
-                            <input type="hidden" asp-for="@Model.AccountTeVerwijderen.Id" value="@accvm.Id" />
-                            <input type="submit" asp-action="VerwijderGebruiker" formmethod="post" value="Verwijder"/>
-                        </form>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <form asp-controller="Uitzend">
+                                <input type="hidden" asp-for="@Model.Id" value="@Model.Id" />
+                                <input type="hidden" asp-for="@Model.AccountTeVerwijderen.Id" value="@accvm.Id" />
+                                <input class="btn btn-dark" type="submit" asp-action="VerwijderGebruiker" formmethod="post" value="Verwijder" />
+                            </form>
+                        }
                     </td>
                 </tr>
+
             }
-        </tbody>
-    </table>
-    <form>
-        <div>
-            <input type="submit" value="Voeg gebruiker toe" class="btn btn-dark" asp-controller="Uitzend" asp-action="AccountToevoegen" asp-route-id="@Model.Id" formmethod="get" />
-        </div>
-        <input type="submit" value="Aanmaken" class="btn btn-dark" asp-controller="Uitzend" asp-action="UitzendToevoegen" formmethod="get" />
-        <input type="submit" value="Terug" class="btn btn-dark" asp-controller="Uitzend" asp-action="Index" />
-    </form>
+        </table>
+        <form>
+            <div class="KnopUitzend">
+
+                @if (User.IsInRole("Admin"))
+                {
+
+                    <input type="submit" value="Voeg gebruiker toe" class="btn btn-dark" asp-controller="Uitzend" asp-action="AccountToevoegen" asp-route-id="@Model.Id" formmethod="get" />
+
+                }
+
+                <input type="submit" value="Terug" class="btn btn-dark" asp-controller="Uitzend" asp-action="Index" />
+            </div>
+        </form>
+    </div>
 </body>
 

@@ -1,5 +1,4 @@
-﻿using AutoMapper.Configuration;
-using ProftaakProject.Context.Interfaces;
+﻿using ProftaakProject.Context.Interfaces;
 using ProftaakProject.Models;
 using Microsoft.Extensions.Configuration;
 using System;

@@ -43,7 +43,14 @@
                 <br />
                 <span asp-validation-for="ReactieInhoud" class="text-danger"></span>
                 <br />
-                <input type="submit" asp-action="ReactieAanmaken" value="Reageren" />
+                <div class="row">
+                    <div class="col-md-2">
+                        <input type="submit" asp-action="ReactieAanmaken" value="Reageren" />
+                    </div>
+                    <div class="col-md-2">
+                        <input type="submit" asp-action="VraagVerwijderen" value="Verwijder" />
+                    </div>
+                </div>
             </form>
         </div>
     </div>

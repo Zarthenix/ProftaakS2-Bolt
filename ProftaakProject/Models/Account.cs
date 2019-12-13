@@ -26,6 +26,14 @@ namespace ProftaakProject.Models
             Gast
         }
 
+        public Account(int id, string username, string email, string naam, string wachtwoord)
+        {
+            this.Id = id;
+            this.Gebruikersnaam = username;
+            this.Email = email;
+            this.Naam = naam;
+        }
+
         public Account()
         {
 

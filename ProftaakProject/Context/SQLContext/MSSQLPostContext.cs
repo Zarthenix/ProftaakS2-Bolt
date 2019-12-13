@@ -31,15 +31,16 @@ namespace ProftaakProject.Context.SQLContext
                     connection.Open();
                     if (post.ImageFile != null)
                     {
-                        query = "INSERT INTO Post (titel, datum, inhoud, type, tagID, imageFile) output inserted.postID VALUES (@titel, @datum, @inhoud, @type, @tagID, @imageFile)";
+                        query = "INSERT INTO Post (titel, datum, inhoud, type, aantalBekeken, tagID, imageFile) output inserted.postID VALUES (@titel, @datum, @inhoud, @type, @aantalBekeken, @tagID, @imageFile)";
                     }
-                    else { query = "INSERT INTO Post (titel, datum, inhoud, type, tagID) output inserted.postID VALUES (@titel, @datum, @inhoud, @type, @tagID)"; }
+                    else { query = "INSERT INTO Post (titel, datum, inhoud, type, aantalBekeken, tagID) output inserted.postID VALUES (@titel, @datum, @inhoud, @type, @aantalBekeken, @tagID)"; }
                     using (SqlCommand cmd = new SqlCommand(query, connection))
                     {
                         cmd.Parameters.AddWithValue("@titel", post.Titel);
                         cmd.Parameters.AddWithValue("@datum", post.Datum);
                         cmd.Parameters.AddWithValue("@inhoud", post.Inhoud);
                         cmd.Parameters.AddWithValue("@type", post.TypeId);
+                        cmd.Parameters.AddWithValue("@aantalBekeken", 0);
                         cmd.Parameters.AddWithValue("@tagID", post.Tag.Id);
                         if (post.ImageFile != null) { cmd.Parameters.Add("@imageFile", sqlDbType: SqlDbType.VarBinary).Value = post.ImageFile; }
                         //            //cmd.Parameters.AddWithValue("@uitzendID", 1);
@@ -97,7 +98,7 @@ namespace ProftaakProject.Context.SQLContext
                     using (SqlDataReader reader = sqlCommand.ExecuteReader())
                     {
                         if (reader.HasRows)
-                        {
+                        {                            
                             Post p = new Post();
                             while (reader.Read())
                             {
@@ -156,7 +157,7 @@ namespace ProftaakProject.Context.SQLContext
         public List<Post> FAQVragenByTag(Tag tag)
         {
             List<Post> posts = new List<Post>();
-            string query = "SELECT Top(3) * FROM dbo.Post WHERE tagID = @tagID AND dbo.Post.type = 1 ORDER BY dbo.Post.aantalBekeken";
+            string query = "SELECT Top(3) * FROM dbo.Post WHERE tagID = @tagID AND dbo.Post.type = 1 ORDER BY dbo.Post.aantalBekeken DESC";
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
