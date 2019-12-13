@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace ProftaakProject.Context.SQLContext
 {
-    public class UitzendContext : IUitzendContext
+    public class MSSQLUitzendContext : IUitzendContext
     {
         private readonly string _connectionString;
 
-        public UitzendContext(IConfiguration configuration)
+        public MSSQLUitzendContext(IConfiguration configuration)
         {
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }

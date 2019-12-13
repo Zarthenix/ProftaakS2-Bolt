@@ -13,6 +13,7 @@ using ProftaakProject.Context.Interfaces;
 using ProftaakProject.Context.SQLContext;
 using ProftaakProject.Models;
 using ProftaakProject.Models.Repositories;
+using ProftaakProject.Repositories;
 
 namespace ProftaakProject
 {
@@ -47,12 +48,15 @@ namespace ProftaakProject
             services.AddTransient<ITagContext, MSSQLTagContext>();
             services.AddTransient<IAuthContext, MSSQLAuthContext>();
             services.AddTransient<IReactieContext, MSSQLReactieContext>();
-            services.AddTransient<IAccountContext, AccountContext>();
-            services.AddTransient<IUitzendContext, UitzendContext>();
+            services.AddTransient<IAccountContext, MSSQLAccountContext>();
+            services.AddTransient<IUitzendContext, MSSQLUitzendContext>();
+            services.AddTransient<IEventContext, MSSQLEventContext>();
+
             services.AddScoped<PostRepo>();
             services.AddScoped<UitzendRepo>();
             services.AddScoped<AccountRepo>();
             services.AddScoped<ReactieRepo>();
+            services.AddScoped<EvenementRepo>();
 
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
         }

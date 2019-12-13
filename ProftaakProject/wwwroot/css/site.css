@@ -1,7 +1,6 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
-cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css
 
 a.navbar-brand {
     white-space: normal;
@@ -291,6 +290,40 @@ div.postInhoud {
 
 .card-text {
     border-top: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.card-header {
+    background-color: #c71585;
+}
+
+.row-equal > div[class*='col-'] {
+    display: flex;
+}
+
+.row-equal .card {
+    width: 100%;
+}
+
+
+/* ensure equal card height inside carousel */
+.carousel-inner > .row-equal.active,
+.carousel-inner > .row-equal.next,
+.carousel-inner > .row-equal.prev {
+    display: flex;
+}
+
+    /* prevent flicker during transition */
+    .carousel-inner > .row-equal.active.left,
+    .carousel-inner > .row-equal.active.right {
+        opacity: 0.5;
+        display: flex;
+    }
+
+
+/* control image height */
+.card-img-top-250 {
+    max-height: 250px;
+    overflow: hidden;
 }
 
 .reactieAanmakenInhoud {

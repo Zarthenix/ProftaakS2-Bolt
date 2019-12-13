@@ -8,7 +8,7 @@ namespace ProftaakProject.Context.Interfaces
 {
     public interface IEventContext
     {
-        bool Create(Evenement ev);
+        bool Create(Evenement ev, int userid);
         Evenement Read(int eventId);
         bool Update(Evenement ev);
         bool Delete(int eventId);
