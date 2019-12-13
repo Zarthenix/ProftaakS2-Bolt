@@ -7,7 +7,11 @@ namespace ProftaakProject.Models.ViewModels.PostModels
 {
     public class FAQViewModel
     {
-        public List<Post> PopulaireVragen { get; set; }
-        public List<Tag> AlleTags { get; set; }
+        public List<List<Post>> PopulaireVragen { get; set; }
+
+        public FAQViewModel()
+        {
+            this.PopulaireVragen = new List<List<Post>>();
+        }
     }
 }

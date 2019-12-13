@@ -293,6 +293,10 @@ div.postInhoud {
     border-top: 1px solid rgba(0, 0, 0, 0.125);
 }
 
+.form-row {
+    display:contents;
+}
+
 .reactieAanmakenInhoud {
     min-width: 550px;
     min-height: 150px;
