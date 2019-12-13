@@ -26,11 +26,11 @@ namespace ProftaakProject.Controllers
 
         public IActionResult Vraag(int id)
         {
+            pr.IncrementViews(id);
             PostToVraagvmConverter ptavmc = new PostToVraagvmConverter();
             VraagViewModel vvm = ptavmc.ConvertToViewModel(pr.GetByID(id));
             vvm.Post.Id = id;
             vvm.Reacties = rr.GetAll(vvm.Post.Id);
-            pr.IncrementViews(id);
             return View(vvm);
         }
 
@@ -68,6 +68,18 @@ namespace ProftaakProject.Controllers
             pr.Delete(vtvm.Id);
             return RedirectToAction("Index", "Home");
         }
+
+        [HttpGet]
+        public IActionResult FAQ()
+        {
+            FAQViewModel fvm = new FAQViewModel();
+            foreach (Tag temptag in pr.GetAllTags())
+            {
+                fvm.PopulaireVragen.Add(pr.FAQVragenByTag(temptag));
+            }
+
+            return View(fvm);
+        }
         #endregion
 
         #region Artikel
@@ -81,6 +93,8 @@ namespace ProftaakProject.Controllers
         [HttpGet]
         public IActionResult ArtikelToevoegen(int id)
         {
+
+
             ArtikelToevoegenViewModel atvm = new ArtikelToevoegenViewModel();
             if (id > 0)
             {
@@ -107,19 +121,6 @@ namespace ProftaakProject.Controllers
         {
             pr.Delete(atvm.Id);
             return RedirectToAction("Index", "Home");
-        }
-
-        [HttpGet]
-        public IActionResult FAQ()
-        {
-            FAQViewModel fvm = new FAQViewModel();
-            fvm.AlleTags = pr.GetAllTags();
-            foreach (Tag temptag in fvm.AlleTags)
-            {
-                fvm.PopulaireVragen.Add(pr.FAQVragenByTag(temptag));
-            }
-
-            return View(fvm);
         }
         #endregion
 

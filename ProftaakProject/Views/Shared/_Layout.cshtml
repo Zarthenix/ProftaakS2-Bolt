@@ -49,7 +49,14 @@
                         <div>
                             <a class="nav-link side-bar-text" asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-home fa-2x icon"></i><label>Home</label></a>
                             <br />
-                            <a class="nav-link side-bar-text" asp-area="" asp-controller="Account" asp-action="Login"><i class="fas fa-chalkboard-teacher fa-2x icon"></i><label>Login</label></a>
+                            @if (Context.User.Identity.IsAuthenticated)
+                            {
+                                <a class="nav-link side-bar-text" asp-area="" asp-controller="Account" asp-action="Logout"><i class="fas fa-sign-out-alt fa-2x icon"></i><label>Uitloggen</label></a>
+                            }
+                            else
+                            {
+                                <a class="nav-link side-bar-text" asp-area="" asp-controller="Account" asp-action="Login"><i class="fas fa-chalkboard-teacher fa-2x icon"></i><label>Login</label></a>
+                            }
                             <br />
                             <a class="nav-link side-bar-text" asp-area="" asp-controller="Post" asp-action="ArtikelToevoegen"><i class="far fa-newspaper fa-2x icon"></i><label>Artikelen</label></a>
                             <br />
@@ -60,8 +67,6 @@
                             <a class="nav-link side-bar-text" asp-area="" asp-controller="Account" asp-action="Login"><i class="fas fa-history fa-2x icon"></i><label>Geschiedenis</label></a>
                             <br />
                             <a class="nav-link side-bar-text" asp-area="" asp-controller="Uitzend" asp-action="Index"><i class="fas fa-podcast fa-2x icon"></i><label>Uitzendbureaus</label></a>
-                            <br />
-                            <a class="nav-link side-bar-text" asp-area="" asp-controller="Account" asp-action="Logout"><i class="fas fa-sign-out-alt fa-2x icon"></i><label>Uitloggen</label></a>
                         </div>
                     </nav>
                 </div>
