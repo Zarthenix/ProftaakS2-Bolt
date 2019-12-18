@@ -5,6 +5,14 @@ using System.Threading.Tasks;
 
 namespace ProftaakProject.Models
 {
+    public enum Rol
+    {
+        Administrator,
+        Moderator,
+        Service,
+        Gebruiker,
+        Gast
+    }
     public enum Gender { Man, Vrouw, Anders };
     public class Account
     {
@@ -16,16 +24,8 @@ namespace ProftaakProject.Models
         public string NormalizedGebruikersnaam { get; set; }
         public string Wachtwoord { get; set; }
         public Gender Geslacht { get; set; }
+        public Rol Rol { get; set; }
         public DateTime Geboortedatum { get; set; }
-        public int Uitzendbureau { get; set; }
-        public enum Rol
-        {
-            Administrator,
-            Moderator,
-            Service,
-            Gebruiker,
-            Gast
-        }
 
         public Account(int id, string username, string email, string naam, string wachtwoord)
         {

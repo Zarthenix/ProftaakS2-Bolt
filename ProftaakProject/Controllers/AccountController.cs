@@ -93,29 +93,34 @@ namespace ProftaakProject.Controllers
         }
 
         [HttpGet]
-        public IActionResult Profiel(int id)
+        public IActionResult Profiel()
         {
-            if (HttpContext.User?.Identity.IsAuthenticated == false) { return RedirectToAction("Login", "Account"); }
-
-            if (ModelState.IsValid)
-            {
+            if (HttpContext.User?.Identity.IsAuthenticated == false) { return RedirectToAction("Login", "Account"); }           
+            
+                ProfielViewModel prvm = new ProfielViewModel();
                 AccountToProfielvmConvert atpvmc = new AccountToProfielvmConvert();
+                Account ac = _accRepo.GetByName(HttpContext.User.Identity.Name);
+                prvm = atpvmc.ConvertToViewModel(ac);
+                return View(prvm);
+        }
 
-                Account ac = _accRepo.GetByID(id);
-                ac.Id = id;
-
-                ProfielViewModel pvm = atpvmc.ConvertToViewModel(ac);
-                List<ProfielViewModel> pvms = new List<ProfielViewModel>();
-                pvm.Account = _accRepo.GetByID(id); //Getall Context heeft geen geslacht en geboortedatum
-                return View(pvm);
-            }
-            return View("Profiel");
+        [HttpGet]
+        public IActionResult ProfielBewerken()
+        {
+            ProfielViewModel prvm = new ProfielViewModel();
+            AccountToProfielvmConvert atpvmc = new AccountToProfielvmConvert();
+            Account ac = _accRepo.GetByName(HttpContext.User.Identity.Name);
+            prvm = atpvmc.ConvertToViewModel(ac);
+            return View(prvm);
         }
 
         [HttpPost]
-        public IActionResult ProfielBewerken(ProfielViewModel pvm)
+        public IActionResult ProfielOpslaan(ProfielViewModel prvm)
         {
-            return View("Profiel", pvm);
+
+            AccountToProfielvmConvert atpvmc = new AccountToProfielvmConvert();           
+            _accRepo.Update(atpvmc.ConvertToModel(prvm));
+            return RedirectToAction("Profiel", "Account");
         }
 
         [HttpGet]

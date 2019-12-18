@@ -31,15 +31,10 @@ namespace ProftaakProject.Models.ViewModels
         [Display(Name = "Geboortedatum")]
         public DateTime Geboortedatum { get; set; }
 
-        public Account Account { get; set; }
-
         [Required(ErrorMessage = "Kies een rol")]
         [DataType(DataType.Text)]
         [Display(Name = "Rol")]
-        public string Rol
-        {
-            get { return this.Rol;}
-            set { this.Rol = Account.Rol.Gebruiker.ToString(); }
-        }
+        public Rol Rol { get; set; }
+        
     }
 }
