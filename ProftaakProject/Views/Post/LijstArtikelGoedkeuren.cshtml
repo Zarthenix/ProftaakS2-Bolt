@@ -1,0 +1,15 @@
+﻿@model ProftaakProject.Models.ViewModels.PostModels.LijstArtikelGoedkeurenViewModel
+
+@{
+    ViewData["Title"] = "LijstArtikelGoedkeuren";
+}
+
+<div class="container">
+    <h2>ArtikelGoedkeuren</h2>
+
+    @foreach (Post p in Model.Posts)
+    {
+        <a href="@Url.Action("ArtikelGoedkeuren", "Post", new {Id = p.Id})">@p.Titel</a>
+    }
+</div>
+

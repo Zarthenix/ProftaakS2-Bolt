@@ -21,5 +21,9 @@ namespace ProftaakProject.Context.Interfaces
         List<Post> FAQVragenByTag(Tag tag);
 
         bool IncrementViews(int postID);
+
+        List<Post> GetAllArtikelenGoedkeuren();
+
+        bool UpdateGoedgekeurd(int accId, int postId);
     }
 }
