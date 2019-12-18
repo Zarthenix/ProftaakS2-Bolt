@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace ProftaakProject.Context.SQLContext
 {
-    public class MSSQLAccountContext : IAccountContext
+    public class AccountContext : IAccountContext
     {
         private readonly string _connectionString;
 
-        public MSSQLAccountContext(IConfiguration configuration)
+        public AccountContext(IConfiguration configuration)
         {
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
@@ -154,7 +154,7 @@ namespace ProftaakProject.Context.SQLContext
                                 ac.Naam = reader["naam"].ToString();
                                 ac.Geslacht = (Gender)reader["geslacht"];
                                 ac.Geboortedatum = (DateTime)reader["geboortedatum"];
-
+                               
                             }
                             return ac;
                         }

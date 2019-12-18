@@ -6,15 +6,16 @@
 }
 
     <head>
-        <a asp-area="" asp-controller="Account" asp-action="Profiel">Profiel</a>
+       
     </head>
-<body>
-@foreach (PostViewModel postTemp in Model.PostViewModels)
-{
-    <div class="postTijdlijn">
-    @await Html.PartialAsync("_Post", postTemp)
-    </div>
-}
-</body>
+    <body>
+        <br />
+        @foreach (PostViewModel postTemp in Model.PostViewModels)
+        {
+            <div class="postTijdlijn">
+                @await Html.PartialAsync("_Post", postTemp)
+            </div>
+        }
+    </body>
 <footer>
 </footer>

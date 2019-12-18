@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ProftaakProject.Controllers
 {
-    public class UitzendController : Controller
+    public class UitzendController : BaseController
     {
 
         private UitzendRepo ur;
@@ -28,7 +28,16 @@ namespace ProftaakProject.Controllers
         public IActionResult Index()
         {
             UitzendViewModel uvm = new UitzendViewModel();
-            uvm.ubs = ur.GetAll();
+            uvm.Ingelogd = ar.GetByID(GetUserId());
+            uvm.ubs = new List<Uitzendbureau>();
+            if (User.IsInRole("Admin"))
+            {
+                uvm.ubs = ur.GetAll();
+            }
+            else
+            {
+                uvm.ubs.Add(ur.GetByAccountID(uvm.Ingelogd.Id));
+            }
             return View(uvm);
         }
 
@@ -77,7 +86,7 @@ namespace ProftaakProject.Controllers
             uvm = utuvmc.ConvertToViewModel(ub);
             List<AccountViewModel> avms = new List<AccountViewModel>();
             //uvm.avm = avms;
-            uvm.avm = ar.GetAllUitzend(id);
+            uvm.avm = ur.GetUitzendAccounts(id);
             return View(uvm);
         }
 
@@ -114,7 +123,7 @@ namespace ProftaakProject.Controllers
                 Uitzendbureau ub = new Uitzendbureau();
                 ub.Id = id;
 
-                ar.VoegToeUitzend(id, avm.Gebruikersnaam);
+                ur.VoegToeAccountUitzend(id, avm.Gebruikersnaam);
                 return RedirectToAction("Uitzendbureau", "Uitzend", new { id = ub.Id });
             }
             return View(avm);
@@ -123,7 +132,7 @@ namespace ProftaakProject.Controllers
         [HttpPost]
         public IActionResult VerwijderGebruiker(UitzendViewModel uvm)
         {
-            ar.VerwijderUitzend(uvm.AccountTeVerwijderen.Id);
+            ur.VerwijderAccountUitzend(uvm.AccountTeVerwijderen.Id);
             return RedirectToAction("Uitzendbureau", "Uitzend", new { id = uvm.Id });
             //return 
         }
