@@ -44,12 +44,12 @@ namespace ProftaakProject.Context.SQLContext
 
         public bool Update(Uitzendbureau ub)
         {
-            using(var connection = new SqlConnection(_connectionString))
+            using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
 
                 string query = "update Uitzendbureau set naam = @naam where uitzendID = @uitzendID";
-                using(SqlCommand cmd = new SqlCommand(query, connection))
+                using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
                     cmd.Parameters.AddWithValue("@naam", ub.Naam);
                     cmd.Parameters.AddWithValue("@uitzendID", ub.Id);
@@ -95,7 +95,7 @@ namespace ProftaakProject.Context.SQLContext
                 }
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex);
                 throw;
@@ -153,6 +153,113 @@ namespace ProftaakProject.Context.SQLContext
                         {
                             return new Uitzendbureau(-1);
                         }
+                    }
+                }
+            }
+        }
+
+        public bool VoegToeAccountUitzend(int uitzend, string gebruikersnaam)
+        {
+            string query = "Update Account Set uitzendID = @uitzendID where gebruikersnaam = @gebruikersnaam";
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    connection.Open();
+
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@uitzendID", uitzend);
+                        cmd.Parameters.AddWithValue("@gebruikersnaam", gebruikersnaam);
+                        //cmd.ExecuteNonQuery();
+                        cmd.ExecuteScalar();
+                    }
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return false;
+            }
+        }
+
+        public List<Account> GetUitzendAccounts(int id)
+        {
+            List<Account> accs = new List<Account>();
+            string query = "SELECT * FROM dbo.Account where uitzendID = @uitzendID";
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@uitzendID", id);
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            accs.Add(new Account((int)reader["accountId"], reader["gebruikersnaam"].ToString(), reader["emailadres"].ToString(), reader["naam"].ToString(), reader["wachtwoord"].ToString()));
+                        }
+                    }
+                }
+
+                connection.Close();
+            }
+
+            return accs;
+        }
+
+        public bool VerwijderAccountUitzend(int id)
+        {
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    connection.Open();
+
+                    string query = "Update Account Set uitzendID = NULL Where accountID = @accountID";
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@accountID", id);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return false;
+            }
+        }
+
+        public Uitzendbureau GetByAccountID(int id)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                using (SqlCommand sqlCommand = new SqlCommand("Select * from Uitzendbureau where uitzendID = (Select uitzendID from Account where accountID = @accountID)", connection))
+                {
+                    sqlCommand.Parameters.AddWithValue("@accountID", id);
+                    using (SqlDataReader reader = sqlCommand.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+
+                            while (reader.Read())
+                            {
+                                Uitzendbureau ub = new Uitzendbureau()
+                                {
+                                    Id = (int)reader["uitzendID"],
+                                    Naam = reader["naam"].ToString(),
+                                    Eigenaar = (int)reader["eigenaar"]
+                                };
+                                return ub;
+                            }
+                        }
+                        return new Uitzendbureau();
                     }
                 }
             }

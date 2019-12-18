@@ -17,6 +17,7 @@ namespace ProftaakProject.Models
         public string Wachtwoord { get; set; }
         public Gender Geslacht { get; set; }
         public DateTime Geboortedatum { get; set; }
+        public int Uitzendbureau { get; set; }
         public enum Rol
         {
             Administrator,

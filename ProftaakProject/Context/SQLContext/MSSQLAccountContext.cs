@@ -19,58 +19,6 @@ namespace ProftaakProject.Context.SQLContext
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
-        public bool VoegToeUitzend(int uitzend, string gebruikersnaam)
-        {
-            string query = "Update Account Set uitzendID = @uitzendID where gebruikersnaam = @gebruikersnaam";
-            try
-            {
-                using (var connection = new SqlConnection(_connectionString))
-                {
-                    connection.Open();
-
-                    using (SqlCommand cmd = new SqlCommand(query, connection))
-                    {
-                        cmd.Parameters.AddWithValue("@uitzendID", uitzend);
-                        cmd.Parameters.AddWithValue("@gebruikersnaam", gebruikersnaam);
-                        //cmd.ExecuteNonQuery();
-                        cmd.ExecuteScalar();
-                    }
-                    return true;
-                }
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine(ex);
-                return false;
-            }
-        }
-
-        public List<Account> GetAllUitzend(int id)
-        {
-            List<Account> accs = new List<Account>();
-            string query = "SELECT * FROM dbo.Account where uitzendID = @uitzendID";
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
-
-                using (SqlCommand cmd = new SqlCommand(query, connection))
-                {
-                    cmd.Parameters.AddWithValue("@uitzendID", id);
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            accs.Add(new Account((int)reader["accountId"], reader["gebruikersnaam"].ToString(), reader["emailadres"].ToString(), reader["naam"].ToString(), reader["wachtwoord"].ToString()));
-                        }
-                    }
-                }
-
-                connection.Close();           
-            }
-
-            return accs;
-        }
-
         public List<Account> GetAll()
         {
             List<Account> accs = new List<Account>();
@@ -113,6 +61,7 @@ namespace ProftaakProject.Context.SQLContext
                             Account ac = new Account();
                             while (reader.Read())
                             {
+                                ac.Id = id;
                                 ac.Naam = reader["naam"].ToString();
                                 ac.Email = reader["emailadres"].ToString();
                                 ac.Gebruikersnaam = reader["gebruikersnaam"].ToString();
@@ -128,30 +77,6 @@ namespace ProftaakProject.Context.SQLContext
                         }
                     }
                 }
-            }
-        }
-
-        public bool VerwijderUitzend(int id)
-        {
-            try
-            {
-                using (var connection = new SqlConnection(_connectionString))
-                {
-                    connection.Open();
-
-                    string query = "Update Account Set uitzendID = NULL Where accountID = @accountID";
-                    using (SqlCommand cmd = new SqlCommand(query, connection))
-                    {
-                        cmd.Parameters.AddWithValue("@accountID", id);
-                        cmd.ExecuteNonQuery();
-                    }
-                }
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-                return false;
             }
         }
     }

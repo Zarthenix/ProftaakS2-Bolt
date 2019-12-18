@@ -19,5 +19,13 @@ namespace ProftaakProject.Context.Interfaces
         public List<Uitzendbureau> GetAll();
 
         public Uitzendbureau GetByID(int id);
+
+        public bool VoegToeAccountUitzend(int uitzend, string gebruikersnaam);
+
+        public List<Account> GetUitzendAccounts(int id);
+
+        public bool VerwijderAccountUitzend(int id);
+
+        public Uitzendbureau GetByAccountID(int id);
     }
 }
