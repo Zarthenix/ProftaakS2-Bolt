@@ -42,5 +42,19 @@ namespace ProftaakProject.Models.Repositories
             return accContext.GetByID(id);
         }
 
+        public Account GetByName(string name)
+        {
+            return accContext.GetByName(name);
+        }
+
+        public bool VerwijderUitzend(int id)
+        {
+            return accContext.VerwijderUitzend(id);
+        }
+
+        public bool Update(Account account)
+        {
+            return accContext.Update(account);
+        }
     }
 }
