@@ -26,8 +26,12 @@ namespace ProftaakProject.Models.ViewModels.PostModels
         public List<Tag> Tags { get; set; }
 
         public int TypeId { get; set; }
-
         public IFormFile ImageFile { get; set; }
+
+        public Uitzendbureau Uitzendbureau { get; set; }
+
+        public bool HeeftUitzendbureau { get; set; }
+
         public enum Types
         {
             Artikel,

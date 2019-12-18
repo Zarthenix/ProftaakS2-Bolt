@@ -24,7 +24,7 @@ namespace ProftaakProject.Models
             Vraag,
             Reactie
         }
-
+        public Uitzendbureau Uitzendbureau { get; set; }
         public bool Goedgekeurd { get; set; }
         public Post(int id, string titel, string inhoud, int typeId, Tag tag, byte[] imageFile)
         {

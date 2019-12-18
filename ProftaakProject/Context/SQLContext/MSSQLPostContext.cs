@@ -31,9 +31,9 @@ namespace ProftaakProject.Context.SQLContext
                     connection.Open();
                     if (post.ImageFile != null)
                     {
-                        query = "INSERT INTO Post (titel, datum, inhoud, type, aantalBekeken, tagID, imageFile) output inserted.postID VALUES (@titel, @datum, @inhoud, @type, @aantalBekeken, @tagID, @imageFile)";
+                        query = "INSERT INTO Post (titel, datum, inhoud, type, aantalBekeken, tagID, imageFile, uitzendID, goedgekeurdDoor) output inserted.postID VALUES (@titel, @datum, @inhoud, @type, @aantalBekeken, @tagID, @imageFile, @uitzendID, @goedgekeurdDoor)";
                     }
-                    else { query = "INSERT INTO Post (titel, datum, inhoud, type, aantalBekeken, tagID) output inserted.postID VALUES (@titel, @datum, @inhoud, @type, @aantalBekeken, @tagID)"; }
+                    else { query = "INSERT INTO Post (titel, datum, inhoud, type, aantalBekeken, tagID, uitzendID, goedgekeurdDoor) output inserted.postID VALUES (@titel, @datum, @inhoud, @type, @aantalBekeken, @tagID, @uitzendID, @goedgekeurdDoor)"; }
                     using (SqlCommand cmd = new SqlCommand(query, connection))
                     {
                         cmd.Parameters.AddWithValue("@titel", post.Titel);
@@ -43,8 +43,11 @@ namespace ProftaakProject.Context.SQLContext
                         cmd.Parameters.AddWithValue("@aantalBekeken", 0);
                         cmd.Parameters.AddWithValue("@tagID", post.Tag.Id);
                         if (post.ImageFile != null) { cmd.Parameters.Add("@imageFile", sqlDbType: SqlDbType.VarBinary).Value = post.ImageFile; }
-                        //            //cmd.Parameters.AddWithValue("@uitzendID", 1);
-                        //            //cmd.Parameters.AddWithValue("@accountID", 1);
+                        if (post.Uitzendbureau.Id > 0) { cmd.Parameters.AddWithValue("@uitzendID", post.Uitzendbureau.Id); }
+                        else { cmd.Parameters.AddWithValue("@uitzendID", 0); }
+                        cmd.Parameters.AddWithValue("@goedgekeurdDoor", post.GoedgekeurdDoor);
+                        //cmd.Parameters.AddWithValue("@uitzendID", 1);
+                        //cmd.Parameters.AddWithValue("@accountID", 1);
                         post.Id = (int)cmd.ExecuteScalar();
                         if (post.Id > -1)
                         {
@@ -90,7 +93,14 @@ namespace ProftaakProject.Context.SQLContext
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                string query = "SELECT * FROM dbo.Tag INNER JOIN dbo.Post ON dbo.Tag.tagID = dbo.Post.tagID Where PostID = @PostID";
+                string query = "SELECT " +
+                    "Tag.tagID, Tag.naam as tagNaam, " +
+                    "Post.postID, Post.titel, Post.datum, Post.inhoud, Post.type, Post.goedgekeurdDoor, Post.aantalBekeken, Post.accountID, Post.imageFile, " +
+                    "Uitzendbureau.uitzendID, Uitzendbureau.naam as uitzendNaam, Uitzendbureau.eigenaar " +
+                    "FROM dbo.Tag " +
+                    "INNER JOIN dbo.Post ON dbo.Tag.tagID = dbo.Post.tagID " +
+                    "LEFT JOIN dbo.Uitzendbureau on Post.uitzendID = Uitzendbureau.uitzendID " +
+                    "Where PostID = @PostID";
                 using (SqlCommand sqlCommand = new SqlCommand(query, connection))
                 {
                     sqlCommand.CommandType = CommandType.Text;
@@ -98,7 +108,7 @@ namespace ProftaakProject.Context.SQLContext
                     using (SqlDataReader reader = sqlCommand.ExecuteReader())
                     {
                         if (reader.HasRows)
-                        {                            
+                        {
                             Post p = new Post();
                             while (reader.Read())
                             {
@@ -110,8 +120,12 @@ namespace ProftaakProject.Context.SQLContext
                                 p.AantalBekenen = (int)reader["aantalBekeken"];
                                 if (p.TypeId == 0)
                                 {
-                                    p.Tag = new Tag((int)reader["tagID"], reader["naam"].ToString());
+                                    p.Tag = new Tag((int)reader["tagID"], reader["tagNaam"].ToString());
                                     p.ImageFile = (byte[])reader["imageFile"];
+                                }
+                                if (reader["uitzendID"].ToString() != "")
+                                {
+                                    p.Uitzendbureau = new Uitzendbureau((int)reader["uitzendID"], reader["uitzendNaam"].ToString(), (int)reader["eigenaar"]);
                                 }
                             }
                             return p;
@@ -191,15 +205,15 @@ namespace ProftaakProject.Context.SQLContext
                 try
                 {
                     connection.Open();
-                    string query = "UPDATE dbo.Post SET titel = @titel , datum = @datum ,inhoud = @inhoud, imageFile = @imageFile  WHERE postID = @id";
+                    string query = "UPDATE dbo.Post SET titel = @titel , datum = @datum ,inhoud = @inhoud, imageFile = @imageFile, uitzendID = @uitzendID  WHERE postID = @id";
                     using (SqlCommand cmd = new SqlCommand(query, connection))
                     {
                         cmd.Parameters.AddWithValue("@id", post.Id);
                         cmd.Parameters.AddWithValue("@titel", post.Titel);
                         cmd.Parameters.AddWithValue("@datum", post.Datum);
                         cmd.Parameters.AddWithValue("@inhoud", post.Inhoud);
+                        cmd.Parameters.AddWithValue("@uitzendID", post.Uitzendbureau.Id);
                         cmd.Parameters.Add("@imageFile", sqlDbType: SqlDbType.VarBinary).Value = post.ImageFile;
-                        //            //cmd.Parameters.AddWithValue("@uitzendID", 1);
                         //            //cmd.Parameters.AddWithValue("@accountID", 1);
                         cmd.ExecuteNonQuery();
                     }

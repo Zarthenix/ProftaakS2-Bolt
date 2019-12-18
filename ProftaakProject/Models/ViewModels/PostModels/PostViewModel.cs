@@ -28,5 +28,7 @@ namespace ProftaakProject.Models.ViewModels.PostModels
         public string ImageFile { get; set; }
 
         public List<PostViewModel> PostViewModels { get; set; }
+
+        public AccountViewModel HuidigeAccount { get; set; }
     }
 }

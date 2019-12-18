@@ -5,16 +5,29 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <head>
-        <a asp-area="" asp-controller="Account" asp-action="Profiel">Profiel</a>
-    </head>
+<head>
+    <a asp-area="" asp-controller="Account" asp-action="Profiel">Profiel</a>
+</head>
+
 <body>
-@foreach (PostViewModel postTemp in Model.PostViewModels)
-{
-    <div class="postTijdlijn">
-    @await Html.PartialAsync("_Post", postTemp)
+    <div>
+        @if (Model.HuidigeAccount.GeabonneerdeTags.Count > 0)
+        {
+            foreach (Tag tag in Model.HuidigeAccount.GeabonneerdeTags)
+            {
+                <div>
+                    <label>@tag.Naam</label>
+                </div>
+            }
+        }
     </div>
-}
+    <br />
+    @foreach (PostViewModel postTemp in Model.PostViewModels)
+    {
+        <div class="postTijdlijn">
+            @await Html.PartialAsync("_Post", postTemp)
+        </div>
+    }
 </body>
 <footer>
 </footer>

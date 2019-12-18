@@ -22,7 +22,7 @@ namespace ProftaakProject.Models.ConvertModels
                 p.TypeId = atvm.TypeId;
                 p.Tag = atvm.Tag;
                 p.ImageFile = memoryStream.ToArray();
-
+                p.Uitzendbureau = atvm.Uitzendbureau;
             }
             return p;
         }
@@ -35,6 +35,7 @@ namespace ProftaakProject.Models.ConvertModels
                 atvm.Titel = p.Titel;
                 atvm.Datum = p.Datum;
                 atvm.TypeId = p.TypeId;
+                atvm.Uitzendbureau = p.Uitzendbureau;
             }
             return atvm;
         }
