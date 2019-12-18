@@ -1,26 +1,59 @@
 ﻿@using ProftaakProject.Models.ViewModels.EventModels
 
+
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
     @model IEnumerable<ProftaakProject.Models.ViewModels.EventModels.EvenementViewModel>
 }
 
-<div class="row">
-    @foreach (EvenementViewModel evm in Model)
-    {
-        <div class="col-sm-6">
-            <div class="card">
-                <div class="card-header">@evm.Naam</div>
-                <div class="card-body">
-                    <ul>
-                        <li>Host: @evm.Host</li>
-                        <li>Locatie: @evm.Locatie</li>
-                        <li>Maximaal aantal deelnemers: @evm.MaxDeelnemers</li>
-                    </ul>
+<link rel="stylesheet" href="~/css/owl.carousel.min.css">
+<script src="~/js/owl.carousel.min.js"></script>
+
+<div class="container">
+    <h1>Jouw evenementen:</h1>
+    <div class="owl-carousel">
+  
+            @foreach (var evm in Model)
+            {
+                <div class="card">
+                    <div class="card-header">@evm.Naam</div>
+                    <div class="card-body">
+                        <ul>
+                            <li>Host: @evm.Host</li>
+                            <li>Locatie: @evm.Locatie</li>
+                            <li>Maximaal aantal deelnemers: @evm.MaxDeelnemers</li>
+                        </ul>
+                    </div>
+                    <div class="card-footer">@evm.Datum</div>
                 </div>
-                <div class="card-footer">@evm.Datum</div>
-            </div>
+            }
         </div>
-    }
-</div>
+        </div>
+
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function(){
+            $(".owl-carousel").owlCarousel({
+                loop: true,
+                margin: 10,
+                center: true,
+                responsive:{
+                    0:{
+                        items:1
+                    },
+                    600:{
+                        items:2
+                    },
+                    1000:{
+                        items:3
+                    }
+                }
+
+            });
+        });
+    </script>
+}
+

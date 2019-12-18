@@ -11,5 +11,11 @@ namespace ProftaakProject.Context.Interfaces
         List<Account> GetAll();
 
         Account GetByID(int id);
+
+        Account GetByName(string name);
+
+        bool VerwijderUitzend(int id);
+
+        bool Update(Account account);
     }
 }

@@ -16,8 +16,6 @@ namespace ProftaakProject.Models.ViewModels.PostModels
         [Required(ErrorMessage = "Vul een titel in!")]
         public string Titel { get; set; }
 
-        public DateTime Datum { get; set; }
-
         [Required(ErrorMessage = "Vul een inhoud in!")]
         public string Inhoud { get; set; }
 
