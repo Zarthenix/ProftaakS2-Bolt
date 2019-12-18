@@ -18,7 +18,6 @@ namespace ProftaakProject.Models.ConvertModels
                 p.Id = atvm.Id;
                 p.Inhoud = atvm.Inhoud;
                 p.Titel = atvm.Titel;
-                p.Datum = atvm.Datum;
                 p.TypeId = atvm.TypeId;
                 p.Tag = atvm.Tag;
                 p.ImageFile = memoryStream.ToArray();
@@ -33,7 +32,6 @@ namespace ProftaakProject.Models.ConvertModels
                 atvm.Id = p.Id;
                 atvm.Inhoud = p.Inhoud;
                 atvm.Titel = p.Titel;
-                atvm.Datum = p.Datum;
                 atvm.TypeId = p.TypeId;
             }
             return atvm;

@@ -12,29 +12,32 @@
                 <th scope="col">Eigenaar</th>
             </tr>
         </thead>
+
         @foreach (Uitzendbureau ub in Model.ubs)
         {
             <tr>
                 <td><a asp-controller="Uitzend" asp-action="Uitzendbureau" asp-route-id="@ub.Id">@ub.Naam</a></td>
                 <td>@ub.Eigenaar</td>
-                <td>
-                    @if (User.IsInRole("Admin"))
-                    {
+                @if (User.IsInRole("Admin"))
+                {
+
+
+                    <td>
+
                         <form asp-controller="Uitzend" asp-action="UitzendBewerken">
                             <input class="btn btn-dark" type="submit" value="Bewerken">
                             <input type="hidden" asp-for="Id" value="@ub.Id" />
                             <input type="hidden" asp-for="Naam" value="@ub.Naam" />
                         </form>
-                    }
-                </td>
-                <td>
-                    @if (User.IsInRole("Admin"))
-                    {
+
+                    </td>
+                    <td>
                         <form>
                             <input type="submit" class="btn btn-dark" asp-controller="Uitzend" value="Verwijderen" asp-action="VerwijderUb" asp-route-id="@ub.Id" />
                         </form>
-                    }
-                </td>
+
+                    </td>
+                }
             </tr>
         }
     </table>

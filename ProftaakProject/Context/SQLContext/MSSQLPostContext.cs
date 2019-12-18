@@ -31,18 +31,22 @@ namespace ProftaakProject.Context.SQLContext
                     connection.Open();
                     if (post.ImageFile != null)
                     {
-                        query = "INSERT INTO Post (titel, datum, inhoud, type, aantalBekeken, tagID, imageFile) output inserted.postID VALUES (@titel, @datum, @inhoud, @type, @aantalBekeken, @tagID, @imageFile)";
+                        query = "INSERT INTO Post (titel, datum, inhoud, type, goedgekeurdDoor, aantalBekeken, tagID, imageFile) output inserted.postID VALUES (@titel, @datum, @inhoud, @type, @goedgekeurdDoor, @aantalBekeken, @tagID, @imageFile)";
                     }
-                    else { query = "INSERT INTO Post (titel, datum, inhoud, type, aantalBekeken, tagID) output inserted.postID VALUES (@titel, @datum, @inhoud, @type, @aantalBekeken, @tagID)"; }
+                    else { query = "INSERT INTO Post (titel, datum, inhoud, type, tagID) output inserted.postID VALUES (@titel, @datum, @inhoud, @type, @tagID)"; }
                     using (SqlCommand cmd = new SqlCommand(query, connection))
                     {
                         cmd.Parameters.AddWithValue("@titel", post.Titel);
-                        cmd.Parameters.AddWithValue("@datum", post.Datum);
+                        cmd.Parameters.AddWithValue("@datum", DateTime.Now);
                         cmd.Parameters.AddWithValue("@inhoud", post.Inhoud);
                         cmd.Parameters.AddWithValue("@type", post.TypeId);
                         cmd.Parameters.AddWithValue("@aantalBekeken", 0);
                         cmd.Parameters.AddWithValue("@tagID", post.Tag.Id);
-                        if (post.ImageFile != null) { cmd.Parameters.Add("@imageFile", sqlDbType: SqlDbType.VarBinary).Value = post.ImageFile; }
+                        if (post.ImageFile != null)
+                        {
+                            cmd.Parameters.Add("@imageFile", sqlDbType: SqlDbType.VarBinary).Value = post.ImageFile;                            
+                            cmd.Parameters.AddWithValue("@goedgekeurdDoor", 0);
+                        }
                         //            //cmd.Parameters.AddWithValue("@uitzendID", 1);
                         //            //cmd.Parameters.AddWithValue("@accountID", 1);
                         post.Id = (int)cmd.ExecuteScalar();
@@ -98,7 +102,7 @@ namespace ProftaakProject.Context.SQLContext
                     using (SqlDataReader reader = sqlCommand.ExecuteReader())
                     {
                         if (reader.HasRows)
-                        {                            
+                        {
                             Post p = new Post();
                             while (reader.Read())
                             {
@@ -128,7 +132,7 @@ namespace ProftaakProject.Context.SQLContext
         public List<Post> GetAllArtikelen()
         {
             List<Post> posts = new List<Post>();
-            string query = "SELECT * FROM dbo.Tag INNER JOIN dbo.Post ON dbo.Tag.tagID = dbo.Post.tagID WHERE type = 0";
+            string query = "SELECT * FROM dbo.Tag INNER JOIN dbo.Post ON dbo.Tag.tagID = dbo.Post.tagID WHERE type = 0 AND goedgekeurdDoor > 0";
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
@@ -145,6 +149,7 @@ namespace ProftaakProject.Context.SQLContext
                                 reader["inhoud"].ToString(),
                                 (int)reader["type"],
                                 new Tag((int)reader["tagID"], reader["naam"].ToString()),
+                                (int)reader["goedgekeurdDoor"],
                                 (byte[])reader["imageFile"]));
                         }
                     }
@@ -174,7 +179,8 @@ namespace ProftaakProject.Context.SQLContext
                                 reader["titel"].ToString(),
                                 reader["inhoud"].ToString(),
                                 (int)reader["type"],
-                                tag));
+                                tag,
+                                (int)reader["goedgekeurdDoor"]));
                         }
                     }
                 }
@@ -229,6 +235,61 @@ namespace ProftaakProject.Context.SQLContext
                     {
                         cmd.Parameters.AddWithValue("@postID", postID);
                         cmd.Parameters.AddWithValue("@aantalBekeken", aantalBekeken);
+                        cmd.ExecuteNonQuery();
+                    }
+                    connection.Close();
+                    return true;
+                }
+                catch (Exception exception)
+                {
+                    Console.WriteLine(exception);
+                    throw;
+                }
+            }
+        }
+
+        public List<Post> GetAllArtikelenGoedkeuren()
+        {
+            List<Post> posts = new List<Post>();
+            string query = "SELECT * FROM dbo.Tag INNER JOIN dbo.Post ON dbo.Tag.tagID = dbo.Post.tagID WHERE type = 0 AND goedgekeurdDoor = 0";
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            posts.Add(new Post(
+                                (int)reader["postId"],
+                                reader["titel"].ToString(),
+                                reader["inhoud"].ToString(),
+                                (int)reader["type"],
+                                new Tag((int)reader["tagID"], reader["naam"].ToString()),
+                                (int)reader["goedgekeurdDoor"],
+                                (byte[])reader["imageFile"]));
+                        }
+                    }
+                }
+                connection.Close();
+            }
+            return posts;
+        }
+
+        public bool UpdateGoedgekeurd(int accId, int postId)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "UPDATE dbo.Post SET goedgekeurdDoor = @goedgekeurd WHERE postID = @id";
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@goedgekeurd", accId);
+                        cmd.Parameters.AddWithValue("@id", postId);
                         cmd.ExecuteNonQuery();
                     }
                     connection.Close();

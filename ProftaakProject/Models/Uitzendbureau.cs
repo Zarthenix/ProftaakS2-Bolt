@@ -12,6 +12,7 @@ namespace ProftaakProject.Models
         public int Eigenaar { get; set; }
 
         
+
         public Uitzendbureau()
         {
 

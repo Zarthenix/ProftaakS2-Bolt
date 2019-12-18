@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ProftaakProject.Controllers
 {
-    public class PostController : Controller
+    public class PostController : BaseController
     {
 
         private PostRepo pr;
@@ -127,6 +127,22 @@ namespace ProftaakProject.Controllers
         }
 
         [HttpGet]
+        public IActionResult LijstArtikelGoedkeuren()
+        {
+            LijstArtikelGoedkeurenViewModel lagvm = new LijstArtikelGoedkeurenViewModel();
+            lagvm.Posts = pr.GetAllArtikelenGoedkeuren();
+            return View(lagvm);
+        }
+
+        [HttpGet]
+        public IActionResult ArtikelGoedkeuren(int Id)
+        {
+            ArtikelGoedkeurenViewModel agvm = new ArtikelGoedkeurenViewModel();
+            agvm.Post = pr.GetByID(Id);
+            return View(agvm);
+        }
+        
+        [HttpGet]
         public IActionResult ArtikelVerwijderen(ArtikelToevoegenViewModel atvm)
         {
             if (!User.IsInRole("Admin")) { return RedirectToAction("NotAuthorized", "Home"); }
@@ -164,5 +180,20 @@ namespace ProftaakProject.Controllers
             return RedirectToAction("Vraag", "Post", new { id = VraagID });
         }
         #endregion
+
+        [HttpPost]
+        public IActionResult Goedkeuren(int postId)
+        {
+            pr.UpdateGoedgekeurd(GetUserId(), postId);
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public IActionResult Afkeuren(int postId)
+        {
+            pr.UpdateGoedgekeurd(-1, postId);
+            return RedirectToAction("Index", "Home");
+        }
+
     }
 }

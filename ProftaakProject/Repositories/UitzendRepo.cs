@@ -51,5 +51,25 @@ namespace ProftaakProject.Models.Repositories
         {
             return ctx.GetByID(id);
         }
+
+        public bool VoegToeAccountUitzend(int uitzend, string gebruikersnaam)
+        {
+            return ctx.VoegToeAccountUitzend(uitzend, gebruikersnaam);
+        }
+
+        public List<Account> GetUitzendAccounts(int id)
+        {
+            return ctx.GetUitzendAccounts(id);
+        }
+
+        public bool VerwijderAccountUitzend(int id)
+        {
+            return ctx.VerwijderAccountUitzend(id);
+        }
+
+        public Uitzendbureau GetByAccountID(int id)
+        {
+            return ctx.GetByAccountID(id);
+        }
     }
 }

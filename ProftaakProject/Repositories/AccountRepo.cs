@@ -32,16 +32,6 @@ namespace ProftaakProject.Models.Repositories
             return authContext.Register(user, rol);
         }
 
-        public bool VoegToeUitzend(int uitzend, string gebruikersnaam)
-        {
-            return accContext.VoegToeUitzend(uitzend, gebruikersnaam);
-        }
-
-        public List<Account> GetAllUitzend(int id)
-        {
-            return accContext.GetAllUitzend(id);
-        }
-
         public List<Account> GetAll()
         {
             return accContext.GetAll();
@@ -52,9 +42,19 @@ namespace ProftaakProject.Models.Repositories
             return accContext.GetByID(id);
         }
 
+        public Account GetByName(string name)
+        {
+            return accContext.GetByName(name);
+        }
+
         public bool VerwijderUitzend(int id)
         {
             return accContext.VerwijderUitzend(id);
+        }
+
+        public bool Update(Account account)
+        {
+            return accContext.Update(account);
         }
     }
 }
