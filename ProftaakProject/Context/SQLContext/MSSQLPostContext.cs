@@ -43,7 +43,7 @@ namespace ProftaakProject.Context.SQLContext
                         cmd.Parameters.AddWithValue("@aantalBekeken", 0);
                         cmd.Parameters.AddWithValue("@tagID", post.Tag.Id);
                         if (post.ImageFile != null) { cmd.Parameters.Add("@imageFile", sqlDbType: SqlDbType.VarBinary).Value = post.ImageFile; }
-                        if (post.Uitzendbureau.Id > 0) { cmd.Parameters.AddWithValue("@uitzendID", post.Uitzendbureau.Id); }
+                        if (post.Uitzendbureau != null) { cmd.Parameters.AddWithValue("@uitzendID", post.Uitzendbureau.Id); }
                         else { cmd.Parameters.AddWithValue("@uitzendID", 0); }
                         cmd.Parameters.AddWithValue("@goedgekeurdDoor", post.GoedgekeurdDoor);
                         //cmd.Parameters.AddWithValue("@uitzendID", 1);
