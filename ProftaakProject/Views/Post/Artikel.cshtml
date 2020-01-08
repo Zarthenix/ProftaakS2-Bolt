@@ -3,7 +3,7 @@
     ViewData["Title"] = "Artikel";
 }
 
-@if (Model.Post.Goedgekeurd == true)
+@if (Model.Post.GoedgekeurdDoor == -1)
 {
     <style>
         .Border {
@@ -38,7 +38,8 @@ else
         <p class="card-text">@Model.Post.Inhoud</p>
     </div>
     <div class="card-footer">
-        <p class="auteurText">Model.Auteur.Naam</p> <a href="@Url.Action("ArtikelToevoegen", "Post", new {Id = Model.Post.Id})">Bewerken</a><br /><a href="@Url.Action("ArtikelVerwijderen", "Post", new {Id = Model.Post.Id})">Verwijderen</a>
+        <p class="auteurText">Model.Auteur.Naam</p><p>@Model.Post.Uitzendbureau.Naam</p>
+        <a href="@Url.Action("ArtikelToevoegen", "Post", new {Id = Model.Post.Id})">Bewerken</a><br /><a href="@Url.Action("ArtikelVerwijderen", "Post", new {Id = Model.Post.Id})">Verwijderen</a>
     </div>
 </div>
 

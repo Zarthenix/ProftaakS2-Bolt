@@ -24,19 +24,19 @@ namespace ProftaakProject.Models
             Vraag,
             Reactie
         }
-
-        public bool Goedgekeurd { get; set; }
-        public Post(int id, string titel, string inhoud, int typeId, Tag tag, byte[] imageFile)
+        public Uitzendbureau Uitzendbureau { get; set; }
+        public Post(int id, string titel, string inhoud, int typeId, Tag tag, int goedgekeurdDoor, byte[] imageFile)
         {
             this.Id = id;
             this.Titel = titel;
             this.Inhoud = inhoud;
             this.TypeId = typeId;
             this.Tag = tag;
+            this.GoedgekeurdDoor = goedgekeurdDoor;
             this.ImageFile = imageFile;
         }
 
-        public Post(int id, string titel, string inhoud, int typeId, Tag tag)
+        public Post(int id, string titel, string inhoud, int typeId, Tag tag, int goedgekeurdDoor)
         {
             this.Id = id;
             this.Titel = titel;

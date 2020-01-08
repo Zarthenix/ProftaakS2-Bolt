@@ -12,16 +12,18 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ProftaakProject.Controllers
 {
-    public class PostController : Controller
+    public class PostController : BaseController
     {
 
         private PostRepo pr;
         private ReactieRepo rr;
+        private UitzendRepo ur;
 
-        public PostController(PostRepo pr, ReactieRepo rr)
+        public PostController(PostRepo pr, ReactieRepo rr, UitzendRepo ur)
         {
             this.pr = pr;
             this.rr = rr;
+            this.ur = ur;
         }
 
         #region Vraag
@@ -111,21 +113,51 @@ namespace ProftaakProject.Controllers
                 Post p = pr.GetByID(id);
                 atvm = ptatvmc.ConvertToViewModel(p);
             }
+            var tempub = ur.GetByAccountID(GetUserId());
+            if (tempub.Id > 0)
+                atvm.Uitzendbureau = tempub;
             atvm.Tags = pr.GetAllTags();
             return View(atvm);
-
         }
 
         [HttpPost]
         public IActionResult ArtikelToevoegen(ArtikelToevoegenViewModel atvm)
         {
-            PostToArtikelToevoegenvmConverter ptatvmc = new PostToArtikelToevoegenvmConverter();
-            atvm.TypeId = 0;
-            Post post = ptatvmc.ConvertToModel(atvm);
-            pr.Save(post);
-            return RedirectToAction("Artikel", "Post", new { id = post.Id });
+            if (atvm.ImageFile != null)
+            {
+                PostToArtikelToevoegenvmConverter ptatvmc = new PostToArtikelToevoegenvmConverter();
+                atvm.TypeId = 0;
+                var tempub = new Uitzendbureau();
+                atvm.Uitzendbureau = tempub;
+                if (atvm.HeeftUitzendbureau)
+                {
+                    tempub = ur.GetByAccountID(GetUserId());
+                    if (tempub.Id > 0)
+                        atvm.Uitzendbureau = tempub;
+                }
+                Post post = ptatvmc.ConvertToModel(atvm);
+                pr.Save(post);
+                return RedirectToAction("Artikel", "Post", new { id = post.Id });
+            }
+            else return View(atvm);
         }
 
+        [HttpGet]
+        public IActionResult LijstArtikelGoedkeuren()
+        {
+            LijstArtikelGoedkeurenViewModel lagvm = new LijstArtikelGoedkeurenViewModel();
+            lagvm.Posts = pr.GetAllArtikelenGoedkeuren();
+            return View(lagvm);
+        }
+
+        [HttpGet]
+        public IActionResult ArtikelGoedkeuren(int Id)
+        {
+            ArtikelGoedkeurenViewModel agvm = new ArtikelGoedkeurenViewModel();
+            agvm.Post = pr.GetByID(Id);
+            return View(agvm);
+        }
+        
         [HttpGet]
         public IActionResult ArtikelVerwijderen(ArtikelToevoegenViewModel atvm)
         {
@@ -164,5 +196,20 @@ namespace ProftaakProject.Controllers
             return RedirectToAction("Vraag", "Post", new { id = VraagID });
         }
         #endregion
+
+        [HttpPost]
+        public IActionResult Goedkeuren(int postId)
+        {
+            pr.UpdateGoedgekeurd(GetUserId(), postId);
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public IActionResult Afkeuren(int postId)
+        {
+            pr.UpdateGoedgekeurd(-1, postId);
+            return RedirectToAction("Index", "Home");
+        }
+
     }
 }

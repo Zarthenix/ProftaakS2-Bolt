@@ -31,6 +31,8 @@ namespace ProftaakProject.Controllers
         public IActionResult Index()
         {
             PostViewModel pvm = new PostViewModel();
+            pvm.HuidigeAccount = new AccountViewModel();
+            pvm.HuidigeAccount.GeabonneerdeTags = new List<Tag>();
             List<PostViewModel> tempModels = new List<PostViewModel>();
             PostToPostvmConverter ppc = new PostToPostvmConverter();
 
@@ -39,7 +41,13 @@ namespace ProftaakProject.Controllers
                 tempModels.Add(ppc.ConvertToViewModel(tempPost));
             }
 
-            pvm.PostViewModels = tempModels; 
+            pvm.PostViewModels = tempModels;
+            Tag tag = new Tag()
+            {
+                Naam = "lorem ipsum",
+                Id = 2
+            };
+            pvm.HuidigeAccount.GeabonneerdeTags.Add(tag);
             return View(pvm);
         }
 

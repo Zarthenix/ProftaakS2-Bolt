@@ -16,8 +16,6 @@ namespace ProftaakProject.Models.ViewModels.PostModels
         [Required(ErrorMessage = "Vul een titel in!")]
         public string Titel { get; set; }
 
-        public DateTime Datum { get; set; }
-
         [Required(ErrorMessage = "Vul een inhoud in!")]
         public string Inhoud { get; set; }
 
@@ -26,8 +24,12 @@ namespace ProftaakProject.Models.ViewModels.PostModels
         public List<Tag> Tags { get; set; }
 
         public int TypeId { get; set; }
-
         public IFormFile ImageFile { get; set; }
+
+        public Uitzendbureau Uitzendbureau { get; set; }
+
+        public bool HeeftUitzendbureau { get; set; }
+
         public enum Types
         {
             Artikel,

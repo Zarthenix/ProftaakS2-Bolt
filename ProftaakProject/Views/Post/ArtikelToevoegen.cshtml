@@ -20,25 +20,26 @@
                 <textarea asp-for="Inhoud" class="postAanmakenInhoud">@Model.Inhoud</textarea>
                 <span asp-validation-for="Inhoud" class="text-danger"></span>
             </div>
-
-            <div>
-                <div class="col-md-3">
-                    <select tag="option" asp-for="Tag.Id" class="form-control LoginVelden">
-                        @foreach (Tag tempTag in Model.Tags)
-                        {
-                            <option value="@tempTag.Id">@tempTag.Naam</option>
-                        }
-                    </select>
-                    <span asp-validation-for="Tag"></span>
-                </div>
+            @if (Model.Uitzendbureau.Id > 0)
+            {
+                <input type="checkbox" asp-for="HeeftUitzendbureau" />
+            }
+            <div class="col-md-3">
+                <select tag="option" asp-for="Tag.Id" class="form-control LoginVelden">
+                    @foreach (Tag tempTag in Model.Tags)
+                    {
+                        <option value="@tempTag.Id">@tempTag.Naam</option>
+                    }
+                </select>
+                <span asp-validation-for="Tag"></span>
             </div>
-
             <div class="form-group">
                 <input value="@Model.Id" type="hidden" asp-for="Id" class="form-control" />
-                <input value="2019-11-20" type="hidden" asp-for="Datum" class="form-control" />
             </div>
+            <div class="col-md-4">
 
-            <div class="col-md-5 ">
+            </div>
+            <div class="col-md-5">
                 <span asp-validation-for="ImageFile" class="text-danger"></span>
                 <input type="hidden" asp-for="ImageFile" />
                 @Html.EditorFor(model => model.ImageFile)

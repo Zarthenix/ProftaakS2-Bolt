@@ -17,6 +17,8 @@ namespace ProftaakProject.Models.ViewModels
 
         public int UitzendID { get; set; }
 
+        public List<Tag> GeabonneerdeTags { get; set; }
+
         public List<Account> accs { get; set; }
     }
 }

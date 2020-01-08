@@ -78,5 +78,15 @@ namespace ProftaakProject.Models.Repositories
         {
             return pCtx.SearchResult(search);
         }
+
+        public List<Post> GetAllArtikelenGoedkeuren()
+        {
+            return pCtx.GetAllArtikelenGoedkeuren();
+        }
+
+        public bool UpdateGoedgekeurd(int accId, int postId)
+        {
+            return pCtx.UpdateGoedgekeurd(accId, postId);
+        }
     }
 }

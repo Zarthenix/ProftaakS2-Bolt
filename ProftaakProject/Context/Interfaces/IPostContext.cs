@@ -23,5 +23,9 @@ namespace ProftaakProject.Context.Interfaces
         bool IncrementViews(int postID);
 
         Post SearchResult(string search);
+
+        List<Post> GetAllArtikelenGoedkeuren();
+
+        bool UpdateGoedgekeurd(int accId, int postId);
     }
 }
