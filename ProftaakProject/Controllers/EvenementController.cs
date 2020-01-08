@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProftaakProject.Models;
 using ProftaakProject.Models.ConvertModels;
@@ -30,6 +31,24 @@ namespace ProftaakProject.Controllers
             }
 
             return View(evm);
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            EvenementViewModel evm = new EvenementViewModel();
+            return View(evm);
+        }
+
+        [HttpPost]
+        public IActionResult Create(EvenementViewModel evm)
+        {
+            Evenement ev = new Evenement();
+            EvenementToEvenementVMConverter eevmc = new EvenementToEvenementVMConverter();
+            ev = eevmc.ConvertToModel(evm);
+
+            _evenementRepo.Create(ev, GetUserId());
+            return View();
         }
     }
 }

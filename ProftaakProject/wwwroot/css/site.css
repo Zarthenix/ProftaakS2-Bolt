@@ -135,6 +135,10 @@ html, body {
     width: 250px;
 }
 
+#calNav {
+    float: right;
+}
+
 .easyflexLogo a {
     text-decoration: none;
     color: white !important;
@@ -305,6 +309,10 @@ div.postInhoud {
     height: 400px;
     width: 100%;
 }
+.carousel-card-header {
+    height: 75px;
+    text-align: center;
+}
 
 .reactieAanmakenInhoud {
     min-width: 550px;
@@ -334,6 +342,17 @@ div.artikelInhoud {
 .uitzendtable a {
     color: black;
 }
+
+.carousel-card-body {
+    padding: 0px;
+}
+
+.eventList {
+    list-style: none;
+    margin-top: 1rem;
+}
+
+
 
 div.KnopUitzend {
     padding-top: 10px !Important;
