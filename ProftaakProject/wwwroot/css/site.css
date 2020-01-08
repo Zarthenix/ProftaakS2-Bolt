@@ -294,7 +294,7 @@ div.postInhoud {
 }
 
 .form-row {
-    display:contents;
+    display: contents;
 }
 
 .card-header {
@@ -302,7 +302,7 @@ div.postInhoud {
 }
 
 .img-thumbnail {
-    height: 100%;
+    height: 400px;
     width: 100%;
 }
 
@@ -335,8 +335,8 @@ div.artikelInhoud {
     color: black;
 }
 
-div.KnopUitzend{
-    padding-top: 10px!Important;
+div.KnopUitzend {
+    padding-top: 10px !Important;
 }
 
 @media (min-width: 768px) {
@@ -400,6 +400,3 @@ div.KnopUitzend{
         visibility: visible;
     }
 }
-
-
-
