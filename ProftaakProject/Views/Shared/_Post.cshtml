@@ -1,15 +1,15 @@
 ﻿@model ProftaakProject.Models.ViewModels.PostModels.PostViewModel
 <div class="card">
-    <a href="@Url.Action("Artikel", "Post", new {Id = Model.Id})">
-        <div class="card-header">
-            <img src="data:image/png;base64,@Model.ImageFile" class="img-thumbnail" />
-        </div>
-        <div class="card-body">
-            <h4 class="card-title">@Model.Titel</h4>
-            <p class="card-text">@Model.Inhoud</p>
-        </div>
-    </a>
+            <a href="@Url.Action("Artikel", "Post", new {Id = Model.Id})">
+                <div class="card-header">
+                    <img src="data:image/png;base64,@Model.ImageFile" class="img-thumbnail" />
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">@Model.Titel</h4>
+                    <p class="card-text">@Model.Inhoud</p>
+                </div>
+            </a>
     <div class="card-footer">
         <p class="auteurText">Model.Auteur.Naam</p>
     </div>
-</div>
+    </div>

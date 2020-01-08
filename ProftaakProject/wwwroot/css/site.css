@@ -277,6 +277,7 @@ div.postInhoud {
 
 .postTijdlijn {
     margin-bottom: 50px;
+    overflow: hidden;
 }
 
     .postTijdlijn a {
@@ -294,6 +295,15 @@ div.postInhoud {
 
 .form-row {
     display:contents;
+}
+
+.card-header {
+    height: 100%;
+}
+
+.img-thumbnail {
+    height: 100%;
+    width: 100%;
 }
 
 .reactieAanmakenInhoud {
@@ -390,8 +400,6 @@ div.KnopUitzend{
         visibility: visible;
     }
 }
-.card-header {
-    height: 75px;
-}
+
 
 
