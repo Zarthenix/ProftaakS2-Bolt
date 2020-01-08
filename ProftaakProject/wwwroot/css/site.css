@@ -302,7 +302,8 @@ div.postInhoud {
 }
 
 .card-header {
-    height: 100%;
+    height: inherit;
+    width:inherit;
 }
 
 .img-thumbnail {

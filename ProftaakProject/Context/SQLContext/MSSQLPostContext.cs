@@ -142,7 +142,7 @@ namespace ProftaakProject.Context.SQLContext
         public List<Post> GetAllArtikelen()
         {
             List<Post> posts = new List<Post>();
-            string query = "SELECT * FROM dbo.Tag INNER JOIN dbo.Post ON dbo.Tag.tagID = dbo.Post.tagID WHERE type = 0 AND goedgekeurdDoor > 0";
+            string query = "SELECT * FROM dbo.Tag T INNER JOIN dbo.Post p ON T.tagID = p.tagID WHERE type = 0 AND goedgekeurdDoor > 0 ORDER BY P.datum DESC";
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
