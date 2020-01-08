@@ -56,5 +56,12 @@ namespace ProftaakProject.Controllers
 
         public IActionResult OnGetPartial() =>
             PartialView("_Post");
+
+
+        //Zoek functie
+        public IActionResult SearchResult()
+        {
+            return View();
+        }
     }
 }

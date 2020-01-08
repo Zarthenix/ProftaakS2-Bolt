@@ -4,8 +4,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
-
-<h1>Uitzendbureau toevoegen</h1>
+@if (Model.Id < 0)
+{
+    <h1>Uitzendbureau toevoegen</h1>
+}
+else
+{
+    <h1>Uitzendbureau bewerken</h1>
+}
 <body>
     <div class="container-fluid row postContainer">
         <div class="col-md-8 postAanmakenInhoud">
@@ -14,8 +20,8 @@
                     <label asp-for="Naam" class="control-label"></label>
                 </div>
                 <div class="col-md-11">
-                    <input asp-for="Naam" class="form-control" value="@Model.Naam"/>
-                    <input type="hidden" asp-for="Id" value="@Model.Id"/>
+                    <input asp-for="Naam" class="form-control" value="@Model.Naam" />
+                    <input type="hidden" asp-for="Id" value="@Model.Id" />
                     <span asp-validation-for="Naam" class="text-danger"></span>
                 </div>
                 <div class="col-md-11">

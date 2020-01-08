@@ -21,5 +21,7 @@ namespace ProftaakProject.Context.Interfaces
         List<Post> FAQVragenByTag(Tag tag);
 
         bool IncrementViews(int postID);
+
+        Post SearchResult(string search);
     }
 }

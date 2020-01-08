@@ -241,5 +241,33 @@ namespace ProftaakProject.Context.SQLContext
                 }
             }
         }
+
+        public Post SearchResult(string search)
+        {
+            //type 0 = artikel
+            //type 1 = vraag
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "SELECT * FROM Post WHERE inhoud LIKE '%@search%'";
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@search", search);
+                        cmd.ExecuteNonQuery();
+                    }
+                    connection.Close();
+
+                }
+                catch(Exception exception)
+                {
+                    Console.WriteLine(exception);
+                    throw;
+                }
+            }
+            Post p = new Post();
+            return p;
+        }
     }
 }

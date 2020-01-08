@@ -73,5 +73,10 @@ namespace ProftaakProject.Models.Repositories
         {
             return pCtx.FAQVragenByTag(tag);
         }
+
+        public Post SearchResult(string search)
+        {
+            return pCtx.SearchResult(search);
+        }
     }
 }
