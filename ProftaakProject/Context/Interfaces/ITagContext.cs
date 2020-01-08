@@ -10,5 +10,6 @@ namespace ProftaakProject.Context.Interfaces
     {
         List<Tag> GetAll();
         Tag GetTagByID(int id);
+        List<Tag> GetAllByUserID(int id);
     }
 }

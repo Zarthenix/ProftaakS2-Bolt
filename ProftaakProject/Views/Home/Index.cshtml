@@ -1,24 +1,32 @@
 ﻿@using ProftaakProject.Models.ViewModels.PostModels
-@model ProftaakProject.Models.ViewModels.PostModels.PostViewModel;
+@model ProftaakProject.Models.ViewModels.PostModels.PostViewModel
 @{
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<head>
-    <a asp-area="" asp-controller="Account" asp-action="Profiel">Profiel</a>
-</head>
-
 <body>
     <div>
         @if (Model.HuidigeAccount.GeabonneerdeTags.Count > 0)
         {
-            foreach (Tag tag in Model.HuidigeAccount.GeabonneerdeTags)
-            {
-                <div>
-                    <label>@tag.Naam</label>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-7 tagLijst">
+                        <nav id="colorlib-main-menu" role="navigation">
+                            <div class="tagDiv">
+                                <label>Geabonneerde Tags</label>
+                            </div>
+                            @foreach (Tag tag in Model.HuidigeAccount.GeabonneerdeTags)
+                            {
+                                <a href="@Url.Action("AllePostsMetTagID", "Post", new { tagId = tag.Id })">
+                                    <div class="tagDiv">
+                                        <label>@tag.Naam</label>
+                                    </div>
+                                </a>
+                            }
+                        </nav>
+                    </div>
                 </div>
-            }
+            </div>
         }
     </div>
     <br />
