@@ -130,6 +130,7 @@ namespace ProftaakProject.Context.SQLContext
                                 {
                                     p.Uitzendbureau = new Uitzendbureau((int)reader["uitzendID"], reader["uitzendNaam"].ToString(), (int)reader["eigenaar"]);
                                 }
+                                p.Uitgelicht = Convert.ToBoolean(reader["Uitgelicht"]);
                             }
                             return p;
                         }
@@ -165,10 +166,12 @@ namespace ProftaakProject.Context.SQLContext
                                     (int)reader["type"],
                                     new Tag((int)reader["tagID"], reader["naam"].ToString()),
                                     (int)reader["goedgekeurdDoor"],
-                                    (byte[])reader["imageFile"]));
+                                    (byte[])reader["imageFile"],
+                                    Convert.ToBoolean(reader["Uitgelicht"])));
                             }
                         }
                     }
+
                     connection.Close();
                 }
             }
