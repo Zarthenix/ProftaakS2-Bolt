@@ -97,5 +97,21 @@ namespace ProftaakProject.Models.Repositories
         {
             return pCtx.GetAllPostsByTagId(tagId);
         }
+        public bool AbonnerenOpTag(int tagId, int accId)
+        {
+            return tCtx.AbonnerenOpTag(tagId, accId);
+        }
+        public bool AbonnerenTagOpzeggen(int tagId, int accId)
+        {
+            return tCtx.AbonnerenTagOpzeggen(tagId, accId);
+        }
+        public bool IsGeabonneerdOpTag(int tagId, int accId)
+        {
+            return tCtx.IsGeabonneerdOpTag(tagId, accId);
+        }
+        public List<Tag> GetAllGeabonneerdeTags(int accId)
+        {
+            return tCtx.GetAllGeabonneerdeTags(accId);
+        }
     }
 }

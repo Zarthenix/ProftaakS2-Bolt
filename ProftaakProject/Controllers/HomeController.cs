@@ -35,21 +35,15 @@ namespace ProftaakProject.Controllers
             pvm.HuidigeAccount.GeabonneerdeTags = new List<Tag>();
             List<PostViewModel> tempModels = new List<PostViewModel>();
             PostToPostvmConverter ppc = new PostToPostvmConverter();
-
+            if (User.Identity.IsAuthenticated)
+            {
+                pvm.HuidigeAccount.GeabonneerdeTags = postRepo.GetAllGeabonneerdeTags(GetUserId());
+            }
             foreach (Post tempPost in postRepo.GetAllArtikelen())
             {
                 tempModels.Add(ppc.ConvertToViewModel(tempPost));
             }
-
             pvm.PostViewModels = tempModels;
-            if (GetUserId() > 0)
-            {
-                List<Tag> taglist = postRepo.GetAllByUserID(GetUserId());
-                foreach (Tag t in taglist)
-                {
-                    pvm.HuidigeAccount.GeabonneerdeTags.Add(t);
-                }
-            }
             return View(pvm);
         }
 
