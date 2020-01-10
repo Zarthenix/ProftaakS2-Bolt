@@ -18,12 +18,14 @@ namespace ProftaakProject.Controllers
         private PostRepo pr;
         private ReactieRepo rr;
         private UitzendRepo ur;
+        private AccountRepo ar;
 
-        public PostController(PostRepo pr, ReactieRepo rr, UitzendRepo ur)
+        public PostController(PostRepo pr, ReactieRepo rr, UitzendRepo ur, AccountRepo ar)
         {
             this.pr = pr;
             this.rr = rr;
             this.ur = ur;
+            this.ar = ar;
         }
 
         #region Vraag
@@ -97,6 +99,8 @@ namespace ProftaakProject.Controllers
         {
             PostToArtikelvmConverter pac = new PostToArtikelvmConverter();
             ArtikelViewModel avm = pac.ConvertToViewModel(pr.GetByID(id));
+            avm.Account = ar.GetByID(GetUserId());
+            avm.Account.GeabonneerdeTags = pr.GetAllGeabonneerdeTags(GetUserId());
             pr.IncrementViews(id);
             return View("Artikel", avm);
         }
@@ -164,7 +168,6 @@ namespace ProftaakProject.Controllers
         public IActionResult ArtikelVerwijderen(ArtikelToevoegenViewModel atvm)
         {
             if (!User.IsInRole("Admin")) { return RedirectToAction("NotAuthorized", "Home"); }
-
             pr.Delete(atvm.Id);
             return RedirectToAction("Index", "Home");
         }
@@ -233,8 +236,21 @@ namespace ProftaakProject.Controllers
                 tempPostList.Add(ppc.ConvertToViewModel(tempPost));
             }
             pvm.PostViewModels = tempPostList;
-            return RedirectToAction("Index", "Home");
-            //return RedirectToAction("", pvm);//TO DO MAAK EEN PAGINA OM ALLE POSTS IN TE LADEN.
+            return View("ArtikelTag", pvm);//TO DO MAAK EEN PAGINA OM ALLE POSTS IN TE LADEN.
+        }
+
+        [HttpGet]
+        public IActionResult TagAbonneren(int postID, int tagID)
+        {
+            if (!pr.IsGeabonneerdOpTag(tagID, GetUserId()))
+            {
+                pr.AbonnerenOpTag(tagID, GetUserId());
+            }
+            else
+            {
+                pr.AbonnerenTagOpzeggen(tagID, GetUserId());
+            }
+            return RedirectToAction("Artikel", "Post", new { id = postID });
         }
     }
 }

@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewData["Title"] = "Edit";
+    @model ProftaakProject.Models.ViewModels.EventModels.EvenementViewModel
+}
+
+
+
+<div class="container">
+    <div class="col-md-10 offset-md-3">
+    <h1>Edit</h1>
+        <form accept-charset="UTF-8" role="form" enctype="multipart/form-data">
+            <fieldset>
+                <fieldset>
+                    <div class="form-group">
+                        <label asp-for="Naam"></label>
+                        <input asp-for="Naam" class="form-control" type="text">
+                        <span asp-validation-for="Naam"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Locatie"></label>
+                        <input asp-for="Locatie" class="form-control" type="text">
+                        <span asp-validation-for="Locatie"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="MaxDeelnemers"></label>
+                        <input asp-for="MaxDeelnemers" class="form-control" type="number">
+                        <span asp-validation-for="MaxDeelnemers"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Datum"></label>
+                        @Html.EditorFor(model => model.Datum)
+                        <span asp-validation-for="Datum"></span>
+                    </div>
+
+                    <input class="btn btn-lg btn-info btn-block" type="submit" value="Create" asp-action="Create" formmethod="post" style="margin-top: 15px">
+                </fieldset>
+            </fieldset>
+        </form>
+    </div>
+</div>

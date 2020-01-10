@@ -12,8 +12,8 @@
                 <div class="row">
                     <div class="col-md-7 tagLijst">
                         <nav id="colorlib-main-menu" role="navigation">
-                            <div class="tagDiv">
-                                <label>Geabonneerde Tags</label>
+                            <div>
+                                <h4>Geabonneerde Tags</h4>
                             </div>
                             @foreach (Tag tag in Model.HuidigeAccount.GeabonneerdeTags)
                             {
@@ -29,7 +29,9 @@
             </div>
         }
     </div>
-    <br />
+    <form>
+        <input class="btn btn-dark" asp-controller="Post" asp-action="LijstArtikelGoedkeuren" value="Artikelen Goedkeuren" type="submit"/>
+    </form>
     @foreach (PostViewModel postTemp in Model.PostViewModels)
     {
         <div class="postTijdlijn">

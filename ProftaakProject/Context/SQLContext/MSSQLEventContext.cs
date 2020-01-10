@@ -57,10 +57,9 @@ namespace ProftaakProject.Context.SQLContext
         {
             using (var connection = new SqlConnection(_connectionString))
             {
-                SqlCommand cmd = new SqlCommand("SELECT * FROM dbo.[GetEvents] (@id)", connection);
-                cmd.CommandType = CommandType.Text;
+                SqlCommand cmd = new SqlCommand("SELECT [naam], [datum], [host], [locatie], [maxDeelnemers] FROM dbo.[Evenement] WHERE[evtId] = @id", connection);
                 cmd.Parameters.AddWithValue("@id", id);
-
+                connection.Open();
                 using SqlDataReader reader = cmd.ExecuteReader();
                 if (reader.HasRows)
                 {

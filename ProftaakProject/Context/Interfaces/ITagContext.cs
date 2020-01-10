@@ -11,5 +11,9 @@ namespace ProftaakProject.Context.Interfaces
         List<Tag> GetAll();
         Tag GetTagByID(int id);
         List<Tag> GetAllByUserID(int id);
+        bool AbonnerenOpTag(int tagId, int accId);
+        bool AbonnerenTagOpzeggen(int tagId, int accId);
+        bool IsGeabonneerdOpTag(int tagId, int accId);
+        List<Tag> GetAllGeabonneerdeTags(int accId);
     }
 }
