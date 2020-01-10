@@ -12,6 +12,7 @@ namespace ProftaakProject.Models
         public Account Auteur { get; set; }
         public int GoedgekeurdDoor { get; set; }
         public int AantalBekenen { get; set; }
+        public bool Uitgelicht { get; set; }
         public string Titel { get; set; }
         public DateTime Datum { get; set; }
         public string Inhoud { get; set; }
@@ -34,6 +35,8 @@ namespace ProftaakProject.Models
             this.Tag = tag;
             this.GoedgekeurdDoor = goedgekeurdDoor;
             this.ImageFile = imageFile;
+
+            this.Uitgelicht = false;
         }
 
         public Post(int id, string titel, string inhoud, int typeId, Tag tag, int goedgekeurdDoor)
@@ -43,11 +46,13 @@ namespace ProftaakProject.Models
             this.Inhoud = inhoud;
             this.TypeId = typeId;
             this.Tag = tag;
+
+            this.Uitgelicht = false;
         }
 
         public Post()
         {
-
+            this.Uitgelicht = false;
         }
     }
 }

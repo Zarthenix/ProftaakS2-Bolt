@@ -34,7 +34,7 @@ namespace ProftaakProject.Models.ViewModels
         [Required(ErrorMessage = "Kies een rol")]
         [DataType(DataType.Text)]
         [Display(Name = "Rol")]
-        public Rol Rol { get; set; }
+        public Role Rol { get; set; }
         
     }
 }

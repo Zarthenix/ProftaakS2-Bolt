@@ -298,13 +298,16 @@ div.postInhoud {
 }
 
 .card-header {
-    height: inherit;
-    width:inherit;
+    height: 500px;
+    width: inherit;
+    display: flex;
+    justify-content: center;
 }
 
 .img-thumbnail {
-    height: 400px;
-    width: 100%;
+    height: 100%;
+    width: auto;
+    display: block;
 }
 
 .reactieAanmakenInhoud {

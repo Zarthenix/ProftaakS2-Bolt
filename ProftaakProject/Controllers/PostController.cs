@@ -127,15 +127,17 @@ namespace ProftaakProject.Controllers
             {
                 PostToArtikelToevoegenvmConverter ptatvmc = new PostToArtikelToevoegenvmConverter();
                 atvm.TypeId = 0;
-                var tempub = new Uitzendbureau();
-                atvm.Uitzendbureau = tempub;
+
                 if (atvm.HeeftUitzendbureau)
                 {
-                    tempub = ur.GetByAccountID(GetUserId());
+                    var tempub = ur.GetByAccountID(GetUserId());
                     if (tempub.Id > 0)
+                    {
                         atvm.Uitzendbureau = tempub;
+                    }
                 }
                 Post post = ptatvmc.ConvertToModel(atvm);
+                post.Datum = DateTime.Now;
                 pr.Save(post);
                 return RedirectToAction("Artikel", "Post", new { id = post.Id });
             }
@@ -164,6 +166,15 @@ namespace ProftaakProject.Controllers
             if (!User.IsInRole("Admin")) { return RedirectToAction("NotAuthorized", "Home"); }
 
             pr.Delete(atvm.Id);
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public IActionResult Uitlichten(int postId)
+        {
+            Post p = pr.GetByID(postId);
+            p.Uitgelicht = true;
+            pr.Update(p);
             return RedirectToAction("Index", "Home");
         }
         #endregion

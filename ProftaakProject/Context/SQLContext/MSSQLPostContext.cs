@@ -31,9 +31,9 @@ namespace ProftaakProject.Context.SQLContext
                     connection.Open();
                     if (post.ImageFile != null)
                     {
-                        query = "INSERT INTO Post (titel, datum, inhoud, type, aantalBekeken, tagID, imageFile, uitzendID, goedgekeurdDoor) output inserted.postID VALUES (@titel, @datum, @inhoud, @type, @aantalBekeken, @tagID, @imageFile, @uitzendID, @goedgekeurdDoor)";
+                        query = "INSERT INTO Post (titel, datum, inhoud, type, aantalBekeken, tagID, imageFile, uitzendID, goedgekeurdDoor, uitgelicht) output inserted.postID VALUES (@titel, @datum, @inhoud, @type, @aantalBekeken, @tagID, @imageFile, @uitzendID, @goedgekeurdDoor, @uitgelicht)";
                     }
-                    else { query = "INSERT INTO Post (titel, datum, inhoud, type, aantalBekeken, tagID, uitzendID, goedgekeurdDoor) output inserted.postID VALUES (@titel, @datum, @inhoud, @type, @aantalBekeken, @tagID, @uitzendID, @goedgekeurdDoor)"; }
+                    else { query = "INSERT INTO Post (titel, datum, inhoud, type, aantalBekeken, tagID, uitzendID, goedgekeurdDoor, uitgelicht) output inserted.postID VALUES (@titel, @datum, @inhoud, @type, @aantalBekeken, @tagID, @uitzendID, @goedgekeurdDoor, @uitgelicht)"; }
                     using (SqlCommand cmd = new SqlCommand(query, connection))
                     {
                         cmd.Parameters.AddWithValue("@titel", post.Titel);
@@ -45,7 +45,7 @@ namespace ProftaakProject.Context.SQLContext
                         if (post.ImageFile != null) { cmd.Parameters.Add("@imageFile", sqlDbType: SqlDbType.VarBinary).Value = post.ImageFile; }
                         if (post.Uitzendbureau != null) { cmd.Parameters.AddWithValue("@uitzendID", post.Uitzendbureau.Id); }
                         else { cmd.Parameters.AddWithValue("@uitzendID", 0); }
-                        cmd.Parameters.AddWithValue("@goedgekeurdDoor", post.GoedgekeurdDoor);
+                        cmd.Parameters.AddWithValue("@goedgekeurdDoor", post.GoedgekeurdDoor);                        cmd.Parameters.AddWithValue("@uitgelicht", 0);
                         //cmd.Parameters.AddWithValue("@uitzendID", 1);
                         //cmd.Parameters.AddWithValue("@accountID", 1);
                         post.Id = (int)cmd.ExecuteScalar();
@@ -93,14 +93,16 @@ namespace ProftaakProject.Context.SQLContext
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-                string query = "SELECT " +
-                    "Tag.tagID, Tag.naam as tagNaam, " +
-                    "Post.postID, Post.titel, Post.datum, Post.inhoud, Post.type, Post.goedgekeurdDoor, Post.aantalBekeken, Post.accountID, Post.imageFile, " +
-                    "Uitzendbureau.uitzendID, Uitzendbureau.naam as uitzendNaam, Uitzendbureau.eigenaar " +
-                    "FROM dbo.Tag " +
-                    "INNER JOIN dbo.Post ON dbo.Tag.tagID = dbo.Post.tagID " +
-                    "LEFT JOIN dbo.Uitzendbureau on Post.uitzendID = Uitzendbureau.uitzendID " +
+
+                string query = "SELECT " +
+                    "Tag.tagID, Tag.naam as tagNaam, " +
+                    "Post.postID, Post.titel, Post.datum, Post.inhoud, Post.type, Post.goedgekeurdDoor, Post.aantalBekeken, Post.accountID, Post.imageFile, Post.uitgelicht, " +
+                    "Uitzendbureau.uitzendID, Uitzendbureau.naam as uitzendNaam, Uitzendbureau.eigenaar " +
+                    "FROM dbo.Tag " +
+                    "INNER JOIN dbo.Post ON dbo.Tag.tagID = dbo.Post.tagID " +
+                    "LEFT JOIN dbo.Uitzendbureau on Post.uitzendID = Uitzendbureau.uitzendID " +
                     "Where PostID = @PostID";
+
                 using (SqlCommand sqlCommand = new SqlCommand(query, connection))
                 {
                     sqlCommand.CommandType = CommandType.Text;
@@ -123,10 +125,12 @@ namespace ProftaakProject.Context.SQLContext
                                     p.Tag = new Tag((int)reader["tagID"], reader["tagNaam"].ToString());
                                     p.ImageFile = (byte[])reader["imageFile"];
                                 }
-                                if (reader["uitzendID"].ToString() != "")
-                                {
-                                    p.Uitzendbureau = new Uitzendbureau((int)reader["uitzendID"], reader["uitzendNaam"].ToString(), (int)reader["eigenaar"]);
+                                if (reader["uitzendID"].ToString() != "")
+                                {
+                                    p.Uitzendbureau = new Uitzendbureau((int)reader["uitzendID"], reader["uitzendNaam"].ToString(), (int)reader["eigenaar"]);
                                 }
+
+                                p.Uitgelicht = Convert.ToBoolean(reader["uitgelicht"]);
                             }
                             return p;
                         }
@@ -143,28 +147,36 @@ namespace ProftaakProject.Context.SQLContext
         {
             List<Post> posts = new List<Post>();
             string query = "SELECT * FROM dbo.Tag T INNER JOIN dbo.Post p ON T.tagID = p.tagID WHERE type = 0 AND goedgekeurdDoor > 0 ORDER BY P.datum DESC";
-            using (var connection = new SqlConnection(_connectionString))
+            try
             {
-                connection.Open();
-
-                using (SqlCommand cmd = new SqlCommand(query, connection))
+                using (var connection = new SqlConnection(_connectionString))
                 {
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    connection.Open();
+
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
                     {
-                        while (reader.Read())
+                        using (SqlDataReader reader = cmd.ExecuteReader())
                         {
-                            posts.Add(new Post(
-                                (int)reader["postId"],
-                                reader["titel"].ToString(),
-                                reader["inhoud"].ToString(),
-                                (int)reader["type"],
-                                new Tag((int)reader["tagID"], reader["naam"].ToString()),
-                                (int)reader["goedgekeurdDoor"],
-                                (byte[])reader["imageFile"]));
+                            while (reader.Read())
+                            {
+                                posts.Add(new Post(
+                                    (int)reader["postId"],
+                                    reader["titel"].ToString(),
+                                    reader["inhoud"].ToString(),
+                                    (int)reader["type"],
+                                    new Tag((int)reader["tagID"], reader["naam"].ToString()),
+                                    (int)reader["goedgekeurdDoor"],
+                                    (byte[])reader["imageFile"]));
+                            }
                         }
                     }
+                    connection.Close();
                 }
-                connection.Close();
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                throw;
             }
             return posts;
         }
@@ -207,32 +219,40 @@ namespace ProftaakProject.Context.SQLContext
                 try
                 {
                     connection.Open();
-                    string query = "UPDATE dbo.Post SET titel = @titel , datum = @datum ,inhoud = @inhoud, imageFile = @imageFile, uitzendID = @uitzendID  WHERE postID = @id";
+
+                    string query = "UPDATE dbo.Post SET titel = @titel, datum = @datum, inhoud = @inhoud, imageFile = @imageFile, uitgelicht = @uitgelicht  WHERE postID = @id";
+                    if (post.Uitzendbureau != null)
+                    {
+                        query = "UPDATE dbo.Post SET titel = @titel, datum = @datum, inhoud = @inhoud, imageFile = @imageFile, uitzendID = @uitzendID, uitgelicht = @uitgelicht  WHERE postID = @id";
+                    }
                     using (SqlCommand cmd = new SqlCommand(query, connection))
                     {
                         cmd.Parameters.AddWithValue("@id", post.Id);
                         cmd.Parameters.AddWithValue("@titel", post.Titel);
                         cmd.Parameters.AddWithValue("@datum", post.Datum);
                         cmd.Parameters.AddWithValue("@inhoud", post.Inhoud);
-                        cmd.Parameters.AddWithValue("@uitzendID", post.Uitzendbureau.Id);
+                        if (post.Uitzendbureau != null)
+                        {
+                            cmd.Parameters.AddWithValue("@uitzendID", post.Uitzendbureau.Id);
+                        }
                         cmd.Parameters.Add("@imageFile", sqlDbType: SqlDbType.VarBinary).Value = post.ImageFile;
+                        cmd.Parameters.AddWithValue("@uitgelicht", Convert.ToInt32(post.Uitgelicht));
                         //            //cmd.Parameters.AddWithValue("@accountID", 1);
                         cmd.ExecuteNonQuery();
                     }
                     connection.Close();
-                    return true;
                 }
                 catch (Exception exception)
                 {
                     Console.WriteLine(exception);
+                    throw;
                 }
 
-                connection.Close();
-                return false;
+                return true;
             }
         }
 
-        public bool IncrementViews(int postID)
+        public bool IncrementViews(int postID)
         {
             int aantalBekeken = GetByID(postID).AantalBekenen + 1;
             using (var connection = new SqlConnection(_connectionString))
