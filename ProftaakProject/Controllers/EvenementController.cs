@@ -14,6 +14,7 @@ namespace ProftaakProject.Controllers
     public class EvenementController : BaseController
     {
         private readonly EvenementRepo _evenementRepo;
+        private readonly EvenementToEvenementVMConverter _eevmc = new EvenementToEvenementVMConverter();
         public EvenementController(EvenementRepo evr)
         {
             _evenementRepo = evr;
@@ -21,16 +22,23 @@ namespace ProftaakProject.Controllers
 
         public IActionResult Index()
         {
-            EvenementToEvenementVMConverter evmc = new EvenementToEvenementVMConverter();
             List<Evenement> evenementen = _evenementRepo.GetAllByUserId(GetUserId());
             List<EvenementViewModel> evm = new List<EvenementViewModel>();
 
             foreach (Evenement ev in evenementen)
             {
-                evm.Add(evmc.ConvertToViewModel(ev));
+                evm.Add(_eevmc.ConvertToViewModel(ev));
             }
 
             return View(evm);
+        }
+
+        [HttpGet]
+        public IActionResult Details(int id)
+        {
+            Evenement ev = _evenementRepo.Read(id);
+            EvenementViewModel evm = _eevmc.ConvertToViewModel(ev);
+            return View();
         }
 
         [HttpGet]
@@ -44,11 +52,51 @@ namespace ProftaakProject.Controllers
         public IActionResult Create(EvenementViewModel evm)
         {
             Evenement ev = new Evenement();
-            EvenementToEvenementVMConverter eevmc = new EvenementToEvenementVMConverter();
-            ev = eevmc.ConvertToModel(evm);
+            
+            ev = _eevmc.ConvertToModel(evm);
 
             _evenementRepo.Create(ev, GetUserId());
             return View();
         }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            Evenement ev = _evenementRepo.Read(id);
+            EvenementViewModel evm = _eevmc.ConvertToViewModel(ev);
+            return View(evm);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(EvenementViewModel evm)
+        {
+            IActionResult retVal = View(evm);
+            
+            if (ModelState.IsValid)
+            {
+                Evenement ev = _eevmc.ConvertToModel(evm);
+                bool result = _evenementRepo.Update(ev);
+
+                if (result)
+                {
+                    retVal = RedirectToAction("Index");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Error processing update.");
+                }
+            }
+         
+            return retVal;
+        }
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            _evenementRepo.Delete(id);
+
+            return RedirectToAction("Index");
+        }
+
     }
 }
