@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
+using ProftaakProject.Context.Interfaces;
 
 namespace ProftaakProject
 {
@@ -63,6 +64,31 @@ namespace ProftaakProject
 
                 throw;
             }
+        }
+
+        public List<Role> GetAllRole()
+        {
+            List<Role> rols = new List<Role>();
+            string query = "SELECT * FROM dbo.Role";
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            rols.Add(new Role((int)reader["Id"], reader["Naam"].ToString()));
+                        }
+                    }
+                }
+
+                connection.Close();
+            }
+
+            return rols;
         }
 
         public Task<string> GetNormalizedRoleNameAsync(Role role, CancellationToken cancellationToken)

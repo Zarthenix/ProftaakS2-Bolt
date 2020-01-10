@@ -51,12 +51,14 @@ namespace ProftaakProject
             services.AddTransient<IAccountContext, MSSQLAccountContext>();
             services.AddTransient<IUitzendContext, MSSQLUitzendContext>();
             services.AddTransient<IEventContext, MSSQLEventContext>();
+            services.AddTransient<IRoleContext, MSSQLRoleNonAuthContext>();
 
             services.AddScoped<PostRepo>();
             services.AddScoped<UitzendRepo>();
             services.AddScoped<AccountRepo>();
             services.AddScoped<ReactieRepo>();
             services.AddScoped<EvenementRepo>();
+            services.AddScoped<RoleRepo>();
 
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
         }
@@ -78,14 +80,19 @@ namespace ProftaakProject
             app.UseStaticFiles();
             app.UseRouting();
 
-            app.UseAuthorization();
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Account}/{action=Login}/{id?}");
+                endpoints.MapControllerRoute(
+                    name: "profiel",
+                    pattern: "profiel/{id?}",
+                    defaults: new {controller = "Account", action = "Profiel"}
+                    );
             });
         }
     }

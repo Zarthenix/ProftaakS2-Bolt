@@ -32,6 +32,11 @@ namespace ProftaakProject.Models.Repositories
             return authContext.Register(user, rol);
         }
 
+        public bool UpdatePassword(int id)
+        {
+            return authContext.UpdatePassword(id);
+        }
+
         public List<Account> GetAll()
         {
             return accContext.GetAll();

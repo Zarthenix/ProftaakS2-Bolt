@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace ProftaakProject.Context.Interfaces
 {
-    public interface IAuthContext
+    public interface IRoleContext
     {
-        Task<bool> Login(Account user);
-        Task<bool> Register(Account user, int rol);
-        void Logout();
-        bool UpdatePassword(int id);
+        List<Role> GetAllRole();
+
     }
 }
