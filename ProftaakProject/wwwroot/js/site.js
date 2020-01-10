@@ -25,6 +25,9 @@ function SetTypeValue(typeId, typePost) {
     $(typeId).val(typePost);
 }
 
+
+
+
 $(document).ready(function () {
     var s = '';
     for (var i = 0; i < 1000; i++) {

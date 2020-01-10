@@ -135,6 +135,10 @@ html, body {
     width: 250px;
 }
 
+#calNav {
+    float: right;
+}
+
 .easyflexLogo a {
     text-decoration: none;
     color: white !important;
@@ -201,7 +205,34 @@ a .icon {
     padding-top: 50px;
     padding-left: 50px;
 }
+/* CSS voor tag lijst tijdlijn*/
 
+.tagLijst {
+    border: 4px solid;
+    -webkit-border-image: -webkit-gradient(linear, 0 0, 0 100%, from(#3F55A1), to(#C42872)) 1 100%;
+    padding-top: 10px;
+    position: fixed;
+    background-color: #F4F4F8;
+    top: 100px;
+    right: 100px;
+    text-align: center;
+    width: 275px;
+}
+
+.tagDiv {
+    padding: 1.25rem 1.25rem;
+    border-top: 2px solid rgba(63, 85, 161, 1);
+    height: 75px;
+    width: inherit;
+    color: rgba(63, 85, 161, 1);
+    font-size: 20px;
+    text-decoration:none;
+}
+
+    .tagDiv:hover {
+        background-color: rgba(63, 85, 161, 1);
+        color: #F4F4F8;
+    }
 /*CSS voor Post Partial*/
 h2.postTitel {
     padding-left: 10px;
@@ -309,6 +340,10 @@ div.postInhoud {
     width: auto;
     display: block;
 }
+.carousel-card-header {
+    height: 75px;
+    text-align: center;
+}
 
 .reactieAanmakenInhoud {
     min-width: 550px;
@@ -338,6 +373,17 @@ div.artikelInhoud {
 .uitzendtable a {
     color: black;
 }
+
+.carousel-card-body {
+    padding: 0px;
+}
+
+.eventList {
+    list-style: none;
+    margin-top: 1rem;
+}
+
+
 
 div.KnopUitzend {
     padding-top: 10px !Important;

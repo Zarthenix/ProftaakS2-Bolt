@@ -36,13 +36,33 @@ namespace ProftaakProject.Context.SQLContext
                         }
                     }
                 }
-
                 connection.Close();
             }
-
             return tags;
         }
 
+        public List<Tag> GetAllByUserID(int id)
+        {
+            List<Tag> tags = new List<Tag>();
+            string query = "SELECT * FROM dbo.Tag";
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            tags.Add(new Tag((int)reader["tagID"], reader["naam"].ToString()));
+                        }
+                    }
+                }
+                connection.Close();
+            }
+            return tags;
+        }
         public Tag GetTagByID(int id)
         {
             using (var connection = new SqlConnection(_connectionString))

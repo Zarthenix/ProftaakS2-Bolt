@@ -159,7 +159,7 @@ namespace ProftaakProject.Controllers
             agvm.Post = pr.GetByID(Id);
             return View(agvm);
         }
-        
+
         [HttpGet]
         public IActionResult ArtikelVerwijderen(ArtikelToevoegenViewModel atvm)
         {
@@ -222,5 +222,19 @@ namespace ProftaakProject.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpGet]
+        public IActionResult AllePostsMetTagID(int tagId)
+        {
+            PostViewModel pvm = new PostViewModel();
+            List<PostViewModel> tempPostList = new List<PostViewModel>();
+            PostToPostvmConverter ppc = new PostToPostvmConverter();
+            foreach (Post tempPost in pr.GetAllPostsByTagId(tagId))
+            {
+                tempPostList.Add(ppc.ConvertToViewModel(tempPost));
+            }
+            pvm.PostViewModels = tempPostList;
+            return RedirectToAction("Index", "Home");
+            //return RedirectToAction("", pvm);//TO DO MAAK EEN PAGINA OM ALLE POSTS IN TE LADEN.
+        }
     }
 }

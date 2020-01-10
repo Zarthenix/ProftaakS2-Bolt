@@ -19,6 +19,7 @@ namespace ProftaakProject.Models.ViewModels.EventModels
         [Display(Name = "Datum")]
         [DataType(DataType.DateTime)]
         public DateTime Datum { get; set; }
+        
 
         [Display(Name = "Organizator")]
         public int Host { get; set; }

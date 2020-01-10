@@ -10,45 +10,50 @@
 <link rel="stylesheet" href="~/css/owl.carousel.min.css">
 <script src="~/js/owl.carousel.min.js"></script>
 
-<div class="container">
-    <h1>Jouw evenementen:</h1>
-    <div class="owl-carousel">
-  
-            @foreach (var evm in Model)
-            {
-                <div class="card">
-                    <div class="card-header">@evm.Naam</div>
-                    <div class="card-body">
-                        <ul>
-                            <li>Host: @evm.Host</li>
-                            <li>Locatie: @evm.Locatie</li>
-                            <li>Maximaal aantal deelnemers: @evm.MaxDeelnemers</li>
-                        </ul>
-                    </div>
-                    <div class="card-footer">@evm.Datum</div>
-                </div>
-            }
-        </div>
-        </div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Jouw evenementen:</h1>
+            <div class="owl-carousel">
 
+                @foreach (var evm in Model)
+                {
+                    <div class="card">
+                        <div class="card-header carousel-card-header">@evm.Naam</div>
+                        <div class="card-body carousel-card-body">
+                            <ul class="eventList">
+                                <li>Host: @evm.Host</li>
+                                <li>Locatie: @evm.Locatie</li>
+                                <li>Maximaal aantal deelnemers: @evm.MaxDeelnemers</li>
+                            </ul>
+                        </div>
+                        <div class="card-footer">@evm.Datum</div>
+                    </div>
+                }
+            </div>
+            <a href="@Url.Action("Create")" class="btn btn-primary" style="margin-top:15px">Maak nieuwe</a>
+        </div>
+        
+    </div>
+    </div>
 
 @section Scripts
 {
     <script>
-        $(document).ready(function(){
+        $(document).ready(function() {
             $(".owl-carousel").owlCarousel({
                 loop: true,
                 margin: 10,
                 center: true,
-                responsive:{
-                    0:{
-                        items:1
+                responsive: {
+                    0: {
+                        items: 1
                     },
-                    600:{
-                        items:2
+                    600: {
+                        items: 2
                     },
-                    1000:{
-                        items:3
+                    1000: {
+                        items: 3
                     }
                 }
 

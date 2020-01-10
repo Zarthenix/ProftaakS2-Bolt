@@ -27,5 +27,7 @@ namespace ProftaakProject.Context.Interfaces
         List<Post> GetAllArtikelenGoedkeuren();
 
         bool UpdateGoedgekeurd(int accId, int postId);
+
+        List<Post> GetAllPostsByTagId(int tagId);
     }
 }

@@ -58,6 +58,7 @@ namespace ProftaakProject.Context.SQLContext
                 catch (Exception exception)
                 {
                     Console.WriteLine(exception);
+                    throw;
                 }
 
                 connection.Close();
@@ -110,7 +111,7 @@ namespace ProftaakProject.Context.SQLContext
                     using (SqlDataReader reader = sqlCommand.ExecuteReader())
                     {
                         if (reader.HasRows)
-                        {
+                        {
                             Post p = new Post();
                             while (reader.Read())
                             {
@@ -124,13 +125,11 @@ namespace ProftaakProject.Context.SQLContext
                                 {
                                     p.Tag = new Tag((int)reader["tagID"], reader["tagNaam"].ToString());
                                     p.ImageFile = (byte[])reader["imageFile"];
-                                }
+                                }
                                 if (reader["uitzendID"].ToString() != "")
                                 {
                                     p.Uitzendbureau = new Uitzendbureau((int)reader["uitzendID"], reader["uitzendNaam"].ToString(), (int)reader["eigenaar"]);
                                 }
-
-                                p.Uitgelicht = Convert.ToBoolean(reader["uitgelicht"]);
                             }
                             return p;
                         }
@@ -181,14 +180,13 @@ namespace ProftaakProject.Context.SQLContext
             return posts;
         }
 
-        public List<Post> FAQVragenByTag(Tag tag)
-        {
+        public List<Post> FAQVragenByTag(Tag tag)
+        {
             List<Post> posts = new List<Post>();
             string query = "SELECT Top(3) * FROM dbo.Post WHERE tagID = @tagID AND dbo.Post.type = 1 ORDER BY dbo.Post.aantalBekeken DESC";
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-
                 using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
                     cmd.Parameters.AddWithValue("@tagID", tag.Id);
@@ -208,8 +206,7 @@ namespace ProftaakProject.Context.SQLContext
                 }
                 connection.Close();
             }
-
-            return posts;
+            return posts;
         }
 
         public bool Update(Post post)
@@ -253,8 +250,8 @@ namespace ProftaakProject.Context.SQLContext
         }
 
         public bool IncrementViews(int postID)
-        {
-            int aantalBekeken = GetByID(postID).AantalBekenen + 1;
+        {
+            int aantalBekeken = GetByID(postID).AantalBekenen + 1;
             using (var connection = new SqlConnection(_connectionString))
             {
                 try
@@ -275,45 +272,36 @@ namespace ProftaakProject.Context.SQLContext
                     Console.WriteLine(exception);
                     throw;
                 }
-            }
+            }
         }
-
-        public Post SearchResult(string search)
-        {
-            //type 0 = artikel
-            //type 1 = vraag
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                try
-                {
-                    connection.Open();
-                    string query = "SELECT * FROM Post WHERE inhoud LIKE '%@search%'";
+        public Post SearchResult(string search)
+        {
+            //type 0 = artikel
+            //type 1 = vraag
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "SELECT * FROM Post WHERE inhoud LIKE '%@search%'";
                     using (SqlCommand cmd = new SqlCommand(query, connection))
-                    {
-                        cmd.Parameters.AddWithValue("@search", search);
-                        cmd.ExecuteNonQuery();
-                    }
-                    connection.Close();
-
-                }
-                catch(Exception exception)
-                {
-                    Console.WriteLine(exception);
-                    throw;
-                }
-            }
-            Post p = new Post();
-            return p;
+                    {
+                        cmd.Parameters.AddWithValue("@search", search);
+                        cmd.ExecuteNonQuery();
+                    }                    connection.Close();                }
+                catch (Exception exception)                {
+                    Console.WriteLine(exception);                    throw;                }
+            }
+            Post p = new Post();            return p;
         }
 
-        public List<Post> GetAllArtikelenGoedkeuren()
-        {
+        public List<Post> GetAllArtikelenGoedkeuren()
+        {
             List<Post> posts = new List<Post>();
             string query = "SELECT * FROM dbo.Tag INNER JOIN dbo.Post ON dbo.Tag.tagID = dbo.Post.tagID WHERE type = 0 AND goedgekeurdDoor = 0";
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-
                 using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
                     using (SqlDataReader reader = cmd.ExecuteReader())
@@ -333,11 +321,11 @@ namespace ProftaakProject.Context.SQLContext
                 }
                 connection.Close();
             }
-            return posts;
+            return posts;
         }
 
-        public bool UpdateGoedgekeurd(int accId, int postId)
-        {
+        public bool UpdateGoedgekeurd(int accId, int postId)
+        {
             using (var connection = new SqlConnection(_connectionString))
             {
                 try
@@ -358,7 +346,42 @@ namespace ProftaakProject.Context.SQLContext
                     Console.WriteLine(exception);
                     throw;
                 }
-            }
-        }
+            }
+        }
+
+        public List<Post> GetAllPostsByTagId(int tagId)
+        {
+            List<Post> posts = new List<Post>();
+            string query = "SELECT * FROM dbo.Tag INNER JOIN dbo.Post ON dbo.Tag.tagID = dbo.Post.tagID WHERE dbo.Tag.tagID = @tagId";
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@tagId", tagId);
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Post tempPost = new Post();
+
+                            tempPost.Id = (int)reader["postId"];
+                            tempPost.Titel = reader["titel"].ToString();
+                            tempPost.Inhoud = reader["inhoud"].ToString();
+                            tempPost.TypeId = (int)reader["type"];
+                            Tag t = new Tag((int)reader["tagID"], reader["naam"].ToString());
+                            tempPost.GoedgekeurdDoor = (int)reader["goedgekeurdDoor"];
+                            if ((tempPost.TypeId == 0))
+                            {
+                                tempPost.ImageFile = (byte[])reader["imageFile"];
+                            }
+                            posts.Add(tempPost);
+                        }
+                    }
+                }
+                connection.Close();
+            }
+            return posts;
+        }
     }
 }
