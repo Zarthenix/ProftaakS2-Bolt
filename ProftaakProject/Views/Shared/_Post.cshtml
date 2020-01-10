@@ -1,37 +1,47 @@
 ﻿@model ProftaakProject.Models.ViewModels.PostModels.PostViewModel
 
+<style>
+    .Border {
+        border: 4px solid;
+        border-radius: 10px;
+        -webkit-border-image: -webkit-gradient(linear, 0 0, 0 100%, from(#3F55A1), to(#C42872)) 1 100%;
+        width: 900px;
+        padding-right: 30px;
+        margin-top: 50px;
+    }
+</style>
+
 @if (Model.Uitgelicht)
 {
-    <style>
-        .Border {
-            border: 4px solid;
-            border-radius: 10px;
-            -webkit-border-image: -webkit-gradient(linear, 0 0, 0 100%, from(#3F55A1), to(#C42872)) 1 100%;
-            width: 900px;
-            padding-right: 30px;
-            margin-top: 50px;
-        }
-    </style>
+    <div class="card Border">
+        <a href="@Url.Action("Artikel", "Post", new { Id = Model.Id })">
+            <div class="card-header">
+                <img src="data:image/png;base64,@Model.ImageFile" class="img-thumbnail" />
+            </div>
+            <div class="card-body">
+                <h4 class="card-title">@Model.Titel</h4>
+                <p class="card-text">@Model.Inhoud</p>
+            </div>
+        </a>
+        <div class="card-footer">
+            <p class="auteurText">Model.Auteur.Naam</p>
+        </div>
+    </div>
 }
 else
 {
-    <style>
-        .Border {
-        }
-    </style>
-}
-
-<div class="card">
-    <a href="@Url.Action("Artikel", "Post", new {Id = Model.Id})">
-        <div class="card-header">
-            <img src="data:image/png;base64,@Model.ImageFile" class="img-thumbnail" />
+    <div class="card">
+        <a href="@Url.Action("Artikel", "Post", new { Id = Model.Id })">
+            <div class="card-header">
+                <img src="data:image/png;base64,@Model.ImageFile" class="img-thumbnail" />
+            </div>
+            <div class="card-body">
+                <h4 class="card-title">@Model.Titel</h4>
+                <p class="card-text">@Model.Inhoud</p>
+            </div>
+        </a>
+        <div class="card-footer">
+            <p class="auteurText">Model.Auteur.Naam</p>
         </div>
-        <div class="card-body">
-            <h4 class="card-title">@Model.Titel</h4>
-            <p class="card-text">@Model.Inhoud</p>
-        </div>
-    </a>
-    <div class="card-footer">
-        <p class="auteurText">Model.Auteur.Naam</p>
     </div>
-</div>
+}
