@@ -3,7 +3,7 @@
     ViewData["Title"] = "Artikel";
 }
 
-@if (Model.Post.GoedgekeurdDoor == -1)
+@if (Model.Post.Uitgelicht)
 {
     <style>
         .Border {
@@ -20,16 +20,11 @@ else
 {
     <style>
         .Border {
-            border: 4px solid;
-            border-radius: 10px;
-            width: 900px;
-            padding-right: 30px;
-            margin-top: 50px;
         }
     </style>
 }
 
-<div class="card">
+<div class="card Border">
     <div class="card-header">
         <img src="data:image/png;base64,@Model.ImageFile" class="img-thumbnail" />
     </div>
@@ -37,9 +32,46 @@ else
         <h4 class="card-title">@Model.Post.Titel</h4>
         <p class="card-text">@Model.Post.Inhoud</p>
     </div>
-    <div class="card-footer">
-        <p class="auteurText">Model.Auteur.Naam</p><p>@*@Model.Post.Uitzendbureau.Naam*@</p>
-        <a href="@Url.Action("ArtikelToevoegen", "Post", new {Id = Model.Post.Id})">Bewerken</a><br /><a href="@Url.Action("ArtikelVerwijderen", "Post", new {Id = Model.Post.Id})">Verwijderen</a>
+    <div class="card-footer row">
+        <div class="col-md-4">
+            <p class="auteurText">Model.Auteur.Naam</p>
+            @if (Model.Post.Uitzendbureau != null)
+            {<p class="auteurText">@Model.Post.Uitzendbureau.Naam</p>}
+        </div>
+        @if (User.Identity.IsAuthenticated)
+        {
+            var containsTag = false;
+            <div class="col-md-2">
+
+                @foreach (var tag in Model.Account.GeabonneerdeTags)
+                {
+                    if (tag.Id == Model.Post.Tag.Id)
+                    {
+                        containsTag = true;
+                    }
+                }
+                @if (containsTag)
+                {
+                    <a class="btn btn-success" href="@Url.Action("TagAbonneren", "Post", new {postID = Model.Post.Id, tagID = Model.Post.Tag.Id})">Abonnement opzeggen</a>
+                }
+                else
+                {
+                    <a class="btn btn-success" href="@Url.Action("TagAbonneren", "Post", new {postID = Model.Post.Id, tagID = Model.Post.Tag.Id})">Abonneren</a>
+                }
+            </div>
+        }
+        @if (User.IsInRole("Admin"))
+        {
+            <div class="col-md-2">
+                <a class="btn btn-success" href="@Url.Action("ArtikelToevoegen", "Post", new {Id = Model.Post.Id})">Bewerken</a>
+            </div>
+            <div class="col-md-2">
+                <a class="btn btn-success" href="@Url.Action("ArtikelVerwijderen", "Post", new {Id = Model.Post.Id})">Verwijderen</a>
+            </div>
+            <form class="col-md-2" method="post">
+                <button asp-action="Uitlichten" type="submit" class="btn btn-success" value="@Model.Post.Id" name="postId">Uitlichten</button>
+            </form>
+        }
     </div>
 </div>
 

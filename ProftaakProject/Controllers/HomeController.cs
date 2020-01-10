@@ -15,7 +15,7 @@ using ProftaakProject.Models.ViewModels.PostModels;
 
 namespace ProftaakProject.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
         private PostRepo postRepo;
@@ -35,19 +35,15 @@ namespace ProftaakProject.Controllers
             pvm.HuidigeAccount.GeabonneerdeTags = new List<Tag>();
             List<PostViewModel> tempModels = new List<PostViewModel>();
             PostToPostvmConverter ppc = new PostToPostvmConverter();
-
+            if (User.Identity.IsAuthenticated)
+            {
+                pvm.HuidigeAccount.GeabonneerdeTags = postRepo.GetAllGeabonneerdeTags(GetUserId());
+            }
             foreach (Post tempPost in postRepo.GetAllArtikelen())
             {
                 tempModels.Add(ppc.ConvertToViewModel(tempPost));
             }
-
             pvm.PostViewModels = tempModels;
-            Tag tag = new Tag()
-            {
-                Naam = "lorem ipsum",
-                Id = 2
-            };
-            pvm.HuidigeAccount.GeabonneerdeTags.Add(tag);
             return View(pvm);
         }
 

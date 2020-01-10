@@ -18,12 +18,14 @@ namespace ProftaakProject.Controllers
         private PostRepo pr;
         private ReactieRepo rr;
         private UitzendRepo ur;
+        private AccountRepo ar;
 
-        public PostController(PostRepo pr, ReactieRepo rr, UitzendRepo ur)
+        public PostController(PostRepo pr, ReactieRepo rr, UitzendRepo ur, AccountRepo ar)
         {
             this.pr = pr;
             this.rr = rr;
             this.ur = ur;
+            this.ar = ar;
         }
 
         #region Vraag
@@ -97,6 +99,8 @@ namespace ProftaakProject.Controllers
         {
             PostToArtikelvmConverter pac = new PostToArtikelvmConverter();
             ArtikelViewModel avm = pac.ConvertToViewModel(pr.GetByID(id));
+            avm.Account = ar.GetByID(GetUserId());
+            avm.Account.GeabonneerdeTags = pr.GetAllGeabonneerdeTags(GetUserId());
             pr.IncrementViews(id);
             return View("Artikel", avm);
         }
@@ -127,15 +131,17 @@ namespace ProftaakProject.Controllers
             {
                 PostToArtikelToevoegenvmConverter ptatvmc = new PostToArtikelToevoegenvmConverter();
                 atvm.TypeId = 0;
-                var tempub = new Uitzendbureau();
-                atvm.Uitzendbureau = tempub;
+
                 if (atvm.HeeftUitzendbureau)
                 {
-                    tempub = ur.GetByAccountID(GetUserId());
+                    var tempub = ur.GetByAccountID(GetUserId());
                     if (tempub.Id > 0)
+                    {
                         atvm.Uitzendbureau = tempub;
+                    }
                 }
                 Post post = ptatvmc.ConvertToModel(atvm);
+                post.Datum = DateTime.Now;
                 pr.Save(post);
                 return RedirectToAction("Artikel", "Post", new { id = post.Id });
             }
@@ -157,13 +163,21 @@ namespace ProftaakProject.Controllers
             agvm.Post = pr.GetByID(Id);
             return View(agvm);
         }
-        
+
         [HttpGet]
         public IActionResult ArtikelVerwijderen(ArtikelToevoegenViewModel atvm)
         {
             if (!User.IsInRole("Admin")) { return RedirectToAction("NotAuthorized", "Home"); }
-
             pr.Delete(atvm.Id);
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public IActionResult Uitlichten(int postId)
+        {
+            Post p = pr.GetByID(postId);
+            p.Uitgelicht = true;
+            pr.Update(p);
             return RedirectToAction("Index", "Home");
         }
         #endregion
@@ -211,5 +225,32 @@ namespace ProftaakProject.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpGet]
+        public IActionResult AllePostsMetTagID(int tagId)
+        {
+            PostViewModel pvm = new PostViewModel();
+            List<PostViewModel> tempPostList = new List<PostViewModel>();
+            PostToPostvmConverter ppc = new PostToPostvmConverter();
+            foreach (Post tempPost in pr.GetAllPostsByTagId(tagId))
+            {
+                tempPostList.Add(ppc.ConvertToViewModel(tempPost));
+            }
+            pvm.PostViewModels = tempPostList;
+            return View("ArtikelTag", pvm);//TO DO MAAK EEN PAGINA OM ALLE POSTS IN TE LADEN.
+        }
+
+        [HttpGet]
+        public IActionResult TagAbonneren(int postID, int tagID)
+        {
+            if (!pr.IsGeabonneerdOpTag(tagID, GetUserId()))
+            {
+                pr.AbonnerenOpTag(tagID, GetUserId());
+            }
+            else
+            {
+                pr.AbonnerenTagOpzeggen(tagID, GetUserId());
+            }
+            return RedirectToAction("Artikel", "Post", new { id = postID });
+        }
     }
 }

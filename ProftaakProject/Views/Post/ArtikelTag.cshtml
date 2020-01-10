@@ -1,0 +1,17 @@
+﻿@using ProftaakProject.Models.ViewModels.PostModels
+@model ProftaakProject.Models.ViewModels.PostModels.PostViewModel
+@{
+    ViewData["Title"] = "Tag";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<body>
+    @foreach (PostViewModel postTemp in Model.PostViewModels)
+    {
+        <div class="postTijdlijn">
+            @await Html.PartialAsync("_Post", postTemp)
+        </div>
+    }
+</body>
+</html>

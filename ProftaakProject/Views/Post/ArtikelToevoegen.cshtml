@@ -20,10 +20,12 @@
                 <textarea asp-for="Inhoud" class="postAanmakenInhoud">@Model.Inhoud</textarea>
                 <span asp-validation-for="Inhoud" class="text-danger"></span>
             </div>
-            @if (Model.Uitzendbureau.Id > 0)
-            {
-                <input type="checkbox" asp-for="HeeftUitzendbureau" />
-            }
+            <div class="col-md-4">
+                @if (Model.Uitzendbureau.Id > 0)
+                {
+                    <input type="checkbox" asp-for="HeeftUitzendbureau" /> <label>Uitzendbureau koppelen</label>
+                }
+            </div>
             <div class="col-md-3">
                 <select tag="option" asp-for="Tag.Id" class="form-control LoginVelden">
                     @foreach (Tag tempTag in Model.Tags)
@@ -35,9 +37,6 @@
             </div>
             <div class="form-group">
                 <input value="@Model.Id" type="hidden" asp-for="Id" class="form-control" />
-            </div>
-            <div class="col-md-4">
-
             </div>
             <div class="col-md-5">
                 <span asp-validation-for="ImageFile" class="text-danger"></span>

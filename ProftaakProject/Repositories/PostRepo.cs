@@ -52,6 +52,10 @@ namespace ProftaakProject.Models.Repositories
             return tCtx.GetAll();
         }
 
+        public List<Tag> GetAllByUserID(int id)
+        {
+            return tCtx.GetAllByUserID(id);
+        }
         public bool Save(Post post)
         {
             if (post.Id <= 0)
@@ -87,6 +91,27 @@ namespace ProftaakProject.Models.Repositories
         public bool UpdateGoedgekeurd(int accId, int postId)
         {
             return pCtx.UpdateGoedgekeurd(accId, postId);
+        }
+
+        public List<Post> GetAllPostsByTagId(int tagId)
+        {
+            return pCtx.GetAllPostsByTagId(tagId);
+        }
+        public bool AbonnerenOpTag(int tagId, int accId)
+        {
+            return tCtx.AbonnerenOpTag(tagId, accId);
+        }
+        public bool AbonnerenTagOpzeggen(int tagId, int accId)
+        {
+            return tCtx.AbonnerenTagOpzeggen(tagId, accId);
+        }
+        public bool IsGeabonneerdOpTag(int tagId, int accId)
+        {
+            return tCtx.IsGeabonneerdOpTag(tagId, accId);
+        }
+        public List<Tag> GetAllGeabonneerdeTags(int accId)
+        {
+            return tCtx.GetAllGeabonneerdeTags(accId);
         }
     }
 }

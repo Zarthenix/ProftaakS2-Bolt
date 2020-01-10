@@ -10,5 +10,6 @@ namespace ProftaakProject.Models.ViewModels
     {
         public Post Post { get; set; }
         public string ImageFile { get; set; }
+        public Account Account { get; set; }
     }
 }

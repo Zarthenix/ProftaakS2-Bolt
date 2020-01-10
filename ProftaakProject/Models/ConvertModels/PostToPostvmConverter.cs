@@ -34,7 +34,11 @@ namespace ProftaakProject.Models.ConvertModels
                 pvm.Datum = p.Datum;
                 pvm.Inhoud = p.Inhoud;
                 pvm.TypeId = p.TypeId;
-                pvm.ImageFile = Convert.ToBase64String(p.ImageFile);
+                if (p.TypeId == 0)
+                {
+                    pvm.ImageFile = Convert.ToBase64String(p.ImageFile);
+                }
+                pvm.Uitgelicht = p.Uitgelicht;
             }
             return pvm;
         }

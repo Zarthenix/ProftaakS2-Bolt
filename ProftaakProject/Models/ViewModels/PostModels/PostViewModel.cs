@@ -30,5 +30,7 @@ namespace ProftaakProject.Models.ViewModels.PostModels
         public List<PostViewModel> PostViewModels { get; set; }
 
         public AccountViewModel HuidigeAccount { get; set; }
+
+        public bool Uitgelicht { get; set; }
     }
 }
