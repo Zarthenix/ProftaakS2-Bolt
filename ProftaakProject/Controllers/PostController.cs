@@ -233,8 +233,7 @@ namespace ProftaakProject.Controllers
                 tempPostList.Add(ppc.ConvertToViewModel(tempPost));
             }
             pvm.PostViewModels = tempPostList;
-            return RedirectToAction("Index", "Home");
-            //return RedirectToAction("", pvm);//TO DO MAAK EEN PAGINA OM ALLE POSTS IN TE LADEN.
+            return View("ArtikelTag", pvm);//TO DO MAAK EEN PAGINA OM ALLE POSTS IN TE LADEN.
         }
     }
 }

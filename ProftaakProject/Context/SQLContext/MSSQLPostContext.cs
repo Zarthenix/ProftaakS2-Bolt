@@ -352,7 +352,7 @@ namespace ProftaakProject.Context.SQLContext
         public List<Post> GetAllPostsByTagId(int tagId)
         {
             List<Post> posts = new List<Post>();
-            string query = "SELECT * FROM dbo.Tag INNER JOIN dbo.Post ON dbo.Tag.tagID = dbo.Post.tagID WHERE dbo.Tag.tagID = @tagId";
+            string query = "SELECT * FROM dbo.Tag INNER JOIN dbo.Post ON dbo.Tag.tagID = dbo.Post.tagID WHERE dbo.Tag.tagID = @tagId AND dbo.Post.type = 0";//type 0 = artikel en type 1 is vraag.
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
