@@ -84,7 +84,7 @@ namespace ProftaakProject.Controllers
                 if (ModelState.IsValid)
                 {
                     Account user = _rvmc.ConvertToModel(rvm);
-                    bool result = await _accRepo.Register(user, 1);
+                    bool result = await _accRepo.Register(user, 0);
 
                     if (result)
                     {
