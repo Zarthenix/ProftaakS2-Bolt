@@ -29,9 +29,12 @@
             </div>
         }
     </div>
-    <form>
-        <input class="btn btn-dark" asp-controller="Post" asp-action="LijstArtikelGoedkeuren" value="Artikelen Goedkeuren" type="submit"/>
-    </form>
+    @if (User.IsInRole("Admin"))
+    {
+        <form>
+            <input class="btn btn-dark" asp-controller="Post" asp-action="LijstArtikelGoedkeuren" value="Artikelen Goedkeuren" type="submit" />
+        </form>
+    }
     @foreach (PostViewModel postTemp in Model.PostViewModels)
     {
         <div class="postTijdlijn">

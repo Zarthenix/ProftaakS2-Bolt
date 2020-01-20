@@ -24,7 +24,7 @@ namespace ProftaakProject.Models.ViewModels.AccountModels
         [Required(ErrorMessage = "Wachtwoord is een vereiste.")]
         [Display(Name = "Wachtwoord")]
         [DataType(DataType.Password)]
-        [StringLength(50, ErrorMessage = "Maximaal aantal karakters is 50.")]
+        [RegularExpression("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,15}$", ErrorMessage = "Minimum of 6 characters and maximum of 15. Must contain 1 uppercase and lowercase letter, 1 digit and 1 special character.")]
         public string Password { get; set; }
 
         [Required]
