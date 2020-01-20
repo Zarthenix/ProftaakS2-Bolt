@@ -17,6 +17,7 @@ namespace ProftaakProject.Models.ConvertModels
                 acc.Email = pvm.Email;
                 acc.Geslacht = pvm.Geslacht;
                 acc.Geboortedatum = pvm.Geboortedatum;
+                acc.Rol = pvm.Rol;
             }
             return acc;
         }
@@ -30,6 +31,7 @@ namespace ProftaakProject.Models.ConvertModels
                 pvm.Email = acc.Email;
                 pvm.Geslacht = acc.Geslacht;
                 pvm.Geboortedatum = acc.Geboortedatum;
+                pvm.Rol = acc.Rol;
             }
             return pvm;
         }

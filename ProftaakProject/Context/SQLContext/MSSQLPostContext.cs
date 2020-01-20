@@ -31,9 +31,9 @@ namespace ProftaakProject.Context.SQLContext
                     connection.Open();
                     if (post.ImageFile != null)
                     {
-                        query = "INSERT INTO Post (titel, datum, inhoud, type, aantalBekeken, tagID, imageFile, uitzendID, goedgekeurdDoor, uitgelicht) output inserted.postID VALUES (@titel, @datum, @inhoud, @type, @aantalBekeken, @tagID, @imageFile, @uitzendID, @goedgekeurdDoor, @uitgelicht)";
+                        query = "INSERT INTO Post (titel, datum, inhoud, type, aantalBekeken, tagID, imageFile, uitzendID, accountId, goedgekeurdDoor, uitgelicht) output inserted.postID VALUES (@titel, @datum, @inhoud, @type, @aantalBekeken, @tagID, @imageFile, @uitzendID, @accountId, @goedgekeurdDoor, @uitgelicht)";
                     }
-                    else { query = "INSERT INTO Post (titel, datum, inhoud, type, aantalBekeken, tagID, uitzendID, goedgekeurdDoor, uitgelicht) output inserted.postID VALUES (@titel, @datum, @inhoud, @type, @aantalBekeken, @tagID, @uitzendID, @goedgekeurdDoor, @uitgelicht)"; }
+                    else { query = "INSERT INTO Post (titel, datum, inhoud, type, aantalBekeken, tagID, uitzendID, accountId, goedgekeurdDoor, uitgelicht) output inserted.postID VALUES (@titel, @datum, @inhoud, @type, @aantalBekeken, @tagID, @uitzendID, @accountId, @goedgekeurdDoor, @uitgelicht)"; }
                     using (SqlCommand cmd = new SqlCommand(query, connection))
                     {
                         cmd.Parameters.AddWithValue("@titel", post.Titel);
@@ -45,6 +45,7 @@ namespace ProftaakProject.Context.SQLContext
                         if (post.ImageFile != null) { cmd.Parameters.Add("@imageFile", sqlDbType: SqlDbType.VarBinary).Value = post.ImageFile; }
                         if (post.Uitzendbureau != null) { cmd.Parameters.AddWithValue("@uitzendID", post.Uitzendbureau.Id); }
                         else { cmd.Parameters.AddWithValue("@uitzendID", 0); }
+                        cmd.Parameters.AddWithValue("@accountId", post.Auteur.Id);
                         cmd.Parameters.AddWithValue("@goedgekeurdDoor", post.GoedgekeurdDoor);                        cmd.Parameters.AddWithValue("@uitgelicht", 0);
                         //cmd.Parameters.AddWithValue("@uitzendID", 1);
                         //cmd.Parameters.AddWithValue("@accountID", 1);
@@ -130,6 +131,8 @@ namespace ProftaakProject.Context.SQLContext
                                 {
                                     p.Uitzendbureau = new Uitzendbureau((int)reader["uitzendID"], reader["uitzendNaam"].ToString(), (int)reader["eigenaar"]);
                                 }
+                                p.Auteur = new Account();
+                                p.Auteur.Id = (int)reader["accountId"];
                                 p.Uitgelicht = Convert.ToBoolean(reader["Uitgelicht"]);
                             }
                             return p;

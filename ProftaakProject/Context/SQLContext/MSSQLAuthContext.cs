@@ -47,6 +47,9 @@ namespace ProftaakProject.Context.SQLContext
             return false;
         }
 
+        //methode ophalen alle rollen (select * from role) id + rolnaam ophalen
+
+
         public bool SetRole(Account user, int rol)
         {
             using (var connection = new SqlConnection(_connectionString))
@@ -74,6 +77,32 @@ namespace ProftaakProject.Context.SQLContext
         public async void Logout()
         {
             await signInManager.SignOutAsync();
+        }
+
+        public bool UpdatePassword(int id)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "UPDATE dbo.Account SET wachtwoord = @wachtwoord WHERE accountID = @id";
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@id", id);
+                        cmd.ExecuteNonQuery();
+                    }
+                    connection.Close();
+                    return true;
+                }
+                catch (Exception exception)
+                {
+                    Console.WriteLine(exception);
+                }
+
+                connection.Close();
+                return false;
+            }
         }
     }
 }
