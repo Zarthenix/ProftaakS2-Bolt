@@ -67,6 +67,7 @@ namespace ProftaakProject.Controllers
             PostToVraagToevoegenvmConverter ptvtvmc = new PostToVraagToevoegenvmConverter();
             vtvm.TypeId = 1;
             Post post = ptvtvmc.ConvertToModel(vtvm);
+            post.Auteur = ar.GetByID(GetUserId());
             pr.Save(post);
             return RedirectToAction("Vraag", "Post", new { id = post.Id });
         }
@@ -142,6 +143,7 @@ namespace ProftaakProject.Controllers
                 }
                 Post post = ptatvmc.ConvertToModel(atvm);
                 post.Datum = DateTime.Now;
+                post.Auteur = ar.GetByID(GetUserId());
                 pr.Save(post);
                 return RedirectToAction("Artikel", "Post", new { id = post.Id });
             }
@@ -149,6 +151,7 @@ namespace ProftaakProject.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult LijstArtikelGoedkeuren()
         {
             LijstArtikelGoedkeurenViewModel lagvm = new LijstArtikelGoedkeurenViewModel();

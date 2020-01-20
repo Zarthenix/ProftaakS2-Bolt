@@ -166,7 +166,6 @@ namespace ProftaakProject
             }
             catch (Exception)
             {
-
                 throw;
             }
         }

@@ -168,37 +168,37 @@ namespace ProftaakProject.Controllers
         }
 
 
-        [HttpGet]
-        public IActionResult Accountlijst()
-        {
+        //[HttpGet]
+        //public IActionResult Accountlijst()
+        //{
 
-            AccountViewModel avm = new AccountViewModel()
-            {
-                accs = _accRepo.GetAll()
-            };
+        //    AccountViewModel avm = new AccountViewModel()
+        //    {
+        //        accs = _accRepo.GetAll()
+        //    };
 
-            return View(avm);
-        }
+        //    return View(avm);
+        //}
 
-        [HttpPost]
-        public IActionResult Accountlijst(AccountViewModel avm)
-        {
-            return View(avm);
-        }
+        //[HttpPost]
+        //public IActionResult Accountlijst(AccountViewModel avm)
+        //{
+        //    return View(avm);
+        //}
 
         //[HttpGet]
-        public IActionResult Accounts(/*int id, AccountViewModel avms*/)
-        {
-            //if (HttpContext.User?.Identity.IsAuthenticated == false) { return RedirectToAction("Login", "Account"); }
+        //public IActionResult Accounts(/*int id, AccountViewModel avms*/)
+        //{
+        //    if (HttpContext.User?.Identity.IsAuthenticated == false) { return RedirectToAction("Login", "Account"); }
 
-            //AccountToAccountvmConvert atavmc = new AccountToAccountvmConvert();
-            //Account ac = ur.GetByID(id);
-            //ac.Id = id;
-            //avms = atamc.ConvertToViewModel(ac);
-            //List<AccountViewModel> avms = new List<AccountViewModel>();
-            //avms.avm = ur.GetUitzendAccounts(id);
-            return View(/*avms*/);
-        }
+        //    AccountToAccountvmConvert atavmc = new AccountToAccountvmConvert();
+        //    Account ac = ur.GetByID(id);
+        //    ac.Id = id;
+        //    avms = atamc.ConvertToViewModel(ac);
+        //    List<AccountViewModel> avms = new List<AccountViewModel>();
+        //    avms.avm = ur.GetUitzendAccounts(id);
+        //    return View(/*avms*/);
+        //}
     }
 
 }

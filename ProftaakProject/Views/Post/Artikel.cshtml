@@ -60,7 +60,7 @@ else
                 }
             </div>
         }
-        @if (User.IsInRole("Admin"))
+        @if (User.IsInRole("Admin") || Model.Account.Id == Model.Post.Auteur.Id)
         {
             <div class="col-md-2">
                 <a class="btn btn-success" href="@Url.Action("ArtikelToevoegen", "Post", new {Id = Model.Post.Id})">Bewerken</a>
