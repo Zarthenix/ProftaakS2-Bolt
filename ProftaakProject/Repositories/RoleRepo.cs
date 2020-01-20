@@ -21,7 +21,15 @@ namespace ProftaakProject.Models.Repositories
             return roleContext.GetAllRole();
         }
 
-      
+        public bool Update(int userId, int roleId)
+        {
+            return roleContext.Update(userId, roleId);
+        }
+
+        public Role GetByUserId(int id)
+        {
+            return roleContext.GetByUserId(id);
+        }
 
     }
 }
