@@ -329,17 +329,16 @@ div.postInhoud {
 }
 
 .card-header {
-    height: 500px;
     width: inherit;
     display: flex;
     justify-content: center;
 }
 
-.img-thumbnail {
+/*.img-thumbnail {
     height: 100%;
     width: auto;
     display: block;
-}
+}*/
 .carousel-card-header {
     height: 75px;
     text-align: center;
