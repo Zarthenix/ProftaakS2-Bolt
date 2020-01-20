@@ -89,6 +89,9 @@ namespace ProftaakProject
                     name: "default",
                     pattern: "{controller=Account}/{action=Login}/{id?}");
                 endpoints.MapControllerRoute(
+                    name: "evenement",
+                    pattern: "{controller=Evenement}/{action=Index}");
+                endpoints.MapControllerRoute(
                     name: "profiel",
                     pattern: "profiel/{id?}",
                     defaults: new {controller = "Account", action = "Profiel"}
