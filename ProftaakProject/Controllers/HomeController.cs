@@ -20,12 +20,14 @@ namespace ProftaakProject.Controllers
         private readonly ILogger<HomeController> _logger;
         private PostRepo postRepo;
         private AccountRepo accountRepo;
+        private ReactieRepo reactieRepo;
 
-        public HomeController(ILogger<HomeController> logger, PostRepo prepo, AccountRepo arepo)
+        public HomeController(ILogger<HomeController> logger, PostRepo prepo, AccountRepo arepo, ReactieRepo rrepo)
         {
             _logger = logger;
             this.postRepo = prepo;
             this.accountRepo = arepo;
+            this.reactieRepo = rrepo;
         }
 
         [AllowAnonymous]
@@ -76,6 +78,19 @@ namespace ProftaakProject.Controllers
         public IActionResult SearchResult()
         {
             return View();
+        }
+        public IActionResult Notificaties()
+        {
+            var vvm = new VraagViewModel();
+            vvm.Reacties = new List<Reactie>();
+            foreach (Post p in postRepo.GetAllVragenByID(GetUserId()))
+            {
+                foreach (Reactie r in reactieRepo.GetAll(p.Id))
+                {
+                    vvm.Reacties.Add(r);
+                }
+            }
+            return View(vvm);
         }
     }
 }

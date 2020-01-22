@@ -39,5 +39,9 @@ namespace ProftaakProject.Models.Repositories
         {
             return rCtx.GetAll(postID);
         }
+        public bool ReactieGelezen(int reactieID)
+        {
+            return rCtx.ReactieGelezen(reactieID);
+        }
     }
 }

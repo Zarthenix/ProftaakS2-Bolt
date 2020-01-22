@@ -46,6 +46,10 @@ namespace ProftaakProject.Models.Repositories
         {
             return pCtx.GetAllArtikelen();
         }
+        public List<Post> GetAllVragenByID(int AccountId)
+        {
+            return pCtx.GetAllVragenByID(AccountId);
+        }
 
         public List<Tag> GetAllTags()
         {
