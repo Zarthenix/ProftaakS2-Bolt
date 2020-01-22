@@ -6,22 +6,22 @@ using System.Threading.Tasks;
 
 namespace ProftaakProject.Models.ConvertModels
 {
-    public class AccountToRolConverter
+    public class RolToRolvmConverter
     {
-        public Account ConvertToModel(RolViewModel rvm)
+        public Role ConvertToModel(RolViewModel rvm)
         {
-            Account acc = new Account();
+            Role acc = new Role();
             {
-                acc.Id = rvm.UserId;
+                acc.Id = rvm.NieuwRolId;
             }
             return acc;
         }
 
-        public RolViewModel ConvertToViewModel(Account acc)
+        public RolViewModel ConvertToViewModel(Role acc)
         {
             RolViewModel rvm = new RolViewModel();
             {
-                rvm.UserId = acc.Id;
+                rvm.NieuwRolId = acc.Id;
             }
             return rvm;
         }

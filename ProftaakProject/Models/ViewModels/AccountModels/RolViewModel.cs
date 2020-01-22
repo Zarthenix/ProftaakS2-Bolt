@@ -8,6 +8,7 @@ namespace ProftaakProject.Models.ViewModels
 {
     public class RolViewModel
     {
+        [Display(Name = "Schrijf hier een ID op")]
         public int UserId { get; set; }
         [Display(Name = "Kies een nieuwe rol")]
         public int NieuwRolId { get; set; }

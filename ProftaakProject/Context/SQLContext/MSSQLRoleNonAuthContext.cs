@@ -4,6 +4,7 @@ using ProftaakProject.Context.Interfaces;
 using ProftaakProject.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -39,7 +40,7 @@ namespace ProftaakProject.Context.SQLContext
                                     Naam = reader["Name"].ToString()
                                 };
                                 roles.Add(rol);
-                          
+
                             }
                         }
                     }
@@ -52,6 +53,55 @@ namespace ProftaakProject.Context.SQLContext
                 throw;
             }
             return roles;
+        }
+
+        public bool Update(int userId, int roleId)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "UPDATE dbo.User_Role SET Role_Id = @Role_Id WHERE User_Id = @User_Id";
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@User_Id", userId);
+                        cmd.Parameters.AddWithValue("@Role_Id", roleId);
+                        cmd.ExecuteNonQuery();
+                    }
+                    connection.Close();
+                    return true;
+                }
+                catch (Exception exception)
+                {
+                    Console.WriteLine(exception);
+                }
+
+                connection.Close();
+                return false;
+            }
+        }
+
+        public Role GetByUserId(int id)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                Role rol = new Role();
+                using (SqlCommand cmd = new SqlCommand("SELECT Role_Id From User_Role Where User_Id = @User_Id", connection))
+                {
+                    cmd.Parameters.AddWithValue("@User_Id", id);
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            rol.Id = Convert.ToInt32(reader["Role_Id"]);
+                        }
+                    }
+                    return rol;
+                }
+            }
+
         }
     }
 }
