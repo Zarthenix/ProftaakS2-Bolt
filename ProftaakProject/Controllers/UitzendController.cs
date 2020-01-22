@@ -27,6 +27,7 @@ namespace ProftaakProject.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            if (HttpContext.User?.Identity.IsAuthenticated == false) { return RedirectToAction("Login", "Account"); }
             UitzendViewModel uvm = new UitzendViewModel();
             uvm.Ingelogd = ar.GetByID(GetUserId());
             uvm.ubs = new List<Uitzendbureau>();
@@ -54,7 +55,6 @@ namespace ProftaakProject.Controllers
         [HttpPost]
         public IActionResult UitzendToevoegen(UitzendViewModel uvm)
         {
-            
             if (ModelState.IsValid)
             {
                 UitzendToUitzendvmConvert utuvmc = new UitzendToUitzendvmConvert();

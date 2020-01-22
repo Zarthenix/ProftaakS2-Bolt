@@ -19,7 +19,7 @@ namespace ProftaakProject.Models
         public Gender Geslacht { get; set; }
         public Role Rol { get; set; }
         public DateTime Geboortedatum { get; set; }
-
+        public int UitzendID { get; set; }
         public Account(int id, string username, string email, string naam, string wachtwoord)
         {
             this.Id = id;

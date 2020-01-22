@@ -170,11 +170,12 @@ namespace ProftaakProject.Context.SQLContext
                                     new Tag((int)reader["tagID"], reader["naam"].ToString()),
                                     (int)reader["goedgekeurdDoor"],
                                     (byte[])reader["imageFile"],
-                                    Convert.ToBoolean(reader["Uitgelicht"])));
+                                    Convert.ToBoolean(reader["Uitgelicht"]),
+                                    (int)reader["uitzendID"]
+                                    ));
                             }
                         }
                     }
-
                     connection.Close();
                 }
             }

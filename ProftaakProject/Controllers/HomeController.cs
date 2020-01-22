@@ -19,11 +19,13 @@ namespace ProftaakProject.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private PostRepo postRepo;
+        private AccountRepo accountRepo;
 
-        public HomeController(ILogger<HomeController> logger, PostRepo prepo)
+        public HomeController(ILogger<HomeController> logger, PostRepo prepo, AccountRepo arepo)
         {
             _logger = logger;
             this.postRepo = prepo;
+            this.accountRepo = arepo;
         }
 
         [AllowAnonymous]
@@ -35,13 +37,21 @@ namespace ProftaakProject.Controllers
             pvm.HuidigeAccount.GeabonneerdeTags = new List<Tag>();
             List<PostViewModel> tempModels = new List<PostViewModel>();
             PostToPostvmConverter ppc = new PostToPostvmConverter();
+            Account sessionAccount = new Account();
+            if (User.Identity.IsAuthenticated)
+            {
+                sessionAccount = accountRepo.GetByID(GetUserId());
+            }
             if (User.Identity.IsAuthenticated)
             {
                 pvm.HuidigeAccount.GeabonneerdeTags = postRepo.GetAllGeabonneerdeTags(GetUserId());
             }
             foreach (Post tempPost in postRepo.GetAllArtikelen())
             {
-                tempModels.Add(ppc.ConvertToViewModel(tempPost));
+                if (tempPost.Uitzendbureau.Id == sessionAccount.UitzendID || tempPost.Uitzendbureau.Id == 0 || User.IsInRole("Admin"))
+                {
+                    tempModels.Add(ppc.ConvertToViewModel(tempPost));
+                }
             }
             pvm.PostViewModels = tempModels;
             return View(pvm);
