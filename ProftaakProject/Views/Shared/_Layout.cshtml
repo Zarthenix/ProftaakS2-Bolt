@@ -69,6 +69,8 @@
 
                                 <a class="nav-link side-bar-text" asp-area="" asp-controller="Post" asp-action="ArtikelToevoegen"><i class="far fa-newspaper fa-2x icon"></i><label>Artikel Posten</label></a>
 
+                                <a class="nav-link side-bar-text" asp-controller="Account" asp-action="Geschiedenis"><i class="fas fa-history fa-2x icon"></i><label>Geschiedenis</label></a>
+
                                 <a class="nav-link side-bar-text" asp-area="" asp-controller="Evenement" asp-action="Index"><i class="far fa-calendar-alt fa-2x icon"></i><label>Evenementen</label></a>
 
                                 <a class="nav-link side-bar-text" asp-area="" asp-controller="Uitzend" asp-action="Index"><i class="fas fa-podcast fa-2x icon"></i><label>Uitzendbureaus</label></a>
@@ -87,8 +89,6 @@
 
                             }
                             <a class="nav-link side-bar-text" asp-controller="Post" asp-action="FAQ"><i class="fas fa-question fa-2x icon"></i><label>Vragen</label></a>
-
-                            <a class="nav-link side-bar-text" asp-controller="Account" asp-action="Geschiedenis"><i class="fas fa-history fa-2x icon"></i><label>Geschiedenis</label></a>
 
                             @if (Context.User.Identity.IsAuthenticated)
                             {
