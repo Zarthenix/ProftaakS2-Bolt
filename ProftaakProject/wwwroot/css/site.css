@@ -41,6 +41,7 @@ a.navbar-brand {
     background-size: 100% 100%;
     background-repeat: no-repeat;
     height: 100px;
+    overflow-y: hidden;
 }
 
 .btn btn-success {
