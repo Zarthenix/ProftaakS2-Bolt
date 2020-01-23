@@ -466,5 +466,44 @@ namespace ProftaakProject.Context.SQLContext
             }
             return posts;
         }
+
+        public List<Post> GetAllPosts()
+        {
+            {
+                List<Post> postList = new List<Post>();
+                string query = "SELECT * FROM dbo.Post p";
+
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    connection.Open();
+
+                    using (SqlCommand sqlCommand = new SqlCommand(query, connection))
+                    {
+                        using (SqlDataReader reader = sqlCommand.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                Post p = new Post();
+                                p.Id = (int)reader["postID"];
+                                p.Titel = reader["titel"].ToString();
+                                p.Datum = (DateTime)reader["datum"];
+                                p.Inhoud = reader["inhoud"].ToString();
+                                p.TypeId = (int)reader["type"];
+                                p.AantalBekenen = (int)reader["aantalBekeken"];
+                                if (p.TypeId == 0)
+                                {
+                                    p.ImageFile = (byte[])reader["imageFile"];
+                                }
+                                p.Auteur = new Account();
+                                p.Auteur.Id = (int)reader["accountId"];
+                                p.Uitgelicht = Convert.ToBoolean(reader["Uitgelicht"]);
+                                postList.Add(p);
+                            }
+                            return postList;
+                        }
+                    }
+                }
+            }
+        }
     }
 }

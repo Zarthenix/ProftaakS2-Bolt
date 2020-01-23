@@ -73,5 +73,10 @@ namespace ProftaakProject.Context.TestContext
         {
             throw new NotImplementedException();
         }
+
+        public List<Post> GetAllPosts()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

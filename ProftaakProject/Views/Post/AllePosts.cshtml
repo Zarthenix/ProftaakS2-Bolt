@@ -1,5 +1,4 @@
 ﻿@model ProftaakProject.Models.ViewModels.PostModels.PostViewModel
-@using ProftaakProject.Models.ViewModels.PostModels
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,36 +6,66 @@
     <title>AllePosts</title>
 </head>
 <body>
-    <table class="table table-bordered table-dark" align="center" style="width: 100%">
-        <tr>
-            <th>Post Image</th>
-            <th>Post Titel</th>
-            <th>Post Tag</th>
-            <th>Opties</th>
-        </tr>
-        @foreach (PostViewModel p in Model.PostViewModels)
-        {
+    <div>
+        <h3>Alle Artikelen</h3>
+        <table class="table table-bordered table-dark" align="center" style="width: 100%; ">
             <tr>
-                <td>
-                    @if (p.TypeId == 0)
-                    {
-                        <img src="data:image/png;base64,@p.ImageFile" />
-                    }
-                </td>
-                <td><label class="charName">@p.Titel</label></td>
-                <td><label class="charName">@p.Tag</label></td>
-                <td class="smalltd">
-                    <form method="get" asp-controller="Post" asp-action="Artikel">
-                        <input type="hidden" asp-for="Id" value="@p.Id" />
-                        <input type="submit" value="Openen" />
-                    </form>
-                    <form method="post" asp-controller="Post" asp-action="Verwijderen">
-                        <input type="hidden" asp-for="Id" value="@p.Id" />
-                        <input type="submit" value="Verwijderen" />
-                    </form>
-                </td>
+                <th>Post Image</th>
+                <th>Post Titel</th>
+                <th>Post Tag</th>
+                <th>Opties</th>
             </tr>
-        }
-    </table>
+            @foreach (var p in Model.PostViewModels)// dit laadt alle artikelen in
+            {
+                @if (p.TypeId == 0)
+                {
+                    <tr>
+                        <td>
+                            <img src="data:image/png;base64,@p.ImageFile" style="width:100px; height:100px" />
+                        </td>
+                        <td><label>@p.Titel</label></td>
+                        <td><label>@p.Tag</label></td>
+                        <td>
+                            <form method="get" asp-controller="Post" asp-action="Artikel">
+                                <input type="hidden" asp-for="Id" value="@p.Id" />
+                                <input class="btn btn-success" type="submit" value="Openen" />
+                            </form>
+                            <form method="post" asp-controller="Post" asp-action="ArtikelVerwijderen">
+                                <input type="hidden" asp-for="Id" value="@p.Id" />
+                                <input class="btn btn-success" type="submit" value="Verwijderen" />
+                            </form>
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+    <div>
+        <h3>Alle Vragen</h3>
+        <table class="table table-bordered table-dark" align="center" style="width: 100%">
+            <tr>
+                <th>Post Titel</th>
+                <th>Post Tag</th>
+                <th>Opties</th>
+            </tr>
+            @foreach (var p in Model.PostViewModels)// dit laadt alle vragen in
+            {
+                if (p.TypeId == 1)
+                {
+                    <tr>
+                        <td><label>@p.Titel</label></td>
+                        <td><label>@p.Tag</label></td>
+                        <td>
+                            <form method="get" asp-controller="Post" asp-action="Vraag">
+                                <input type="hidden" asp-for="Id" value="@p.Id" />
+                                <input class="btn btn-success" type="submit" value="Openen" />
+                            </form>
+                            <a class="btn btn-success" href="@Url.Action("VraagVerwijderen", "Post", new { Id = p.Id })">Verwijderen</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
 </body>
 </html>
