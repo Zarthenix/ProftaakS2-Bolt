@@ -46,9 +46,7 @@ namespace ProftaakProject.Context.SQLContext
                         if (post.Uitzendbureau != null) { cmd.Parameters.AddWithValue("@uitzendID", post.Uitzendbureau.Id); }
                         else { cmd.Parameters.AddWithValue("@uitzendID", 0); }
                         cmd.Parameters.AddWithValue("@accountId", post.Auteur.Id);
-                        cmd.Parameters.AddWithValue("@goedgekeurdDoor", post.GoedgekeurdDoor);                        cmd.Parameters.AddWithValue("@uitgelicht", 0);
-                        //cmd.Parameters.AddWithValue("@uitzendID", 1);
-                        //cmd.Parameters.AddWithValue("@accountID", 1);
+                        cmd.Parameters.AddWithValue("@goedgekeurdDoor", post.GoedgekeurdDoor);                        cmd.Parameters.AddWithValue("@uitgelicht", 0);
                         post.Id = (int)cmd.ExecuteScalar();
                         if (post.Id > -1)
                         {
@@ -242,7 +240,6 @@ namespace ProftaakProject.Context.SQLContext
                         }
                         cmd.Parameters.Add("@imageFile", sqlDbType: SqlDbType.VarBinary).Value = post.ImageFile;
                         cmd.Parameters.AddWithValue("@uitgelicht", Convert.ToInt32(post.Uitgelicht));
-                        //            //cmd.Parameters.AddWithValue("@accountID", 1);
                         cmd.ExecuteNonQuery();
                     }
                     connection.Close();
