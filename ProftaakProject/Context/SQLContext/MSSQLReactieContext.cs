@@ -24,7 +24,7 @@ namespace ProftaakProject.Context.SQLContext
             try
             {
                 connection.Open();
-                query = "INSERT INTO Reactie (datum, inhoud, postID, gezienDoorGebruiker, accountID) VALUES (@datum, @inhoud, @vraagID, 0, @accountID)";
+                query = "INSERT INTO Reactie (datum, inhoud, postID, gezienDoorGebruiker, accountID, goedgekeurd, goedgekeurdDoor) VALUES (@datum, @inhoud, @vraagID, 0, @accountID, 0, 0)";
                 using SqlCommand cmd = new SqlCommand(query, connection);
                 cmd.Parameters.AddWithValue("@datum", reactie.Datum);
                 cmd.Parameters.AddWithValue("@inhoud", reactie.Inhoud);
@@ -67,13 +67,13 @@ namespace ProftaakProject.Context.SQLContext
         public List<Reactie> GetAll(int postID)
         {
             List<Reactie> reactieLijst = new List<Reactie>();
-            string query = "SELECT reactieID,inhoud,datum,postId,gezienDoorGebruiker,a.accountID,naam FROM dbo.Reactie r inner join dbo.Account a on a.accountID = r.accountID WHERE postID = @postID ORDER BY datum DESC";
+            string query = "SELECT reactieID, inhoud, datum, postId, gezienDoorGebruiker, a.accountID, naam, goedgekeurd, goedgekeurdDoor FROM dbo.Reactie r inner join dbo.Account a on a.accountID = r.accountID WHERE postID = @postID ORDER BY datum DESC";
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
                 using (SqlCommand cmd = new SqlCommand(query, connection))
                 {
-                    cmd.Parameters.AddWithValue(@"postID", postID);
+                    cmd.Parameters.AddWithValue("@postID", postID);
                     using SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
@@ -83,7 +83,9 @@ namespace ProftaakProject.Context.SQLContext
                             (DateTime)reader["datum"],
                             (int)reader["postId"],
                             Convert.ToBoolean(reader["gezienDoorGebruiker"]),
-                            new Account((int)reader["accountID"], reader["naam"].ToString())
+                            new Account((int)reader["accountID"], reader["naam"].ToString()),
+                            Convert.ToBoolean(reader["goedgekeurd"]),
+                            (int)reader["goedgekeurdDoor"]
                             ));
                     }
                 }
@@ -111,7 +113,9 @@ namespace ProftaakProject.Context.SQLContext
                             (DateTime)reader["datum"],
                             (int)reader["postId"],
                             Convert.ToBoolean(reader["gezienDoorGebruiker"]),
-                            new Account((int)reader["accountID"], reader["naam"].ToString())
+                            new Account((int)reader["accountID"], reader["naam"].ToString()),
+                            (bool)reader["goedgekeurd"],
+                            (int)reader["goedgekeurdDoor"]
                             ));
                     }
                 }
@@ -142,14 +146,22 @@ namespace ProftaakProject.Context.SQLContext
                 }
             }
         }
-        public bool ReactieGoedkeuren(int reactieID, int accountID)
+        public bool ReactieGoedkeuren(int reactieID, int accountID, bool goedgekeurd)
         {
             using (var connection = new SqlConnection(_connectionString))
             {
+                string query;
                 try
                 {
                     connection.Open();
-                    string query = "UPDATE dbo.Reactie SET goedgekeurd = 1 , goedgekeurdDoor = @accountID WHERE dbo.Reactie.reactieID = @reactieID;";
+                    if (goedgekeurd)
+                    {
+                        query = "UPDATE dbo.Reactie SET goedgekeurd = 0 , goedgekeurdDoor = 0 WHERE dbo.Reactie.reactieID = @reactieID;";
+                    }
+                    else
+                    {
+                        query = "UPDATE dbo.Reactie SET goedgekeurd = 1 , goedgekeurdDoor = @accountID WHERE dbo.Reactie.reactieID = @reactieID;";
+                    }
                     using (SqlCommand cmd = new SqlCommand(query, connection))
                     {
                         cmd.Parameters.AddWithValue("@reactieID", reactieID);

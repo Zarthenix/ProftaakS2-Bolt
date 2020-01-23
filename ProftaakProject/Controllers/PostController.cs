@@ -41,7 +41,19 @@ namespace ProftaakProject.Controllers
             VraagViewModel vvm = ptavmc.ConvertToViewModel(pr.GetByID(id));
             vvm.Post.Id = id;
             vvm.Post.Auteur = ar.GetByID(vvm.Post.Auteur.Id);
-            vvm.Reacties = rr.GetAll(vvm.Post.Id);
+            vvm.Reacties = new List<Reactie>();
+            foreach (Reactie r in rr.GetAll(vvm.Post.Id))
+            {
+                if (r.Goedgekeurd)
+                {
+                    r.GoedgekeurdDoor = ar.GetByID(r.GoedgekeurdDoor.Id);
+                    vvm.Reacties.Add(r);
+                }
+                else
+                {
+                    vvm.Reacties.Add(r);
+                }
+            }
             return View(vvm);
         }
 
@@ -138,7 +150,7 @@ namespace ProftaakProject.Controllers
                 atvm = ptatvmc.ConvertToViewModel(p);
             }
             var tempub = ur.GetByAccountID(GetUserId());
-            if (tempub.Id > 0)
+            if (tempub != null)
                 atvm.Uitzendbureau = tempub;
             atvm.Tags = pr.GetAllTags();
             return View(atvm);
@@ -241,11 +253,11 @@ namespace ProftaakProject.Controllers
             else { return RedirectToAction("NotAuthorized", "Home"); }
         }
 
-        public IActionResult ReactieGoedkeuren(int ReactieID, int VraagID)
+        public IActionResult ReactieGoedkeuren(int ReactieID, int VraagID, bool Goedgekeurd)
         {
             if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
             {
-                rr.ReactieGoedkeuren(ReactieID, GetUserId());
+                rr.ReactieGoedkeuren(ReactieID, GetUserId(), Goedgekeurd);
                 return RedirectToAction("Vraag", "Post", new { id = VraagID });
             }
             else { return RedirectToAction("NotAuthorized", "Home"); }

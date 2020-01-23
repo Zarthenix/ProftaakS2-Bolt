@@ -74,7 +74,7 @@ namespace ProftaakProject.Context.SQLContext
         public List<Account> GetAll()
         {
             List<Account> accs = new List<Account>();
-            string query = "SELECT * FROM dbo.Account";
+            string query = "SELECT * FROM dbo.Account a INNER JOIN dbo.User_Role ur ON a.accountID = ur.User_Id WHERE ur.Role_Id != 2";
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
@@ -85,7 +85,7 @@ namespace ProftaakProject.Context.SQLContext
                     {
                         while (reader.Read())
                         {
-                            accs.Add(new Account((int)reader["accountId"], reader["gebruikersnaam"].ToString(), reader["emailadres"].ToString(), reader["naam"].ToString()));
+                            accs.Add(new Account((int)reader["accountId"], reader["gebruikersnaam"].ToString(), reader["emailadres"].ToString()));
                         }
                     }
                 }

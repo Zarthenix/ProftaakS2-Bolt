@@ -65,11 +65,13 @@
                         <td><label>@p.Titel</label></td>
                         <td><label>@p.Tag</label></td>
                         <td>
-                            <form method="get" asp-controller="Post" asp-action="Vraag">
-                                <input type="hidden" asp-for="Id" value="@p.Id" />
-                                <input class="btn btn-success" type="submit" value="Openen" />
-                            </form>
-                            <a class="btn btn-success" href="@Url.Action("VraagVerwijderen", "Post", new { Id = p.Id })">Verwijderen</a>
+                            <div class="row">
+                                <form method="get" class="col-md-4" asp-controller="Post" asp-action="Vraag">
+                                    <input type="hidden" asp-for="Id" value="@p.Id" />
+                                    <input class="btn btn-success" type="submit" value="Openen" />
+                                </form>
+                                <a class="btn btn-success col-md-4" href="@Url.Action("VraagVerwijderen", "Post", new { Id = p.Id })">Verwijderen</a>
+                            </div>
                         </td>
                     </tr>
                 }

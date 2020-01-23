@@ -27,16 +27,24 @@
         {
             if (react.Goedgekeurd)
             {
-                <div class="card-footer goedgekeurd">
-                    <div class="card-footer">@react.Inhoud</div>
-                    <div class="card-text" style="font-size:15px">
-                        <br />
-                        <div class="row">
-                            <div class="col-md-10">
-                                @react.Auteur.Naam
-                            </div>
-                            <div class="col-md-2">
-                                <a class="btn btn-success" href="@Url.Action("ReactieVerwijderen", "Post", new { ReactieID = react.Id, VraagID = Model.Post.Id })">Verwijderen</a>
+                <div class="goedgekeurd-border-wrap">
+                    <div class="card-footer goedgekeurd">
+                        <div class="card-footer">@react.Inhoud</div>
+                        <div class="card-text" style="font-size:15px">
+                            <br />
+                            <div class="row">
+                                <div class="col-md-6">
+                                    @react.Auteur.Naam
+                                </div>
+                                <div class="col-md-6">
+                                    @react.GoedgekeurdDoor.Naam
+                                </div>
+                                <div class="col-md-2">
+                                    <a class="btn btn-success" href="@Url.Action("ReactieGoedkeuren", "Post", new { ReactieID = react.Id, VraagID = Model.Post.Id, Goedgekeurd = react.Goedgekeurd })">Afkeuren</a>
+                                </div>
+                                <div class="col-md-2">
+                                    <a class="btn btn-success" href="@Url.Action("ReactieVerwijderen", "Post", new { ReactieID = react.Id, VraagID = Model.Post.Id })">Verwijderen</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -55,13 +63,13 @@
                             @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
                             {
                                 <div class="col-md-2">
-                                    <a class="btn btn-success" href="@Url.Action("ReactieGoedkeuren", "Post", new {ReactieID = react.Id ,VraagID = Model.Post.Id})">Goedkeuren</a>
+                                    <a class="btn btn-success" href="@Url.Action("ReactieGoedkeuren", "Post", new {ReactieID = react.Id ,VraagID = Model.Post.Id, Goedgekeurd = react.Goedgekeurd})">Goedkeuren</a>
                                 </div>
                                 <div class="col-md-2">
                                     <a class="btn btn-success" href="@Url.Action("ReactieVerwijderen", "Post", new {ReactieID = react.Id ,VraagID = Model.Post.Id})">Verwijderen</a>
                                 </div>
                             }
-                            else if (Model.Post.Auteur.Gebruikersnaam == User.Identity.Name || react.Auteur.Naam == User.Identity.Name)
+                            else if (react.Auteur.Naam == User.Identity.Name)
                             {
                                 <div class="col-md-2">
                                     <a class="btn btn-success" href="@Url.Action("ReactieVerwijderen", "Post", new {ReactieID = react.Id ,VraagID = Model.Post.Id})">Verwijderen</a>
