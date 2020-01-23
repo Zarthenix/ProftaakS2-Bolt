@@ -32,7 +32,7 @@ namespace ProftaakProject.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(int sorteerInt)
         {
             PostViewModel pvm = new PostViewModel();
             pvm.HuidigeAccount = new AccountViewModel();
@@ -40,15 +40,19 @@ namespace ProftaakProject.Controllers
             List<PostViewModel> tempModels = new List<PostViewModel>();
             PostToPostvmConverter ppc = new PostToPostvmConverter();
             Account sessionAccount = new Account();
+            List<Post> posts;
             if (User.Identity.IsAuthenticated)
             {
                 sessionAccount = accountRepo.GetByID(GetUserId());
-            }
-            if (User.Identity.IsAuthenticated)
-            {
                 pvm.HuidigeAccount.GeabonneerdeTags = postRepo.GetAllGeabonneerdeTags(GetUserId());
             }
-            foreach (Post tempPost in postRepo.GetAllArtikelen())
+
+            if (sorteerInt == 0)
+            { posts = postRepo.GetAllArtikelen(); }
+            else
+            { posts = postRepo.GetAllArtikelenByAantalBekeken(); }
+            pvm.sorteerInt = sorteerInt;
+            foreach (Post tempPost in posts)
             {
                 if (tempPost.Uitzendbureau.Id == sessionAccount.UitzendID || tempPost.Uitzendbureau.Id == 0 || User.IsInRole("Admin"))
                 {

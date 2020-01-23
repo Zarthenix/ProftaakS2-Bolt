@@ -395,7 +395,7 @@ namespace ProftaakProject.Context.SQLContext
         public List<Post> GetAllArtikelenByAantalBekeken()
         {
             List<Post> posts = new List<Post>();
-            string query = "SELECT * FROM dbo.Post p WHERE p.type = 0 ORDER BY p.aantalBekeken DESC";
+            string query = "SELECT * FROM dbo.Tag T INNER JOIN dbo.Post p ON T.tagID = p.tagID WHERE type = 0 AND goedgekeurdDoor > 0 ORDER BY P.aantalBekeken DESC";
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
@@ -406,13 +406,17 @@ namespace ProftaakProject.Context.SQLContext
                         while (reader.Read())
                         {
                             posts.Add(new Post(
-                                (int)reader["postId"],
-                                reader["titel"].ToString(),
-                                reader["inhoud"].ToString(),
-                                (int)reader["type"],
-                                new Tag((int)reader["tagID"], reader["naam"].ToString()),
-                                (int)reader["goedgekeurdDoor"],
-                                (byte[])reader["imageFile"]));
+                                    (int)reader["postId"],
+                                    reader["titel"].ToString(),
+                                    reader["inhoud"].ToString(),
+                                    (int)reader["type"],
+                                    new Tag((int)reader["tagID"], reader["naam"].ToString()),
+                                    (int)reader["goedgekeurdDoor"],
+                                    new Account((int)reader["accountId"], null, null),
+                                    (byte[])reader["imageFile"],
+                                    Convert.ToBoolean(reader["Uitgelicht"]),
+                                    (int)reader["uitzendID"]
+                                    ));
                         }
                     }
                 }
