@@ -250,16 +250,12 @@ namespace ProftaakProject.Context.SQLContext
 
                             while (reader.Read())
                             {
-                                Uitzendbureau ub = new Uitzendbureau()
-                                {
-                                    Id = (int)reader["uitzendID"],
-                                    Naam = reader["naam"].ToString(),
-                                    Eigenaar = (int)reader["eigenaar"]
-                                };
+                                Uitzendbureau ub = new Uitzendbureau((int) reader["uitzendID"],
+                                    reader["naam"].ToString(), (int) reader["eigenaar"]);
                                 return ub;
                             }
                         }
-                        return new Uitzendbureau();
+                        return null;
                     }
                 }
             }

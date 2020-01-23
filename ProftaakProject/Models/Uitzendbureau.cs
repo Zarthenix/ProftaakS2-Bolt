@@ -11,16 +11,9 @@ namespace ProftaakProject.Models
         public string Naam { get; set; }
         public int Eigenaar { get; set; }
 
-        
-
-        public Uitzendbureau()
-        {
-
-        }
-
         public Uitzendbureau(int id)
         {
-
+            this.Id = id;
         }
 
         public Uitzendbureau(int id, string naam, int eigenaar)

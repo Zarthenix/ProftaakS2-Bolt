@@ -120,8 +120,7 @@ namespace ProftaakProject.Controllers
                 AccountToAccountvmConvert atavmc = new AccountToAccountvmConvert();
                 Account acc = atavmc.ConvertToModel(avm);
 
-                Uitzendbureau ub = new Uitzendbureau();
-                ub.Id = id;
+                Uitzendbureau ub = new Uitzendbureau(id);
 
                 ur.VoegToeAccountUitzend(id, avm.Gebruikersnaam);
                 return RedirectToAction("Uitzendbureau", "Uitzend", new { id = ub.Id });
