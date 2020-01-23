@@ -84,7 +84,7 @@ namespace ProftaakProject.Controllers
             ub.Id = id;
 
             uvm.Ingelogd = ar.GetByID(GetUserId());
-            Uitzendbureau ubFromUser = new Uitzendbureau();
+            Uitzendbureau ubFromUser = new Uitzendbureau(-1);
             ubFromUser = ur.GetByAccountID(uvm.Ingelogd.Id);
             
             if (ubFromUser.Id != ub.Id)

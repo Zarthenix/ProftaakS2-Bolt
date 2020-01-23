@@ -49,7 +49,7 @@ namespace ProftaakProject.Context.TestContext
             throw new NotImplementedException();
         }
 
-        public Post SearchResult(string search)
+        public List<Post> SearchResult(string search)
         {
             throw new NotImplementedException();
         }
@@ -68,7 +68,6 @@ namespace ProftaakProject.Context.TestContext
         {
             throw new NotImplementedException();
         }
-
 
         public List<Post> GetAllArtikelenByAantalBekeken()
         {

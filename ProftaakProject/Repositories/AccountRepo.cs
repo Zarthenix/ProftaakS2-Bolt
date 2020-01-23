@@ -62,15 +62,14 @@ namespace ProftaakProject.Models.Repositories
             return accContext.Update(account);
         }
 
-<<<<<<< Updated upstream
         public List<Post> GetAllPostsOfUser(int userId)
         {
             return accContext.GetAllPostsOfUser(userId);
-=======
+        }
+
         public bool Delete(int id)
         {
-            return accContext.Delete(id);
->>>>>>> Stashed changes
+                return accContext.Delete(id);
         }
     }
 }
