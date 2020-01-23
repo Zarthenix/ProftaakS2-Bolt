@@ -13,9 +13,9 @@
                 <td>@account.Gebruikersnaam</td>
                 @if (User.IsInRole("Admin"))
                 {
-            <td>
-                <input type="submit" class="btn btn-dark" asp-controller="Account" value="Verwijderen" asp-action="Verwijder" asp-route-id="@account.Id" />
-            </td>
+                    <td>
+                        <input type="submit" class="btn btn-dark" asp-controller="Account" value="Verwijderen" asp-action="Verwijder" asp-route-id="@account.Id" />
+                    </td>
                 }
             </tr>
         }
