@@ -15,7 +15,7 @@
     <div class="row">
         <div class="col-md-12">
             <h1>Jouw evenementen:</h1>
-            <a href="@Url.Action("Create")" class="btn btn-primary" style="margin-bottom: 25px;">Maak nieuwe</a>
+            <a href="@Url.Action("Create")" class="btn btn-primary" style="margin-bottom: 25px;">Maak nieuw evenement</a>
             <div class="owl-carousel">
 
                 @foreach (var evm in Model.JoinedEvents)
@@ -89,6 +89,7 @@
                 loop: true,
                 margin: 10,
                 nav: true,
+                navText: ["<i class=\"fas fa-arrow-left\"></i>", "<i class=\"fas fa-arrow-right\" style=\"position:absolute;right:0%;\"></i>"],
                 center: true,
                 responsive: {
                     0: {
