@@ -44,7 +44,7 @@
                                 <a href="@Url.Action("Notificaties", "Home")" style="color:white">Notifications</a>
                             </div>
                         }*@
-                    <div class="col-md-2" >
+                    <div class="offset-7 col-md-2">
                         <form class="form-inline" method="get">
                             <div>
                                 <input class="form-control mr-sm-2" type="text" placeholder="Zoek hier een vraag">
@@ -63,34 +63,33 @@
                     <nav id="colorlib-main-menu" role="navigation">
                         <div>
                             <a class="nav-link side-bar-text" asp-controller="Home" asp-action="Index"><i class="fas fa-home fa-2x icon"></i><label>Home</label></a>
-                            <br />
                             @if (Context.User.Identity.IsAuthenticated)
                             {
                                 <a class="nav-link side-bar-text" asp-area="" asp-controller="Account" asp-action="Profiel"><i class="far fa-user-circle fa-2x icon"></i><label>Profiel</label></a>
-                                <br />
+
                                 <a class="nav-link side-bar-text" asp-area="" asp-controller="Post" asp-action="ArtikelToevoegen"><i class="far fa-newspaper fa-2x icon"></i><label>Artikel Posten</label></a>
-                                <br />
+
                                 <a class="nav-link side-bar-text" asp-area="" asp-controller="Evenement" asp-action="Index"><i class="far fa-calendar-alt fa-2x icon"></i><label>Evenementen</label></a>
-                                <br />
+
                                 <a class="nav-link side-bar-text" asp-area="" asp-controller="Uitzend" asp-action="Index"><i class="fas fa-podcast fa-2x icon"></i><label>Uitzendbureaus</label></a>
-                                <br />
+
                                 <a class="nav-link side-bar-text" asp-controller="Home" asp-action="Notificaties"><i class="far fa-bell fa-2x icon"></i><label>Notificaties</label></a>
-                                <br />
+
                             }
                             else
                             {
                                 <a class="nav-link side-bar-text" asp-controller="Account" asp-action="Login"><i class="fas fa-chalkboard-teacher fa-2x icon"></i><label>Login</label></a>
-                                <br />
+
                             }
                             @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
                             {
                                 <a class="nav-link side-bar-text" asp-controller="Post" asp-action="AllePosts"><i class="fas fa-newspaper fa-2x icon"></i><label>Alle Posts</label></a>
-                                <br />
+
                             }
                             <a class="nav-link side-bar-text" asp-controller="Post" asp-action="FAQ"><i class="fas fa-question fa-2x icon"></i><label>Vragen</label></a>
-                            <br />
+
                             <a class="nav-link side-bar-text" asp-controller="Account" asp-action="Geschiedenis"><i class="fas fa-history fa-2x icon"></i><label>Geschiedenis</label></a>
-                            <br />
+
                             @if (Context.User.Identity.IsAuthenticated)
                             {
                                 <a class="nav-link side-bar-text" asp-area="" asp-controller="Account" asp-action="Logout"><i class="fas fa-sign-out-alt fa-2x icon"></i><label>Uitloggen</label></a>

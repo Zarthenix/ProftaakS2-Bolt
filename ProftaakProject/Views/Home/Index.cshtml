@@ -25,15 +25,7 @@
                 </nav>
             </div>
         </div>
-
     }
-    @if (User.IsInRole("Admin"))
-    {
-        <form>
-            <input class="btn btn-dark" asp-controller="Post" asp-action="LijstArtikelGoedkeuren" value="Artikelen Goedkeuren" type="submit" />
-        </form>
-    }
-    <br />
     @if (Model.sorteerInt == 0)
     {
         <form>
