@@ -9,7 +9,8 @@ namespace ProftaakProject.Models.ViewModels
 {
     public class ProfielViewModel
     {
-        public int Id { get; set; }
+        public int ProfielId { get; set; }
+        public int InlogId { get; set; }
 
         [Required(ErrorMessage = "Vul een naam in.")]
         [DataType(DataType.Text)]
