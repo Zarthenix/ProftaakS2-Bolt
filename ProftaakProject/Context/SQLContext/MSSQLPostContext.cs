@@ -131,8 +131,7 @@ namespace ProftaakProject.Context.SQLContext
                                 {
                                     p.Uitzendbureau = new Uitzendbureau((int)reader["uitzendID"], reader["uitzendNaam"].ToString(), (int)reader["eigenaar"]);
                                 }
-                                p.Auteur = new Account();
-                                p.Auteur.Id = (int)reader["accountId"];
+                                p.Auteur = new Account((int)reader["accountId"]);
                                 p.Uitgelicht = Convert.ToBoolean(reader["Uitgelicht"]);
                             }
                             return p;

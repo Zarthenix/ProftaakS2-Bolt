@@ -10,11 +10,7 @@ namespace ProftaakProject.Models.ConvertModels
     {
         public Account ConvertToModel(RolViewModel rvm)
         {
-            Account acc = new Account();
-            {
-                acc.Id = rvm.UserId;
-            }
-            return acc;
+            return new Account(rvm.UserId);
         }
 
         public RolViewModel ConvertToViewModel(Account acc)

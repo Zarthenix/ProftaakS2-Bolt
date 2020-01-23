@@ -1,41 +1,79 @@
 ﻿@using ProftaakProject.Models.ViewModels.EventModels
+@using Microsoft.AspNetCore.Identity
 
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    @model IEnumerable<ProftaakProject.Models.ViewModels.EventModels.EvenementViewModel>
+    @model EvenementIndexViewModel
 }
 
 <link rel="stylesheet" href="~/css/owl.carousel.min.css">
 <script src="~/js/owl.carousel.min.js"></script>
 
-<div class="container-fluid">
+
     <div class="row">
         <div class="col-md-12">
             <h1>Jouw evenementen:</h1>
+            <a href="@Url.Action("Create")" class="btn btn-primary" style="margin-bottom: 25px;">Maak nieuwe</a>
             <div class="owl-carousel">
 
-                @foreach (var evm in Model)
+                @foreach (var evm in Model.JoinedEvents)
                 {
                     <div class="card">
-                        <div class="card-header carousel-card-header">@evm.Naam</div>
+                        <div class="card-header carousel-card-header">
+                            @evm.Naam
+                            @if (evm.HostId == Model.UserId)
+                            {
+                                <a style="position: absolute; top: 20%;"href="@Url.Action("Edit", "Evenement", new {id = evm.Id})" data-toggle="tooltip" data-placement="right" title="Edit event"><i class="far fa-edit"></i></a>
+                            }
+                        </div>
                         <div class="card-body carousel-card-body">
                             <ul class="eventList">
-                                <li>Host: @evm.Host</li>
+                                <li>Host: @evm.HostNaam</li>
                                 <li>Locatie: @evm.Locatie</li>
-                                <li>Maximaal aantal deelnemers: @evm.MaxDeelnemers</li>
                             </ul>
                         </div>
                         <div class="card-footer">@evm.Datum</div>
                     </div>
                 }
             </div>
-            <a href="@Url.Action("Create")" class="btn btn-primary" style="margin-top:15px">Maak nieuwe</a>
+
         </div>
-        
     </div>
+    <div class="row" style="margin-top: 25px;">
+        <div class="col-md-12">
+        <h3>Beschikbare evenementen:</h3>
+            <table id="uitzendbureauEventsTabel" class="display">
+                <thead>
+                <tr>
+                    <th>Naam</th>
+                    <th>Locatie</th>
+                    <th>Datum</th>
+                    <th>Host</th>
+                    <th>Acties</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var evm in Model.AvailableEvents)
+                {
+                    <tr>
+                        <td>@evm.Naam</td>
+                        <td>@evm.Locatie</td>
+                        <td>@evm.Datum</td>
+                        <td>@evm.HostNaam</td>
+                        <td>
+                            <a href="@Url.Action("Details", "Evenement", new {id = @evm.Id})" data-toggle="tooltip" data-placement="bottom" title="View details"><i class="fas fa-eye"></i></a>
+                            <a href="" data-toggle="tooltip" data-placement="bottom" title="Sign up"><i class="fas fa-file-signature" style="color: dodgerblue;"></i></a>
+                        </td>
+                    </tr>
+                }
+
+                </tbody>
+            </table>
+        </div>
     </div>
+
 
 @section Scripts
 {
@@ -59,6 +97,8 @@
                 }
 
             });
+            $('#uitzendbureauEventsTabel').DataTable();
+            $('[data-toggle="tooltip"]').tooltip()
         });
     </script>
 }

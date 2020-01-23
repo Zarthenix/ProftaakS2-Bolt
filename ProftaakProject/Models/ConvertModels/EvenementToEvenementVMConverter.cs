@@ -14,7 +14,8 @@ namespace ProftaakProject.Models.ConvertModels
             {
                 Id = ev.Id,
                 Naam = ev.Naam,
-                Host = ev.Host,
+                HostId = ev.Host.Id,
+                HostNaam = ev.Host.Naam,
                 Locatie = ev.Locatie,
                 Datum = ev.Datum,
                 MaxDeelnemers = ev.MaxDeelnemers
@@ -25,10 +26,9 @@ namespace ProftaakProject.Models.ConvertModels
 
         public Evenement ConvertToModel(EvenementViewModel evm)
         {
-            Evenement ev = new Evenement()
+            Evenement ev = new Evenement(evm.Id)
             {
-                Id = evm.Id,
-                Host = evm.Host,
+                Host = new Account(evm.HostId, evm.HostNaam),
                 Locatie = evm.Locatie,
                 Datum = evm.Datum,
                 MaxDeelnemers = evm.MaxDeelnemers,

@@ -39,13 +39,10 @@ namespace ProftaakProject.Controllers
             pvm.HuidigeAccount.GeabonneerdeTags = new List<Tag>();
             List<PostViewModel> tempModels = new List<PostViewModel>();
             PostToPostvmConverter ppc = new PostToPostvmConverter();
-            Account sessionAccount = new Account();
+            Account sessionAccount = new Account(-1);
             if (User.Identity.IsAuthenticated)
             {
                 sessionAccount = accountRepo.GetByID(GetUserId());
-            }
-            if (User.Identity.IsAuthenticated)
-            {
                 pvm.HuidigeAccount.GeabonneerdeTags = postRepo.GetAllGeabonneerdeTags(GetUserId());
             }
             foreach (Post tempPost in postRepo.GetAllArtikelen())

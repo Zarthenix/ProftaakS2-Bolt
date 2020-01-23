@@ -100,7 +100,7 @@ namespace ProftaakProject.Controllers
         public IActionResult Profiel(int? id)
         {
             if (HttpContext.User?.Identity.IsAuthenticated == false) { return RedirectToAction("Login", "Account"); }
-            Account ac = new Account();
+            Account ac;
 
             if (id == null)
             {

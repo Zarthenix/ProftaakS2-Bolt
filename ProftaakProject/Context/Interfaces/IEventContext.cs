@@ -14,5 +14,7 @@ namespace ProftaakProject.Context.Interfaces
         bool Delete(int eventId);
         List<Evenement> GetAllByUserId(int userId);
 
+        List<Evenement> GetAvailableEvents(int userId);
+
     }
 }

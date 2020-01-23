@@ -10,13 +10,7 @@ namespace ProftaakProject.Models.ConvertModels
     {
         public Account ConvertToModel(LoginViewModel lvm)
         {
-            Account acc = new Account()
-            {
-                Gebruikersnaam = lvm.Username,
-                Wachtwoord = lvm.Password
-            };
-
-            return acc;
+            return new Account(lvm.Username, lvm.Password);
         }
     }
 }

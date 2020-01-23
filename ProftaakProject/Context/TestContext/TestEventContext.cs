@@ -33,5 +33,10 @@ namespace ProftaakProject.Context.TestContext
         {
             throw new NotImplementedException();
         }
+
+        public List<Evenement> GetAvailableEvents(int userId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

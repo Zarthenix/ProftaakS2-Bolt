@@ -110,14 +110,13 @@ namespace ProftaakProject.Context.SQLContext
                     {
                         if (reader.HasRows)
                         {
-                            Account ac = new Account();
+                            Account ac = new Account(id);
                             while (reader.Read())
                             {
                                 ac.Naam = reader["naam"].ToString();
                                 ac.Email = reader["emailadres"].ToString();
                                 ac.Gebruikersnaam = reader["gebruikersnaam"].ToString();
                                 ac.Geslacht = (Gender)reader["geslacht"];
-                                ac.Id = id;
                                 ac.Geboortedatum = (DateTime)reader["geboortedatum"];
                                 Role role = new Role();
                                 role.Id = Convert.ToInt32(reader["RoleId"]);
@@ -132,7 +131,7 @@ namespace ProftaakProject.Context.SQLContext
                         }
                         else
                         {
-                            return new Account();
+                            return new Account(-1);
                         }
                     }
                 }
@@ -153,13 +152,12 @@ namespace ProftaakProject.Context.SQLContext
                     {
                         if (reader.HasRows)
                         {
-                            Account ac = new Account();
+                            Account ac = new Account(name);
                             while (reader.Read())
                             {
                                 ac.Id = (int)reader["accountID"];
                                 ac.Gebruikersnaam = reader["gebruikersnaam"].ToString();
                                 ac.Email = reader["emailadres"].ToString();
-                                ac.Naam = reader["naam"].ToString();
                                 ac.Geslacht = (Gender)reader["geslacht"];
                                 ac.Geboortedatum = (DateTime)reader["geboortedatum"];
 
@@ -168,7 +166,7 @@ namespace ProftaakProject.Context.SQLContext
                         }
                         else
                         {
-                            return new Account();
+                            return new Account(-1);
                         }
                     }
                 }

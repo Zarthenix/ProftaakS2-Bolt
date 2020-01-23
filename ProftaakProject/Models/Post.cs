@@ -35,8 +35,7 @@ namespace ProftaakProject.Models
             this.Tag = tag;
             this.GoedgekeurdDoor = goedgekeurdDoor;
             this.ImageFile = imageFile;
-            this.Uitzendbureau = new Uitzendbureau();
-            this.Uitzendbureau.Id = uitzendID;
+            this.Uitzendbureau = new Uitzendbureau(uitzendID);
             this.Uitgelicht = uitgelicht;
         }
 

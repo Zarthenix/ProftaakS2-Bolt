@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using ProftaakProject.Models;
 using ProftaakProject.Models.ConvertModels;
 using ProftaakProject.Models.ViewModels.EventModels;
@@ -24,15 +25,24 @@ namespace ProftaakProject.Controllers
 
         public IActionResult Index()
         {
-            List<Evenement> evenementen = _evenementRepo.GetAllByUserId(GetUserId());
-            List<EvenementViewModel> evm = new List<EvenementViewModel>();
+            List<Evenement> gebruikersEvenementen = _evenementRepo.GetAllByUserId(GetUserId());
+            List<Evenement> uitzendEvenementen = _evenementRepo.GetAvailableEvents(GetUserId());
 
-            foreach (Evenement ev in evenementen)
+            EvenementIndexViewModel eivm = new EvenementIndexViewModel();
+
+            foreach (Evenement ev in gebruikersEvenementen)
             {
-                evm.Add(_eevmc.ConvertToViewModel(ev));
+                eivm.JoinedEvents.Add(_eevmc.ConvertToViewModel(ev));
             }
 
-            return View(evm);
+            foreach (Evenement ev in uitzendEvenementen)
+            {
+                eivm.AvailableEvents.Add(_eevmc.ConvertToViewModel(ev));
+            }
+
+            eivm.UserId = GetUserId();
+
+            return View(eivm);
         }
 
         [HttpGet]
@@ -51,14 +61,17 @@ namespace ProftaakProject.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(EvenementViewModel evm)
         {
-            Evenement ev = new Evenement();
-            
-            ev = _eevmc.ConvertToModel(evm);
+            if (ModelState.IsValid)
+            {
+                Evenement ev = _eevmc.ConvertToModel(evm);
 
-            _evenementRepo.Create(ev, GetUserId());
-            return View();
+                _evenementRepo.Create(ev, GetUserId());
+                return RedirectToAction("Index");
+            }
+            return View(evm);
         }
 
         [HttpGet]

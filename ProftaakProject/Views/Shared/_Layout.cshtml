@@ -12,19 +12,19 @@
                 integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
         </script>
         <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
         <script src="https://kit.fontawesome.com/590950580f.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css" />
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-
-        <script src="https://kit.fontawesome.com/590950580f.js" crossorigin="anonymous"></script>
-
     </environment>
 </head>
 <body class="d-flex flex-column h-100">
@@ -68,23 +68,24 @@
                             @if (Context.User.Identity.IsAuthenticated)
                             {
                                 <a class="nav-link side-bar-text" asp-area="" asp-controller="Account" asp-action="Logout"><i class="fas fa-sign-out-alt fa-2x icon"></i><label>Uitloggen</label></a>
+                                <br />
+                                <a class="nav-link side-bar-text" asp-area="" asp-controller="Account" asp-action="Profiel"><i class="far fa-user-circle fa-2x icon"></i><label>Profiel</label></a>
+                                <br />
+                                <a class="nav-link side-bar-text" asp-area="" asp-controller="Post" asp-action="ArtikelToevoegen"><i class="far fa-newspaper fa-2x icon"></i><label>Artikel Posten</label></a>
+                                <br />
+                                <a class="nav-link side-bar-text" asp-area="" asp-controller="Evenement" asp-action="Index"><i class="far fa-calendar-alt fa-2x icon"></i><label>Evenementen</label></a>
+                                <br />
+                                <a class="nav-link side-bar-text" asp-area="" asp-controller="Uitzend" asp-action="Index"><i class="fas fa-podcast fa-2x icon"></i><label>Uitzendbureaus</label></a>
+                                <br />
                             }
                             else
                             {
                                 <a class="nav-link side-bar-text" asp-area="" asp-controller="Account" asp-action="Login"><i class="fas fa-chalkboard-teacher fa-2x icon"></i><label>Login</label></a>
+                                <br />
                             }
-                            <br />
-                            <a class="nav-link side-bar-text" asp-area="" asp-controller="Account" asp-action="Profiel"><i class="far fa-user-circle fa-2x icon"></i><label>Profiel</label></a>
-                            <br />
-                            <a class="nav-link side-bar-text" asp-area="" asp-controller="Post" asp-action="ArtikelToevoegen"><i class="far fa-newspaper fa-2x icon"></i><label>Artikelen</label></a>
-                            <br />
                             <a class="nav-link side-bar-text" asp-area="" asp-controller="Post" asp-action="FAQ"><i class="fas fa-question fa-2x icon"></i><label>Vragen</label></a>
                             <br />
-                            <a class="nav-link side-bar-text" asp-area="" asp-controller="Account" asp-action="Login"><i class="far fa-calendar-alt fa-2x icon"></i><label>Kalender</label></a>
-                            <br />
                             <a class="nav-link side-bar-text" asp-area="" asp-controller="Account" asp-action="Login"><i class="fas fa-history fa-2x icon"></i><label>Geschiedenis</label></a>
-                            <br />
-                            <a class="nav-link side-bar-text" asp-area="" asp-controller="Uitzend" asp-action="Index"><i class="fas fa-podcast fa-2x icon"></i><label>Uitzendbureaus</label></a>
                         </div>
                     </nav>
                 </div>
