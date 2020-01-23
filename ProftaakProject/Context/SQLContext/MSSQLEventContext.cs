@@ -25,7 +25,7 @@ namespace ProftaakProject.Context.SQLContext
             bool result = false;
             using (var connection = new SqlConnection(_connectionString))
             {
-                SqlCommand cmd = new SqlCommand("EXEC dbo.[CreateEvent] @Naam = @name, @Datum = @date, @Host = @owner, @Locatie = @location, @MaxDeelnemers = @maxPart", connection)
+                SqlCommand cmd = new SqlCommand("EXEC dbo.[CreateEvent] @Naam = @name, @Datum = @date, @Host = @owner, @Locatie = @location, @MaxDeelnemers = @maxPart, @uitzendbureau = @uitzendbur, @omschrijving = @omschrijv", connection)
                 {
                     Parameters =
                     {
@@ -33,17 +33,24 @@ namespace ProftaakProject.Context.SQLContext
                         new SqlParameter("@date", evenement.Datum),
                         new SqlParameter("@owner", userId),
                         new SqlParameter("@location", evenement.Locatie),
-                        new SqlParameter("@maxPart", evenement.MaxDeelnemers)
+                        new SqlParameter("@maxPart", evenement.MaxDeelnemers),
+                        new SqlParameter("@omschrijv", evenement.Omschrijving)
                     }
                 };
+                if (evenement.Uitzendbureau.Id == -1)
+                {
+                    cmd.Parameters.AddWithValue("@uitzendbur", DBNull.Value);
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@uitzendbur", evenement.Uitzendbureau.Id);
+                }
 
                 try
                 {
                     connection.Open();
-                    if (cmd.ExecuteNonQuery() != -1)
-                    {
-                        result = true;
-                    }
+                    cmd.ExecuteNonQuery();
+
                 }
                 catch (Exception)
                 {
@@ -57,7 +64,7 @@ namespace ProftaakProject.Context.SQLContext
         {
             using (var connection = new SqlConnection(_connectionString))
             {
-                SqlCommand cmd = new SqlCommand("SELECT e.[naam], e.[datum], e.[locatie], e.[maxDeelnemers] a.[naam] AS [hostnaam], a.[accountID] FROM dbo.[Evenement] e INNER JOIN dbo.[Account] a ON e.[host] = a.[accountID] WHERE[evtId] = @id", connection);
+                SqlCommand cmd = new SqlCommand("SELECT e.[naam], e.[datum], e.[locatie], e.[maxDeelnemers], e.[omschrijving], a.[naam] AS [hostnaam], a.[accountID] FROM dbo.[Evenement] e INNER JOIN dbo.[Account] a ON e.[host] = a.[accountID] WHERE [evtID] = @id", connection);
                 cmd.Parameters.AddWithValue("@id", id);
                 connection.Open();
                 using SqlDataReader reader = cmd.ExecuteReader();
@@ -69,8 +76,9 @@ namespace ProftaakProject.Context.SQLContext
                     {
                         evenement.Naam = reader["naam"].ToString();
                         evenement.Datum = (DateTime)reader["datum"];
-                        evenement.Host = new Account((int)reader["host"], reader["hostnaam"].ToString()) ;
+                        evenement.Host = new Account((int)reader["accountID"], reader["hostnaam"].ToString());
                         evenement.Locatie = reader["locatie"].ToString();
+                        evenement.Omschrijving = reader["omschrijving"].ToString();
                         evenement.MaxDeelnemers = (int)reader["maxDeelnemers"];
                     }
                     return evenement;
@@ -84,23 +92,23 @@ namespace ProftaakProject.Context.SQLContext
             bool result = false;
             using (var connection = new SqlConnection(_connectionString))
             {
-                SqlCommand cmd = new SqlCommand("EXEC dbo.[UpdateEvenement] @naam = @name, @datum = @date, @host = @owner, @locatie = @location, @maxdeelnemers = @maxPart, @id = @evid", connection)
+                SqlCommand cmd = new SqlCommand("EXEC dbo.[UpdateEvenement] @naam = @name, @datum = @date,  @locatie = @location, @maxdeelnemers = @maxPart, @id = @evid, @desc = @omschrijving", connection)
                 {
-                    CommandType = CommandType.StoredProcedure,
                     Parameters =
                     {
                         new SqlParameter("@name", ev.Naam),
                         new SqlParameter("@date", ev.Datum),
-                        new SqlParameter("@owner", ev.Host.Id),
                         new SqlParameter("@location", ev.Locatie),
                         new SqlParameter("@maxPart", ev.MaxDeelnemers),
-                        new SqlParameter("@evid", ev.Id)
+                        new SqlParameter("@evid", ev.Id),
+                        new SqlParameter("@omschrijving", ev.Omschrijving)
                     }
                 };
                 try
                 {
-                    int rowsAffected = cmd.ExecuteNonQuery();
-                    if (rowsAffected != -1) result = true;
+                    connection.Open();
+                    cmd.ExecuteNonQuery();
+                    result = true;
                 }
                 catch (Exception)
                 {
@@ -115,14 +123,16 @@ namespace ProftaakProject.Context.SQLContext
             bool result = false;
             using (var connection = new SqlConnection(_connectionString))
             {
-                SqlCommand cmd = new SqlCommand("DELETE FROM dbo.[Evenement] WHERE [evtId] = @id", connection);
+                SqlCommand cmd = new SqlCommand("DELETE FROM [EvtAccount] WHERE [evtID] = @id; DELETE FROM dbo.[Evenement] WHERE [evtId] = @evid", connection);
                 cmd.Parameters.AddWithValue("@id", id);
+                cmd.Parameters.AddWithValue("@evid", id);
                 
                 
                 try
                 {
-                    int rowsAffected = cmd.ExecuteNonQuery();
-                    if (rowsAffected != -1) result = true;
+                    connection.Open();
+                    cmd.ExecuteNonQuery();
+                    result = true;
                 }
                 catch (Exception)
                 {
@@ -132,6 +142,46 @@ namespace ProftaakProject.Context.SQLContext
             return result;
         }
 
+        public void SignOut(int eventId, int userId)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("DELETE FROM [EvtAccount] WHERE [evtID] = @eventid AND [accountID] = @userid", connection);
+                cmd.Parameters.AddWithValue("@eventid", eventId);
+                cmd.Parameters.AddWithValue("@userid", userId);
+
+                try
+                {
+                    connection.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
+        }
+
+        public void SignIn(int eventId, int userId)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("INSERT INTO [EvtAccount] ([accountID], [evtId]) VALUES (@userid, @eventid)", connection);
+                cmd.Parameters.AddWithValue("@eventid", eventId);
+                cmd.Parameters.AddWithValue("@userid", userId);
+
+                try
+                {
+                    connection.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            }
+        }
+
         public List<Evenement> GetAllByUserId(int userId)
         {
             List<Evenement> evenementen = new List<Evenement>();
@@ -139,7 +189,7 @@ namespace ProftaakProject.Context.SQLContext
 
             using var connection = new SqlConnection(_connectionString);
 
-            using (SqlCommand sqlCommand = new SqlCommand("SELECT * FROM [GetEventsByUser] (@userid)", connection))
+            using (SqlCommand sqlCommand = new SqlCommand("SELECT * FROM [GetEventsByUser] (@userid) ORDER BY [Datum]", connection))
             {
                 sqlCommand.CommandType = CommandType.Text;
                 sqlCommand.Parameters.AddWithValue("@userid", userId);

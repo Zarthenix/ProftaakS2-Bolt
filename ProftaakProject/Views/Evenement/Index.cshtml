@@ -15,7 +15,7 @@
     <div class="row">
         <div class="col-md-12">
             <h1>Jouw evenementen:</h1>
-            <a href="@Url.Action("Create")" class="btn btn-primary" style="margin-bottom: 25px;">Maak nieuwe</a>
+            <a href="@Url.Action("Create")" class="btn btn-primary" style="margin-bottom: 25px;">Maak nieuw evenement</a>
             <div class="owl-carousel">
 
                 @foreach (var evm in Model.JoinedEvents)
@@ -25,7 +25,13 @@
                             @evm.Naam
                             @if (evm.HostId == Model.UserId)
                             {
-                                <a style="position: absolute; top: 20%;"href="@Url.Action("Edit", "Evenement", new {id = evm.Id})" data-toggle="tooltip" data-placement="right" title="Edit event"><i class="far fa-edit"></i></a>
+                                <a style="position: absolute; top: 20%; left: 25%;" href="@Url.Action("Details", "Evenement", new {id = @evm.Id})" data-toggle="tooltip" data-placement="left" title="View details"><i class="fas fa-eye"></i></a>
+                                <a style="position: absolute; top: 20%; left: 50%;" href="@Url.Action("Edit", "Evenement", new {id = evm.Id})" data-toggle="tooltip" data-placement="bottom" title="Edit event"><i class="far fa-edit"></i></a>
+                                <a style="position: absolute; top: 20%; left: 75%;" href="@Url.Action("Delete", "Evenement", new {id = evm.Id})" data-toggle="tooltip" data-placement="right" title="Delete event"><i class="fas fa-trash"></i></a>
+                            }
+                            else
+                            {
+                                <a style="position: absolute; top: 20%;" href="@Url.Action("SignOut", new {id = evm.Id})" data-toggle="tooltip" data-placement="bottom" title="Sign out"><i class="fas fa-file-signature" style="color:firebrick;"></i></a>
                             }
                         </div>
                         <div class="card-body carousel-card-body">
@@ -64,7 +70,7 @@
                         <td>@evm.HostNaam</td>
                         <td>
                             <a href="@Url.Action("Details", "Evenement", new {id = @evm.Id})" data-toggle="tooltip" data-placement="bottom" title="View details"><i class="fas fa-eye"></i></a>
-                            <a href="" data-toggle="tooltip" data-placement="bottom" title="Sign up"><i class="fas fa-file-signature" style="color: dodgerblue;"></i></a>
+                            <a href="@Url.Action("SignIn", new {id = evm.Id})" data-toggle="tooltip" data-placement="bottom" title="Sign up"><i class="fas fa-file-signature" style="color: dodgerblue;"></i></a>
                         </td>
                     </tr>
                 }
@@ -83,6 +89,7 @@
                 loop: true,
                 margin: 10,
                 nav: true,
+                navText: ["<i class=\"fas fa-arrow-left\"></i>", "<i class=\"fas fa-arrow-right\" style=\"position:absolute;right:0%;\"></i>"],
                 center: true,
                 responsive: {
                     0: {
@@ -97,7 +104,9 @@
                 }
 
             });
-            $('#uitzendbureauEventsTabel').DataTable();
+            $('#uitzendbureauEventsTabel').DataTable({
+                "order": [[2, "asc"]]
+                });
             $('[data-toggle="tooltip"]').tooltip()
         });
     </script>

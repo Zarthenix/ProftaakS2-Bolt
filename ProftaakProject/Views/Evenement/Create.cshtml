@@ -31,9 +31,18 @@
                                 <span asp-validation-for="MaxDeelnemers"></span>
                             </div>
                             <div class="form-group">
+                                <label asp-for="Omschrijving"></label>
+                                <textarea asp-for="Omschrijving" class="form-control"></textarea>
+                                <span asp-validation-for="Omschrijving"></span>
+                            </div>
+                            <div class="form-group">
                                 <label asp-for="Datum"></label>
                                 @Html.EditorFor(model => model.Datum, new {@class = "form-control", @Value = Model.Datum.ToString("yyyy/MM/dd")})
                                 <span asp-validation-for="Datum"></span>
+                            </div>
+                            <div class="form-group">
+                                @Html.EditorFor(model => model.EnkelUitzendbureau, new { @class = "form-control" })
+                                <label asp-for="EnkelUitzendbureau"></label>
                             </div>
 
                             <input class="btn btn-lg btn-info btn-block" type="submit" value="Create" asp-action="Create" formmethod="post" style="margin-top: 15px">

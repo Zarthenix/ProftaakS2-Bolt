@@ -34,6 +34,16 @@ namespace ProftaakProject.Context.TestContext
             throw new NotImplementedException();
         }
 
+        public void SignOut(int eventId, int userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SignIn(int eventId, int userId)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Evenement> GetAvailableEvents(int userId)
         {
             throw new NotImplementedException();
