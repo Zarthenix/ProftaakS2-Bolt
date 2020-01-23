@@ -43,7 +43,10 @@ namespace ProftaakProject.Controllers
             vvm.Post.Auteur = ar.GetByID(vvm.Post.Auteur.Id);
             foreach (Reactie r in rr.GetAll(vvm.Post.Id))
             {
-
+                if (r.Goedgekeurd)
+                {
+                    r.GoedgekeurdDoor = ar.GetByID(r.GoedgekeurdDoor.Id);
+                }
             }
             return View(vvm);
         }

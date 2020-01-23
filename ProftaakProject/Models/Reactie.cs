@@ -29,7 +29,7 @@ namespace ProftaakProject.Models
             this.Gezien = Gezien;
             this.Auteur = Account;
             this.Goedgekeurd = Goedgekeurd;
-            this.GoedgekeurdDoor.Id = GoedgekeurdDoor;
+            this.GoedgekeurdDoor = new Account(GoedgekeurdDoor, "");
         }
     }
 }

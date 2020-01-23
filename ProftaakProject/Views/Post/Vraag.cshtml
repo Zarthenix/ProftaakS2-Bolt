@@ -37,7 +37,7 @@
                                     @react.Auteur.Naam
                                 </div>
                                 <div class="col-md-6">
-                                    
+                                    @react.GoedgekeurdDoor.Naam
                                 </div>
                                 <div class="col-md-2">
                                     <a class="btn btn-success" href="@Url.Action("ReactieGoedkeuren", "Post", new { ReactieID = react.Id, VraagID = Model.Post.Id, Goedgekeurd = react.Goedgekeurd })">Afkeuren</a>
