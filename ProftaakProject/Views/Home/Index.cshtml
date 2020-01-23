@@ -4,43 +4,58 @@
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<body>
-    <div>
-        @if (Model.HuidigeAccount.GeabonneerdeTags.Count > 0)
-        {
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-7 tagLijst">
-                        <nav id="colorlib-main-menu" role="navigation">
-                            <div>
-                                <h4>Geabonneerde Tags</h4>
-                            </div>
-                            @foreach (Tag tag in Model.HuidigeAccount.GeabonneerdeTags)
-                            {
-                                <a href="@Url.Action("AllePostsMetTagID", "Post", new { tagId = tag.Id })">
-                                    <div class="tagDiv">
-                                        <label>@tag.Naam</label>
-                                    </div>
-                                </a>
-                            }
-                        </nav>
+    <body>
+        <div>
+            @if (Model.HuidigeAccount.GeabonneerdeTags.Count > 0)
+            {
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-7 tagLijst">
+                            <nav id="colorlib-main-menu" role="navigation">
+                                <div>
+                                    <h4>Geabonneerde Tags</h4>
+                                </div>
+                                @foreach (Tag tag in Model.HuidigeAccount.GeabonneerdeTags)
+                                {
+                                    <a href="@Url.Action("AllePostsMetTagID", "Post", new { tagId = tag.Id })">
+                                        <div class="tagDiv">
+                                            <label>@tag.Naam</label>
+                                        </div>
+                                    </a>
+                                }
+                            </nav>
+                        </div>
                     </div>
                 </div>
+            }
+        </div>
+        @if (User.IsInRole("Admin"))
+        {
+            <form>
+                <input class="btn btn-dark" asp-controller="Post" asp-action="LijstArtikelGoedkeuren" value="Artikelen Goedkeuren" type="submit" />
+            </form>
+        }
+
+        @if (Model.sorteerInt == 0)
+        {
+            <form>
+                <button type="submit" class="btn btn-dark" value="1" name="sorteerInt">Sorteer op Meest bekeken</button>
+            </form>
+        }
+        else
+        {
+            <form>
+                <button type="submit" class="btn btn-dark" value="0" name="sorteerInt">Sorteer op Nieuw</button>
+            </form>
+        }
+
+
+        @foreach (PostViewModel postTemp in Model.PostViewModels)
+        {
+            <div class="postTijdlijn">
+                @await Html.PartialAsync("_Post", postTemp)
             </div>
         }
-    </div>
-    @if (User.IsInRole("Admin"))
-    {
-        <form>
-            <input class="btn btn-dark" asp-controller="Post" asp-action="LijstArtikelGoedkeuren" value="Artikelen Goedkeuren" type="submit" />
-        </form>
-    }
-    @foreach (PostViewModel postTemp in Model.PostViewModels)
-    {
-        <div class="postTijdlijn">
-            @await Html.PartialAsync("_Post", postTemp)
-        </div>
-    }
-</body>
+    </body>
 <footer>
 </footer>
