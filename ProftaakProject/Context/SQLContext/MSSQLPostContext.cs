@@ -167,6 +167,7 @@ namespace ProftaakProject.Context.SQLContext
                                     (int)reader["type"],
                                     new Tag((int)reader["tagID"], reader["naam"].ToString()),
                                     (int)reader["goedgekeurdDoor"],
+                                    new Account((int)reader["accountId"], null, null),
                                     (byte[])reader["imageFile"],
                                     Convert.ToBoolean(reader["Uitgelicht"]),
                                     (int)reader["uitzendID"]
@@ -388,6 +389,35 @@ namespace ProftaakProject.Context.SQLContext
             return posts;
         }
 
+        public List<Post> GetAllArtikelenByAantalBekeken()
+        {
+            List<Post> posts = new List<Post>();
+            string query = "SELECT * FROM dbo.Post p WHERE p.type = 0 ORDER BY p.aantalBekeken DESC";
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            posts.Add(new Post(
+                                (int)reader["postId"],
+                                reader["titel"].ToString(),
+                                reader["inhoud"].ToString(),
+                                (int)reader["type"],
+                                new Tag((int)reader["tagID"], reader["naam"].ToString()),
+                                (int)reader["goedgekeurdDoor"],
+                                (byte[])reader["imageFile"]));
+                        }
+                    }
+                }
+                connection.Close();
+            }
+            return posts;
+        }
+
         public List<Post> GetAllVragenByID(int AccountId)
         {
             List<Post> posts = new List<Post>();
@@ -412,6 +442,7 @@ namespace ProftaakProject.Context.SQLContext
                                     (int)reader["type"],
                                     new Tag((int)reader["tagID"], reader["naam"].ToString()),
                                     (int)reader["goedgekeurdDoor"],
+                                    null,
                                     new byte[0],
                                     Convert.ToBoolean(reader["Uitgelicht"]),
                                     (int)reader["uitzendID"]

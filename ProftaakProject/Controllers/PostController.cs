@@ -106,6 +106,7 @@ namespace ProftaakProject.Controllers
             ArtikelViewModel avm = pac.ConvertToViewModel(pr.GetByID(id));
             avm.Account = ar.GetByID(GetUserId());
             avm.Account.GeabonneerdeTags = pr.GetAllGeabonneerdeTags(GetUserId());
+            avm.Post.Auteur = ar.GetByID(avm.Post.Auteur.Id);
             pr.IncrementViews(id);
             return View("Artikel", avm);
         }

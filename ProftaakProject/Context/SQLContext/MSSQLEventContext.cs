@@ -63,10 +63,8 @@ namespace ProftaakProject.Context.SQLContext
                 using SqlDataReader reader = cmd.ExecuteReader();
                 if (reader.HasRows)
                 {
-                    Evenement evenement = new Evenement
-                    {
-                        Id = id
-                    };
+                    Evenement evenement = new Evenement(id);
+                    
                     while (reader.Read())
                     {
                         evenement.Naam = reader["naam"].ToString();
@@ -153,7 +151,7 @@ namespace ProftaakProject.Context.SQLContext
             }
             foreach (DataRow dr in ds.Tables[0].Rows)
             {
-                Evenement evenement = new Evenement()
+                Evenement evenement = new Evenement((int)dr["evtID"])
                 {
                     Id = (int)dr["evtID"],
                     Naam = dr["naam"].ToString(),

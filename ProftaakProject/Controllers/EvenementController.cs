@@ -53,9 +53,7 @@ namespace ProftaakProject.Controllers
         [HttpPost]
         public IActionResult Create(EvenementViewModel evm)
         {
-            Evenement ev = new Evenement();
-            
-            ev = _eevmc.ConvertToModel(evm);
+            Evenement ev = _eevmc.ConvertToModel(evm);
 
             _evenementRepo.Create(ev, GetUserId());
             return View();

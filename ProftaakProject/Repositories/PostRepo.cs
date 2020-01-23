@@ -117,5 +117,10 @@ namespace ProftaakProject.Models.Repositories
         {
             return tCtx.GetAllGeabonneerdeTags(accId);
         }
+
+        public List<Post> GetAllArtikelenByAantalBekeken()
+        {
+            return pCtx.GetAllArtikelenByAantalBekeken();
+        }
     }
 }

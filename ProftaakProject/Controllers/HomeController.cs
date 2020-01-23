@@ -52,6 +52,7 @@ namespace ProftaakProject.Controllers
             {
                 if (tempPost.Uitzendbureau.Id == sessionAccount.UitzendID || tempPost.Uitzendbureau.Id == 0 || User.IsInRole("Admin"))
                 {
+                    tempPost.Auteur = accountRepo.GetByID(tempPost.Auteur.Id);
                     tempModels.Add(ppc.ConvertToViewModel(tempPost));
                 }
             }
