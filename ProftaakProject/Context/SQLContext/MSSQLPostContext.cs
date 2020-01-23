@@ -376,6 +376,8 @@ namespace ProftaakProject.Context.SQLContext
                             tempPost.TypeId = (int)reader["type"];
                             Tag t = new Tag((int)reader["tagID"], reader["naam"].ToString());
                             tempPost.GoedgekeurdDoor = (int)reader["goedgekeurdDoor"];
+                            tempPost.Auteur = new Account();
+                            tempPost.Auteur.Id = (int)reader["accountId"];
                             if ((tempPost.TypeId == 0))
                             {
                                 tempPost.ImageFile = (byte[])reader["imageFile"];

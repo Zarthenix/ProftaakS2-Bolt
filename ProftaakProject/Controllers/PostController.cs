@@ -229,6 +229,7 @@ namespace ProftaakProject.Controllers
             PostToPostvmConverter ppc = new PostToPostvmConverter();
             foreach (Post tempPost in pr.GetAllPostsByTagId(tagId))
             {
+                tempPost.Auteur = ar.GetByID(tempPost.Auteur.Id);
                 tempPostList.Add(ppc.ConvertToViewModel(tempPost));
             }
             pvm.PostViewModels = tempPostList;
