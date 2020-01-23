@@ -69,7 +69,7 @@
                                     <a class="btn btn-success" href="@Url.Action("ReactieVerwijderen", "Post", new {ReactieID = react.Id ,VraagID = Model.Post.Id})">Verwijderen</a>
                                 </div>
                             }
-                            else if (Model.Post.Auteur.Gebruikersnaam == User.Identity.Name || react.Auteur.Naam == User.Identity.Name)
+                            else if (react.Auteur.Naam == User.Identity.Name)
                             {
                                 <div class="col-md-2">
                                     <a class="btn btn-success" href="@Url.Action("ReactieVerwijderen", "Post", new {ReactieID = react.Id ,VraagID = Model.Post.Id})">Verwijderen</a>
