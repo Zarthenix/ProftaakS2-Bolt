@@ -94,7 +94,30 @@ namespace ProftaakProject.Context.SQLContext
 
         public Reactie GetByID(int id)
         {
-            throw new NotImplementedException();
+            var reactie = new Reactie();
+            string query = "SELECT reactieID, inhoud, datum, postId, gezienDoorGebruiker, a.accountID, naam FROM dbo.Reactie r inner join dbo.Account a on a.accountID = r.accountID WHERE reactieID = @reactieID ORDER BY datum DESC";
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@reactieID", id);
+                    using SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        reactie = (new Reactie(
+                            (int)reader["reactieID"],
+                            reader["inhoud"].ToString(),
+                            (DateTime)reader["datum"],
+                            (int)reader["postId"],
+                            Convert.ToBoolean(reader["gezienDoorGebruiker"]),
+                            new Account((int)reader["accountID"], reader["naam"].ToString())
+                            ));
+                    }
+                }
+                connection.Close();
+            }
+            return reactie;
         }
 
         public bool ReactieGelezen(int reactieID)
@@ -119,7 +142,29 @@ namespace ProftaakProject.Context.SQLContext
                 }
             }
         }
-
+        public bool ReactieGoedkeuren(int reactieID, int accountID)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "UPDATE dbo.Reactie SET goedgekeurd = 1 , goedgekeurdDoor = @accountID WHERE dbo.Reactie.reactieID = @reactieID;";
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@reactieID", reactieID);
+                        cmd.Parameters.AddWithValue("@accountID", accountID);
+                        cmd.ExecuteNonQuery();
+                        return true;
+                    }
+                }
+                catch (Exception exception)
+                {
+                    Console.WriteLine(exception);
+                    return false;
+                }
+            }
+        }
         public bool Update(Reactie reactie)
         {
             throw new NotImplementedException();

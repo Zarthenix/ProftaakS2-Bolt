@@ -19,5 +19,7 @@ namespace ProftaakProject.Context.Interfaces
         List<Reactie> GetAll(int postID);
 
         bool ReactieGelezen(int reactieID);
+
+        bool ReactieGoedkeuren(int reactieID, int accountID);
     }
 }

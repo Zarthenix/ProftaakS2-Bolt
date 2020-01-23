@@ -366,7 +366,14 @@ div.artikelInhoud {
     height: auto;
     text-overflow: ellipsis;
 }
-
+.goedgekeurd {
+    border: 4px solid;
+    border-radius: 10px;
+    -webkit-border-image: -webkit-gradient(linear, 0 0, 0 100%, from(#3F55A1), to(#C42872)) 1 100%;
+    width: 900px;
+    padding-right: 30px;
+    margin-top: 50px;
+}
 
 /*CSS voor uitzendbureau*/
 .uitzendtable a {

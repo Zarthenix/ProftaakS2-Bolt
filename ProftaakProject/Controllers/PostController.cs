@@ -231,10 +231,24 @@ namespace ProftaakProject.Controllers
 
         public IActionResult ReactieVerwijderen(int ReactieID, int VraagID)
         {
-            if (!User.IsInRole("Admin")) { return RedirectToAction("NotAuthorized", "Home"); }
+            var tempreactie = rr.GetByID(ReactieID);
+            var tempPost = pr.GetByID(tempreactie.PostID);
+            if (User.IsInRole("Admin") || tempreactie.Auteur.Naam == User.Identity.Name || tempPost.Auteur.Id == GetUserId())
+            {
+                rr.Delete(ReactieID);
+                return RedirectToAction("Vraag", "Post", new { id = VraagID });
+            }
+            else { return RedirectToAction("NotAuthorized", "Home"); }
+        }
 
-            rr.Delete(ReactieID);
-            return RedirectToAction("Vraag", "Post", new { id = VraagID });
+        public IActionResult ReactieGoedkeuren(int ReactieID, int VraagID)
+        {
+            if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+            {
+                rr.ReactieGoedkeuren(ReactieID, GetUserId());
+                return RedirectToAction("Vraag", "Post", new { id = VraagID });
+            }
+            else { return RedirectToAction("NotAuthorized", "Home"); }
         }
         #endregion
 

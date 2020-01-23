@@ -39,5 +39,10 @@ namespace ProftaakProject.Context.TestContext
         {
             throw new NotImplementedException();
         }
+
+        public bool ReactieGoedkeuren(int reactieID, int accountID)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

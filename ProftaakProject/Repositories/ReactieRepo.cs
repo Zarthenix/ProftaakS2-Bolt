@@ -43,5 +43,10 @@ namespace ProftaakProject.Models.Repositories
         {
             return rCtx.ReactieGelezen(reactieID);
         }
+
+        public bool ReactieGoedkeuren(int reactieID, int accountID)
+        {
+            return rCtx.ReactieGoedkeuren(reactieID, accountID);
+        }
     }
 }

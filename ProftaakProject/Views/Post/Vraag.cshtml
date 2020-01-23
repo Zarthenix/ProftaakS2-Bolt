@@ -25,21 +25,52 @@
     {
         @foreach (Reactie react in Model.Reacties)
         {
-            <div class="card-footer">
-                <div class="card-footer">@react.Inhoud</div>
-                <div class="card-text" style="font-size:15px">
-                    <br />
-                    <div class="row">
-                        <div class="col-md-10">
-                            @react.Auteur.Naam
-                        </div>
-                        <div class="col-md-2">
-                            <a class="btn btn-success" href="@Url.Action("ReactieVerwijderen", "Post", new {ReactieID = react.Id ,VraagID = Model.Post.Id})">Verwijderen</a>
+            if (react.Goedgekeurd)
+            {
+                <div class="card-footer goedgekeurd">
+                    <div class="card-footer">@react.Inhoud</div>
+                    <div class="card-text" style="font-size:15px">
+                        <br />
+                        <div class="row">
+                            <div class="col-md-10">
+                                @react.Auteur.Naam
+                            </div>
+                            <div class="col-md-2">
+                                <a class="btn btn-success" href="@Url.Action("ReactieVerwijderen", "Post", new { ReactieID = react.Id, VraagID = Model.Post.Id })">Verwijderen</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-            </div>
+            }
+            else
+            {
+                <div class="card-footer">
+                    <div class="card-footer">@react.Inhoud</div>
+                    <div class="card-text" style="font-size:15px">
+                        <br />
+                        <div class="row">
+                            <div class="col-md-8">
+                                @react.Auteur.Naam
+                            </div>
+                            @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+                            {
+                                <div class="col-md-2">
+                                    <a class="btn btn-success" href="@Url.Action("ReactieGoedkeuren", "Post", new {ReactieID = react.Id ,VraagID = Model.Post.Id})">Goedkeuren</a>
+                                </div>
+                                <div class="col-md-2">
+                                    <a class="btn btn-success" href="@Url.Action("ReactieVerwijderen", "Post", new {ReactieID = react.Id ,VraagID = Model.Post.Id})">Verwijderen</a>
+                                </div>
+                            }
+                            else if (Model.Post.Auteur.Gebruikersnaam == User.Identity.Name || react.Auteur.Naam == User.Identity.Name)
+                            {
+                                <div class="col-md-2">
+                                    <a class="btn btn-success" href="@Url.Action("ReactieVerwijderen", "Post", new {ReactieID = react.Id ,VraagID = Model.Post.Id})">Verwijderen</a>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
         }
     }
     else
@@ -49,24 +80,26 @@
         </div>
         <div class="card-footer"></div>
     }
-
-    <div class="card-body">
-        <h5>Reageer op deze vraag!</h5>
-        <div>
-            <form asp-controller="Post" method="post">
-                <input type="hidden" asp-for="Post.Id" />
-                <input type="hidden" asp-for=" ReactieAanmaken.Inhoud" value="" />
-                <textarea asp-for="ReactieInhoud" class="reactieAanmakenInhoud"></textarea>
-                <br />
-                <span asp-validation-for="ReactieInhoud" class="text-danger"></span>
-                <br />
-                <div class="row">
-                    <div class="col-md-2">
-                        <input class="btn btn-success" type="submit" asp-action="ReactieAanmaken" value="Reageren" />
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="card-body">
+            <h5>Reageer op deze vraag!</h5>
+            <div>
+                <form asp-controller="Post" method="post">
+                    <input type="hidden" asp-for="Post.Id" />
+                    <input type="hidden" asp-for=" ReactieAanmaken.Inhoud" value="" />
+                    <textarea asp-for="ReactieInhoud" class="reactieAanmakenInhoud"></textarea>
+                    <br />
+                    <span asp-validation-for="ReactieInhoud" class="text-danger"></span>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-2">
+                            <input class="btn btn-success" type="submit" asp-action="ReactieAanmaken" value="Reageren" />
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
-    </div>
+    }
 </div>
 

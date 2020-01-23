@@ -6,8 +6,17 @@
     <title>AllePosts</title>
 </head>
 <body>
+
     <div>
         <h3>Alle Artikelen</h3>
+
+        @if (User.IsInRole("Admin"))
+        {
+            <form>
+                <input class="btn btn-dark" asp-controller="Post" asp-action="LijstArtikelGoedkeuren" value="Artikelen Goedkeuren" type="submit" />
+            </form>
+        }
+        <br />
         <table class="table table-bordered table-dark" align="center" style="width: 100%; ">
             <tr>
                 <th>Post Image</th>
