@@ -129,8 +129,7 @@ namespace ProftaakProject.Context.SQLContext
                                 {
                                     p.Uitzendbureau = new Uitzendbureau((int)reader["uitzendID"], reader["uitzendNaam"].ToString(), (int)reader["eigenaar"]);
                                 }
-                                p.Auteur = new Account();
-                                p.Auteur.Id = (int)reader["accountId"];
+                                p.Auteur = new Account((int)reader["accountId"]);
                                 p.Uitgelicht = Convert.ToBoolean(reader["Uitgelicht"]);
                             }
                             return p;
@@ -279,25 +278,47 @@ namespace ProftaakProject.Context.SQLContext
                 }
             }
         }
-        public Post SearchResult(string search)
+
+        public List<Post> SearchResult(string search)
         {
+
             //type 0 = artikel
+
             //type 1 = vraag
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                try
-                {
-                    connection.Open();
-                    string query = "SELECT * FROM Post WHERE inhoud LIKE '%@search%'";
-                    using (SqlCommand cmd = new SqlCommand(query, connection))
-                    {
-                        cmd.Parameters.AddWithValue("@search", search);
-                        cmd.ExecuteNonQuery();
-                    }                    connection.Close();                }
-                catch (Exception exception)                {
-                    Console.WriteLine(exception);                    throw;                }
+            List<Post> posts = new List<Post>();
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "SELECT * FROM Post WHERE inhoud LIKE '%@search%'";
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {                        cmd.Parameters.AddWithValue("@search", search);                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                posts.Add(new Post(
+                                  (int)reader["postId"],
+                                  reader["titel"].ToString(),
+                                  reader["inhoud"].ToString(),
+                                  (int)reader["type"],
+                                  new Tag((int)reader["tagID"], reader["naam"].ToString()),
+                                  (int)reader["goedgekeurdDoor"],
+                                  (byte[])reader["imageFile"]));
+                            }
+                            
+
+                        }
+                    }
+                    connection.Close();
+                    return posts;
+                }
+                catch(Exception exception)
+                {
+                    Console.WriteLine(exception);
+                                        throw;
+                }
             }
-            Post p = new Post();            return p;
         }
 
         public List<Post> GetAllArtikelenGoedkeuren()
@@ -376,8 +397,7 @@ namespace ProftaakProject.Context.SQLContext
                             tempPost.TypeId = (int)reader["type"];
                             Tag t = new Tag((int)reader["tagID"], reader["naam"].ToString());
                             tempPost.GoedgekeurdDoor = (int)reader["goedgekeurdDoor"];
-                            tempPost.Auteur = new Account();
-                            tempPost.Auteur.Id = (int)reader["accountId"];
+                            tempPost.Auteur = new Account((int)reader["accountId"]);
                             if ((tempPost.TypeId == 0))
                             {
                                 tempPost.ImageFile = (byte[])reader["imageFile"];
@@ -494,8 +514,7 @@ namespace ProftaakProject.Context.SQLContext
                                 {
                                     p.ImageFile = (byte[])reader["imageFile"];
                                 }
-                                p.Auteur = new Account();
-                                p.Auteur.Id = (int)reader["accountId"];
+                                p.Auteur = new Account((int)reader["accountId"]);
                                 p.Uitgelicht = Convert.ToBoolean(reader["Uitgelicht"]);
                                 postList.Add(p);
                             }

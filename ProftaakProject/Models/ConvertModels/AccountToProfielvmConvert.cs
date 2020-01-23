@@ -10,9 +10,8 @@ namespace ProftaakProject.Models.ConvertModels
     {
         public Account ConvertToModel(ProfielViewModel pvm)
         {
-            Account acc = new Account();
+            Account acc = new Account(pvm.Id);
             {
-                acc.Id = pvm.Id;
                 acc.Naam = pvm.Naam;
                 acc.Email = pvm.Email;
                 acc.Geslacht = pvm.Geslacht;

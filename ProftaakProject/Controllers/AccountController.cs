@@ -102,7 +102,7 @@ namespace ProftaakProject.Controllers
         public IActionResult Profiel(int? id)
         {
             if (HttpContext.User?.Identity.IsAuthenticated == false) { return RedirectToAction("Login", "Account"); }
-            Account ac = new Account();
+            Account ac;
 
             if (id == null)
             {
@@ -144,6 +144,34 @@ namespace ProftaakProject.Controllers
 
             return View();
         }
+
+        [Authorize]
+        public IActionResult AccountLijst()
+        {
+            AccountViewModel avm = new AccountViewModel();
+            avm.accs = _accRepo.GetAll();
+
+            return View(avm);
+        }
+
+        public IActionResult Verwijder(AccountViewModel avm)
+        {
+            _accRepo.Delete(avm.Id);
+
+            return RedirectToAction("AccountLijst", "Account");
+        }
+
+        ////[HttpGet]
+        //public IActionResult Rol()
+        //{
+        //    List<Rol> rols = _accRepo.GetAll();
+
+        //    AccountViewModel avm = new AccountViewModel()
+        //    {
+        //        accs = rols
+        //    };
+        //    return View();
+        //}
 
         [HttpGet]
         public IActionResult RolGeven(int userId)

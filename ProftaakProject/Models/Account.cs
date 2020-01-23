@@ -14,7 +14,7 @@ namespace ProftaakProject.Models
         public string NormalizedEmail { get; set; }
         public string Gebruikersnaam { get; set; }
         public string NormalizedGebruikersnaam { get; set; }
-        public List<Tag> GeabonneerdeTags { get; set; }
+        public List<Tag> GeabonneerdeTags { get; set; } = new List<Tag>();
         public string Wachtwoord { get; set; }
         public Gender Geslacht { get; set; }
         public Role Rol { get; set; }
@@ -26,12 +26,27 @@ namespace ProftaakProject.Models
             this.Gebruikersnaam = username;
             this.Email = email;
             this.Naam = naam;
-            List<Tag> GeabonneerdeTags = new List<Tag>();
         }
 
-        public Account()
+        public Account(int id, string naam)
         {
-            List<Tag> GeabonneerdeTags = new List<Tag>();
+            this.Id = id;
+            this.Naam = naam;
+        }
+
+        public Account(string username, string password)
+        {
+            this.Gebruikersnaam = username;
+            this.Wachtwoord = password;
+        }
+        public Account(int id)
+        {
+            this.Id = id;
+        }
+
+        public Account(string naam)
+        {
+            this.Naam = naam;
         }
 
         public Account(int id, string username, string email, string wachtwoord)
@@ -40,7 +55,6 @@ namespace ProftaakProject.Models
             this.Gebruikersnaam = username;
             this.Email = email;
             this.Wachtwoord = wachtwoord;
-            List<Tag> GeabonneerdeTags = new List<Tag>();
         }
 
         public Account(int id, string username, string email)
@@ -48,12 +62,7 @@ namespace ProftaakProject.Models
             this.Id = id;
             this.Gebruikersnaam = username;
             this.Email = email;
-            List<Tag> GeabonneerdeTags = new List<Tag>();
         }
-        public Account(int id, string name)
-        {
-            this.Id = id;
-            this.Naam = name;
-        }
+
     }
 }

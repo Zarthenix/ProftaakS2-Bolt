@@ -1,9 +1,23 @@
-﻿
+﻿@using ProftaakProject.Models.ViewModels.PostModels
+@model ProftaakProject.Models.ViewModels.PostModels.PostViewModel;
 @{
     ViewData["Title"] = "SearchResult";
 }
 
-<h1>SearchResult</h1>
+<h1>Zoekresultaten</h1>
 @*Post resultaten*@
 
 @*Artikel resultaten*@
+
+<div class="card">
+    <div class="card-header">
+        <img src="data:image/png;base64,@Model.ImageFile" class="img-thumbnail" />
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">@Model.Titel</h4>
+        <p class="card-text">@Model.Inhoud</p>
+    </div>
+    <div class="card-footer">
+        <p class="auteurText">Model.Auteur.Naam</p><p>@*@Model.Post.Uitzendbureau.Naam*@</p>
+    </div>
+</div>

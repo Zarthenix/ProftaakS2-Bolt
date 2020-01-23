@@ -18,11 +18,14 @@ namespace ProftaakProject.Models.ViewModels.EventModels
 
         [Display(Name = "Datum")]
         [DataType(DataType.DateTime)]
-        public DateTime Datum { get; set; }
+  
+        public DateTime Datum { get; set; } = DateTime.Now;
         
 
         [Display(Name = "Organizator")]
-        public int Host { get; set; }
+        public int HostId { get; set; }
+
+        public string HostNaam { get; set; }
 
         [DataType(DataType.Text)]
         [Display(Name = "Locatie")]

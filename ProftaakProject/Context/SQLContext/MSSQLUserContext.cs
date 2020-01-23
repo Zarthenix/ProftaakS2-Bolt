@@ -66,6 +66,26 @@ namespace ProftaakProject
         /// <returns></returns>
         public Task<IdentityResult> DeleteAsync(Account user, CancellationToken cancellationToken)
         {
+            try
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    connection.Open();
+                    SqlCommand sqlCommand = new SqlCommand("DELETE FROM Account WHERE accountID = @accountID", connection);
+                    sqlCommand.Parameters.AddWithValue("@accountID", user.Id);
+                    sqlCommand.ExecuteNonQuery();
+
+                    connection.Close();
+                    return Task.FromResult<IdentityResult>(IdentityResult.Success);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
             throw new NotImplementedException();
         }
 

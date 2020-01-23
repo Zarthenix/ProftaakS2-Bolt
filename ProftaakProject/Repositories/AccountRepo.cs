@@ -66,5 +66,10 @@ namespace ProftaakProject.Models.Repositories
         {
             return accContext.GetAllPostsOfUser(userId);
         }
+
+        public bool Delete(int id)
+        {
+                return accContext.Delete(id);
+        }
     }
 }

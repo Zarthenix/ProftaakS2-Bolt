@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using ProftaakProject.Models;
 
-namespace ProftaakTest.TestData
+namespace ProftaakProject.Context.TestContext.TestData
 {
     public class AccountTestData
     {

@@ -104,5 +104,11 @@ namespace ProftaakProject.Context.SQLContext
                 return false;
             }
         }
+
+        public async Task<bool> Delete(Account user)
+        {
+            var result = await userManager.DeleteAsync(user);
+            return true;
+        }
     }
 }

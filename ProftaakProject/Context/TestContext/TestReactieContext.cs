@@ -33,16 +33,16 @@ namespace ProftaakProject.Context.TestContext
         public List<Reactie> GetAll(int postID)
         {
             throw new NotImplementedException();
-        }
-
-        public bool ReactieGelezen(int reactieID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool ReactieGoedkeuren(int reactieID, int accountID)
-        {
-            throw new NotImplementedException();
-        }
+        }
+
+        public bool ReactieGelezen(int reactieID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool ReactieGoedkeuren(int reactieID, int accountID)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

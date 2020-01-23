@@ -34,6 +34,11 @@ namespace ProftaakProject.Context.TestContext
             throw new NotImplementedException();
         }
 
+        public List<Post> GetAllVragenByID(int AccountId)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Post> FAQVragenByTag(Tag tag)
         {
             throw new NotImplementedException();
@@ -44,7 +49,7 @@ namespace ProftaakProject.Context.TestContext
             throw new NotImplementedException();
         }
 
-        public Post SearchResult(string search)
+        public List<Post> SearchResult(string search)
         {
             throw new NotImplementedException();
         }
@@ -60,11 +65,6 @@ namespace ProftaakProject.Context.TestContext
         }
 
         public List<Post> GetAllPostsByTagId(int tagId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Post> GetAllVragenByID(int AccountId)
         {
             throw new NotImplementedException();
         }

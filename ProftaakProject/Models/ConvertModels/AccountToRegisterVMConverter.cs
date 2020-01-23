@@ -10,10 +10,8 @@ namespace ProftaakProject.Models.ConvertModels
     {
         public Account ConvertToModel(RegisterViewModel rvm)
         {
-            Account acc = new Account()
+            Account acc = new Account(rvm.Username, rvm.Password)
             {
-                Gebruikersnaam = rvm.Username,
-                Wachtwoord = rvm.Password,
                 Email = rvm.Email,
                 Naam = rvm.Name,
                 Geslacht = (Gender)rvm.Gender,
