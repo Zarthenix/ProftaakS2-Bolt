@@ -33,5 +33,7 @@ namespace ProftaakProject.Context.Interfaces
         List<Post> GetAllPostsByTagId(int tagId);
 
         List<Post> GetAllArtikelenByAantalBekeken();
+
+        List<Post> GetAllPosts();
     }
 }

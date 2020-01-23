@@ -122,5 +122,9 @@ namespace ProftaakProject.Models.Repositories
         {
             return pCtx.GetAllArtikelenByAantalBekeken();
         }
+        public List<Post> GetAllPosts()
+        {
+            return pCtx.GetAllPosts();
+        }
     }
 }

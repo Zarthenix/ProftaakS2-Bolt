@@ -78,10 +78,25 @@ namespace ProftaakProject.Controllers
         [HttpPost]
         public IActionResult VraagVerwijderen(VraagViewModel vvm)
         {
-            pr.Delete(vvm.Post.Id);
-            return RedirectToAction("Index", "Home");
+            if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+            {
+                pr.Delete(vvm.Post.Id);
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            { return RedirectToAction("NotAuthorized", "Home"); }
         }
-
+        [HttpGet]
+        public IActionResult VraagVerwijderen(int Id)
+        {
+            if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+            {
+                pr.Delete(Id);
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            { return RedirectToAction("NotAuthorized", "Home"); }
+        }
         [AllowAnonymous]
         [HttpGet]
         public IActionResult FAQ()
@@ -171,12 +186,16 @@ namespace ProftaakProject.Controllers
             return View(agvm);
         }
 
-        [HttpGet]
+        [HttpPost]
         public IActionResult ArtikelVerwijderen(ArtikelToevoegenViewModel atvm)
         {
-            if (!User.IsInRole("Admin")) { return RedirectToAction("NotAuthorized", "Home"); }
-            pr.Delete(atvm.Id);
-            return RedirectToAction("Index", "Home");
+            if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+            {
+                pr.Delete(atvm.Id);
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            { return RedirectToAction("NotAuthorized", "Home"); }
         }
 
         [HttpPost]
@@ -253,7 +272,23 @@ namespace ProftaakProject.Controllers
         [HttpGet]
         public IActionResult AllePosts()
         {
-            return View();
+            if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+            {
+                var pvm = new PostViewModel
+                {
+                    PostViewModels = new List<PostViewModel>()
+                };
+                var pvc = new PostToPostvmConverter();
+                foreach (var post in pr.GetAllPosts())
+                {
+                    pvm.PostViewModels.Add(pvc.ConvertToViewModel(post));
+                }
+                return View(pvm);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         [HttpPost]
