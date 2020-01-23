@@ -9,7 +9,7 @@ namespace ProftaakProject.Models
     public class Reactie
     {
         public int Id { get; set; }
-        public int GoedgekeurdDoor { get; set; }
+        public Account GoedgekeurdDoor { get; set; }
         public string Inhoud { get; set; }
         public DateTime Datum { get; set; }
         public bool Goedgekeurd { get; set; }
@@ -20,14 +20,16 @@ namespace ProftaakProject.Models
         {
 
         }
-        public Reactie(int Id, string Inhoud, DateTime Datum, int PostID, bool Gezien, Account account)
+        public Reactie(int Id, string Inhoud, DateTime Datum, int PostID, bool Gezien, Account Account, bool Goedgekeurd, int GoedgekeurdDoor)
         {
             this.Id = Id;
             this.Inhoud = Inhoud;
             this.Datum = Datum;
             this.PostID = PostID;
             this.Gezien = Gezien;
-            this.Auteur = account;
+            this.Auteur = Account;
+            this.Goedgekeurd = Goedgekeurd;
+            this.GoedgekeurdDoor.Id = GoedgekeurdDoor;
         }
     }
 }

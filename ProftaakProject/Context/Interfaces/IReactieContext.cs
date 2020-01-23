@@ -20,6 +20,6 @@ namespace ProftaakProject.Context.Interfaces
 
         bool ReactieGelezen(int reactieID);
 
-        bool ReactieGoedkeuren(int reactieID, int accountID);
+        bool ReactieGoedkeuren(int reactieID, int accountID, bool goedgekeurd);
     }
 }
