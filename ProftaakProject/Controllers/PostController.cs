@@ -41,11 +41,17 @@ namespace ProftaakProject.Controllers
             VraagViewModel vvm = ptavmc.ConvertToViewModel(pr.GetByID(id));
             vvm.Post.Id = id;
             vvm.Post.Auteur = ar.GetByID(vvm.Post.Auteur.Id);
+            vvm.Reacties = new List<Reactie>();
             foreach (Reactie r in rr.GetAll(vvm.Post.Id))
             {
                 if (r.Goedgekeurd)
                 {
                     r.GoedgekeurdDoor = ar.GetByID(r.GoedgekeurdDoor.Id);
+                    vvm.Reacties.Add(r);
+                }
+                else
+                {
+                    vvm.Reacties.Add(r);
                 }
             }
             return View(vvm);
