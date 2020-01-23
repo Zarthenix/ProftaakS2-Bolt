@@ -17,5 +17,7 @@ namespace ProftaakProject.Context.Interfaces
         bool VerwijderUitzend(int id);
 
         bool Update(Account account);
+
+        List<Post> GetAllPostsOfUser(int userId);
     }
 }

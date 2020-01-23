@@ -19,11 +19,13 @@ namespace ProftaakProject.Controllers
         private AccountToRegisterVMConverter _rvmc = new AccountToRegisterVMConverter();
         private AccountToLoginVMConverter _lvmc = new AccountToLoginVMConverter();
         private RoleRepo _roleRepo;
+        private PostRepo _postRepo;
 
-        public AccountController(AccountRepo accRepo, RoleRepo roleRepo)
+        public AccountController(AccountRepo accRepo, RoleRepo roleRepo, PostRepo postRepo)
         {
             _accRepo = accRepo;
             _roleRepo = roleRepo;
+            _postRepo = postRepo;
         }
 
         [HttpGet]
@@ -166,6 +168,19 @@ namespace ProftaakProject.Controllers
             };
 
             return View(avm);
+        }
+
+        [HttpGet]
+        public IActionResult Geschiedenis()
+        {
+            GeschiedenisViewModel gvm = new GeschiedenisViewModel();
+            PostToPostvmConverter pvc = new PostToPostvmConverter();
+            List<Post> postList = _accRepo.GetAllPostsOfUser(GetUserId());
+            foreach (var post in postList)
+            {
+                gvm.Posts.Add(pvc.ConvertToViewModel(post));
+            }
+            return View(gvm); 
         }
 
         //[HttpPost]

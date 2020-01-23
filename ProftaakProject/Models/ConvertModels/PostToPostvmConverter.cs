@@ -38,6 +38,7 @@ namespace ProftaakProject.Models.ConvertModels
                 {
                     pvm.ImageFile = Convert.ToBase64String(p.ImageFile);
                 }
+                pvm.Auteur = p.Auteur;
                 pvm.Uitgelicht = p.Uitgelicht;
             }
             return pvm;

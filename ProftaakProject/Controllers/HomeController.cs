@@ -19,11 +19,13 @@ namespace ProftaakProject.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private PostRepo postRepo;
+        private AccountRepo accountRepo;
 
-        public HomeController(ILogger<HomeController> logger, PostRepo prepo)
+        public HomeController(ILogger<HomeController> logger, PostRepo prepo, AccountRepo arepo)
         {
             _logger = logger;
             this.postRepo = prepo;
+            this.accountRepo = arepo;
         }
 
         [AllowAnonymous]
@@ -41,6 +43,7 @@ namespace ProftaakProject.Controllers
             }
             foreach (Post tempPost in postRepo.GetAllArtikelen())
             {
+                tempPost.Auteur = accountRepo.GetByID(tempPost.Auteur.Id);
                 tempModels.Add(ppc.ConvertToViewModel(tempPost));
             }
             pvm.PostViewModels = tempModels;

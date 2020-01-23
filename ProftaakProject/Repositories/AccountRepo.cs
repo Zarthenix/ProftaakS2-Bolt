@@ -61,5 +61,10 @@ namespace ProftaakProject.Models.Repositories
         {
             return accContext.Update(account);
         }
+
+        public List<Post> GetAllPostsOfUser(int userId)
+        {
+            return accContext.GetAllPostsOfUser(userId);
+        }
     }
 }

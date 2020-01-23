@@ -26,7 +26,7 @@ namespace ProftaakProject.Models
             Reactie
         }
         public Uitzendbureau Uitzendbureau { get; set; }
-        public Post(int id, string titel, string inhoud, int typeId, Tag tag, int goedgekeurdDoor, byte[] imageFile, bool uitgelicht)
+        public Post(int id, string titel, string inhoud, int typeId, Tag tag, int goedgekeurdDoor, Account account, byte[] imageFile, bool uitgelicht)
         {
             this.Id = id;
             this.Titel = titel;
@@ -34,6 +34,7 @@ namespace ProftaakProject.Models
             this.TypeId = typeId;
             this.Tag = tag;
             this.GoedgekeurdDoor = goedgekeurdDoor;
+            this.Auteur = account;
             this.ImageFile = imageFile;
             this.Uitgelicht = uitgelicht;
         }
