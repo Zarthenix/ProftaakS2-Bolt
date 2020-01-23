@@ -10,7 +10,9 @@
         <p class="card-text" style="font-size:20px">@Model.Post.Inhoud</p>
     </div>
     <div class="card-footer">
-        @*<p class="auteurText">Model.Auteur.Naam</p> <a href="@Url.Action("ArtikelToevoegen", "Post", new {Id = Model.Post.Id})">Bewerken</a><br /><a href="@Url.Action("ArtikelVerwijderen", "Post", new {Id = Model.Post.Id})">Verwijderen</a>*@
+        <p class="auteurText">@Model.Post.Auteur.Naam</p>
+        @if (User.IsInRole("Admin"))
+        {<a href="@Url.Action("ArtikelToevoegen", "Post", new { Id = Model.Post.Id })">Bewerken</a><br /><a href="@Url.Action("ArtikelVerwijderen", "Post", new { Id = Model.Post.Id })">Verwijderen</a>}
     </div>
     @if (Model.Reacties != null)
     {
@@ -19,7 +21,7 @@
             <div class="card-footer">
                 <div class="card-footer">@react.Inhoud</div>
                 <div class="card-text" style="font-size:15px">
-                    react.Auteur.Naam <a href="@Url.Action("ReactieVerwijderen", "Post", new {ReactieID = react.Id ,VraagID = Model.Post.Id})">Verwijderen</a>
+                    @react.Auteur.Naam <a href="@Url.Action("ReactieVerwijderen", "Post", new {ReactieID = react.Id ,VraagID = Model.Post.Id})">Verwijderen</a>
                 </div>
 
             </div>

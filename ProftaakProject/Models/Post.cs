@@ -50,7 +50,6 @@ namespace ProftaakProject.Models
             this.Tag = tag;
             this.GoedgekeurdDoor = goedgekeurdDoor;
             this.ImageFile = imageFile;
-
             this.Uitgelicht = false;
         }
 
@@ -62,7 +61,6 @@ namespace ProftaakProject.Models
             this.Inhoud = inhoud;
             this.TypeId = typeId;
             this.Tag = tag;
-
             this.Uitgelicht = false;
         }
 

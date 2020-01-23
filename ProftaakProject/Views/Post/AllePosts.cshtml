@@ -1,0 +1,42 @@
+﻿@model ProftaakProject.Models.ViewModels.PostModels.PostViewModel
+@using ProftaakProject.Models.ViewModels.PostModels
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AllePosts</title>
+</head>
+<body>
+    <table class="table table-bordered table-dark" align="center" style="width: 100%">
+        <tr>
+            <th>Post Image</th>
+            <th>Post Titel</th>
+            <th>Post Tag</th>
+            <th>Opties</th>
+        </tr>
+        @foreach (PostViewModel p in Model.PostViewModels)
+        {
+            <tr>
+                <td>
+                    @if (p.TypeId == 0)
+                    {
+                        <img src="data:image/png;base64,@p.ImageFile" />
+                    }
+                </td>
+                <td><label class="charName">@p.Titel</label></td>
+                <td><label class="charName">@p.Tag</label></td>
+                <td class="smalltd">
+                    <form method="get" asp-controller="Post" asp-action="Artikel">
+                        <input type="hidden" asp-for="Id" value="@p.Id" />
+                        <input type="submit" value="Openen" />
+                    </form>
+                    <form method="post" asp-controller="Post" asp-action="Verwijderen">
+                        <input type="hidden" asp-for="Id" value="@p.Id" />
+                        <input type="submit" value="Verwijderen" />
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>
+</body>
+</html>

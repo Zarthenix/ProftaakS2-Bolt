@@ -34,7 +34,7 @@ namespace ProftaakProject.Controllers
         [HttpGet]
         public IActionResult Vraag(int id, int reactieID)
         {
-            if(reactieID > 0)
+            if (reactieID > 0)
             {
                 rr.ReactieGelezen(reactieID);
             }
@@ -42,6 +42,7 @@ namespace ProftaakProject.Controllers
             PostToVraagvmConverter ptavmc = new PostToVraagvmConverter();
             VraagViewModel vvm = ptavmc.ConvertToViewModel(pr.GetByID(id));
             vvm.Post.Id = id;
+            vvm.Post.Auteur = ar.GetByID(vvm.Post.Auteur.Id);
             vvm.Reacties = rr.GetAll(vvm.Post.Id);
             return View(vvm);
         }
@@ -206,6 +207,7 @@ namespace ProftaakProject.Controllers
             vvm.ReactieAanmaken.Datum = DateTime.Now;
             vvm.ReactieAanmaken.PostID = vvm.Post.Id;
             vvm.ReactieAanmaken.Inhoud = vvm.ReactieInhoud;
+            vvm.ReactieAanmaken.Auteur = ar.GetByID(GetUserId());
             rr.Create(vvm.ReactieAanmaken);
             return RedirectToAction("Vraag", "Post", new { id = vvm.Post.Id });
         }

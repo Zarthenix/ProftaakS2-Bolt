@@ -50,5 +50,10 @@ namespace ProftaakProject.Models
             this.Email = email;
             List<Tag> GeabonneerdeTags = new List<Tag>();
         }
+        public Account(int id, string name)
+        {
+            this.Id = id;
+            this.Naam = name;
+        }
     }
 }
