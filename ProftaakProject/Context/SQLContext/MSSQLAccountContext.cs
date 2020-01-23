@@ -256,12 +256,13 @@ namespace ProftaakProject.Context.SQLContext
                                 p.ImageFile = (byte[])reader["imageFile"];
                             }
 
-                            p.Auteur = new Account((int) reader["accountId"]);
+                            p.Auteur = new Account((int)reader["accountId"]);
                             p.Uitgelicht = Convert.ToBoolean(reader["Uitgelicht"]);
                             postList.Add(p);
                         }
                         return postList;
-                    } 
+                    }
+
                 }
             }
         }
@@ -282,12 +283,46 @@ namespace ProftaakProject.Context.SQLContext
                     connection.Close();
                     return true;
                 }
-                catch(Exception exception)
+                catch (Exception exception)
                 {
                     Console.WriteLine(exception);
                 }
                 connection.Close();
                 return false;
+            }
+        }
+
+        public Account GetByEmail(string email)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                var query = "SELECT * FROM dbo.Account WHERE emailadres = @email;";
+                using (SqlCommand sqlCommand = new SqlCommand(query, connection))
+                {
+                    sqlCommand.CommandType = CommandType.Text;
+                    sqlCommand.Parameters.AddWithValue("@email", email);
+                    using (SqlDataReader reader = sqlCommand.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            var ac = new Account(-1);
+                            while (reader.Read())
+                            {
+                                ac.Id = (int)reader["accountID"];
+                                ac.Gebruikersnaam = reader["gebruikersnaam"].ToString();
+                                ac.Email = reader["emailadres"].ToString();
+                                ac.Geslacht = (Gender)reader["geslacht"];
+                                ac.Geboortedatum = (DateTime)reader["geboortedatum"];
+                            }
+                            return ac;
+                        }
+                        else
+                        {
+                            return new Account(-1);
+                        }
+                    }
+                }
             }
         }
     }

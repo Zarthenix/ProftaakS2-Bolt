@@ -14,6 +14,8 @@ namespace ProftaakProject.Context.Interfaces
 
         Account GetByName(string name);
 
+        Account GetByEmail(string email);
+
         bool VerwijderUitzend(int id);
 
         bool Update(Account account);
@@ -21,5 +23,7 @@ namespace ProftaakProject.Context.Interfaces
         List<Post> GetAllPostsOfUser(int userId);
 
         bool Delete(int id);
+
+
     }
 }

@@ -47,6 +47,7 @@ namespace ProftaakProject.Controllers
 
                 if (result)
                     retval = RedirectToAction("Index", "Home");
+                ModelState.AddModelError(nameof(lvm.Username), "Gebruikersnaam of wachtwoord is ongeldig.");
             }
 
             return retval;
@@ -94,6 +95,7 @@ namespace ProftaakProject.Controllers
                         retval = RedirectToAction("Index", "Home");
                     }
                 }
+                ModelState.AddModelError(nameof(rvm.Username), "This username or e-mail is already in use.");
             }
             return retval;
         }
