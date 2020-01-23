@@ -24,13 +24,13 @@ namespace ProftaakProject.Context.SQLContext
             try
             {
                 connection.Open();
-                query = "INSERT INTO Reactie (datum, inhoud,postID) VALUES (@datum, @inhoud, @vraagID)";
+                query = "INSERT INTO Reactie (datum, inhoud, postID, gezienDoorGebruiker) VALUES (@datum, @inhoud, @vraagID, 0)";
                 using SqlCommand cmd = new SqlCommand(query, connection);
                 cmd.Parameters.AddWithValue("@datum", reactie.Datum);
                 cmd.Parameters.AddWithValue("@inhoud", reactie.Inhoud);
                 cmd.Parameters.AddWithValue("@vraagID", reactie.PostID);
-                //            //cmd.Parameters.AddWithValue("@uitzendID", 1);
-                //            //cmd.Parameters.AddWithValue("@accountID", 1);
+                //cmd.Parameters.AddWithValue("@uitzendID", 1);
+                //cmd.Parameters.AddWithValue("@accountID", 1);
                 cmd.ExecuteNonQuery();
                 return true;
             }
@@ -82,7 +82,9 @@ namespace ProftaakProject.Context.SQLContext
                             (int)reader["reactieID"],
                             reader["inhoud"].ToString(),
                             (DateTime)reader["datum"],
-                            (int)reader["postId"]));
+                            (int)reader["postId"],
+                            Convert.ToBoolean(reader["gezienDoorGebruiker"])
+                            ));
                     }
                 }
                 connection.Close();
@@ -93,6 +95,29 @@ namespace ProftaakProject.Context.SQLContext
         public Reactie GetByID(int id)
         {
             throw new NotImplementedException();
+        }
+
+        public bool ReactieGelezen(int reactieID)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "UPDATE dbo.Reactie SET gezienDoorGebruiker = 1 WHERE dbo.Reactie.reactieID = @reactieID;";
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@reactieID", reactieID);
+                        cmd.ExecuteNonQuery();
+                        return true;
+                    }
+                }
+                catch (Exception exception)
+                {
+                    Console.WriteLine(exception);
+                    return false;
+                }
+            }
         }
 
         public bool Update(Reactie reactie)

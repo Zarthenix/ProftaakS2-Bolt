@@ -1,0 +1,37 @@
+﻿@model ProftaakProject.Models.ViewModels.VraagViewModel
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Notificaties</title>
+</head>
+<body>
+    @{if (Model.Reacties != null)
+        {
+            foreach (Reactie reactie in Model.Reacties)
+            {
+                if (!reactie.Gezien)
+                {
+                    <div class="card-footer">
+                        <a href="@Url.Action("Vraag", "Post", new {Id = reactie.PostID, reactieID = reactie.Id})">
+                            <div class="card-footer">@reactie.Inhoud</div>
+
+                            <div class="card-text" style="font-size:15px">
+                                reactie.Auteur.Naam
+                            </div>
+                        </a>
+                    </div>
+                }
+            }
+        }
+        else
+        {
+            <div class="card-footer">
+                <div class="card-footer">There is no new notifications.</div>
+                <div class="card-text" style="font-size:15px">
+                </div>
+            </div>
+        }
+    }
+</body>
+</html>

@@ -170,11 +170,12 @@ namespace ProftaakProject.Context.SQLContext
                                     new Tag((int)reader["tagID"], reader["naam"].ToString()),
                                     (int)reader["goedgekeurdDoor"],
                                     (byte[])reader["imageFile"],
-                                    Convert.ToBoolean(reader["Uitgelicht"])));
+                                    Convert.ToBoolean(reader["Uitgelicht"]),
+                                    (int)reader["uitzendID"]
+                                    ));
                             }
                         }
                     }
-
                     connection.Close();
                 }
             }
@@ -390,5 +391,46 @@ namespace ProftaakProject.Context.SQLContext
             return posts;
         }
 
+        public List<Post> GetAllVragenByID(int AccountId)
+        {
+            List<Post> posts = new List<Post>();
+            string query = "SELECT * FROM dbo.Post inner join dbo.Tag ON dbo.Tag.tagID = dbo.Post.tagID WHERE accountID = @accountID AND type = 1";
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    connection.Open();
+
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@accountID", AccountId);
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                posts.Add(new Post(
+                                    (int)reader["postId"],
+                                    reader["titel"].ToString(),
+                                    reader["inhoud"].ToString(),
+                                    (int)reader["type"],
+                                    new Tag((int)reader["tagID"], reader["naam"].ToString()),
+                                    (int)reader["goedgekeurdDoor"],
+                                    new byte[0],
+                                    Convert.ToBoolean(reader["Uitgelicht"]),
+                                    (int)reader["uitzendID"]
+                                    ));
+                            }
+                        }
+                    }
+                    connection.Close();
+                }
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                throw;
+            }
+            return posts;
+        }
     }
 }

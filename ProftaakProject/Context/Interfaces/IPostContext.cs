@@ -18,6 +18,8 @@ namespace ProftaakProject.Context.Interfaces
 
         List<Post> GetAllArtikelen();
 
+        List<Post> GetAllVragenByID(int AccountId);
+
         List<Post> FAQVragenByTag(Tag tag);
 
         bool IncrementViews(int postID);

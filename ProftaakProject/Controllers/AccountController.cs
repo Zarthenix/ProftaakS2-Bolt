@@ -99,6 +99,7 @@ namespace ProftaakProject.Controllers
         [HttpGet]
         public IActionResult Profiel(int? id)
         {
+            if (HttpContext.User?.Identity.IsAuthenticated == false) { return RedirectToAction("Login", "Account"); }
             Account ac = new Account();
 
             if (id == null)
@@ -119,6 +120,7 @@ namespace ProftaakProject.Controllers
         [HttpGet]
         public IActionResult ProfielBewerken()
         {
+            if (HttpContext.User?.Identity.IsAuthenticated == false) { return RedirectToAction("Login", "Account"); }
             ProfielViewModel prvm = new ProfielViewModel();
             AccountToProfielvmConvert atpvmc = new AccountToProfielvmConvert();
             Account ac = _accRepo.GetByName(HttpContext.User.Identity.Name);
@@ -129,7 +131,6 @@ namespace ProftaakProject.Controllers
         [HttpPost]
         public IActionResult ProfielOpslaan(ProfielViewModel prvm)
         {
-
             AccountToProfielvmConvert atpvmc = new AccountToProfielvmConvert();
             _accRepo.Update(atpvmc.ConvertToModel(prvm));
             return RedirectToAction("Profiel", "Account");
