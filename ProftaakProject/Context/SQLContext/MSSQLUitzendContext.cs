@@ -239,25 +239,54 @@ namespace ProftaakProject.Context.SQLContext
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
-
-                using (SqlCommand sqlCommand = new SqlCommand("Select * from Uitzendbureau where uitzendID = (Select uitzendID from Account where accountID = @accountID)", connection))
+                string query = "Select * from Uitzendbureau where uitzendID = (Select uitzendID from Account where accountID = @accountID)";
+                using (SqlCommand sqlCommand = new SqlCommand(query, connection))
                 {
                     sqlCommand.Parameters.AddWithValue("@accountID", id);
                     using (SqlDataReader reader = sqlCommand.ExecuteReader())
                     {
                         if (reader.HasRows)
                         {
-
                             while (reader.Read())
                             {
-                                Uitzendbureau ub = new Uitzendbureau((int) reader["uitzendID"],
-                                    reader["naam"].ToString(), (int) reader["eigenaar"]);
+                                Uitzendbureau ub = new Uitzendbureau((int)reader["uitzendID"],
+                                    reader["naam"].ToString(), (int)reader["eigenaar"]);
                                 return ub;
                             }
                         }
                         return null;
                     }
                 }
+            }
+        }
+
+        public bool CheckIfAccountInUitzend(int accountID)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "Select * from Uitzendbureau where uitzendID = (Select uitzendID from Account where accountID = @accountID)";
+                    using (SqlCommand sqlCommand = new SqlCommand(query, connection))
+                    {
+                        sqlCommand.Parameters.AddWithValue("@accountID", accountID);
+                        using (SqlDataReader reader = sqlCommand.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                            {
+                                return true;
+                            }
+                        }
+                    }
+                    connection.Close();
+                }
+                catch (Exception exc)
+                {
+                    Console.WriteLine(exc);
+                }
+                connection.Close();
+                return false;
             }
         }
     }

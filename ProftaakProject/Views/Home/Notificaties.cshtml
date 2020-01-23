@@ -6,6 +6,7 @@
     <title>Notificaties</title>
 </head>
 <body>
+    <h2>Notificaties</h2>
     @{var heeftReacties = false;
         if (Model.Reacties != null || Model.Reacties.Count > 0)
         {
@@ -19,7 +20,7 @@
                             <div class="card-footer">@reactie.Inhoud</div>
 
                             <div class="card-text" style="font-size:15px">
-                                @reactie.Auteur.Naam
+                                Auteur: @reactie.Auteur.Naam
                             </div>
                         </a>
                     </div>

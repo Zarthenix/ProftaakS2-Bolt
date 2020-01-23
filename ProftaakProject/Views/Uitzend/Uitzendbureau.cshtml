@@ -1,5 +1,4 @@
-﻿@using ProftaakProject.Models.ViewModels
-@model ProftaakProject.Models.ViewModels.UitzendViewModel
+﻿@model ProftaakProject.Models.ViewModels.UitzendViewModel
 @{
     ViewData["Title"] = "Uitzendbureau";
 }
@@ -24,10 +23,11 @@
                     <td>
                         @if (User.IsInRole("Admin"))
                         {
-                            <form asp-controller="Uitzend">
-                                <input type="hidden" asp-for="@Model.Id" value="@Model.Id" />
-                                <input type="hidden" asp-for="@Model.AccountTeVerwijderen.Id" value="@accvm.Id" />
-                                <input class="btn btn-dark" type="submit" asp-action="VerwijderGebruiker" formmethod="post" value="Verwijder" />
+                            <a class="btn btn-success" href="@Url.Action("VerwijderGebruiker", "Uitzend", new { UitzendID = Model.Id, AccountID = accvm.Id })">Verwijderen</a>
+                            <form asp-controller="Uitzend" method="post">
+                                <input type="hidden" asp-for="Id" value="@Model.Id" />
+                                <input type="hidden" asp-for="AccountTeVerwijderen.Id" value="@accvm.Id" />
+                                <input class="btn btn-dark" type="submit" asp-action="VerwijderGebruiker" value="Verwijder" />
                             </form>
                         }
                     </td>

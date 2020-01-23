@@ -34,9 +34,16 @@ else
     </div>
     <div class="card-footer row">
         <div class="col-md-4">
-            <p class="auteurText">@Model.Post.Auteur.Naam</p>
+            <p class="auteurText">Auteur: @Model.Post.Auteur.Naam</p>
+        </div>
+        <div class="col-md-4">
             @if (Model.Post.Uitzendbureau != null)
-            {<p class="auteurText">@Model.Post.Uitzendbureau.Naam</p>}
+            {
+                <p class="auteurText">Uitzendbureau: @Model.Post.Uitzendbureau.Naam</p>
+            }
+        </div>
+        <div class="col-md-4">
+            <p class="auteurText">Onderwerp: @Model.Post.Tag.Naam</p>
         </div>
         @if (User.Identity.IsAuthenticated)
         {

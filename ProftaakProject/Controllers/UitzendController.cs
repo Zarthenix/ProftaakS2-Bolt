@@ -72,29 +72,16 @@ namespace ProftaakProject.Controllers
 
             return View("UitzendToevoegen", uvm);
         }
-        
+
         [HttpGet]
         public IActionResult Uitzendbureau(int id, UitzendViewModel uvm)
         {
             if (HttpContext.User?.Identity.IsAuthenticated == false) { return RedirectToAction("Login", "Account"); }
-
+            if (!User.IsInRole("Admin") && !ur.CheckIfAccountInUitzend(GetUserId())) { return RedirectToAction("Index", "Home"); }
             UitzendToUitzendvmConvert utuvmc = new UitzendToUitzendvmConvert();
-
-            Uitzendbureau ub = ur.GetByID(id);
-            ub.Id = id;
-
-            uvm.Ingelogd = ar.GetByID(GetUserId());
-            Uitzendbureau ubFromUser = new Uitzendbureau(-1);
-            ubFromUser = ur.GetByAccountID(uvm.Ingelogd.Id);
-            
-            if (ubFromUser.Id != ub.Id)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
-            uvm = utuvmc.ConvertToViewModel(ub);
+            uvm = utuvmc.ConvertToViewModel(ur.GetByID(id));
+            uvm.AccountTeVerwijderen = new Account(0, "");
             List<AccountViewModel> avms = new List<AccountViewModel>();
-            //uvm.avm = avms;
             uvm.avm = ur.GetUitzendAccounts(id);
             return View(uvm);
         }
@@ -137,12 +124,11 @@ namespace ProftaakProject.Controllers
             return View(avm);
         }
 
-        [HttpPost]
-        public IActionResult VerwijderGebruiker(UitzendViewModel uvm)
+        [HttpGet]
+        public IActionResult VerwijderGebruiker(int UitzendID, int AccountID)
         {
-            ur.VerwijderAccountUitzend(uvm.AccountTeVerwijderen.Id);
-            return RedirectToAction("Uitzendbureau", "Uitzend", new { id = uvm.Id });
-            //return 
+            ur.VerwijderAccountUitzend(AccountID);
+            return RedirectToAction("Uitzendbureau", "Uitzend", new { id = UitzendID });
         }
     }
 }

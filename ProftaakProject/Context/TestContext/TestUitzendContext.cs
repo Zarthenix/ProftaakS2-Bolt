@@ -53,5 +53,10 @@ namespace ProftaakProject.Context.TestContext
         {
             throw new NotImplementedException();
         }
+
+        public bool CheckIfAccountInUitzend(int accountID)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -20,22 +20,17 @@
                 <td>@ub.Eigenaar</td>
                 @if (User.IsInRole("Admin"))
                 {
-
-
                     <td>
-
                         <form asp-controller="Uitzend" asp-action="UitzendBewerken">
                             <input class="btn btn-dark" type="submit" value="Bewerken">
                             <input type="hidden" asp-for="Id" value="@ub.Id" />
                             <input type="hidden" asp-for="Naam" value="@ub.Naam" />
                         </form>
-
                     </td>
                     <td>
                         <form>
                             <input type="submit" class="btn btn-dark" asp-controller="Uitzend" value="Verwijderen" asp-action="VerwijderUb" asp-route-id="@ub.Id" />
                         </form>
-
                     </td>
                 }
             </tr>

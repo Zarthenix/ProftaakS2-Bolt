@@ -8,8 +8,6 @@ namespace ProftaakProject.Context.Interfaces
 {
     public interface IUitzendContext
     {
-
-
         public bool Create(Uitzendbureau ub);
 
         public bool Update(Uitzendbureau ub);
@@ -27,5 +25,7 @@ namespace ProftaakProject.Context.Interfaces
         public bool VerwijderAccountUitzend(int id);
 
         public Uitzendbureau GetByAccountID(int id);
+
+        public bool CheckIfAccountInUitzend(int accountID);
     }
 }

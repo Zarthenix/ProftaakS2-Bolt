@@ -8,7 +8,7 @@
         <p class="card-text" style="font-size:20px">@Model.Post.Inhoud</p>
     </div>
     <div class="card-footer">
-        <p class="auteurText">@Model.Post.Auteur.Naam</p>
+        <p class="auteurText">Auteur: @Model.Post.Auteur.Naam</p>
         @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
         {
             <div class="row">
@@ -33,11 +33,11 @@
                         <div class="card-text" style="font-size:15px">
                             <br />
                             <div class="row">
-                                <div class="col-md-6">
-                                    @react.Auteur.Naam
+                                <div class="col-md-8">
+                                    Auteur: @react.Auteur.Naam
                                 </div>
-                                <div class="col-md-6">
-                                    @react.GoedgekeurdDoor.Naam
+                                <div class="col-md-4">
+                                    Goedgekeurd door: @react.GoedgekeurdDoor.Naam
                                 </div>
                                 <div class="col-md-2">
                                     <a class="btn btn-success" href="@Url.Action("ReactieGoedkeuren", "Post", new { ReactieID = react.Id, VraagID = Model.Post.Id, Goedgekeurd = react.Goedgekeurd })">Afkeuren</a>
@@ -58,7 +58,7 @@
                         <br />
                         <div class="row">
                             <div class="col-md-8">
-                                @react.Auteur.Naam
+                                Auteur: @react.Auteur.Naam
                             </div>
                             @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
                             {

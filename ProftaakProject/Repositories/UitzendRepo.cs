@@ -22,7 +22,7 @@ namespace ProftaakProject.Models.Repositories
 
         public bool Check(Uitzendbureau u)
         {
-            if(u.Id < 0)
+            if (u.Id < 0)
             {
                 return ctx.Create(u);
             }
@@ -70,6 +70,10 @@ namespace ProftaakProject.Models.Repositories
         public Uitzendbureau GetByAccountID(int id)
         {
             return ctx.GetByAccountID(id);
+        }
+        public bool CheckIfAccountInUitzend(int accountID)
+        {
+            return ctx.CheckIfAccountInUitzend(accountID);
         }
     }
 }
