@@ -255,8 +255,8 @@ namespace ProftaakProject.Context.SQLContext
                             {
                                 p.ImageFile = (byte[])reader["imageFile"];
                             }
-                            p.Auteur = new Account();
-                            p.Auteur.Id = (int)reader["accountId"];
+
+                            p.Auteur = new Account((int) reader["accountId"]);
                             p.Uitgelicht = Convert.ToBoolean(reader["Uitgelicht"]);
                             postList.Add(p);
                         }

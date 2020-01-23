@@ -39,7 +39,7 @@ namespace ProftaakProject.Controllers
             pvm.HuidigeAccount.GeabonneerdeTags = new List<Tag>();
             List<PostViewModel> tempModels = new List<PostViewModel>();
             PostToPostvmConverter ppc = new PostToPostvmConverter();
-            Account sessionAccount = new Account();
+            Account sessionAccount = new Account(-1);
             List<Post> posts;
             if (User.Identity.IsAuthenticated)
             {

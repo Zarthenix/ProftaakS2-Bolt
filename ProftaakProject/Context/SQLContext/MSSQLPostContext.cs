@@ -375,8 +375,7 @@ namespace ProftaakProject.Context.SQLContext
                             tempPost.TypeId = (int)reader["type"];
                             Tag t = new Tag((int)reader["tagID"], reader["naam"].ToString());
                             tempPost.GoedgekeurdDoor = (int)reader["goedgekeurdDoor"];
-                            tempPost.Auteur = new Account();
-                            tempPost.Auteur.Id = (int)reader["accountId"];
+                            tempPost.Auteur = new Account((int)reader["accountId"]);
                             if ((tempPost.TypeId == 0))
                             {
                                 tempPost.ImageFile = (byte[])reader["imageFile"];
@@ -493,8 +492,7 @@ namespace ProftaakProject.Context.SQLContext
                                 {
                                     p.ImageFile = (byte[])reader["imageFile"];
                                 }
-                                p.Auteur = new Account();
-                                p.Auteur.Id = (int)reader["accountId"];
+                                p.Auteur = new Account((int)reader["accountId"]);
                                 p.Uitgelicht = Convert.ToBoolean(reader["Uitgelicht"]);
                                 postList.Add(p);
                             }
