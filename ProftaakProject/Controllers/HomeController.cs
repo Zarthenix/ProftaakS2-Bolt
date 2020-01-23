@@ -86,6 +86,7 @@ namespace ProftaakProject.Controllers
         }
         public IActionResult Notificaties()
         {
+            if (HttpContext.User?.Identity.IsAuthenticated == false) { return RedirectToAction("Login", "Account"); }
             var vvm = new VraagViewModel();
             vvm.Reacties = new List<Reactie>();
             foreach (Post p in postRepo.GetAllVragenByID(GetUserId()))

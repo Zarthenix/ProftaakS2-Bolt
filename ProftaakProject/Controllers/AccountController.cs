@@ -162,6 +162,7 @@ namespace ProftaakProject.Controllers
         [HttpGet]
         public IActionResult Geschiedenis()
         {
+            if (HttpContext.User?.Identity.IsAuthenticated == false) { return RedirectToAction("Login", "Account"); }
             GeschiedenisViewModel gvm = new GeschiedenisViewModel();
             PostToPostvmConverter pvc = new PostToPostvmConverter();
             List<Post> postList = _accRepo.GetAllPostsOfUser(GetUserId());
