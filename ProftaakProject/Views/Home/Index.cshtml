@@ -35,7 +35,7 @@
                 <input class="btn btn-dark" asp-controller="Post" asp-action="LijstArtikelGoedkeuren" value="Artikelen Goedkeuren" type="submit" />
             </form>
         }
-
+        <br/>
         @if (Model.sorteerInt == 0)
         {
             <form>
@@ -48,8 +48,7 @@
                 <button type="submit" class="btn btn-dark" value="0" name="sorteerInt">Sorteer op Nieuw</button>
             </form>
         }
-
-
+               <br/>
         @foreach (PostViewModel postTemp in Model.PostViewModels)
         {
             <div class="postTijdlijn">
