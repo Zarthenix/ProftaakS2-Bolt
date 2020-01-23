@@ -25,15 +25,15 @@ namespace ProftaakProject.Context.SQLContext
             bool result = false;
             using (var connection = new SqlConnection(_connectionString))
             {
-                SqlCommand cmd = new SqlCommand("EXEC dbo.[CreateEvent]", connection)
+                SqlCommand cmd = new SqlCommand("EXEC dbo.[CreateEvent] @Naam = @name, @Datum = @date, @Host = @owner, @Locatie = @location, @MaxDeelnemers = @maxPart", connection)
                 {
                     Parameters =
                     {
-                        "@name", evenement.Naam,
-                        "@date", evenement.Datum,
-                        "@eigenaar", userId,
-                        "@location", evenement.Locatie,
-                        "@maxPart", evenement.MaxDeelnemers
+                        new SqlParameter("@name", evenement.Naam),
+                        new SqlParameter("@date", evenement.Datum),
+                        new SqlParameter("@owner", userId),
+                        new SqlParameter("@location", evenement.Locatie),
+                        new SqlParameter("@maxPart", evenement.MaxDeelnemers)
                     }
                 };
 
@@ -63,10 +63,8 @@ namespace ProftaakProject.Context.SQLContext
                 using SqlDataReader reader = cmd.ExecuteReader();
                 if (reader.HasRows)
                 {
-                    Evenement evenement = new Evenement
-                    {
-                        Id = id
-                    };
+                    Evenement evenement = new Evenement(id);
+                    
                     while (reader.Read())
                     {
                         evenement.Naam = reader["naam"].ToString();
@@ -86,17 +84,17 @@ namespace ProftaakProject.Context.SQLContext
             bool result = false;
             using (var connection = new SqlConnection(_connectionString))
             {
-                SqlCommand cmd = new SqlCommand("EXEC dbo.[UpdateEvenement]", connection)
+                SqlCommand cmd = new SqlCommand("EXEC dbo.[UpdateEvenement] @naam = @name, @datum = @date, @host = @owner, @locatie = @location, @maxdeelnemers = @maxPart, @id = @evid", connection)
                 {
                     CommandType = CommandType.StoredProcedure,
                     Parameters =
                     {
-                        "@naam", ev.Naam,
-                        "@datum", ev.Datum,
-                        "@host", ev.Host,
-                        "@locatie", ev.Locatie,
-                        "@maxdeelnemers", ev.MaxDeelnemers,
-                        "@id", ev.Id
+                        new SqlParameter("@name", ev.Naam),
+                        new SqlParameter("@date", ev.Datum),
+                        new SqlParameter("@owner", ev.Host),
+                        new SqlParameter("@location", ev.Locatie),
+                        new SqlParameter("@maxPart", ev.MaxDeelnemers),
+                        new SqlParameter("@evid", ev.Id)
                     }
                 };
                 try
@@ -117,10 +115,9 @@ namespace ProftaakProject.Context.SQLContext
             bool result = false;
             using (var connection = new SqlConnection(_connectionString))
             {
-                SqlCommand cmd = new SqlCommand("DELETE FROM dbo.[Evenement] WHERE [evtId] = @id")
-                {
-                    Parameters = {"@id", id}
-                };
+                SqlCommand cmd = new SqlCommand("DELETE FROM dbo.[Evenement] WHERE [evtId] = @id");
+                cmd.Parameters.AddWithValue("@id", id);
+                
                 
                 try
                 {
@@ -154,7 +151,7 @@ namespace ProftaakProject.Context.SQLContext
             }
             foreach (DataRow dr in ds.Tables[0].Rows)
             {
-                Evenement evenement = new Evenement()
+                Evenement evenement = new Evenement((int)dr["evtID"])
                 {
                     Id = (int)dr["evtID"],
                     Naam = dr["naam"].ToString(),

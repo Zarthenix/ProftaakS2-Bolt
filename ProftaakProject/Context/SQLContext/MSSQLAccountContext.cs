@@ -102,7 +102,7 @@ namespace ProftaakProject.Context.SQLContext
             {
                 connection.Open();
 
-                using (SqlCommand sqlCommand = new SqlCommand("SELECT gebruikersnaam, wachtwoord, emailadres, naam, geslacht, geboortedatum, role.Name AS RoleName, role.Id AS RoleId From Account Join User_Role on User_Role.User_Id = Account.accountID join Role on User_Role.Role_Id = Role.Id Where accountID = @accountID", connection))
+                using (SqlCommand sqlCommand = new SqlCommand("SELECT gebruikersnaam, wachtwoord, emailadres, naam, geslacht, geboortedatum, role.Name AS RoleName, role.Id AS RoleId ,uitzendID From Account Join User_Role on User_Role.User_Id = Account.accountID join Role on User_Role.Role_Id = Role.Id Where accountID = @accountID", connection))
                 {
                     sqlCommand.CommandType = CommandType.Text;
                     sqlCommand.Parameters.AddWithValue("@accountID", id);
@@ -123,6 +123,10 @@ namespace ProftaakProject.Context.SQLContext
                                 role.Id = Convert.ToInt32(reader["RoleId"]);
                                 role.Naam = reader["RoleName"].ToString();
                                 ac.Rol = role;
+                                if (reader["uitzendID"].ToString() != "")
+                                {
+                                    ac.UitzendID = (int)reader["uitzendID"];
+                                }
                             }
                             return ac;
                         }

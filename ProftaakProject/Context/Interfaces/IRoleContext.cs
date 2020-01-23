@@ -10,5 +10,9 @@ namespace ProftaakProject.Context.Interfaces
     {
         List<Role> GetAllRole();
 
+        bool Update(int userId, int roleId);
+
+        Role GetByUserId(int id);
+
     }
 }

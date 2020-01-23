@@ -13,6 +13,8 @@ namespace ProftaakProject.Controllers
 {
     public class EvenementController : BaseController
     {
+
+
         private readonly EvenementRepo _evenementRepo;
         private readonly EvenementToEvenementVMConverter _eevmc = new EvenementToEvenementVMConverter();
         public EvenementController(EvenementRepo evr)

@@ -32,9 +32,9 @@ namespace ProftaakProject
             services.Configure<IdentityOptions>(options =>
             {
                 // Default Password settings.
-                options.Password.RequireDigit = false;
+                options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = true;
-                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireNonAlphanumeric = true;
                 options.Password.RequireUppercase = true;
                 options.Password.RequiredLength = 6;
                 options.Password.RequiredUniqueChars = 1;
@@ -88,6 +88,9 @@ namespace ProftaakProject
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Account}/{action=Login}/{id?}");
+                endpoints.MapControllerRoute(
+                    name: "evenement",
+                    pattern: "{controller=Evenement}/{action=Index}");
                 endpoints.MapControllerRoute(
                     name: "profiel",
                     pattern: "profiel/{id?}",

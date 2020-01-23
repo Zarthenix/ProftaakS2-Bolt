@@ -32,8 +32,12 @@ namespace ProftaakProject.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public IActionResult Vraag(int id)
+        public IActionResult Vraag(int id, int reactieID)
         {
+            if(reactieID > 0)
+            {
+                rr.ReactieGelezen(reactieID);
+            }
             pr.IncrementViews(id);
             PostToVraagvmConverter ptavmc = new PostToVraagvmConverter();
             VraagViewModel vvm = ptavmc.ConvertToViewModel(pr.GetByID(id));

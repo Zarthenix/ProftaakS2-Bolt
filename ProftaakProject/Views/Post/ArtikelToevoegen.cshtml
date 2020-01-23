@@ -21,9 +21,15 @@
                 <span asp-validation-for="Inhoud" class="text-danger"></span>
             </div>
             <div class="col-md-4">
-                @if (Model.Uitzendbureau.Id > 0)
+                @if (Model.Uitzendbureau != null)
                 {
-                    <input type="checkbox" asp-for="HeeftUitzendbureau" /> <label>Uitzendbureau koppelen</label>
+                    var gebruiker = true;//Dit zorgt ervoor dat een gebruiker altijd post naar zijn uitzendbureau.
+                    if (Model.Uitzendbureau.Id > 0)
+                    {
+                        <input type="checkbox" asp-for="HeeftUitzendbureau" /> <label>Uitzendbureau koppelen</label>
+                        if (User.IsInRole("Gebruiker"))
+                        { <input type="hidden" asp-for="HeeftUitzendbureau" value="@gebruiker" /> <label>Uitzendbureau koppelen</label>}
+                    }
                 }
             </div>
             <div class="col-md-3">

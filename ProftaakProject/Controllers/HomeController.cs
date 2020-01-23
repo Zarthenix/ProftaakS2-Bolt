@@ -20,12 +20,14 @@ namespace ProftaakProject.Controllers
         private readonly ILogger<HomeController> _logger;
         private PostRepo postRepo;
         private AccountRepo accountRepo;
+        private ReactieRepo reactieRepo;
 
-        public HomeController(ILogger<HomeController> logger, PostRepo prepo, AccountRepo arepo)
+        public HomeController(ILogger<HomeController> logger, PostRepo prepo, AccountRepo arepo, ReactieRepo rrepo)
         {
             _logger = logger;
             this.postRepo = prepo;
             this.accountRepo = arepo;
+            this.reactieRepo = rrepo;
         }
 
         [AllowAnonymous]
@@ -37,12 +39,21 @@ namespace ProftaakProject.Controllers
             pvm.HuidigeAccount.GeabonneerdeTags = new List<Tag>();
             List<PostViewModel> tempModels = new List<PostViewModel>();
             PostToPostvmConverter ppc = new PostToPostvmConverter();
+            Account sessionAccount = new Account();
+            if (User.Identity.IsAuthenticated)
+            {
+                sessionAccount = accountRepo.GetByID(GetUserId());
+            }
             if (User.Identity.IsAuthenticated)
             {
                 pvm.HuidigeAccount.GeabonneerdeTags = postRepo.GetAllGeabonneerdeTags(GetUserId());
             }
             foreach (Post tempPost in postRepo.GetAllArtikelen())
             {
+                if (tempPost.Uitzendbureau.Id == sessionAccount.UitzendID || tempPost.Uitzendbureau.Id == 0 || User.IsInRole("Admin"))
+                {
+                    tempModels.Add(ppc.ConvertToViewModel(tempPost));
+                }
                 tempPost.Auteur = accountRepo.GetByID(tempPost.Auteur.Id);
                 tempModels.Add(ppc.ConvertToViewModel(tempPost));
             }
@@ -69,6 +80,19 @@ namespace ProftaakProject.Controllers
         public IActionResult SearchResult()
         {
             return View();
+        }
+        public IActionResult Notificaties()
+        {
+            var vvm = new VraagViewModel();
+            vvm.Reacties = new List<Reactie>();
+            foreach (Post p in postRepo.GetAllVragenByID(GetUserId()))
+            {
+                foreach (Reactie r in reactieRepo.GetAll(p.Id))
+                {
+                    vvm.Reacties.Add(r);
+                }
+            }
+            return View(vvm);
         }
     }
 }

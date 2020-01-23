@@ -86,7 +86,7 @@ namespace ProftaakProject.Controllers
                 if (ModelState.IsValid)
                 {
                     Account user = _rvmc.ConvertToModel(rvm);
-                    bool result = await _accRepo.Register(user, 1);
+                    bool result = await _accRepo.Register(user, 0);
 
                     if (result)
                     {
@@ -101,6 +101,7 @@ namespace ProftaakProject.Controllers
         [HttpGet]
         public IActionResult Profiel(int? id)
         {
+            if (HttpContext.User?.Identity.IsAuthenticated == false) { return RedirectToAction("Login", "Account"); }
             Account ac = new Account();
 
             if (id == null)
@@ -121,6 +122,7 @@ namespace ProftaakProject.Controllers
         [HttpGet]
         public IActionResult ProfielBewerken()
         {
+            if (HttpContext.User?.Identity.IsAuthenticated == false) { return RedirectToAction("Login", "Account"); }
             ProfielViewModel prvm = new ProfielViewModel();
             AccountToProfielvmConvert atpvmc = new AccountToProfielvmConvert();
             Account ac = _accRepo.GetByName(HttpContext.User.Identity.Name);
@@ -131,7 +133,6 @@ namespace ProftaakProject.Controllers
         [HttpPost]
         public IActionResult ProfielOpslaan(ProfielViewModel prvm)
         {
-
             AccountToProfielvmConvert atpvmc = new AccountToProfielvmConvert();
             _accRepo.Update(atpvmc.ConvertToModel(prvm));
             return RedirectToAction("Profiel", "Account");
@@ -143,18 +144,6 @@ namespace ProftaakProject.Controllers
 
             return View();
         }
-
-        ////[HttpGet]
-        //public IActionResult Rol()
-        //{
-        //    List<Rol> rols = _accRepo.GetAll();
-
-        //    AccountViewModel avm = new AccountViewModel()
-        //    {
-        //        accs = rols
-        //    };
-        //    return View();
-        //}
 
         [HttpGet]
         public IActionResult RolGeven(int userId)
@@ -182,26 +171,17 @@ namespace ProftaakProject.Controllers
             }
             return View(gvm); 
         }
-
-        //[HttpPost]
-        //public IActionResult RolOpslaan(RolViewModel rvm)
-        //{
-
-        //    AccountToProfielvmConvert atpvmc = new AccountToProfielvmConvert();
-        //    _accRepo.Update(atpvmc.ConvertToModel(rvm));
-        //    return RedirectToAction("Profiel", "Account");
-        //}
-
-        /*
-       [HttpPost]
-        public IActionResult RolGeven(RolViewModel rvm) {
-        Role nieuweRol = rolVmConverter.ConvertToModel(rvm);
-
-            if (nieuweRol != _rolRepo.GetByUserId(rvm.UserId)) {
-            _rolRepo.Update(rvm.UserId, nieuweRol);
+        [HttpPost]
+        public IActionResult RolOpslaan(RolViewModel rvm)
+        {
+            //AccountToRolConverter atrvmc = new AccountToRolConverter();
+            if (rvm.NieuwRolId != _roleRepo.GetByUserId(rvm.UserId).Id)
+            {
+                _roleRepo.Update(rvm.UserId, rvm.NieuwRolId);
             }
+            return RedirectToAction("Profiel", "Account");
         }
-        */
+
 
         //[HttpGet]
         //public IActionResult Accountlijst()

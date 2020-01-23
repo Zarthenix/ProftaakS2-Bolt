@@ -15,16 +15,18 @@ namespace ProftaakProject.Models
         public bool Goedgekeurd { get; set; }
         public int PostID { get; set; }
         public Account Auteur { get; set; }
+        public bool Gezien { get; set; }
         public Reactie()
         {
 
         }
-        public Reactie(int Id, string Inhoud, DateTime Datum, int PostID)
+        public Reactie(int Id, string Inhoud, DateTime Datum, int PostID, bool Gezien)
         {
             this.Id = Id;
             this.Inhoud = Inhoud;
             this.Datum = Datum;
             this.PostID = PostID;
+            this.Gezien = Gezien;
         }
     }
 }

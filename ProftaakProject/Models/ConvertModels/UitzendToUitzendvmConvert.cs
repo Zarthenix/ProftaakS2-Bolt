@@ -10,9 +10,8 @@ namespace ProftaakProject.Models.ConvertModels
     {
         public Uitzendbureau ConvertToModel(UitzendViewModel uvm)
         {
-            Uitzendbureau ub = new Uitzendbureau();
+            Uitzendbureau ub = new Uitzendbureau(uvm.Id);
             {
-                ub.Id = uvm.Id;
                 ub.Naam = uvm.Naam;
                 ub.Eigenaar = uvm.Eigenaar;
             }
