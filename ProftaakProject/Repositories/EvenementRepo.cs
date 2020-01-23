@@ -35,6 +35,16 @@ namespace ProftaakProject.Repositories
             return _context.Delete(eventId);
         }
 
+        public void SignOut(int eventId, int userId)
+        {
+            _context.SignOut(eventId, userId);
+        }
+
+        public void SignIn(int eventId, int userId)
+        {
+            _context.SignIn(eventId, userId);
+        }
+
         public List<Evenement> GetAvailableEvents(int userid)
         {
             return _context.GetAvailableEvents(userid);

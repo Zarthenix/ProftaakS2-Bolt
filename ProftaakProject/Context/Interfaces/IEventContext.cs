@@ -13,7 +13,8 @@ namespace ProftaakProject.Context.Interfaces
         bool Update(Evenement ev);
         bool Delete(int eventId);
         List<Evenement> GetAllByUserId(int userId);
-
+        void SignOut(int eventId, int userId);
+        void SignIn(int eventId, int userId);
         List<Evenement> GetAvailableEvents(int userId);
 
     }

@@ -19,7 +19,7 @@ namespace ProftaakProject.Models.ViewModels.EventModels
         [Display(Name = "Datum")]
         [DataType(DataType.DateTime)]
   
-        public DateTime Datum { get; set; } = DateTime.Now;
+        public DateTime Datum { get; set; } = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second, DateTime.Now.Kind);
         
 
         [Display(Name = "Organizator")]
@@ -28,11 +28,17 @@ namespace ProftaakProject.Models.ViewModels.EventModels
         public string HostNaam { get; set; }
 
         [DataType(DataType.Text)]
+        public string Omschrijving { get; set; }
+
+        [DataType(DataType.Text)]
         [Display(Name = "Locatie")]
         [StringLength(50, ErrorMessage = "Maximaal 50 karakters.")]
         public string Locatie { get; set; }
 
         [Display(Name = "Maximaal aantal deelnemers.")]
         public int MaxDeelnemers { get; set; }
+
+        [Display(Name="Alleen naar uitzendbureau posten.")]
+        public bool EnkelUitzendbureau { get; set; }
     }
 }

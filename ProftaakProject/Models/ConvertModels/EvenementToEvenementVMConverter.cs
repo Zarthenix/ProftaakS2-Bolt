@@ -15,6 +15,7 @@ namespace ProftaakProject.Models.ConvertModels
                 Id = ev.Id,
                 Naam = ev.Naam,
                 HostId = ev.Host.Id,
+                Omschrijving = ev.Omschrijving,
                 HostNaam = ev.Host.Naam,
                 Locatie = ev.Locatie,
                 Datum = ev.Datum,
@@ -30,6 +31,7 @@ namespace ProftaakProject.Models.ConvertModels
             {
                 Host = new Account(evm.HostId, evm.HostNaam),
                 Locatie = evm.Locatie,
+                Omschrijving = evm.Omschrijving,
                 Datum = evm.Datum,
                 MaxDeelnemers = evm.MaxDeelnemers,
                 Naam = evm.Naam
