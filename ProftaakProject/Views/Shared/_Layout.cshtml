@@ -37,12 +37,12 @@
                             <a href="@Url.Action("Index", "Home")"> <i>Easyflex</i></a>
                         </h1>
                     </div>
-                    @if (User.Identity.IsAuthenticated)
+                    @*@if (User.Identity.IsAuthenticated)
                     {
                         <div class="col-md-3">
                             <a href="@Url.Action("Notificaties", "Home")" style="color:white">Notifications</a>
                         </div>
-                    }
+                    }*@
                     <div class="offset-md-3 col-md-3">
                         <form class="form-inline">
                             <div>
@@ -75,6 +75,11 @@
                             }
                             <br />
                             <a class="nav-link side-bar-text" asp-area="" asp-controller="Account" asp-action="Profiel"><i class="far fa-user-circle fa-2x icon"></i><label>Profiel</label></a>
+                            <br />
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <a class="nav-link side-bar-text" asp-area="" asp-controller="Home" asp-action="Notificaties"><i class="far fa-bell fa-2x icon"></i><label>Notificaties</label></a>
+                            }
                             <br />
                             <a class="nav-link side-bar-text" asp-area="" asp-controller="Post" asp-action="ArtikelToevoegen"><i class="far fa-newspaper fa-2x icon"></i><label>Artikelen</label></a>
                             <br />

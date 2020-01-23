@@ -32,5 +32,7 @@ namespace ProftaakProject.Models.ViewModels.PostModels
         public AccountViewModel HuidigeAccount { get; set; }
 
         public bool Uitgelicht { get; set; }
+
+        public int sorteerInt { get; set; }
     }
 }
