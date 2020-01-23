@@ -114,7 +114,7 @@ namespace ProftaakProject.Controllers
             }
             ProfielViewModel prvm = new ProfielViewModel();
             AccountToProfielvmConvert atpvmc = new AccountToProfielvmConvert();
-            prvm = atpvmc.ConvertToViewModel(ac);
+            prvm = atpvmc.ConvertToViewModel(ac, GetUserId());
 
             return View(prvm);
         }
@@ -126,7 +126,7 @@ namespace ProftaakProject.Controllers
             ProfielViewModel prvm = new ProfielViewModel();
             AccountToProfielvmConvert atpvmc = new AccountToProfielvmConvert();
             Account ac = _accRepo.GetByName(HttpContext.User.Identity.Name);
-            prvm = atpvmc.ConvertToViewModel(ac);
+            prvm = atpvmc.ConvertToViewModel(ac, GetUserId());
             return View(prvm);
         }
 

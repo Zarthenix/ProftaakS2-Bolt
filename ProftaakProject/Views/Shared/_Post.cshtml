@@ -38,7 +38,9 @@ else
             </div>
         </a>
         <div class="card-footer">
-            <p class="auteurText">@Model.Auteur.Naam</p>
+            <a href="@Url.Action("Profiel", "Account", new { Id = Model.Auteur.Id })">
+                <p class="auteurText">@Model.Auteur.Naam</p>
+            </a>
         </div>
     </div>
 }

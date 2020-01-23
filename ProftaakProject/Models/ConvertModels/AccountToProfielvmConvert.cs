@@ -10,7 +10,7 @@ namespace ProftaakProject.Models.ConvertModels
     {
         public Account ConvertToModel(ProfielViewModel pvm)
         {
-            Account acc = new Account(pvm.Id);
+            Account acc = new Account(pvm.ProfielId);
             {
                 acc.Naam = pvm.Naam;
                 acc.Email = pvm.Email;
@@ -21,11 +21,12 @@ namespace ProftaakProject.Models.ConvertModels
             return acc;
         }
 
-        public ProfielViewModel ConvertToViewModel(Account acc)
+        public ProfielViewModel ConvertToViewModel(Account acc, int gebruikerId)
         {
             ProfielViewModel pvm = new ProfielViewModel();
             {
-                pvm.Id = acc.Id;
+                pvm.ProfielId = acc.Id;
+                pvm.InlogId = gebruikerId;
                 pvm.Naam = acc.Naam;
                 pvm.Email = acc.Email;
                 pvm.Geslacht = acc.Geslacht;
