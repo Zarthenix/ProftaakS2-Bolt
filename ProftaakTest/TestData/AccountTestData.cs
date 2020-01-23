@@ -20,7 +20,7 @@ namespace ProftaakTest.TestData
                         new Tag(3, "Regelingen")
                     },
                     Geboortedatum = DateTime.Now,
-                    Geslacht = Genders.Anders,
+                    Geslacht = Gender.Anders,
                     Naam = "Test-Jan Klaassen",
                     Rol = new Role(1, "Admin")
                 },
@@ -42,7 +42,7 @@ namespace ProftaakTest.TestData
                     {
                         new Tag(4, "Activiteiten"),
                         new Tag(5, "Intern")
-                    }
+                    },
                     Geboortedatum = Convert.ToDateTime("1982-04-05 09:22"),
                     Geslacht = Gender.Vrouw,
                     Naam = "Tess Ter Testeringen",

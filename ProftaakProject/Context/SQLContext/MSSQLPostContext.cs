@@ -420,6 +420,7 @@ namespace ProftaakProject.Context.SQLContext
             }
             return posts;
         }
+
         public List<Post> GetAllVragenByID(int AccountId)
         {
             List<Post> posts = new List<Post>();
@@ -444,6 +445,7 @@ namespace ProftaakProject.Context.SQLContext
                                     (int)reader["type"],
                                     new Tag((int)reader["tagID"], reader["naam"].ToString()),
                                     (int)reader["goedgekeurdDoor"],
+                                    null,
                                     new byte[0],
                                     Convert.ToBoolean(reader["Uitgelicht"]),
                                     (int)reader["uitzendID"]

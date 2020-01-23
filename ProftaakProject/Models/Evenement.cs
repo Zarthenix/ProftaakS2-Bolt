@@ -13,6 +13,12 @@ namespace ProftaakProject.Models
         public string Locatie { get; set; }
         public DateTime Datum { get; set; }
         public int MaxDeelnemers { get; set; }
+
+        public Evenement()
+        {
+
+        }
+
         public Evenement(int id)
         {
             Id = id;
