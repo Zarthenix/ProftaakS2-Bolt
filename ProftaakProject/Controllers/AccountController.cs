@@ -170,7 +170,7 @@ namespace ProftaakProject.Controllers
             {
                 gvm.Posts.Add(pvc.ConvertToViewModel(post));
             }
-            return View(gvm); 
+            return View(gvm);
         }
         [HttpPost]
         public IActionResult RolOpslaan(RolViewModel rvm)

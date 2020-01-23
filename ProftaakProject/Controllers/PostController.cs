@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ProftaakProject.Models;
 using ProftaakProject.Models.Repositories;
@@ -221,19 +219,7 @@ namespace ProftaakProject.Controllers
         }
         #endregion
 
-        [HttpPost]
-        public IActionResult Goedkeuren(int postId)
-        {
-            pr.UpdateGoedgekeurd(GetUserId(), postId);
-            return RedirectToAction("Index", "Home");
-        }
-
-        [HttpPost]
-        public IActionResult Afkeuren(int postId)
-        {
-            pr.UpdateGoedgekeurd(-1, postId);
-            return RedirectToAction("Index", "Home");
-        }
+        #region Tag
 
         [HttpGet]
         public IActionResult AllePostsMetTagID(int tagId)
@@ -262,5 +248,28 @@ namespace ProftaakProject.Controllers
             }
             return RedirectToAction("Artikel", "Post", new { id = postID });
         }
+        #endregion
+
+        [HttpGet]
+        public IActionResult AllePosts()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Goedkeuren(int postId)
+        {
+            pr.UpdateGoedgekeurd(GetUserId(), postId);
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public IActionResult Afkeuren(int postId)
+        {
+            pr.UpdateGoedgekeurd(-1, postId);
+            return RedirectToAction("Index", "Home");
+        }
+
+
     }
 }
