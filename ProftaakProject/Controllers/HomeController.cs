@@ -32,23 +32,31 @@ namespace ProftaakProject.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(int sorteerInt)
         {
             PostViewModel pvm = new PostViewModel();
             pvm.HuidigeAccount = new AccountViewModel();
             pvm.HuidigeAccount.GeabonneerdeTags = new List<Tag>();
             List<PostViewModel> tempModels = new List<PostViewModel>();
             PostToPostvmConverter ppc = new PostToPostvmConverter();
-            Account sessionAccount = new Account(-1);
+            Account sessionAccount = new Account();
+            List<Post> posts;
             if (User.Identity.IsAuthenticated)
             {
                 sessionAccount = accountRepo.GetByID(GetUserId());
                 pvm.HuidigeAccount.GeabonneerdeTags = postRepo.GetAllGeabonneerdeTags(GetUserId());
             }
-            foreach (Post tempPost in postRepo.GetAllArtikelen())
+
+            if (sorteerInt == 0)
+            { posts = postRepo.GetAllArtikelen(); }
+            else
+            { posts = postRepo.GetAllArtikelenByAantalBekeken(); }
+            pvm.sorteerInt = sorteerInt;
+            foreach (Post tempPost in posts)
             {
                 if (tempPost.Uitzendbureau.Id == sessionAccount.UitzendID || tempPost.Uitzendbureau.Id == 0 || User.IsInRole("Admin"))
                 {
+                    tempPost.Auteur = accountRepo.GetByID(tempPost.Auteur.Id);
                     tempModels.Add(ppc.ConvertToViewModel(tempPost));
                 }
             }
@@ -78,6 +86,7 @@ namespace ProftaakProject.Controllers
         }
         public IActionResult Notificaties()
         {
+            if (HttpContext.User?.Identity.IsAuthenticated == false) { return RedirectToAction("Login", "Account"); }
             var vvm = new VraagViewModel();
             vvm.Reacties = new List<Reactie>();
             foreach (Post p in postRepo.GetAllVragenByID(GetUserId()))

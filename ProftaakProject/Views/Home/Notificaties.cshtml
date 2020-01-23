@@ -6,28 +6,30 @@
     <title>Notificaties</title>
 </head>
 <body>
-    @{if (Model.Reacties != null)
+    @{var heeftReacties = false;
+        if (Model.Reacties != null || Model.Reacties.Count > 0)
         {
             foreach (Reactie reactie in Model.Reacties)
             {
                 if (!reactie.Gezien)
                 {
+                    heeftReacties = true;
                     <div class="card-footer">
                         <a href="@Url.Action("Vraag", "Post", new {Id = reactie.PostID, reactieID = reactie.Id})">
                             <div class="card-footer">@reactie.Inhoud</div>
 
                             <div class="card-text" style="font-size:15px">
-                                reactie.Auteur.Naam
+                                @reactie.Auteur.Naam
                             </div>
                         </a>
                     </div>
                 }
             }
         }
-        else
+        if(!heeftReacties)
         {
             <div class="card-footer">
-                <div class="card-footer">There is no new notifications.</div>
+                <div class="card-footer">Er zijn geen nieuwe notificaties.</div>
                 <div class="card-text" style="font-size:15px">
                 </div>
             </div>

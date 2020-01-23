@@ -68,5 +68,20 @@ namespace ProftaakProject.Context.TestContext
         {
             throw new NotImplementedException();
         }
+
+        public List<Post> GetAllVragenByID(int AccountId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Post> GetAllArtikelenByAantalBekeken()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Post> GetAllPosts()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -46,9 +46,7 @@ namespace ProftaakProject.Context.SQLContext
                         if (post.Uitzendbureau != null) { cmd.Parameters.AddWithValue("@uitzendID", post.Uitzendbureau.Id); }
                         else { cmd.Parameters.AddWithValue("@uitzendID", 0); }
                         cmd.Parameters.AddWithValue("@accountId", post.Auteur.Id);
-                        cmd.Parameters.AddWithValue("@goedgekeurdDoor", post.GoedgekeurdDoor);                        cmd.Parameters.AddWithValue("@uitgelicht", 0);
-                        //cmd.Parameters.AddWithValue("@uitzendID", 1);
-                        //cmd.Parameters.AddWithValue("@accountID", 1);
+                        cmd.Parameters.AddWithValue("@goedgekeurdDoor", post.GoedgekeurdDoor);                        cmd.Parameters.AddWithValue("@uitgelicht", 0);
                         post.Id = (int)cmd.ExecuteScalar();
                         if (post.Id > -1)
                         {
@@ -168,6 +166,7 @@ namespace ProftaakProject.Context.SQLContext
                                     (int)reader["type"],
                                     new Tag((int)reader["tagID"], reader["naam"].ToString()),
                                     (int)reader["goedgekeurdDoor"],
+                                    new Account((int)reader["accountId"], null, null),
                                     (byte[])reader["imageFile"],
                                     Convert.ToBoolean(reader["Uitgelicht"]),
                                     (int)reader["uitzendID"]
@@ -240,7 +239,6 @@ namespace ProftaakProject.Context.SQLContext
                         }
                         cmd.Parameters.Add("@imageFile", sqlDbType: SqlDbType.VarBinary).Value = post.ImageFile;
                         cmd.Parameters.AddWithValue("@uitgelicht", Convert.ToInt32(post.Uitgelicht));
-                        //            //cmd.Parameters.AddWithValue("@accountID", 1);
                         cmd.ExecuteNonQuery();
                     }
                     connection.Close();
@@ -377,11 +375,46 @@ namespace ProftaakProject.Context.SQLContext
                             tempPost.TypeId = (int)reader["type"];
                             Tag t = new Tag((int)reader["tagID"], reader["naam"].ToString());
                             tempPost.GoedgekeurdDoor = (int)reader["goedgekeurdDoor"];
+                            tempPost.Auteur = new Account();
+                            tempPost.Auteur.Id = (int)reader["accountId"];
                             if ((tempPost.TypeId == 0))
                             {
                                 tempPost.ImageFile = (byte[])reader["imageFile"];
                             }
                             posts.Add(tempPost);
+                        }
+                    }
+                }
+                connection.Close();
+            }
+            return posts;
+        }
+
+        public List<Post> GetAllArtikelenByAantalBekeken()
+        {
+            List<Post> posts = new List<Post>();
+            string query = "SELECT * FROM dbo.Tag T INNER JOIN dbo.Post p ON T.tagID = p.tagID WHERE type = 0 AND goedgekeurdDoor > 0 ORDER BY P.aantalBekeken DESC";
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            posts.Add(new Post(
+                                    (int)reader["postId"],
+                                    reader["titel"].ToString(),
+                                    reader["inhoud"].ToString(),
+                                    (int)reader["type"],
+                                    new Tag((int)reader["tagID"], reader["naam"].ToString()),
+                                    (int)reader["goedgekeurdDoor"],
+                                    new Account((int)reader["accountId"], null, null),
+                                    (byte[])reader["imageFile"],
+                                    Convert.ToBoolean(reader["Uitgelicht"]),
+                                    (int)reader["uitzendID"]
+                                    ));
                         }
                     }
                 }
@@ -414,6 +447,7 @@ namespace ProftaakProject.Context.SQLContext
                                     (int)reader["type"],
                                     new Tag((int)reader["tagID"], reader["naam"].ToString()),
                                     (int)reader["goedgekeurdDoor"],
+                                    null,
                                     new byte[0],
                                     Convert.ToBoolean(reader["Uitgelicht"]),
                                     (int)reader["uitzendID"]
@@ -430,6 +464,45 @@ namespace ProftaakProject.Context.SQLContext
                 throw;
             }
             return posts;
+        }
+
+        public List<Post> GetAllPosts()
+        {
+            {
+                List<Post> postList = new List<Post>();
+                string query = "SELECT * FROM dbo.Post p";
+
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    connection.Open();
+
+                    using (SqlCommand sqlCommand = new SqlCommand(query, connection))
+                    {
+                        using (SqlDataReader reader = sqlCommand.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                Post p = new Post();
+                                p.Id = (int)reader["postID"];
+                                p.Titel = reader["titel"].ToString();
+                                p.Datum = (DateTime)reader["datum"];
+                                p.Inhoud = reader["inhoud"].ToString();
+                                p.TypeId = (int)reader["type"];
+                                p.AantalBekenen = (int)reader["aantalBekeken"];
+                                if (p.TypeId == 0)
+                                {
+                                    p.ImageFile = (byte[])reader["imageFile"];
+                                }
+                                p.Auteur = new Account();
+                                p.Auteur.Id = (int)reader["accountId"];
+                                p.Uitgelicht = Convert.ToBoolean(reader["Uitgelicht"]);
+                                postList.Add(p);
+                            }
+                            return postList;
+                        }
+                    }
+                }
+            }
         }
     }
 }

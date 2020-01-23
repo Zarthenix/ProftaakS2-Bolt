@@ -20,13 +20,14 @@ namespace ProftaakProject.Models
         {
 
         }
-        public Reactie(int Id, string Inhoud, DateTime Datum, int PostID, bool Gezien)
+        public Reactie(int Id, string Inhoud, DateTime Datum, int PostID, bool Gezien, Account account)
         {
             this.Id = Id;
             this.Inhoud = Inhoud;
             this.Datum = Datum;
             this.PostID = PostID;
             this.Gezien = Gezien;
+            this.Auteur = account;
         }
     }
 }

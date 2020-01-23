@@ -35,5 +35,10 @@ namespace ProftaakProject.Context.TestContext
         {
             throw new NotImplementedException();
         }
+
+        public List<Post> GetAllPostsOfUser(int userId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

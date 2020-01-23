@@ -1,0 +1,32 @@
+﻿@model ProftaakProject.Models.ViewModels.AccountModels.GeschiedenisViewModel
+@{
+    ViewData["Title"] = "Geschiedenis";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Geschiedenis</h1>
+
+
+<h3>Vragen</h3>
+@foreach (var Post in Model.Posts)
+{
+    if (Post.TypeId == 1)
+    {
+        <a href="@Url.Action("Vraag", "Post", new {Id = Post.Id})">@Post.Titel</a>
+        <br/>
+    }
+}
+
+<hr />
+
+<h3>Artikelen</h3>
+
+@foreach (var Post in Model.Posts)
+{
+    if (Post.TypeId == 0)
+    {
+        <div class="postTijdlijn">
+            @await Html.PartialAsync("_Post", Post)
+        </div>
+    }
+}

@@ -24,13 +24,12 @@ namespace ProftaakProject.Context.SQLContext
             try
             {
                 connection.Open();
-                query = "INSERT INTO Reactie (datum, inhoud, postID, gezienDoorGebruiker) VALUES (@datum, @inhoud, @vraagID, 0)";
+                query = "INSERT INTO Reactie (datum, inhoud, postID, gezienDoorGebruiker, accountID) VALUES (@datum, @inhoud, @vraagID, 0, @accountID)";
                 using SqlCommand cmd = new SqlCommand(query, connection);
                 cmd.Parameters.AddWithValue("@datum", reactie.Datum);
                 cmd.Parameters.AddWithValue("@inhoud", reactie.Inhoud);
                 cmd.Parameters.AddWithValue("@vraagID", reactie.PostID);
-                //cmd.Parameters.AddWithValue("@uitzendID", 1);
-                //cmd.Parameters.AddWithValue("@accountID", 1);
+                cmd.Parameters.AddWithValue("@accountID", reactie.Auteur.Id);
                 cmd.ExecuteNonQuery();
                 return true;
             }
@@ -68,7 +67,7 @@ namespace ProftaakProject.Context.SQLContext
         public List<Reactie> GetAll(int postID)
         {
             List<Reactie> reactieLijst = new List<Reactie>();
-            string query = "SELECT * FROM dbo.Reactie WHERE postID = @postID ORDER BY datum DESC";
+            string query = "SELECT reactieID,inhoud,datum,postId,gezienDoorGebruiker,a.accountID,naam FROM dbo.Reactie r inner join dbo.Account a on a.accountID = r.accountID WHERE postID = @postID ORDER BY datum DESC";
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
@@ -83,7 +82,8 @@ namespace ProftaakProject.Context.SQLContext
                             reader["inhoud"].ToString(),
                             (DateTime)reader["datum"],
                             (int)reader["postId"],
-                            Convert.ToBoolean(reader["gezienDoorGebruiker"])
+                            Convert.ToBoolean(reader["gezienDoorGebruiker"]),
+                            new Account((int)reader["accountID"], reader["naam"].ToString())
                             ));
                     }
                 }

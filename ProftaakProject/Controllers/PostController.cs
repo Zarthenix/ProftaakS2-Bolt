@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ProftaakProject.Models;
 using ProftaakProject.Models.Repositories;
@@ -34,7 +32,7 @@ namespace ProftaakProject.Controllers
         [HttpGet]
         public IActionResult Vraag(int id, int reactieID)
         {
-            if(reactieID > 0)
+            if (reactieID > 0)
             {
                 rr.ReactieGelezen(reactieID);
             }
@@ -42,6 +40,7 @@ namespace ProftaakProject.Controllers
             PostToVraagvmConverter ptavmc = new PostToVraagvmConverter();
             VraagViewModel vvm = ptavmc.ConvertToViewModel(pr.GetByID(id));
             vvm.Post.Id = id;
+            vvm.Post.Auteur = ar.GetByID(vvm.Post.Auteur.Id);
             vvm.Reacties = rr.GetAll(vvm.Post.Id);
             return View(vvm);
         }
@@ -79,10 +78,25 @@ namespace ProftaakProject.Controllers
         [HttpPost]
         public IActionResult VraagVerwijderen(VraagViewModel vvm)
         {
-            pr.Delete(vvm.Post.Id);
-            return RedirectToAction("Index", "Home");
+            if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+            {
+                pr.Delete(vvm.Post.Id);
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            { return RedirectToAction("NotAuthorized", "Home"); }
         }
-
+        [HttpGet]
+        public IActionResult VraagVerwijderen(int Id)
+        {
+            if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+            {
+                pr.Delete(Id);
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            { return RedirectToAction("NotAuthorized", "Home"); }
+        }
         [AllowAnonymous]
         [HttpGet]
         public IActionResult FAQ()
@@ -106,6 +120,7 @@ namespace ProftaakProject.Controllers
             ArtikelViewModel avm = pac.ConvertToViewModel(pr.GetByID(id));
             avm.Account = ar.GetByID(GetUserId());
             avm.Account.GeabonneerdeTags = pr.GetAllGeabonneerdeTags(GetUserId());
+            avm.Post.Auteur = ar.GetByID(avm.Post.Auteur.Id);
             pr.IncrementViews(id);
             return View("Artikel", avm);
         }
@@ -171,12 +186,16 @@ namespace ProftaakProject.Controllers
             return View(agvm);
         }
 
-        [HttpGet]
+        [HttpPost]
         public IActionResult ArtikelVerwijderen(ArtikelToevoegenViewModel atvm)
         {
-            if (!User.IsInRole("Admin")) { return RedirectToAction("NotAuthorized", "Home"); }
-            pr.Delete(atvm.Id);
-            return RedirectToAction("Index", "Home");
+            if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+            {
+                pr.Delete(atvm.Id);
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            { return RedirectToAction("NotAuthorized", "Home"); }
         }
 
         [HttpPost]
@@ -205,6 +224,7 @@ namespace ProftaakProject.Controllers
             vvm.ReactieAanmaken.Datum = DateTime.Now;
             vvm.ReactieAanmaken.PostID = vvm.Post.Id;
             vvm.ReactieAanmaken.Inhoud = vvm.ReactieInhoud;
+            vvm.ReactieAanmaken.Auteur = ar.GetByID(GetUserId());
             rr.Create(vvm.ReactieAanmaken);
             return RedirectToAction("Vraag", "Post", new { id = vvm.Post.Id });
         }
@@ -218,19 +238,7 @@ namespace ProftaakProject.Controllers
         }
         #endregion
 
-        [HttpPost]
-        public IActionResult Goedkeuren(int postId)
-        {
-            pr.UpdateGoedgekeurd(GetUserId(), postId);
-            return RedirectToAction("Index", "Home");
-        }
-
-        [HttpPost]
-        public IActionResult Afkeuren(int postId)
-        {
-            pr.UpdateGoedgekeurd(-1, postId);
-            return RedirectToAction("Index", "Home");
-        }
+        #region Tag
 
         [HttpGet]
         public IActionResult AllePostsMetTagID(int tagId)
@@ -240,10 +248,11 @@ namespace ProftaakProject.Controllers
             PostToPostvmConverter ppc = new PostToPostvmConverter();
             foreach (Post tempPost in pr.GetAllPostsByTagId(tagId))
             {
+                tempPost.Auteur = ar.GetByID(tempPost.Auteur.Id);
                 tempPostList.Add(ppc.ConvertToViewModel(tempPost));
             }
             pvm.PostViewModels = tempPostList;
-            return View("ArtikelTag", pvm);//TO DO MAAK EEN PAGINA OM ALLE POSTS IN TE LADEN.
+            return View("ArtikelTag", pvm);
         }
 
         [HttpGet]
@@ -259,5 +268,44 @@ namespace ProftaakProject.Controllers
             }
             return RedirectToAction("Artikel", "Post", new { id = postID });
         }
+        #endregion
+
+        [HttpGet]
+        public IActionResult AllePosts()
+        {
+            if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+            {
+                var pvm = new PostViewModel
+                {
+                    PostViewModels = new List<PostViewModel>()
+                };
+                var pvc = new PostToPostvmConverter();
+                foreach (var post in pr.GetAllPosts())
+                {
+                    pvm.PostViewModels.Add(pvc.ConvertToViewModel(post));
+                }
+                return View(pvm);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Goedkeuren(int postId)
+        {
+            pr.UpdateGoedgekeurd(GetUserId(), postId);
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public IActionResult Afkeuren(int postId)
+        {
+            pr.UpdateGoedgekeurd(-1, postId);
+            return RedirectToAction("Index", "Home");
+        }
+
+
     }
 }

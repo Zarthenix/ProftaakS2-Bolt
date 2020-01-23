@@ -1,6 +1,4 @@
-﻿@using Microsoft.AspNetCore.Identity
-@model ProftaakProject.Models.ViewModels.VraagViewModel
-
+﻿@model ProftaakProject.Models.ViewModels.VraagViewModel
 @{
     ViewData["Title"] = "Vraag";
 }
@@ -10,7 +8,18 @@
         <p class="card-text" style="font-size:20px">@Model.Post.Inhoud</p>
     </div>
     <div class="card-footer">
-        @*<p class="auteurText">Model.Auteur.Naam</p> <a href="@Url.Action("ArtikelToevoegen", "Post", new {Id = Model.Post.Id})">Bewerken</a><br /><a href="@Url.Action("ArtikelVerwijderen", "Post", new {Id = Model.Post.Id})">Verwijderen</a>*@
+        <p class="auteurText">@Model.Post.Auteur.Naam</p>
+        @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+        {
+            <div class="row">
+                <div class="col-md-2">
+                    <a class="btn btn-success" href="@Url.Action("ArtikelToevoegen", "Post", new { Id = Model.Post.Id })">Bewerken</a>
+                </div>
+                <div class="col-md-2">
+                    <a class="btn btn-success" href="@Url.Action("ArtikelVerwijderen", "Post", new { Id = Model.Post.Id })">Verwijderen</a>
+                </div>
+            </div>
+        }
     </div>
     @if (Model.Reacties != null)
     {
@@ -19,7 +28,15 @@
             <div class="card-footer">
                 <div class="card-footer">@react.Inhoud</div>
                 <div class="card-text" style="font-size:15px">
-                    react.Auteur.Naam <a href="@Url.Action("ReactieVerwijderen", "Post", new {ReactieID = react.Id ,VraagID = Model.Post.Id})">Verwijderen</a>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-10">
+                            @react.Auteur.Naam
+                        </div>
+                        <div class="col-md-2">
+                            <a class="btn btn-success" href="@Url.Action("ReactieVerwijderen", "Post", new {ReactieID = react.Id ,VraagID = Model.Post.Id})">Verwijderen</a>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -45,10 +62,7 @@
                 <br />
                 <div class="row">
                     <div class="col-md-2">
-                        <input type="submit" asp-action="ReactieAanmaken" value="Reageren" />
-                    </div>
-                    <div class="col-md-2">
-                        <input type="submit" asp-action="VraagVerwijderen" value="Verwijder" />
+                        <input class="btn btn-success" type="submit" asp-action="ReactieAanmaken" value="Reageren" />
                     </div>
                 </div>
             </form>

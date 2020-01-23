@@ -31,5 +31,9 @@ namespace ProftaakProject.Context.Interfaces
         bool UpdateGoedgekeurd(int accId, int postId);
 
         List<Post> GetAllPostsByTagId(int tagId);
+
+        List<Post> GetAllArtikelenByAantalBekeken();
+
+        List<Post> GetAllPosts();
     }
 }
