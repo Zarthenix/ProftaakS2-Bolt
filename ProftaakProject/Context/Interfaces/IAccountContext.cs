@@ -19,5 +19,7 @@ namespace ProftaakProject.Context.Interfaces
         bool Update(Account account);
 
         List<Post> GetAllPostsOfUser(int userId);
+
+        bool Delete(int id);
     }
 }

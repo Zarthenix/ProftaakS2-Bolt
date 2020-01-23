@@ -12,5 +12,6 @@ namespace ProftaakProject.Context.Interfaces
         Task<bool> Register(Account user, int rol);
         void Logout();
         bool UpdatePassword(int id);
+        Task<bool> Delete(Account user);
     }
 }

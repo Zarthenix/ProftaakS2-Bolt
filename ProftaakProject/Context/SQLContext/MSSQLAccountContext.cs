@@ -227,11 +227,11 @@ namespace ProftaakProject.Context.SQLContext
             }
         }
 
-        public List<Post> GetAllPostsOfUser(int userId)
-        {
-            List<Post> postList = new List<Post>();
-            string query = "SELECT * FROM dbo.Post p WHERE p.accountID = @accountID";
-
+        public List<Post> GetAllPostsOfUser(int userId)
+        {
+            List<Post> postList = new List<Post>();
+            string query = "SELECT * FROM dbo.Post p WHERE p.accountID = @accountID";
+
             using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
@@ -241,28 +241,53 @@ namespace ProftaakProject.Context.SQLContext
                     sqlCommand.CommandType = CommandType.Text;
                     sqlCommand.Parameters.AddWithValue("@accountID", userId);
                     using (SqlDataReader reader = sqlCommand.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            Post p = new Post();
-                            p.Id = (int)reader["postID"];
-                            p.Titel = reader["titel"].ToString();
-                            p.Datum = (DateTime)reader["datum"];
-                            p.Inhoud = reader["inhoud"].ToString();
-                            p.TypeId = (int)reader["type"];
-                            p.AantalBekenen = (int)reader["aantalBekeken"];
+                    {
+                        while (reader.Read())
+                        {
+                            Post p = new Post();
+                            p.Id = (int)reader["postID"];
+                            p.Titel = reader["titel"].ToString();
+                            p.Datum = (DateTime)reader["datum"];
+                            p.Inhoud = reader["inhoud"].ToString();
+                            p.TypeId = (int)reader["type"];
+                            p.AantalBekenen = (int)reader["aantalBekeken"];
                             if (p.TypeId == 0)
                             {
                                 p.ImageFile = (byte[])reader["imageFile"];
                             }
 
                             p.Auteur = new Account((int) reader["accountId"]);
-                            p.Uitgelicht = Convert.ToBoolean(reader["Uitgelicht"]);
-                            postList.Add(p);
-                        }
-                        return postList;
-                    } 
+                            p.Uitgelicht = Convert.ToBoolean(reader["Uitgelicht"]);
+                            postList.Add(p);
+                        }
+                        return postList;
+                    } 
                 }
+            }
+        }
+
+        public bool Delete(int id)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "DELETE FROM User_Role WHERE User_Id = @accountID; DELETE FROM Account WHERE accountID = @accountID";
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@accountID", id);
+                        cmd.ExecuteNonQuery();
+                    }
+                    connection.Close();
+                    return true;
+                }
+                catch(Exception exception)
+                {
+                    Console.WriteLine(exception);
+                }
+                connection.Close();
+                return false;
             }
         }
     }

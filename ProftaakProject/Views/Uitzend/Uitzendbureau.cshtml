@@ -38,12 +38,7 @@
         <form>
             <div class="KnopUitzend">
 
-                @if (User.IsInRole("Admin"))
-                {
-
-                    <input type="submit" value="Voeg gebruiker toe" class="btn btn-dark" asp-controller="Uitzend" asp-action="AccountToevoegen" asp-route-id="@Model.Id" formmethod="get" />
-
-                }
+                <input type="submit" value="Voeg gebruiker toe" class="btn btn-dark" asp-controller="Uitzend" asp-action="AccountToevoegen" asp-route-id="@Model.Id" formmethod="get" />
 
                 <input type="submit" value="Terug" class="btn btn-dark" asp-controller="Uitzend" asp-action="Index" />
             </div>

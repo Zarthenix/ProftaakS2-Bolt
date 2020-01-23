@@ -33,10 +33,12 @@
             <div class="row">
                 <nav class="navbar navbar-expand-sm fixed-top easyflex_nav">
                     <div class="col-md-3">
+
                         <h1 id="text_nav">
                             <a href="@Url.Action("Index", "Home")"> <i>Easyflex</i></a>
                         </h1>
                     </div>
+<<<<<<< Updated upstream
                     @*@if (User.Identity.IsAuthenticated)
                         {
                             <div class="col-md-3">
@@ -50,8 +52,15 @@
                             </div>
                             <div>
                                 <button class="btn btn-outline-light" type="submit">Zoeken</button>
+=======
+                    <div class="offset-md-6 col-md-3">
+                        <form>
+                            <div>
+                                <input class="form-control mr-sm-2" id="Zoekbalk" type="text" placeholder="Search">
+>>>>>>> Stashed changes
                             </div>
                         </form>
+
                     </div>
                 </nav>
             </div>

@@ -278,25 +278,47 @@ namespace ProftaakProject.Context.SQLContext
                 }
             }
         }
-        public Post SearchResult(string search)
+
+        public List<Post> SearchResult(string search)
         {
+
             //type 0 = artikel
+
             //type 1 = vraag
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                try
-                {
-                    connection.Open();
-                    string query = "SELECT * FROM Post WHERE inhoud LIKE '%@search%'";
-                    using (SqlCommand cmd = new SqlCommand(query, connection))
-                    {
-                        cmd.Parameters.AddWithValue("@search", search);
-                        cmd.ExecuteNonQuery();
-                    }                    connection.Close();                }
-                catch (Exception exception)                {
-                    Console.WriteLine(exception);                    throw;                }
+            List<Post> posts = new List<Post>();
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "SELECT * FROM Post WHERE inhoud LIKE '%@search%'";
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {                        cmd.Parameters.AddWithValue("@search", search);                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                posts.Add(new Post(
+                                  (int)reader["postId"],
+                                  reader["titel"].ToString(),
+                                  reader["inhoud"].ToString(),
+                                  (int)reader["type"],
+                                  new Tag((int)reader["tagID"], reader["naam"].ToString()),
+                                  (int)reader["goedgekeurdDoor"],
+                                  (byte[])reader["imageFile"]));
+                            }
+                            
+
+                        }
+                    }
+                    connection.Close();
+                    return posts;
+                }
+                catch(Exception exception)
+                {
+                    Console.WriteLine(exception);
+                                        throw;
+                }
             }
-            Post p = new Post();            return p;
         }
 
         public List<Post> GetAllArtikelenGoedkeuren()

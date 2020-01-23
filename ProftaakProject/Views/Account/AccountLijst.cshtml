@@ -1,0 +1,25 @@
+﻿@model ProftaakProject.Models.ViewModels.AccountViewModel
+@{
+    ViewData["Title"] = "AccountLijst";
+}
+
+<h1>Accounts</h1>
+<form>
+    <table class="table">
+
+        @foreach (Account account in Model.accs)
+        {
+            <tr>
+                <td>@account.Gebruikersnaam</td>
+                @if (User.IsInRole("Admin"))
+                {
+            <td>
+                <input type="submit" class="btn btn-dark" asp-controller="Account" value="Verwijderen" asp-action="Verwijder" asp-route-id="@account.Id" />
+            </td>
+                }
+            </tr>
+        }
+    </table>
+</form>
+
+

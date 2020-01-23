@@ -4,6 +4,7 @@
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<<<<<<< Updated upstream
     <body>
         <div>
             @if (Model.HuidigeAccount.GeabonneerdeTags.Count > 0)
@@ -25,6 +26,37 @@
                                 }
                             </nav>
                         </div>
+=======
+
+<head>
+    <a asp-area="" asp-controller="Account" asp-action="Profiel">Profiel</a>
+    <a asp-controller="Account" asp-action="AccountLijst">Accounts</a>
+</head>
+
+<body>
+    <div>
+        <input class="form-control mr-sm-2" id="Zoekbalk" type="text" placeholder="Search">
+    </div>
+    <div>
+        @if (Model.HuidigeAccount.GeabonneerdeTags.Count > 0)
+        {
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-7 tagLijst">
+                        <nav id="colorlib-main-menu" role="navigation">
+                            <div>
+                                <h4>Geabonneerde Tags</h4>
+                            </div>
+                            @foreach (Tag tag in Model.HuidigeAccount.GeabonneerdeTags)
+                            {
+                                <a href="@Url.Action("AllePostsMetTagID", "Post", new { tagId = tag.Id })">
+                                    <div class="tagDiv">
+                                        <label>@tag.Naam</label>
+                                    </div>
+                                </a>
+                            }
+                        </nav>
+>>>>>>> Stashed changes
                     </div>
                 </div>
             }
