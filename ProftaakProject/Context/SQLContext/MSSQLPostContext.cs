@@ -278,46 +278,43 @@ namespace ProftaakProject.Context.SQLContext
             }
         }
 
-        public List<Post> SearchResult(string search)
+        public List<Post> SearchResult(string search, int userid)
         {
-
-            //type 0 = artikel
-
-            //type 1 = vraag
             List<Post> posts = new List<Post>();
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                try
-                {
-                    connection.Open();
-                    string query = "SELECT * FROM Post WHERE inhoud LIKE '%@search%'";
-                    using (SqlCommand cmd = new SqlCommand(query, connection))
-                    {                        cmd.Parameters.AddWithValue("@search", search);                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                posts.Add(new Post(
-                                  (int)reader["postId"],
-                                  reader["titel"].ToString(),
-                                  reader["inhoud"].ToString(),
-                                  (int)reader["type"],
-                                  new Tag((int)reader["tagID"], reader["naam"].ToString()),
-                                  (int)reader["goedgekeurdDoor"],
-                                  (byte[])reader["imageFile"]));
-                            }
-                            
+            string query =
+                "SELECT p.[titel], p.[postID], p.[datum], p.[type], p.[inhoud], p.[uitzendID], p.[aantalBekeken], a.[accountID], a.[naam] FROM dbo.[Post] p INNER JOIN [Account] a ON p.[accountID] = a.[accountID] WHERE (p.[inhoud] LIKE @search OR p.[titel] LIKE @search2) AND (p.[uitzendID] = (SELECT [uitzendID] FROM [Account] WHERE [accountID] = @userid) OR p.[uitzendID] = 0)";
+           
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    cmd.Parameters.AddWithValue("@search", "%" + search + "%");
+                    cmd.Parameters.AddWithValue("@search2", "%" + search + "%");
+                    cmd.Parameters.AddWithValue("@userid", userid);
+                    cmd.CommandType = CommandType.Text;
 
+                    using (SqlDataReader r = cmd.ExecuteReader())
+                    {
+                        while (r.Read())
+                        {
+                            posts.Add(new Post(
+                                (int)r["postId"], 
+                                r["titel"].ToString(), 
+                                (int)r["type"], 
+                                r["inhoud"].ToString(),
+                                Convert.ToDateTime(r["datum"]), 
+                                new Account((int)r["accountID"],r["naam"].ToString()),
+                                (int)r["aantalBekeken"] 
+                                ));
                         }
                     }
-                    connection.Close();
-                    return posts;
-                }
-                catch(Exception exception)
-                {
-                    Console.WriteLine(exception);
-                                        throw;
                 }
+
+                connection.Close();
             }
+
+            return posts;
         }
 
         public List<Post> GetAllArtikelenGoedkeuren()

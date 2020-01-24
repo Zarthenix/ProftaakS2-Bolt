@@ -1,23 +1,62 @@
 ﻿@using ProftaakProject.Models.ViewModels.PostModels
-@model ProftaakProject.Models.ViewModels.PostModels.PostViewModel;
+@model List<ProftaakProject.Models.ViewModels.PostModels.PostViewModel>;
 @{
     ViewData["Title"] = "SearchResult";
 }
 
 <h1>Zoekresultaten</h1>
-@*Post resultaten*@
+@if (Model.Count == 0)
+{
+    <h4>@ViewData["NoneFound"]</h4>
+}
+else
+{
+    <h3 style="margin-top: 5%;">Artikelen</h3>
+    if (Model.Count(p => p.TypeId == 0) == 0)
+    {
+        <h5>Geen artikelen gevonden.</h5>
+    }
+    @foreach (PostViewModel pvm in Model.Where(p => p.TypeId == 0))
+    {
+        <div class="card" style="width: 80%; margin-bottom: 5%;">
+            <a href="@Url.Action("Artikel", "Post", new {id = pvm.Id})">
+                <div class="card-header">
+                    <h4 class="card-title">@pvm.Titel</h4>
+                </div>
+            </a>
+            <div class="card-body" style="text-align: center;">
+                <p>@pvm.Inhoud</p>
+            </div>
+            <div class="card-footer" style="display: flex; justify-content: space-around;">
+                <a style="text-decoration: none;" href="@Url.Action("Profiel", "Account", new {id = pvm.Auteur.Id})">@pvm.Auteur.Naam</a>
+                <p>@pvm.Datum</p>
+                <p>Views: @pvm.AantalBekeken</p>
+            </div>
+        </div>
+    }
 
-@*Artikel resultaten*@
+    <h3 style="margin-top: 5%;">Vragen</h3>
+    if (Model.Count(p => p.TypeId == 1) == 0)
+    {
+        <h5>Geen artikelen gevonden.</h5>
+    }
+    @foreach (PostViewModel pvm in Model.Where(p => p.TypeId == 1))
+    {
+        <div class="card" style="width: 80%; margin-bottom: 5%;">
+            <a style="text-decoration:none" href="@Url.Action("Vraag","Post", new {id = pvm.Id, reactieID = 0})">
+                <div class="card-header">
+                    <h4 class="card-title">@pvm.Titel</h4>
+                </div>
+                <div class="card-body" style="text-align: center;">
+                    <p>@pvm.Inhoud</p>
+                </div>
+            </a>
+            <div class="card-footer" style="display: flex; justify-content: space-around;">
+                <a style="text-decoration: none;" href="@Url.Action("Profiel", "Account", new {id = pvm.Auteur.Id})">@pvm.Auteur.Naam</a>
+                <p>@pvm.Datum</p>
+                <p>Views: @pvm.AantalBekeken</p>
+            </div>
+        </div>
+    }
+}
 
-<div class="card">
-    <div class="card-header">
-        <img src="data:image/png;base64,@Model.ImageFile" class="img-thumbnail" />
-    </div>
-    <div class="card-body">
-        <h4 class="card-title">@Model.Titel</h4>
-        <p class="card-text">@Model.Inhoud</p>
-    </div>
-    <div class="card-footer">
-        <p class="auteurText">Model.Auteur.Naam</p><p>@*@Model.Post.Uitzendbureau.Naam*@</p>
-    </div>
-</div>
