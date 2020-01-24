@@ -104,7 +104,7 @@ namespace ProftaakProject.Controllers
             if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
             {
                 pr.Delete(Id);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("AllePosts", "Post");
             }
             else
             { return RedirectToAction("NotAuthorized", "Home"); }
@@ -203,12 +203,12 @@ namespace ProftaakProject.Controllers
         }
 
         [HttpPost]
-        public IActionResult ArtikelVerwijderen(int postId)
+        public IActionResult ArtikelVerwijderen(PostViewModel pvm)
         {
             if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
             {
-                pr.Delete(postId);
-                return RedirectToAction("Index", "Home");
+                pr.Delete(pvm.Id);
+                return RedirectToAction("AllePosts", "Post");
             }
             else
             { return RedirectToAction("NotAuthorized", "Home"); }

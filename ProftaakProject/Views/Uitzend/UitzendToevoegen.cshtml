@@ -28,13 +28,13 @@ else
                     <div class="KnopUitzend">
                         @if (@Model.Id < 0)
                         {
-                            <input type="submit" value="Aanmaken" class="btn btn-dark" asp-controller="Uitzend" asp-action="UitzendToevoegen" formmethod="post" />
+                            <input type="submit" value="Aanmaken" class="btn btn-primary" asp-controller="Uitzend" asp-action="UitzendToevoegen" formmethod="post" />
                         }
                         else
                         {
-                            <input type="submit" value="Bewerken" class="btn btn-dark" asp-controller="Uitzend" asp-action="UitzendToevoegen" formmethod="post" />
+                            <input type="submit" value="Bewerken" class="btn btn-primary" asp-controller="Uitzend" asp-action="UitzendToevoegen" formmethod="post" />
                         }
-                        <input type="submit" value="Terug" class="btn btn-dark" asp-controller="Uitzend" asp-action="Index" />
+                        <input type="submit" value="Terug" class="btn btn-primary" asp-controller="Uitzend" asp-action="Index" />
                     </div>
                 </div>
             </form>

@@ -17,10 +17,10 @@
         {
             <div class="row">
                 <div class="col-md-2">
-                    <a class="btn btn-success" href="@Url.Action("ArtikelToevoegen", "Post", new { Id = Model.Post.Id })">Bewerken</a>
+                    <a class="btn btn-primary" href="@Url.Action("ArtikelToevoegen", "Post", new { Id = Model.Post.Id })">Bewerken</a>
                 </div>
                 <div class="col-md-2">
-                    <a class="btn btn-success" href="@Url.Action("ArtikelVerwijderen", "Post", new { Id = Model.Post.Id })">Verwijderen</a>
+                    <a class="btn btn-primary" href="@Url.Action("ArtikelVerwijderen", "Post", new { Id = Model.Post.Id })">Verwijderen</a>
                 </div>
             </div>
         }
@@ -29,7 +29,7 @@
     {
         @foreach (Reactie react in Model.Reacties)
         {
-            if (react.Goedgekeurd)
+            if (react.Goedgekeurd || react.Auteur.Rol.Naam == "Service-afdeling")
             {
                 <div class="goedgekeurd-border-wrap">
                     <div class="card-footer goedgekeurd">
@@ -47,10 +47,10 @@
                                     Goedgekeurd door: @react.GoedgekeurdDoor.Naam
                                 </div>
                                 <div class="col-md-2">
-                                    <a class="btn btn-success" href="@Url.Action("ReactieGoedkeuren", "Post", new { ReactieID = react.Id, VraagID = Model.Post.Id, Goedgekeurd = react.Goedgekeurd })">Afkeuren</a>
+                                    <a class="btn btn-primary" href="@Url.Action("ReactieGoedkeuren", "Post", new { ReactieID = react.Id, VraagID = Model.Post.Id, Goedgekeurd = react.Goedgekeurd })">Afkeuren</a>
                                 </div>
                                 <div class="col-md-2">
-                                    <a class="btn btn-success" href="@Url.Action("ReactieVerwijderen", "Post", new { ReactieID = react.Id, VraagID = Model.Post.Id })">Verwijderen</a>
+                                    <a class="btn btn-primary" href="@Url.Action("ReactieVerwijderen", "Post", new { ReactieID = react.Id, VraagID = Model.Post.Id })">Verwijderen</a>
                                 </div>
                             </div>
                         </div>
@@ -73,16 +73,16 @@
                             @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
                             {
                                 <div class="col-md-2">
-                                    <a class="btn btn-success" href="@Url.Action("ReactieGoedkeuren", "Post", new {ReactieID = react.Id ,VraagID = Model.Post.Id, Goedgekeurd = react.Goedgekeurd})">Goedkeuren</a>
+                                    <a class="btn btn-primary" href="@Url.Action("ReactieGoedkeuren", "Post", new {ReactieID = react.Id ,VraagID = Model.Post.Id, Goedgekeurd = react.Goedgekeurd})">Goedkeuren</a>
                                 </div>
                                 <div class="col-md-2">
-                                    <a class="btn btn-success" href="@Url.Action("ReactieVerwijderen", "Post", new {ReactieID = react.Id ,VraagID = Model.Post.Id})">Verwijderen</a>
+                                    <a class="btn btn-primary" href="@Url.Action("ReactieVerwijderen", "Post", new {ReactieID = react.Id ,VraagID = Model.Post.Id})">Verwijderen</a>
                                 </div>
                             }
                             else if (react.Auteur.Naam == User.Identity.Name)
                             {
                                 <div class="col-md-2">
-                                    <a class="btn btn-success" href="@Url.Action("ReactieVerwijderen", "Post", new {ReactieID = react.Id ,VraagID = Model.Post.Id})">Verwijderen</a>
+                                    <a class="btn btn-primary" href="@Url.Action("ReactieVerwijderen", "Post", new {ReactieID = react.Id ,VraagID = Model.Post.Id})">Verwijderen</a>
                                 </div>
                             }
                         </div>
@@ -112,7 +112,7 @@
                     <br />
                     <div class="row">
                         <div class="col-md-2">
-                            <input class="btn btn-success" type="submit" asp-action="ReactieAanmaken" value="Reageren" />
+                            <input class="btn btn-primary" type="submit" asp-action="ReactieAanmaken" value="Reageren" />
                         </div>
                     </div>
                 </form>

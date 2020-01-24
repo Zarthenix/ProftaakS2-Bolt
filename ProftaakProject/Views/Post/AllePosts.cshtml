@@ -13,11 +13,11 @@
         @if (User.IsInRole("Admin"))
         {
             <form>
-                <input class="btn btn-dark" asp-controller="Post" asp-action="LijstArtikelGoedkeuren" value="Artikelen Goedkeuren" type="submit" />
+                <input class="btn btn-primary" asp-controller="Post" asp-action="LijstArtikelGoedkeuren" value="Artikelen Goedkeuren" type="submit" />
             </form>
         }
         <br />
-        <table class="table table-bordered table-dark" align="center" style="width: 100%; ">
+        <table class="table table-bordered table-dark" align="center" style="width: 100%; background-color:#f8f9fa; color:black;">
             <tr>
                 <th>Post Image</th>
                 <th>Post Titel</th>
@@ -37,11 +37,11 @@
                         <td>
                             <form method="get" asp-controller="Post" asp-action="Artikel">
                                 <input type="hidden" asp-for="Id" value="@p.Id" />
-                                <input class="btn btn-success" type="submit" value="Openen" />
+                                <input class="btn btn-primary" type="submit" value="Openen" />
                             </form>
                             <form method="post" asp-controller="Post" asp-action="ArtikelVerwijderen">
                                 <input type="hidden" asp-for="Id" value="@p.Id" />
-                                <input class="btn btn-success" type="submit" value="Verwijderen" />
+                                <input class="btn btn-primary" type="submit" value="Verwijderen" />
                             </form>
                         </td>
                     </tr>
@@ -51,7 +51,7 @@
     </div>
     <div>
         <h3>Alle Vragen</h3>
-        <table class="table table-bordered table-dark" align="center" style="width: 100%">
+        <table class="table table-bordered table-dark" align="center" style="width: 100%; background-color:#f8f9fa; color:black;">
             <tr>
                 <th>Post Titel</th>
                 <th>Post Tag</th>
@@ -68,9 +68,9 @@
                             <div class="row">
                                 <form method="get" class="col-md-4" asp-controller="Post" asp-action="Vraag">
                                     <input type="hidden" asp-for="Id" value="@p.Id" />
-                                    <input class="btn btn-success" type="submit" value="Openen" />
+                                    <input class="btn btn-primary" type="submit" value="Openen" />
                                 </form>
-                                <a class="btn btn-success col-md-4" href="@Url.Action("VraagVerwijderen", "Post", new { Id = p.Id })">Verwijderen</a>
+                                <a class="btn btn-primary col-md-4" href="@Url.Action("VraagVerwijderen", "Post", new { Id = p.Id })">Verwijderen</a>
                             </div>
                         </td>
                     </tr>

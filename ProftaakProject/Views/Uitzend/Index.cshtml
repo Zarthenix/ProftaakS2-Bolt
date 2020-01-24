@@ -29,7 +29,7 @@
                     </td>
                     <td>
                         <form>
-                            <input type="submit" class="btn btn-dark" asp-controller="Uitzend" value="Verwijderen" asp-action="VerwijderUb" asp-route-id="@ub.Id" />
+                            <input type="submit" class="btn btn-primary" asp-controller="Uitzend" value="Verwijderen" asp-action="VerwijderUb" asp-route-id="@ub.Id" />
                         </form>
                     </td>
                 }
@@ -39,7 +39,7 @@
     <form>
         @if (User.IsInRole("Admin"))
         {
-            <input type="submit" value="Aanmaken" class="btn btn-dark" asp-controller="Uitzend" asp-action="UitzendToevoegen" formmethod="get" />
+            <input type="submit" value="Aanmaken" class="btn btn-primary" asp-controller="Uitzend" asp-action="UitzendToevoegen" formmethod="get" />
         }
     </form>
 </body>

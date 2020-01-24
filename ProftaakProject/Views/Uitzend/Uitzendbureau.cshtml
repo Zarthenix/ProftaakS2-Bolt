@@ -27,20 +27,17 @@
                             <form asp-controller="Uitzend" method="post">
                                 <input type="hidden" asp-for="Id" value="@Model.Id" />
                                 <input type="hidden" asp-for="AccountTeVerwijderen.Id" value="@accvm.Id" />
-                                <input class="btn btn-dark" type="submit" asp-action="VerwijderGebruiker" value="Verwijder" />
+                                <input class="btn btn-primary" type="submit" asp-action="VerwijderGebruiker" value="Verwijder" />
                             </form>
                         }
                     </td>
                 </tr>
-
             }
         </table>
         <form>
             <div class="KnopUitzend">
-
-                <input type="submit" value="Voeg gebruiker toe" class="btn btn-dark" asp-controller="Uitzend" asp-action="AccountToevoegen" asp-route-id="@Model.Id" formmethod="get" />
-
-                <input type="submit" value="Terug" class="btn btn-dark" asp-controller="Uitzend" asp-action="Index" />
+                <input type="submit" value="Voeg gebruiker toe" class="btn btn-primary" asp-controller="Uitzend" asp-action="AccountToevoegen" asp-route-id="@Model.Id" formmethod="get" />
+                <input type="submit" value="Terug" class="btn btn-primary" asp-controller="Uitzend" asp-action="Index" />
             </div>
         </form>
     </div>

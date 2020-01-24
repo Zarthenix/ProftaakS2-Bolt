@@ -29,7 +29,7 @@ namespace ProftaakProject.Models.Repositories
 
         public Task<bool> Register(Account user, int rol)
         {
-            if (GetByName(user.Gebruikersnaam).Gebruikersnaam != null && GetByEmail(user.Email).Email != null)
+            if (GetByName(user.Gebruikersnaam).Gebruikersnaam == null && GetByEmail(user.Email).Email == null)
             {
                 return authContext.Register(user, rol);
             }

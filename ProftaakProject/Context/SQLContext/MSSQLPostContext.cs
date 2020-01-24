@@ -72,7 +72,7 @@ namespace ProftaakProject.Context.SQLContext
                 try
                 {
                     connection.Open();
-                    string query = "DELETE FROM dbo.Post WHERE postID = @postID";
+                    string query = "DELETE FROM dbo.Reactie WHERE dbo.Reactie.postID = @postID; DELETE FROM dbo.Post WHERE dbo.Post.postID = @postID";
                     using (SqlCommand cmd = new SqlCommand(query, connection))
                     {
                         cmd.Parameters.AddWithValue("@postID", id);
