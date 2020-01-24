@@ -35,7 +35,7 @@ namespace ProftaakProject.Models.ConvertModels
                 pvm.Inhoud = p.Inhoud;
                 pvm.TypeId = p.TypeId;
                 pvm.AantalBekeken = p.AantalBekenen;
-                if (p.TypeId == 0 && pvm.ImageFile != null)
+                if (p.TypeId == 0 && p.ImageFile != null)
                 {
                     pvm.ImageFile = Convert.ToBase64String(p.ImageFile);
                 }
