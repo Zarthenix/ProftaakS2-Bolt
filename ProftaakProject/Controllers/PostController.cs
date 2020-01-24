@@ -104,7 +104,7 @@ namespace ProftaakProject.Controllers
             if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
             {
                 pr.Delete(Id);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("AllePosts", "Post");
             }
             else
             { return RedirectToAction("NotAuthorized", "Home"); }
@@ -208,7 +208,7 @@ namespace ProftaakProject.Controllers
             if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
             {
                 pr.Delete(pvm.Id);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("AllePosts", "Post");
             }
             else
             { return RedirectToAction("NotAuthorized", "Home"); }
