@@ -18,15 +18,21 @@ a.navbar-brand {
     }
 
     #nav a:hover {
-        background-color: palevioletred;
+        background-color: #899979;
     }
 
 
 .btn-primary {
     color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
+    background-color: #899979;
+    border-color: #899979;
 }
+
+    .btn-primary:hover {
+        color: #fff;
+        background-color: #6093aa;
+        border-color: #6093aa;
+    }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
     color: #fff;
@@ -34,10 +40,8 @@ a.navbar-brand {
     border-color: #1861ac;
 }
 
-
-
 .easyflex_nav {
-    background-image: url('../lib/images/background.jpg');
+    background-image: url('../lib/images/Easyflexv2.png');
     background-size: 100% 100%;
     background-repeat: no-repeat;
     height: 100px;
@@ -131,7 +135,7 @@ html, body {
 }
 
 #nav {
-    background-color: #c6166b;
+    background-color: #377c79;
     float: left;
     width: 250px;
 }
@@ -231,7 +235,7 @@ a .icon {
 /* CSS voor tag lijst tijdlijn*/
 .tagLijst {
     border: 4px solid;
-    -webkit-border-image: -webkit-gradient(linear, 0 0, 0 100%, from(#3F55A1), to(#C42872)) 1 100%;
+    -webkit-border-image: -webkit-gradient(linear, 0 0, 0 100%, from(#6093aa), to(#899979)) 1 100%;
     padding-top: 10px;
     position: fixed;
     background-color: #F4F4F8;
@@ -243,17 +247,17 @@ a .icon {
 
 .tagDiv {
     padding: 1.25rem 1.25rem;
-    border-top: 2px solid rgba(63, 85, 161, 1);
+    border-top: 2px solid #899979;
     height: 75px;
     width: inherit;
-    color: rgba(63, 85, 161, 1);
+    color: #6093aa;
     font-size: 20px;
     text-decoration: none;
 }
 
     .tagDiv:hover {
-        background-color: rgba(63, 85, 161, 1);
-        color: #F4F4F8;
+        background-color: #899979;
+        color: white;
     }
 /*CSS voor Post Partial*/
 h2.postTitel {
@@ -395,7 +399,7 @@ div.artikelInhoud {
     padding-bottom: 5px;
     padding-top: 5px;
     position: relative;
-    background: linear-gradient(to right, #3F55A1, #C42872);
+    background: linear-gradient(to right, #6093aa, #899979);
     width: auto;
 }
 

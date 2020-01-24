@@ -9,7 +9,7 @@
         .Border {
             border: 4px solid;
             border-radius: 10px;
-            -webkit-border-image: -webkit-gradient(linear, 0 0, 0 100%, from(#3F55A1), to(#C42872)) 1 100%;
+            -webkit-border-image: -webkit-gradient(linear, 0 0, 0 100%, from(#6093aa), to(#899979)) 1 100%;
             width: 900px;
             padding-right: 30px;
             margin-top: 50px;
@@ -67,11 +67,11 @@ else
                     }
                     @if (containsTag)
                     {
-                        <a class="btn btn-success" href="@Url.Action("TagAbonneren", "Post", new {postID = Model.Post.Id, tagID = Model.Post.Tag.Id})">Abonnement opzeggen</a>
+                        <a class="btn btn-primary" href="@Url.Action("TagAbonneren", "Post", new {postID = Model.Post.Id, tagID = Model.Post.Tag.Id})">Abonnement opzeggen</a>
                     }
                     else
                     {
-                        <a class="btn btn-success" href="@Url.Action("TagAbonneren", "Post", new {postID = Model.Post.Id, tagID = Model.Post.Tag.Id})">Abonneren</a>
+                        <a class="btn btn-primary" href="@Url.Action("TagAbonneren", "Post", new {postID = Model.Post.Id, tagID = Model.Post.Tag.Id})">Abonneren</a>
                     }
 
                 }
@@ -80,13 +80,13 @@ else
             @if (User.IsInRole("Admin") || Model.Account.Id == Model.Post.Auteur.Id)
             {
                 <div class="col-md-3" style="align-items:center">
-                    <a class="btn btn-success" href="@Url.Action("ArtikelToevoegen", "Post", new {Id = Model.Post.Id})">Bewerken</a>
+                    <a class="btn btn-primary" href="@Url.Action("ArtikelToevoegen", "Post", new {Id = Model.Post.Id})">Bewerken</a>
                 </div>
                 <div class="col-md-3" style="align-items:center">
-                    <button asp-action="ArtikelVerwijderen" type="submit" class="btn btn-success" value="@Model.Post.Id" name="postId">Verwijderen</button>
+                    <button asp-action="ArtikelVerwijderen" type="submit" class="btn btn-primary" value="@Model.Post.Id" name="postId">Verwijderen</button>
                 </div>
                 <div class="col-md-3" style="align-items:center">
-                    <button asp-action="Uitlichten" type="submit" class="btn btn-success" value="@Model.Post.Id" name="postId">Uitlichten</button>
+                    <button asp-action="Uitlichten" type="submit" class="btn btn-primary" value="@Model.Post.Id" name="postId">Uitlichten</button>
                 </div>
             }
         </form>
