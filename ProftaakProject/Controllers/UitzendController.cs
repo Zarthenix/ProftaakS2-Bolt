@@ -37,7 +37,15 @@ namespace ProftaakProject.Controllers
             }
             else
             {
-                uvm.ubs.Add(ur.GetByAccountID(uvm.Ingelogd.Id));
+                if(ur.GetByAccountID(uvm.Ingelogd.Id) == null)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    uvm.ubs.Add(ur.GetByAccountID(uvm.Ingelogd.Id));
+                }
+                
             }
             return View(uvm);
         }

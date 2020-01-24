@@ -215,23 +215,23 @@ namespace ProftaakProject.Controllers
         }
 
 
-        //[HttpGet]
-        //public IActionResult Accountlijst()
-        //{
+        [HttpGet]
+        public IActionResult Accountlijst()
+        {
 
-        //    AccountViewModel avm = new AccountViewModel()
-        //    {
-        //        accs = _accRepo.GetAll()
-        //    };
+            AccountViewModel avm = new AccountViewModel()
+            {
+                accs = _accRepo.GetAll()
+            };
 
-        //    return View(avm);
-        //}
+            return View(avm);
+        }
 
-        //[HttpPost]
-        //public IActionResult Accountlijst(AccountViewModel avm)
-        //{
-        //    return View(avm);
-        //}
+        [HttpPost]
+        public IActionResult Accountlijst(AccountViewModel avm)
+        {
+            return View(avm);
+        }
 
         //[HttpGet]
         //public IActionResult Accounts(/*int id, AccountViewModel avms*/)
