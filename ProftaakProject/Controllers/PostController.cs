@@ -88,7 +88,7 @@ namespace ProftaakProject.Controllers
             return RedirectToAction("Vraag", "Post", new { id = post.Id });
         }
 
-        [HttpPost]
+        /*[HttpPost]
         public IActionResult VraagVerwijderen(VraagViewModel vvm)
         {
             if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
@@ -98,7 +98,8 @@ namespace ProftaakProject.Controllers
             }
             else
             { return RedirectToAction("NotAuthorized", "Home"); }
-        }
+        }*/
+
         [HttpGet]
         public IActionResult VraagVerwijderen(int Id)
         {
