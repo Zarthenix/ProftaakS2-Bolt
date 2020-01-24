@@ -81,7 +81,6 @@ namespace ProftaakProject.Controllers
             UitzendToUitzendvmConvert utuvmc = new UitzendToUitzendvmConvert();
             uvm = utuvmc.ConvertToViewModel(ur.GetByID(id));
             uvm.AccountTeVerwijderen = new Account(0, "");
-            List<AccountViewModel> avms = new List<AccountViewModel>();
             uvm.avm = ur.GetUitzendAccounts(id);
             return View(uvm);
         }

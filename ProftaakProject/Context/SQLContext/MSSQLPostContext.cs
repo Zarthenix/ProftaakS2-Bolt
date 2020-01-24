@@ -221,7 +221,6 @@ namespace ProftaakProject.Context.SQLContext
                 try
                 {
                     connection.Open();
-
                     string query = "UPDATE dbo.Post SET titel = @titel, datum = @datum, inhoud = @inhoud, imageFile = @imageFile, uitgelicht = @uitgelicht  WHERE postID = @id";
                     if (post.Uitzendbureau != null)
                     {

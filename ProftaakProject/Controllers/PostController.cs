@@ -199,11 +199,11 @@ namespace ProftaakProject.Controllers
         }
 
         [HttpPost]
-        public IActionResult ArtikelVerwijderen(ArtikelToevoegenViewModel atvm)
+        public IActionResult ArtikelVerwijderen(int postId)
         {
             if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
             {
-                pr.Delete(atvm.Id);
+                pr.Delete(postId);
                 return RedirectToAction("Index", "Home");
             }
             else

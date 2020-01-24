@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProftaakProject.Models.Repositories
 {
-    public class AccountRepo 
+    public class AccountRepo
     {
         private IAuthContext authContext;
         private IAccountContext accContext;
@@ -29,7 +29,16 @@ namespace ProftaakProject.Models.Repositories
 
         public Task<bool> Register(Account user, int rol)
         {
-            return authContext.Register(user, rol);
+            if (GetByName(user.Gebruikersnaam).Gebruikersnaam != null && GetByEmail(user.Email).Email != null)
+            {
+                return authContext.Register(user, rol);
+            }
+            else return falseBool();
+        }
+
+        public Task<bool> falseBool()
+        {
+            return Task.FromResult(false);
         }
 
         public bool UpdatePassword(int id)
@@ -52,6 +61,11 @@ namespace ProftaakProject.Models.Repositories
             return accContext.GetByName(name);
         }
 
+        public Account GetByEmail(string email)
+        {
+            return accContext.GetByEmail(email);
+        }
+
         public bool VerwijderUitzend(int id)
         {
             return accContext.VerwijderUitzend(id);
@@ -69,7 +83,8 @@ namespace ProftaakProject.Models.Repositories
 
         public bool Delete(int id)
         {
-                return accContext.Delete(id);
+            return accContext.Delete(id);
         }
+
     }
 }

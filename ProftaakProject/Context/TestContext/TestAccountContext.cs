@@ -45,5 +45,10 @@ namespace ProftaakProject.Context.TestContext
         {
             throw new NotImplementedException();
         }
+
+        public Account GetByEmail(string email)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

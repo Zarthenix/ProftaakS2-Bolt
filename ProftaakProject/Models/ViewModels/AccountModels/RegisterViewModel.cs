@@ -14,27 +14,28 @@ namespace ProftaakProject.Models.ViewModels.AccountModels
         [StringLength(50, ErrorMessage = "Maximaal aantal karakters is 50.")]
         public string Username { get; set; }
 
-        [Required(ErrorMessage = "E-mail is een vereiste.")]
+        [Required(ErrorMessage = "E-mail is verplicht.")]
         [Display(Name = "E-mail")]
         [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "Email is ongeldig.")]
         [StringLength(100, ErrorMessage = "Maximaal aantal karakters is 100.")]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Wachtwoord is een vereiste.")]
+        [Required(ErrorMessage = "Wachtwoord is verplicht.")]
         [Display(Name = "Wachtwoord")]
         [DataType(DataType.Password)]
         [RegularExpression("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,15}$", ErrorMessage = "Minimum of 6 characters and maximum of 15. Must contain 1 uppercase and lowercase letter, 1 digit and 1 special character.")]
         public string Password { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Wachtwoord bevestigen is verplicht.")]
         [DataType(DataType.Password)]
-        [Display(Name = "Bevestig wachtwoord.")]
+        [Display(Name = "Bevestig uw wachtwoord")]
         [Compare("Password", ErrorMessage = "De wachtwoorden komen niet overeen.")]
         public string ConfirmPassword { get; set; }
 
+        [Required(ErrorMessage = "Uw volledige naam invullen is verplicht.")]
         [DataType(DataType.Text)]
-        [Display(Name = "Volledige naam.")]
+        [Display(Name = "Volledige naam")]
         [StringLength(50, ErrorMessage = "Maximaal 50 karakters.")]
         public string Name { get; set; }
 

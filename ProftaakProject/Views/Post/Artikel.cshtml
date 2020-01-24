@@ -32,53 +32,64 @@ else
         <h4 class="card-title">@Model.Post.Titel</h4>
         <p class="card-text">@Model.Post.Inhoud</p>
     </div>
-    <div class="card-footer row">
-        <div class="col-md-4">
-            <p class="auteurText">Auteur: @Model.Post.Auteur.Naam</p>
-        </div>
-        <div class="col-md-4">
-            @if (Model.Post.Uitzendbureau != null)
-            {
-                <p class="auteurText">Uitzendbureau: @Model.Post.Uitzendbureau.Naam</p>
-            }
-        </div>
-        <div class="col-md-4">
-            <p class="auteurText">Onderwerp: @Model.Post.Tag.Naam</p>
-        </div>
-        @if (User.Identity.IsAuthenticated)
-        {
-            var containsTag = false;
-            <div class="col-md-2">
 
-                @foreach (var tag in Model.Account.GeabonneerdeTags)
+    <div class="card-footer">
+        <div class="row">
+            <div class="col-md-4">
+                <p class="auteurText">Auteur: @Model.Post.Auteur.Naam</p>
+            </div>
+
+            <div class="col-md-4">
+                @if (Model.Post.Uitzendbureau != null)
                 {
-                    if (tag.Id == Model.Post.Tag.Id)
+                    <p class="auteurText">Uitzendbureau: @Model.Post.Uitzendbureau.Naam</p>
+                }
+            </div>
+
+            <div class="col-md-4">
+                <p class="auteurText">Onderwerp: @Model.Post.Tag.Naam</p>
+            </div>
+        </div>
+
+        <form method="post" class="row">
+            <div class="col-md-3">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    var containsTag = false;
+
+
+                    @foreach (var tag in Model.Account.GeabonneerdeTags)
                     {
-                        containsTag = true;
+                        if (tag.Id == Model.Post.Tag.Id)
+                        {
+                            containsTag = true;
+                        }
                     }
-                }
-                @if (containsTag)
-                {
-                    <a class="btn btn-success" href="@Url.Action("TagAbonneren", "Post", new {postID = Model.Post.Id, tagID = Model.Post.Tag.Id})">Abonnement opzeggen</a>
-                }
-                else
-                {
-                    <a class="btn btn-success" href="@Url.Action("TagAbonneren", "Post", new {postID = Model.Post.Id, tagID = Model.Post.Tag.Id})">Abonneren</a>
+                    @if (containsTag)
+                    {
+                        <a class="btn btn-success" href="@Url.Action("TagAbonneren", "Post", new {postID = Model.Post.Id, tagID = Model.Post.Tag.Id})">Abonnement opzeggen</a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-success" href="@Url.Action("TagAbonneren", "Post", new {postID = Model.Post.Id, tagID = Model.Post.Tag.Id})">Abonneren</a>
+                    }
+
                 }
             </div>
-        }
-        @if (User.IsInRole("Admin") || Model.Account.Id == Model.Post.Auteur.Id)
-        {
-            <div class="col-md-2">
-                <a class="btn btn-success" href="@Url.Action("ArtikelToevoegen", "Post", new {Id = Model.Post.Id})">Bewerken</a>
-            </div>
-            <div class="col-md-2">
-                <a class="btn btn-success" href="@Url.Action("ArtikelVerwijderen", "Post", new {Id = Model.Post.Id})">Verwijderen</a>
-            </div>
-            <form class="col-md-2" method="post">
-                <button asp-action="Uitlichten" type="submit" class="btn btn-success" value="@Model.Post.Id" name="postId">Uitlichten</button>
-            </form>
-        }
+
+            @if (User.IsInRole("Admin") || Model.Account.Id == Model.Post.Auteur.Id)
+            {
+                <div class="col-md-3" style="align-items:center">
+                    <a class="btn btn-success" href="@Url.Action("ArtikelToevoegen", "Post", new {Id = Model.Post.Id})">Bewerken</a>
+                </div>
+                <div class="col-md-3" style="align-items:center">
+                    <button asp-action="ArtikelVerwijderen" type="submit" class="btn btn-success" value="@Model.Post.Id" name="postId">Verwijderen</button>
+                </div>
+                <div class="col-md-3" style="align-items:center">
+                    <button asp-action="Uitlichten" type="submit" class="btn btn-success" value="@Model.Post.Id" name="postId">Uitlichten</button>
+                </div>
+            }
+        </form>
     </div>
 </div>
 
