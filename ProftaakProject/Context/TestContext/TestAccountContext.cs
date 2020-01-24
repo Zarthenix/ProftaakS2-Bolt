@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ProftaakProject.Context.Interfaces;
-using ProftaakProject.Context.TestContext.TestData;
+using ProftaakProject.Context.TestContext.TestData;
 using ProftaakProject.Models;
 
 namespace ProftaakProject.Context.TestContext
@@ -34,8 +34,8 @@ namespace ProftaakProject.Context.TestContext
         public bool Update(Account account)
         {
             throw new NotImplementedException();
-        }
-
+        }
+
         public List<Post> GetAllPostsOfUser(int userId)
         {
             throw new NotImplementedException();
@@ -44,20 +44,20 @@ namespace ProftaakProject.Context.TestContext
         public bool Delete(int id)
         {
             var Accounts = AccountTestData.ResetData();
-            var itemToRemove = Accounts.Single(x => x.Id == id);
-            if (Accounts.Remove(itemToRemove))
-            {
-                return true;
+            var itemToRemove = Accounts.Single(x => x.Id == id);
+            if (Accounts.Remove(itemToRemove))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
-            else
-            {
-                return false;
-            }
-        }
-
-        public Account GetByEmail(string email)
-        {
-            return AccountTestData.ResetData().FirstOrDefault(x => x.Email == email);
-        }
+        }
+
+        public Account GetByEmail(string email)
+        {
+            return AccountTestData.ResetData().FirstOrDefault(x => x.Email == email);
+        }
     }
 }

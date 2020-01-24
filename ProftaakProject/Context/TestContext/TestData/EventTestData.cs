@@ -17,7 +17,8 @@ namespace ProftaakProject.Context.TestContext.TestData
                     Datum = Convert.ToDateTime("2020-04-03 10:00"),
                     Host = new Account(1, "Test"),
                     Locatie = "EasyFlex",
-                    MaxDeelnemers = 100
+                    MaxDeelnemers = 100,
+                    Uitzendbureau = new Uitzendbureau(1)
                 },
                 new Evenement(2)
                 {
@@ -25,7 +26,8 @@ namespace ProftaakProject.Context.TestContext.TestData
                     Datum = Convert.ToDateTime("2020-05-12 15:00"),
                     Host = new Account(2, "Test2"),
                     Locatie = "Fontys",
-                    MaxDeelnemers = 10
+                    MaxDeelnemers = 10,
+                    Uitzendbureau = new Uitzendbureau(2)
                 },
                 new Evenement(3)
                 {
@@ -33,7 +35,8 @@ namespace ProftaakProject.Context.TestContext.TestData
                     Datum = Convert.ToDateTime("2020-04-11 23:00"),
                     Host = new Account(3, "Test 3"),
                     Locatie = "Breda",
-                    MaxDeelnemers = 3
+                    MaxDeelnemers = 3,
+                    Uitzendbureau = new Uitzendbureau(3)
                 }
             };
         }

@@ -89,6 +89,7 @@
                         @if (Context.User.Identity.IsAuthenticated)
                         {
                             <a class="nav-link side-bar-text" asp-controller="Account" asp-action="Logout"><i class="fas fa-sign-out-alt fa-2x icon"></i><label>Uitloggen</label></a>
+                            <div class="nav-link side-bar-text" style="position: absolute;right: 0%; color: white; font-family: Arial, Helvetica, sans-serif;"><label>@Context.User.Identity.Name</label></div>
                         }
                     </div>
                 </nav>
