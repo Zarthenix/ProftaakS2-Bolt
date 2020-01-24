@@ -130,8 +130,12 @@ namespace ProftaakProject.Controllers
         {
             PostToArtikelvmConverter pac = new PostToArtikelvmConverter();
             ArtikelViewModel avm = pac.ConvertToViewModel(pr.GetByID(id));
-            avm.Account = ar.GetByID(GetUserId());
-            avm.Account.GeabonneerdeTags = pr.GetAllGeabonneerdeTags(GetUserId());
+            avm.Account = new Account(-1);
+            if (User.Identity.IsAuthenticated)
+            {
+                avm.Account = ar.GetByID(GetUserId());
+                avm.Account.GeabonneerdeTags = pr.GetAllGeabonneerdeTags(GetUserId());
+            }
             avm.Post.Auteur = ar.GetByID(avm.Post.Auteur.Id);
             pr.IncrementViews(id);
             return View("Artikel", avm);

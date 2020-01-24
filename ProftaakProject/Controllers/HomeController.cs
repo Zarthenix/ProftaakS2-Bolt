@@ -86,7 +86,12 @@ namespace ProftaakProject.Controllers
             {
                 return RedirectToAction("Index");
             }
-            List<Post> posts = postRepo.SearchResult(query, GetUserId());
+            var userId = 0;
+            if (User.Identity.IsAuthenticated)
+            {
+                userId = GetUserId();
+            }
+            List<Post> posts = postRepo.SearchResult(query, userId);
             if (posts.Count != 0)
             {
                 PostToPostvmConverter pvmc = new PostToPostvmConverter();

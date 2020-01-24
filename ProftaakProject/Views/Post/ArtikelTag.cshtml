@@ -7,11 +7,20 @@
 <!DOCTYPE html>
 <html>
 <body>
-    @foreach (PostViewModel postTemp in Model.PostViewModels)
-    {
-        <div class="postTijdlijn">
-            @await Html.PartialAsync("_Post", postTemp)
-        </div>
+    @{ foreach (PostViewModel postTemp in Model.PostViewModels)
+        {
+            <div class="postTijdlijn">
+                @await Html.PartialAsync("_Post", postTemp)
+            </div>
+        }
+        if (Model.PostViewModels.Count == 0)
+        {
+            <div class="card-footer">
+                <div class="card-footer">Geen artikelen of vragen gevonden die overeen komen met dit onderwerp.</div>
+                <div class="card-text" style="font-size:15px">
+                </div>
+            </div>
+        }
     }
 </body>
 </html>
