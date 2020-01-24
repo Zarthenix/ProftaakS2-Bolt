@@ -3,31 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ProftaakProject.Context.Interfaces;
+using ProftaakProject.Context.TestContext.TestData;
 using ProftaakProject.Models;
 
 namespace ProftaakProject.Context.TestContext
 {
     public class TestAccountContext : IAccountContext
     {
-        
         public List<Account> GetAll()
         {
-
-            throw new NotImplementedException();
+            return AccountTestData.ResetData();
         }
 
         public Account GetByID(int id)
         {
-            throw new NotImplementedException();
+            return AccountTestData.ResetData().FirstOrDefault(x => x.Id == id);
         }
 
         public Account GetByName(string name)
         {
-            throw new NotImplementedException();
+            return AccountTestData.ResetData().FirstOrDefault(x => x.Naam == name);
         }
 
         public bool VerwijderUitzend(int id)
         {
+
             throw new NotImplementedException();
         }
 
@@ -43,12 +43,21 @@ namespace ProftaakProject.Context.TestContext
 
         public bool Delete(int id)
         {
-            throw new NotImplementedException();
+            var Accounts = AccountTestData.ResetData();
+            var itemToRemove = Accounts.Single(x => x.Id == id);
+            if (Accounts.Remove(itemToRemove))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public Account GetByEmail(string email)
         {
-            throw new NotImplementedException();
+            return AccountTestData.ResetData().FirstOrDefault(x => x.Email == email);
         }
     }
 }
