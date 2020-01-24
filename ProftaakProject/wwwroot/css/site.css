@@ -144,6 +144,9 @@ html, body {
     float: right;
 }
 
+#characterlimit {
+}
+
 .easyflexLogo a {
     text-decoration: none;
     color: white !important;
