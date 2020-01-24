@@ -12,7 +12,6 @@ namespace ProftaakProject.Context.TestContext
         
         public List<Account> GetAll()
         {
-
             throw new NotImplementedException();
         }
 

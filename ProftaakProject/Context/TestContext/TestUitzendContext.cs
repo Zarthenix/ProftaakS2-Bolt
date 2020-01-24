@@ -3,35 +3,57 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ProftaakProject.Context.Interfaces;
+using ProftaakProject.Context.TestContext.TestData;
 using ProftaakProject.Models;
 
 namespace ProftaakProject.Context.TestContext
 {
     public class TestUitzendContext : IUitzendContext
     {
+        private List<Uitzendbureau> _bureaus = UitzendTestData.ResetData();
         public bool Create(Uitzendbureau ub)
         {
-            throw new NotImplementedException();
+            _bureaus.Add(ub);
+            if (_bureaus[_bureaus.Count - 1] == ub)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public bool Update(Uitzendbureau ub)
         {
-            throw new NotImplementedException();
+            int index = _bureaus.IndexOf(_bureaus.FirstOrDefault(n => n.Id == ub.Id));
+            if (index != -1)
+            {
+                _bureaus[index] = ub;
+                return true;
+            }
+            return false;
         }
 
         public bool Delete(int id)
         {
-            throw new NotImplementedException();
+            int index = _bureaus.IndexOf(_bureaus.FirstOrDefault(n => n.Id == id));
+            _bureaus.RemoveAt(index);
+
+            if (_bureaus.IndexOf(_bureaus.FirstOrDefault(n => n.Id == id)) == -1)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public List<Uitzendbureau> GetAll()
         {
-            throw new NotImplementedException();
+            return _bureaus;
         }
 
         public Uitzendbureau GetByID(int id)
         {
-            throw new NotImplementedException();
+            return _bureaus.FirstOrDefault(n => n.Id == id);
         }
 
         public bool VoegToeAccountUitzend(int uitzend, string gebruikersnaam)
