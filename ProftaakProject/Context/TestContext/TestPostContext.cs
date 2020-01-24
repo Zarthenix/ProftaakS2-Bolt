@@ -49,7 +49,7 @@ namespace ProftaakProject.Context.TestContext
             throw new NotImplementedException();
         }
 
-        public List<Post> SearchResult(string search)
+        public List<Post> SearchResult(string search, int userid)
         {
             throw new NotImplementedException();
         }

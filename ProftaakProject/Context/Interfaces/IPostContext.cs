@@ -24,7 +24,7 @@ namespace ProftaakProject.Context.Interfaces
 
         bool IncrementViews(int postID);
 
-        List<Post> SearchResult(string search);
+        List<Post> SearchResult(string search, int userid);
 
         List<Post> GetAllArtikelenGoedkeuren();
 

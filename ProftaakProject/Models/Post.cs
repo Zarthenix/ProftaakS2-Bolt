@@ -41,6 +41,17 @@ namespace ProftaakProject.Models
             this.Uitgelicht = uitgelicht;
         }
 
+        public Post(int id, string titel, int type, string inhoud, DateTime datum, Account auteur, int aantalBekeken)
+        {
+            this.Id = id;
+            this.Titel = titel;
+            this.TypeId = type;
+            this.Datum = datum;
+            this.Inhoud = inhoud;
+            this.Auteur = auteur;
+            this.AantalBekenen = aantalBekeken;
+        }
+
         public Post(int id, string titel, string inhoud, int typeId, Tag tag, int goedgekeurdDoor, byte[] imageFile)
         {
             this.Id = id;

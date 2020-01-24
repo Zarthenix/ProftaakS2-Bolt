@@ -82,9 +82,9 @@ namespace ProftaakProject.Models.Repositories
             return pCtx.FAQVragenByTag(tag);
         }
 
-        public List<Post> SearchResult(string search)
+        public List<Post> SearchResult(string search, int userid)
         {
-            return pCtx.SearchResult(search);
+            return pCtx.SearchResult(search, userid);
         }
 
         public List<Post> GetAllArtikelenGoedkeuren()

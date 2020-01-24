@@ -79,11 +79,29 @@ namespace ProftaakProject.Controllers
             PartialView("_Post");
 
 
-        //Zoek functie
-        public IActionResult SearchResult()
+        [HttpGet]
+        public IActionResult SearchResult(string query)
         {
-            return View();
+            if (String.IsNullOrEmpty(query))
+            {
+                return RedirectToAction("Index");
+            }
+            List<Post> posts = postRepo.SearchResult(query, GetUserId());
+            if (posts.Count != 0)
+            {
+                PostToPostvmConverter pvmc = new PostToPostvmConverter();
+                List<PostViewModel> postsViewModels = new List<PostViewModel>();
+
+                foreach (Post p in posts)
+                {
+                    postsViewModels.Add(pvmc.ConvertToViewModel(p));
+                }
+                return View(postsViewModels);
+            }
+            ViewData["NoneFound"] = "Geen artikelen of vragen gevonden die overeen komen met de zoekopdracht.";
+            return View(new List<PostViewModel>());
         }
+
         public IActionResult Notificaties()
         {
             if (HttpContext.User?.Identity.IsAuthenticated == false) { return RedirectToAction("Login", "Account"); }

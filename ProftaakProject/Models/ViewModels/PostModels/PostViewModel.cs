@@ -22,6 +22,7 @@ namespace ProftaakProject.Models.ViewModels.PostModels
         public string Inhoud { get; set; }
 
         public string Tag { get; set; }
+        public int AantalBekeken { get; set; }
 
         public int TypeId { get; set; }
 
