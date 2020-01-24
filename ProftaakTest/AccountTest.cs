@@ -5,6 +5,7 @@ using ProftaakProject.Repositories;
 using ProftaakProject.Context.Interfaces;
 using ProftaakProject.Context.TestContext;
 using ProftaakProject.Models;
+using ProftaakProject.Models.Repositories;
 
 namespace ProftaakTest
 {
@@ -34,6 +35,26 @@ namespace ProftaakTest
             //Act
             //Assert
             //Assert.IsTrue();
+        }
+        [TestMethod]
+        public void TestDeleteTrue()
+        {
+            IAccountContext _Iac = new TestAccountContext();
+            IAuthContext _Iauc = new TestAuthContext();
+            AccountRepo _ar = new AccountRepo(_Iauc, _Iac);
+
+            
+            Assert.IsTrue(_ar.Delete(1));
+        }
+        [TestMethod]
+        public void TestDeleteFalse()
+        {
+            IAccountContext _Iac = new TestAccountContext();
+            IAuthContext _Iauc = new TestAuthContext();
+            AccountRepo _ar = new AccountRepo(_Iauc, _Iac);
+
+
+            Assert.IsTrue(_ar.Delete(4));
         }
     }
 }
