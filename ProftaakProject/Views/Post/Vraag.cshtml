@@ -38,17 +38,24 @@
                             <br />
                             <div class="row">
                                 <div class="col-md-8">
-                                    Auteur: 
+                                    Auteur:
                                     <a href="@Url.Action("Profiel", "Account", new { Id = react.Auteur.Id})">
                                         @react.Auteur.Naam
-                                    </a>                                  
+                                    </a>
                                 </div>
+                                @if(react.Goedgekeurd){
                                 <div class="col-md-4">
                                     Goedgekeurd door: @react.GoedgekeurdDoor.Naam
                                 </div>
                                 <div class="col-md-2">
                                     <a class="btn btn-primary" href="@Url.Action("ReactieGoedkeuren", "Post", new { ReactieID = react.Id, VraagID = Model.Post.Id, Goedgekeurd = react.Goedgekeurd })">Afkeuren</a>
                                 </div>
+                                }
+                                else{
+                                <div class="col-md-2">
+                                    <a class="btn btn-primary" href="@Url.Action("ReactieGoedkeuren", "Post", new {ReactieID = react.Id ,VraagID = Model.Post.Id, Goedgekeurd = react.Goedgekeurd})">Goedkeuren</a>
+                                </div>
+                                }
                                 <div class="col-md-2">
                                     <a class="btn btn-primary" href="@Url.Action("ReactieVerwijderen", "Post", new { ReactieID = react.Id, VraagID = Model.Post.Id })">Verwijderen</a>
                                 </div>

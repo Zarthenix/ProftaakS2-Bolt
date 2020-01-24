@@ -51,6 +51,7 @@ namespace ProftaakProject.Controllers
                 }
                 else
                 {
+                    r.Auteur = ar.GetByID(r.Auteur.Id);
                     vvm.Reacties.Add(r);
                 }
             }
@@ -259,7 +260,7 @@ namespace ProftaakProject.Controllers
 
         public IActionResult ReactieGoedkeuren(int ReactieID, int VraagID, bool Goedgekeurd)
         {
-            if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+            if (User.IsInRole("Admin") || User.IsInRole("Moderator") || User.IsInRole("Service-afdeling"))
             {
                 rr.ReactieGoedkeuren(ReactieID, GetUserId(), Goedgekeurd);
                 return RedirectToAction("Vraag", "Post", new { id = VraagID });
