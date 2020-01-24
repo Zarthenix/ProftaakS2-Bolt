@@ -204,11 +204,11 @@ namespace ProftaakProject.Controllers
         }
 
         [HttpPost]
-        public IActionResult ArtikelVerwijderen(PostViewModel pvm)
+        public IActionResult ArtikelVerwijderen(int postId)
         {
-            if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+            if (User.IsInRole("Admin") || User.IsInRole("Moderator") || pr.GetByID(postId).Auteur.Id == GetUserId())
             {
-                pr.Delete(pvm.Id);
+                pr.Delete(postId);
                 return RedirectToAction("AllePosts", "Post");
             }
             else
