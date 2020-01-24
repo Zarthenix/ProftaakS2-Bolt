@@ -29,7 +29,7 @@
     {
         @foreach (Reactie react in Model.Reacties)
         {
-            if (react.Goedgekeurd)
+            if (react.Goedgekeurd || react.Auteur.Rol.Naam == "Service-afdeling")
             {
                 <div class="goedgekeurd-border-wrap">
                     <div class="card-footer goedgekeurd">
